@@ -1,1 +1,201 @@
+<!doctype html>
+<html>
+    <head>
+        <style>
+            body {
+                background-color: white;
+                font-family:'Times New Roman', Times, serif;
+            }
+            body h2 {
+                color: midnightblue;
+            }
+            header {
+                background-color: lightpink;
+                padding: 1rem;
+                border-radius: 1rem;
+                border: 0.1rem solid hotpink;
+                display: flex;
+                align-items: center;
+            }
+            .logo {
+                position: relative;
+            }
+            .buttons {
+                margin-left: auto;
+                margin-right: 1rem;
+                display: flex;
+                gap: 1.5rem;
 
+            }
+            .buttons a {
+                display: block;
+                padding: 0.7rem 1rem;
+                background-color: white;
+                border: 0.1rem solid hotpink;
+                border-radius: 0.5rem;
+                text-decoration: none;
+                color: midnightblue;
+                font-size: 1.3rem;
+            }
+            .add-room {
+                display: block;
+                width: 8rem;
+                margin: 1.5rem auto 0 auto;
+                padding: 0.7rem;
+                background-color: white;
+                color: midnightblue;
+                border: 0.1rem solid hotpink;
+                border-radius: 0.5rem;
+                font-size: 1.1rem;
+                cursor: pointer;
+            }
+            .layout {
+                display: flex;
+                gap: 1rem;
+                margin-top: 1rem;
+                min-height: 80vh;
+            }
+            .menu {
+                background-color: lightpink;
+                width: 20%;
+                border: 0.1rem solid hotpink;
+                border-radius: 1rem;
+            }
+            .menu a {
+                display: block;
+                width: 80%;
+                max-width: 12rem;
+                padding: 0.7rem 1rem;
+                background-color: white;
+                border: 0.1rem solid hotpink;
+                border-radius: 0.5rem;
+                text-decoration: none;
+                color: midnightblue;
+                font-size: 1.3rem;
+                overflow-wrap: break-word;
+                margin-left: auto;
+                margin-right: auto;
+                margin-top: 1rem;
+            }
+            .main-box {
+                flex: 1;
+                border: 0.1rem solid hotpink;
+                border-radius: 1rem;
+                background-color: lightpink;
+            }
+            .container {
+                display: grid;
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+            .room-header {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding-right: 1rem;
+            }
+            .add-devices {
+                padding: 0.7rem 1rem;
+                background-color: white;
+                color: midnightblue;
+                border: 0.1rem solid hotpink;
+                border-radius: 0.5rem;
+                font-size: 1.1rem;
+                cursor: pointer;
+            }
+            .row1 {
+                display: grid;
+                grid-template-columns: 2fr 2fr;
+                gap: 2rem;
+            }
+            .picture-box,
+            .warning-box {
+                background-color: white;
+                padding: 1rem;
+                border-radius: 0.5rem;
+                border: 0.1rem solid hotpink;
+            }
+            .row2 {
+                padding-top: 3rem;
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr 1fr;
+                gap: 2.5rem;
+            }
+            .box-device1,
+            .box-device2,
+            .box-device3,
+            .box-device4,
+            .box-device5,
+            .box-device6 {
+                background-color: white;
+                padding: 1rem;
+                border-radius: 0.5rem;
+                border: 0.1rem solid hotpink;
+                text-align: center;
+            }
+        </style>
+        <title>Smart Home</title>
+    </head>
+    <body>
+        <header>
+            <div class="logo">
+                <h2>Smart home</h2>
+            </div>
+            <div class="buttons">
+                <a href="#">Homepage</a>
+                <a href="#">Devices</a>
+                <a href="#">History</a>
+                <a href="#">Users</a>
+                <a href="#">Settings</a>
+                <a href="#">Login</a>
+            </div>
+        </header>
+        <div class="layout">
+            <nav class="menu">
+                <a href="#">Favourite</a>
+                <a href="#">Room 1</a>
+                <a href="#">Room 2</a>
+                <a href="#">Room 3</a>
+                <a href="#">Room 4</a>
+                <button class="add-room">Add room</button>
+            </nav>
+            
+
+            <main class="main-box">
+                <div class="container">
+                    <div class="room-header">
+                        <h2>Chosen room</h2>
+                        <button class="add-devices">Add device</button>
+                    </div>
+                    <div class="row1">
+                        <div class="picture-box">
+                            <h2>Kameran från rummet här</h2>
+                        </div>
+                        <div class="warning-box">
+                            <h2>warnings!!!!</h2>
+                        </div>
+                    </div>
+                    <div class="row2">
+                        <div class="box-device1">
+                            <h2>Device 1</h2>
+                        </div>
+                        <div class="box-device2">
+                            <h2>Device 2</h2>
+                        </div>
+                        <div class="box-device3">
+                            <h2>Device 3</h2>
+                        </div>
+                        <div class="box-device4">
+                            <h2>Device 4</h2>
+                        </div>
+                        <div class="box-device5">
+                            <h2>Device 5</h2>
+                        </div>
+                        <div class="box-device6">
+                            <h2>Device 6</h2>
+                        </div>
+                    </div>
+            </main>
+        </div>
+    </body>
+</html>
