@@ -15,14 +15,13 @@
                         <div class="logo" ><h1>logo<h1></div>
                         <div class="button">
                             <button class = "room-btn" data-room ="login" > Login</button>
-                            <button class = "room-btn" data-room ="search" > Search</button>              
+                            <button class = "room-btn" data-room ="search" > Devices</button>              
                         </div>  
                     </header>
 
                 <nav class="scrollbar grid-box">
                     <div class ="button">
                         <button class = "room-btn" data-room ="favorite" > Favorite</button>
-                        <button class = "room-btn" data-room ="devices" > Devices</button>
                         <button class = "room-btn" data-room ="room1" > room1</button>
                         <button class = "room-btn" data-room ="room2" > room2</button>
                         <button class = "room-btn" data-room ="room3" > room3</button>
