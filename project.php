@@ -7,7 +7,61 @@
         <link rel="stylesheet" href="">
     </head>
     <body>
+        <div class="wrapper">
+            <div class="container">
+                <header class="nav-top grid-box">
+                    <div class="logo">
+                        <h1>Smart Home<h1>
+                    </div>
+                        <button class = "room-btn" data-room ="search" > Devices</button>
+                        <button class = "room-btn" data-room ="history" > History</button>
+                        <button class = "room-btn" data-room ="profile" > Profile</button>
+                        <button class = "room-btn" data-room ="login" > Login</button>
+                </header>
 
+                <nav class="scrollbar grid-box">
+                    <div class ="button">
+                        <button class = "room-btn" data-room ="favorite" > Favorite</button>
+                        <button class = "room-btn" data-room ="room1" > room1</button>
+                        <button class = "room-btn" data-room ="room2" > room2</button>
+                        <button class = "room-btn" data-room ="room3" > room3</button>
+                        <button class = "room-btn" data-room ="room4" > room4</button>                    
+                    </div>
+                </nav>
+
+                <main class="content-area grid-box">
+                    <div class= "cards">
+                        <div class ="card">
+                        <h2>Lamp1</h2>
+                        <p> on</p>
+                        <button class = "room-btn" > on/off</button>             
+                        </div>
+                        <div class ="card">
+                        <h2>Lamp2</h2>
+                        <p> on</p>
+                        <button class = "room-btn" > on/off</button>             
+                        </div>
+                        <div class ="card">
+                        <h2>Lamp3</h2>
+                        <p> off</p>
+                        <button class = "room-btn" > on/off</button>             
+                        </div>
+                        <div class ="card">
+                        <h2>Lamp4</h2>
+                        <p> on</p>
+                        <button class = "room-btn" > on/off</button>             
+                        </div>
+                    </div>
+                </main>
+                <nav class ="nav-bottom grid-box">
+                    <div class="button">
+                        <button class = "room-btn" data-room ="history" > History</button>
+                        <button class = "room-btn" data-room ="profile" > Profile</button> 
+                        <button class = "room-btn" data-room ="logout" > Logout</button>            
+                    </div>  
+                </nav>
+            </div>
+        </div>
     </body>
 </html>
 
