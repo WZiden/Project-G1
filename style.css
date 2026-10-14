@@ -1,5 +1,5 @@
 :root{
-    --background-color: white;
+    --background-color: rgb(252, 230, 191);
     --grid-color: #004346;
     --box-color: #004346;
     --button-color: #76949F;
@@ -16,7 +16,7 @@ body{
 .container{
     display: grid;
     grid-template-columns: 1fr 4fr;
-    max-width: 80em;
+    max-width: 100em;
     margin: 0 auto;
     width: 100%;
     gap: 1rem;
@@ -46,12 +46,28 @@ header{
 }
 
 .content-area {
-    background-color: burlywood;
+    background-color: rgb(172, 108, 24);
+    min-height: 80vh;
+    overflow: hidden;
+    padding: 1rem;
+    display: grid;
+    gap:1rem;
+    grid-template-rows: auto 1fr;
+
+}
+.content-area .search {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 0.5rem;
+    padding:1rem;
 }
 .scrollbar {
     background-color: var(--box-color);
     border-radius: 0.5rem;
     padding: 1rem;
+    min-height: 80vh;
+    overflow: hidden;
 }
 
 .room-btn {
