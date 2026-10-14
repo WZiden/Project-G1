@@ -7,11 +7,21 @@ body{
     background-color: var(--background-color);
     font-family: Arial, Helvetica, sans-serif;
 }
+.wrapper {
+}
+.container{
+    background-color: var(--background-color);
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    gap: 1rem;
+}
 header{
-    display: flex;
+    display: grid;
+    grid-column: 1 / -1;
+    grid-template-columns: 1fr auto;
+    align-items: center;
     background-color: rgb(198, 135, 135);
     padding: 1rem;
-    align-items: center;
     border-radius: 1rem;
 }
 .header-button {
@@ -24,13 +34,14 @@ header{
 .logo{
     position: relative;
 }
-.wrapper {
+
+.content-area {
+    background-color: burlywood;
 }
-.container{
-    background-color: var(--grid-color);
-    display: grid;
-    grid-template-columns: 1fr 4fr;
-    gap: 1rem;
+.scrollbar {
+    background-color: purple;
 }
-.
+
+
+
 
