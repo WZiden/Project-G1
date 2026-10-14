@@ -1,6 +1,9 @@
 :root{
     --background-color: white;
     --grid-color: #004346;
+    --box-color: #004346;
+    --button-color: #76949F;
+    --text-color: white;
 }
 
 body{
@@ -46,7 +49,21 @@ header{
     background-color: burlywood;
 }
 .scrollbar {
-    background-color: purple;
+    background-color: var(--box-color);
+    border-radius: 0.5rem;
+    padding: 1rem;
+}
+
+.room-btn {
+    background-color: var(--button-color);
+    border-radius: 0.5rem;
+    border:none;
+    overflow-wrap: break-word;
+}
+
+.scrollbar .room-btn {
+    width: 80%;
+    margin-top: 1rem;
 }
 
 .cards {
@@ -79,5 +96,4 @@ header{
     font-size: 1em;
     width: 4em;
 }
-
 
