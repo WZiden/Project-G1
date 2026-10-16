@@ -22,19 +22,23 @@
 body{
     background-color: var(--background-color);
     font-family: Arial, Helvetica, sans-serif;
+    padding:0.5em;
+    max-height: 100%;
 }
 
 .container{
     display: grid;
     grid-template-columns: 1fr 4fr;
+    grid-template-rows: auto auto 1fr;
     max-width: 100em;
     margin: 0 auto;
     width: 100%;
-    gap: 1rem;
+    gap: 0.5rem;
     border-radius:1rem ;
+    min-height: 100vh;
 }
 .grid-box {
-    border-radius:1rem ; 
+    border-radius:0.5rem ; 
 }
 header{
     display: grid;
@@ -42,9 +46,11 @@ header{
     grid-template-columns: 1fr auto;
     align-items: center;
     background-color: var(--header-color);
-    padding: 1rem;
+    padding: 0.5rem 1rem;
+    height: auto;
     
 }
+
 .header-button {
     margin-left: auto;
     margin-right: 1rem;
@@ -58,27 +64,26 @@ header{
 
 .content-area {
     background-color: var(--content-area-color);
-    height: 100%;
-    overflow: hidden;
+    max-height: 100%;
+    overflow-y: auto;
     padding: 1rem;
-    display: grid;
     gap:1rem;
     grid-template-rows: auto 1fr;
+    display: grid;
 
 }
 .content-area .search {
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.25rem;
     padding:1rem;
 }
 .scrollbar {
     background-color: var(--box-color);
-    border-radius: 0.5rem;
     padding: 1rem;
-    min-height: 75vh;
-    overflow: hidden;
+    max-height: 100%;
+    overflow-y: auto;
     
 }
 
@@ -88,6 +93,7 @@ header{
     border:none;
     overflow-wrap: break-word;
     padding: 0.3em;
+    font-size: 1em;
 }
 
 .scrollbar .room-btn {
@@ -132,183 +138,141 @@ header{
 .nav-bottom .room-btn{
     display: none;
 }
-
+ .nav-bottom {
+    display: none;
+}
 
 /*layout mobil */
 
 @media (max-width:30em){
+    body{
+        padding: 0.5em ;
+    }
     .container {
     grid-template-columns: 1fr;
-    max-width: 100%;
-    width: 100%;
+    grid-template-rows: auto auto 1fr auto;
+    margin: 0;
+    padding: 0.5;
     overflow-x:hidden ;
-    gap: 1em;
+    gap: 0.5em;
     
   
-}
-    .scrollbar {
-    display: block;
-    max-width: 100%;
-    overflow-x: auto;
-    white-space: nowrap;
-    min-height: auto;
-        
-}
-.scrollbar .room-btn {
-    display: inline-block;
-    width: auto;
-    margin-top: 0.5rem;
-    margin-right: 0.5rem;
-}
-.content-area{
-    display: grid;
-    overflow: hidden;
-    grid-template-rows:auto 1fr ;
-
-}
-.cards{
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr));
-    max-width: 100%;
-} 
-.card {
-    min-width: 0;
-}
-   
- 
-
-}
-/*layout padda*/
-@media (min-width:48em) and (max-width:64em){
-    
-
-}
-
-/* kolla om jag behöver sätta fast menyerna och istället göra content area till en yta med egen scroll*/
-/*
-.container{
-        display: grid;
-        grid-template-columns: 1fr;
-       
-        width: auto;
-        gap: 1em;
-        grid-column: 1 / -1;
     }
-
-    header {
-        grid-column: 1 / -1; 
-    }
-
-    .scrollbar {
-        grid-column: 1 / -1; 
-        overflow-x: auto;
-        white-space: nowrap;
-        max-width: 100%;
-        display: block;
-    }
-
-    .content-area {
-        grid-column: 1 / -1; 
-        display: grid;
-        grid-template-rows: auto 1fr;
-        overflow: hidden;
+    .grid-box {
+    grid-column: 1/-1 ; 
     }
     
-    .logo{
-        font-size: 1em;
+    header, .scrollbar .content-area .nav-bottom{
+    grid-column: 1/-1;
+    padding: 0.5rem ;
     }
-    
-
-     .scrollbar .search {
-        display: flex;
-        justify-content: flex-end;
-        gap: 0.5rem;
-    }
-    .content-area{
-        margin-top: 15rem;
-        height: calc(100vh - 15rem -6rem);
-        overflow-x: hidden;
-        overflow-y: auto;
-        padding-bottom: 4rem;
-      
-    }
-      .scrollbar .room-btn {
-        width: 20%;
-        margin-top: 1rem;
-    }
-
-
-    header {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        z-index: 1000;
-    }
-
-    .logo{
-        font-size: 1em;
-    }
-
-    .scrollbar {
-        overflow-x: auto;
-        position: fixed;
-        top: 7.5rem;
-        left: 0;
-        width: 100%;
-        white-space: nowrap;
-        min-height:  5em; 
-        z-index: 999;   
-    }
-    .scrollbar .search {
-        display: flex;
-        justify-content: flex-end;
-        gap: 0.5rem;
-    }
-    .content-area{
-        margin-top: 15rem;
-        height: calc(100vh - 15rem -6rem);
-        overflow-x: hidden;
-        overflow-y: auto;
-        padding-bottom: 4rem;
-      
-    }
-    .cards {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(250px,1fr));
-        grid-auto-rows: 10em;
-        gap:1em;
-        
-    }
-    .scrollbar .room-btn {
-        width: 20%;
-        margin-top: 1rem;
-    }
-    .nav-bottom {
-    display: none;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background-color: var(--header-color);
-    padding: 0.5rem;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    z-index: 1000;
-
-    }
-    .nav-bottom {
-        display: flex;
-        min-height: 4em;
-        width: 100%;
-    }
-    .nav-bottom {
-        display: flex;
-        flex: 1;
-        text-align: center;
-        border-radius: 0;
-    }
-    .header-button {
+    .header-button{
         display: none;
     }
-*/
+    
+    .room-btn{
+        padding: 0.2em;
+    }
+    .scrollbar .room-btn {
+        display: inline-block;
+        width: 5em;
+        margin-top: 0.5rem;
+        margin-right: 0.5rem;
+    }
+     .nav-bottom {
+        background-color: var(--header-color);
+        padding: 0.5rem;
+        display: flex;
+        justify-content: space-evenly;
+        border-radius: 0.25em;
+        height: 5em;
+    }
+    .nav-bottom .room-btn{
+        display: inline-block;
+        width: auto;
+        border-radius: 0.5rem;
+        border:none;
+        overflow-wrap: break-word;
+        padding: 0.3em;
+    }
+    .scrollbar {
+        display: block;
+        max-width: 100%;
+        overflow-x: auto;
+        white-space: nowrap;
+        min-height: auto;
+        
+    }
+      .scrollbar .search {
+        display: flex;
+        justify-content: flex-end;
+        gap: 0.5rem;
+    }
+    .content-area{
+        overflow-y: auto;
+        height: calc(100vh - 15rem);
+    }
+    .room-btn {
+        font-size: 0.8em;
+    }
+}    
+    
+
+/*layout padda*/
+@media (min-width:48em) and (max-width:1032px){
+      body{
+        padding: 0.5em ;
+    }
+    .container {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto 1fr auto;
+    margin: 0;
+    padding: 0.5;
+    overflow-x:hidden ;
+    gap: 0.5em;
+    
+  
+    }
+    .grid-box {
+    grid-column: 1/-1 ; 
+    }
+    
+    header, .scrollbar .content-area .nav-bottom{
+    grid-column: 1/-1;
+    padding: 0.5rem ;
+    }
+    header {
+        min-height: 6em;
+    }
+    
+    .room-btn{
+        padding: 0.2em;
+    }
+    .scrollbar .room-btn {
+        display: inline-block;
+        width: 5em;
+        margin-top: 0.5rem;
+        margin-right: 0.5rem;
+        font-size: 2em;
+    }
+    
+    .scrollbar {
+        display: block;
+        max-width: 100%;
+        overflow-x: auto;
+        white-space: nowrap;
+        min-height: auto;
+        
+    }
+      .scrollbar .search {
+        display: flex;
+        justify-content: flex-end;
+        gap: 0.5rem;
+    }
+    .content-area{
+        overflow-y: auto;
+        height: calc(100vh - 15rem);
+    }
+
+}
+
