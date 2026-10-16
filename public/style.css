@@ -16,7 +16,8 @@
     --header-color: rgb(198, 135, 135);
     --card-button-color : rgb(19, 19, 80);
 
-
+    --border-radius: 0.5rem;
+    --spacing: 1rem;
 }
 
 body{
@@ -75,7 +76,7 @@ header{
 }
 .scrollbar {
     background-color: var(--box-color);
-    border-radius: 0.5rem;
+    border-radius: var(--border-radius);
     padding: 1rem;
     min-height: 75vh;
     overflow: hidden;
@@ -84,7 +85,7 @@ header{
 
 .room-btn {
     background-color: var(--button-color);
-    border-radius: 0.5rem;
+    border-radius: var(--border-radius);
     border:none;
     overflow-wrap: break-word;
     padding: 0.3em;
@@ -107,7 +108,7 @@ header{
     background-color: var(--card-color);
     color: aliceblue;
     padding: 1em;
-    border-radius: 0.5em;
+    border-radius: var(--border-radius);
     display: flex;
     
     justify-content: space-evenly;
@@ -116,13 +117,13 @@ header{
 }
 .card p {
     padding: 0.5em;
-    border-radius: 0.5em;
+    border-radius: var(--border-radius);
 }
 
 .card button{
     padding: 0.3em;
     border: none;
-    border-radius: 0.5em;
+    border-radius: var(--border-radius);
     background-color: var(--card-button-color);
     color: aliceblue;
     font-weight: bold;
@@ -312,3 +313,116 @@ header{
         display: none;
     }
 */
+
+/* Login modal */
+
+.verticalContainer {
+    display: flex;
+    flex-direction: column;
+    margin: var(--spacing);
+    padding: var(--spacing);
+}
+
+#modalContainer {
+    display: none;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    position: fixed;
+    top: 0;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.1);
+}
+
+.modalContent {
+    width: 80%;
+    min-width: 200px;
+    max-width: 600px;
+    margin: 15% auto;
+    border: 2px solid var(--box-color);
+    border-radius: var(--border-radius);
+    background-color: var(--background-color);
+}
+
+#modalContentLogin {
+    display: block;
+} 
+
+#modalContentForgotten {
+    display: none;
+} 
+
+#modalContentRegister {
+    display: none;
+}
+
+.closeModal {
+    font-weight: bold;
+    font-size: x-large;
+    padding: var(--spacing);
+    cursor: pointer;
+}
+
+.verticalContainer h1 {
+    text-align: center;
+    padding-bottom: var(--spacing);
+}
+
+.horizontalcontainer {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.inputContainer {
+    position: relative;
+    margin-bottom: var(--spacing);
+    display: block;
+}
+
+input[type=text], input[type=email], input[type=password], button[type=submit] {
+    width: 100%;
+    padding: var(--spacing);
+    border: px solid var(--box-color);
+    border-radius: var(--border-radius);
+}
+
+button {
+    background-color: var(--button-color);
+    font-size: large;font-weight: bold;
+}
+
+button:hover {
+    background-color: var(--box-color);
+    color: var(--text-color)
+}
+
+label {
+    padding-left: var(--spacing);
+}
+
+form span {
+    position: absolute;
+    right: calc(var(--spacing) / 2);
+    top: 25%;
+}
+
+input[type=checkbox] {
+    margin: 0 var(--spacing) var(--spacing) 0;
+    border-radius: var(--border-radius);
+}
+
+input[type=checkbox]:checked {
+    accent-color: var(--button-color);
+}
+
+a {
+    padding: var(--spacing);
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--button-color);
+    cursor: pointer;
+} 
+
