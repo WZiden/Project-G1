@@ -1,0 +1,25 @@
+{
+  "name": "project-g1",
+  "version": "1.0.0",
+  "description": "Group 1 Project hejsvejs Rebecka är inne i denna fil ska vi ;förklara projektets syfte, hur man kör det, och hur man utvecklar det",
+  "main": "index.js",
+  "scripts": {
+    "dev": "concurrently \"php -S localhost:8000 -t public\" \"browser-sync start --proxy localhost:8000 --files 'public/**/*' 'src/**/*.php' --no-notify\"",
+
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WZiden/Project-G1.git"
+  },
+  "keywords": [],
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/WZiden/Project-G1/issues"
+  },
+  "homepage": "https://github.com/WZiden/Project-G1#readme",
+  "devDependencies": {
+    "browser-sync": "^3.0.4",
+    "concurrently": "^10.0.6"
+  }
+}

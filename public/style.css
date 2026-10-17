@@ -1,0 +1,394 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;         /* Bonus: Tar bort webbläsarens inbyggda marginaler */
+    padding: 0;        /* Bonus: Tar bort webbläsarens inbyggda padding */
+}
+
+
+:root{
+    --background-color: rgb(252, 230, 191);
+    --grid-color: #004346;
+    --box-color: #004346;
+    --button-color: #76949F;
+    --text-color: white;
+    --card-color:  rgb(76, 104, 129);
+    --content-area-color: rgb(172, 108, 24);
+    --header-color: rgb(198, 135, 135);
+    --card-button-color : rgb(19, 19, 80);
+
+    --border-radius: 0.5rem;
+    --spacing: 1rem;
+}
+
+body{
+    background-color: var(--background-color);
+    font-family: Arial, Helvetica, sans-serif;
+    padding:0.5em;
+    max-height: 100%;
+}
+
+.container{
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    grid-template-rows: auto auto 1fr;
+    max-width: 100em;
+    margin: 0 auto;
+    width: 100%;
+    gap: 0.5rem;
+    border-radius:1rem ;
+    min-height: 100vh;
+}
+.grid-box {
+    border-radius:0.5rem ; 
+}
+header{
+    display: grid;
+    grid-column: 1 / -1;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    background-color: var(--header-color);
+    padding: 0.5rem 1rem;
+    height: auto;
+    
+}
+
+.header-button {
+    margin-left: auto;
+    margin-right: 1rem;
+    display: flex;
+    gap: 1.5rem;
+}
+
+.logo{
+    position: relative;
+}
+
+.content-area {
+    background-color: var(--content-area-color);
+    max-height: 100%;
+    overflow-y: auto;
+    padding: 1rem;
+    gap:1rem;
+    grid-template-rows: auto 1fr;
+    display: grid;
+
+}
+.content-area .search {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 0.25rem;
+    padding:1rem;
+}
+.scrollbar {
+    background-color: var(--box-color);
+    border-radius: var(--border-radius);
+    padding: 1rem;
+    max-height: 100%;
+    overflow-y: auto;
+    
+}
+
+.room-btn {
+    background-color: var(--button-color);
+    border-radius: var(--border-radius);
+    border:none;
+    overflow-wrap: break-word;
+    padding: 0.3em;
+    font-size: 1em;
+}
+
+.scrollbar .room-btn {
+    width: 80%;
+    margin-top: 1rem;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr));
+    grid-auto-rows: 10em;
+    gap:1em;
+  
+}
+
+.card {
+    background-color: var(--card-color);
+    color: aliceblue;
+    padding: 1em;
+    border-radius: var(--border-radius);
+    display: flex;
+    
+    justify-content: space-evenly;
+    align-items: center;
+
+}
+.card p {
+    padding: 0.5em;
+    border-radius: var(--border-radius);
+}
+
+.card button{
+    padding: 0.3em;
+    border: none;
+    border-radius: var(--border-radius);
+    background-color: var(--card-button-color);
+    color: aliceblue;
+    font-weight: bold;
+    font-size: 1em;
+    width: 4em;
+}
+.nav-bottom .room-btn{
+    display: none;
+}
+ .nav-bottom {
+    display: none;
+}
+
+/*layout mobil */
+
+@media (max-width:30em){
+    body{
+        padding: 0.5em ;
+    }
+    .container {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto 1fr auto;
+    margin: 0;
+    padding: 0.5;
+    overflow-x:hidden ;
+    gap: 0.5em;
+    
+  
+    }
+    .grid-box {
+    grid-column: 1/-1 ; 
+    }
+    
+    header, .scrollbar .content-area .nav-bottom{
+    grid-column: 1/-1;
+    padding: 0.5rem ;
+    }
+    .header-button{
+        display: none;
+    }
+    
+    .room-btn{
+        padding: 0.2em;
+    }
+    .scrollbar .room-btn {
+        display: inline-block;
+        width: 5em;
+        margin-top: 0.5rem;
+        margin-right: 0.5rem;
+    }
+     .nav-bottom {
+        background-color: var(--header-color);
+        padding: 0.5rem;
+        display: flex;
+        justify-content: space-evenly;
+        border-radius: 0.25em;
+        height: 5em;
+    }
+    .nav-bottom .room-btn{
+        display: inline-block;
+        width: auto;
+        border-radius: 0.5rem;
+        border:none;
+        overflow-wrap: break-word;
+        padding: 0.3em;
+    }
+    .scrollbar {
+        display: block;
+        max-width: 100%;
+        overflow-x: auto;
+        white-space: nowrap;
+        min-height: auto;
+        
+    }
+      .scrollbar .search {
+        display: flex;
+        justify-content: flex-end;
+        gap: 0.5rem;
+    }
+    .content-area{
+        overflow-y: auto;
+        height: calc(100vh - 15rem);
+    }
+    .room-btn {
+        font-size: 0.8em;
+    }
+}    
+    
+
+/*layout padda*/
+@media (min-width:48em) and (max-width:1032px){
+      body{
+        padding: 0.5em ;
+    }
+    .container {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto 1fr auto;
+    margin: 0;
+    padding: 0.5;
+    overflow-x:hidden ;
+    gap: 0.5em;
+    
+  
+    }
+    .grid-box {
+    grid-column: 1/-1 ; 
+    }
+    
+    header, .scrollbar .content-area .nav-bottom{
+    grid-column: 1/-1;
+    padding: 0.5rem ;
+    }
+    header {
+        min-height: 6em;
+    }
+    
+    .room-btn{
+        padding: 0.2em;
+    }
+    .scrollbar .room-btn {
+        display: inline-block;
+        width: 5em;
+        margin-top: 0.5rem;
+        margin-right: 0.5rem;
+        font-size: 2em;
+    }
+    
+    .scrollbar {
+        display: block;
+        max-width: 100%;
+        overflow-x: auto;
+        white-space: nowrap;
+        min-height: auto;
+        
+    }
+      .scrollbar .search {
+        display: flex;
+        justify-content: flex-end;
+        gap: 0.5rem;
+    }
+    .content-area{
+        overflow-y: auto;
+        height: calc(100vh - 15rem);
+    }
+
+}
+
+
+
+/* Login modal */
+
+.verticalContainer {
+    display: flex;
+    flex-direction: column;
+    margin: var(--spacing);
+    padding: var(--spacing);
+}
+
+#modalContainer {
+    display: none;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    position: fixed;
+    top: 0;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.1);
+}
+
+.modalContent {
+    width: 80%;
+    min-width: 200px;
+    max-width: 600px;
+    margin: 15% auto;
+    border: 2px solid var(--box-color);
+    border-radius: var(--border-radius);
+    background-color: var(--background-color);
+}
+
+#modalContentLogin {
+    display: block;
+} 
+
+#modalContentForgotten {
+    display: none;
+} 
+
+#modalContentRegister {
+    display: none;
+}
+
+.closeModal {
+    font-weight: bold;
+    font-size: x-large;
+    padding: var(--spacing);
+    cursor: pointer;
+}
+
+.verticalContainer h1 {
+    text-align: center;
+    padding-bottom: var(--spacing);
+}
+
+.horizontalcontainer {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.inputContainer {
+    position: relative;
+    margin-bottom: var(--spacing);
+    display: block;
+}
+
+input[type=text], input[type=email], input[type=password], button[type=submit] {
+    width: 100%;
+    padding: var(--spacing);
+    border: px solid var(--box-color);
+    border-radius: var(--border-radius);
+}
+
+button {
+    background-color: var(--button-color);
+    font-size: large;font-weight: bold;
+}
+
+button:hover {
+    background-color: var(--box-color);
+    color: var(--text-color)
+}
+
+label {
+    padding-left: var(--spacing);
+}
+
+form span {
+    position: absolute;
+    right: calc(var(--spacing) / 2);
+    top: 25%;
+}
+
+input[type=checkbox] {
+    margin: 0 var(--spacing) var(--spacing) 0;
+    border-radius: var(--border-radius);
+}
+
+input[type=checkbox]:checked {
+    accent-color: var(--button-color);
+}
+
+a {
+    padding: var(--spacing);
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--button-color);
+    cursor: pointer;
+} 
+
