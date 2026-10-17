@@ -4,16 +4,16 @@
     padding: 0;        /* Bonus: Tar bort webbläsarens inbyggda padding */
 }
 
-
 :root{
-    --background-color: rgb(252, 230, 191);
+    --background-color: rgb(211, 203, 190);
     --grid-color: #004346;
     --box-color: #004346;
     --button-color: #76949F;
     --text-color: white;
-    --card-color:  rgb(76, 104, 129);
-    --content-area-color: rgb(172, 108, 24);
-    --header-color: rgb(198, 135, 135);
+    --card-color: #76949F;
+    /*--card-color:  rgb(76, 104, 129);*/
+    --content-area-color: #004346;
+    --header-color: #004346;
     --card-button-color : rgb(19, 19, 80);
 
     --border-radius: 0.5rem;
@@ -23,7 +23,7 @@
 body{
     background-color: var(--background-color);
     font-family: Arial, Helvetica, sans-serif;
-    padding:0.5em;
+    padding:1em;
     max-height: 100%;
 }
 
@@ -34,12 +34,13 @@ body{
     max-width: 100em;
     margin: 0 auto;
     width: 100%;
-    gap: 0.5rem;
-    border-radius:1rem ;
-    min-height: 100vh;
+    gap: 1rem;
+    border-radius: 1rem;
+    height: 100vh;
+    color: var(--text-color);
 }
 .grid-box {
-    border-radius:0.5rem ; 
+    border-radius:0.75rem ; 
 }
 header{
     display: grid;
@@ -47,16 +48,23 @@ header{
     grid-template-columns: 1fr auto;
     align-items: center;
     background-color: var(--header-color);
-    padding: 0.5rem 1rem;
+    padding: 1.5rem;
     height: auto;
     
 }
 
 .header-button {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 1rem;
     margin-left: auto;
     margin-right: 1rem;
+}
+.header-button .nav-bottom-btn-mobil {
     display: flex;
-    gap: 1.5rem;
+    align-items: center;
+    gap: 1rem;
 }
 
 .logo{
@@ -95,12 +103,14 @@ header{
     overflow-wrap: break-word;
     padding: 0.3em;
     font-size: 1em;
+    color: var(--text-color);
 }
 
 .scrollbar .room-btn {
     width: 80%;
     margin-top: 1rem;
 }
+
 
 .cards {
     display: grid;
@@ -112,7 +122,7 @@ header{
 
 .card {
     background-color: var(--card-color);
-    color: aliceblue;
+    color: var(--text-color);
     padding: 1em;
     border-radius: var(--border-radius);
     display: flex;
@@ -131,10 +141,10 @@ header{
     border: none;
     border-radius: var(--border-radius);
     background-color: var(--card-button-color);
-    color: aliceblue;
+    color: var(--card-button-color);
     font-weight: bold;
     font-size: 1em;
-    width: 4em;
+    width: 4em;S
 }
 .nav-bottom .room-btn{
     display: none;
@@ -142,12 +152,7 @@ header{
  .nav-bottom {
     display: none;
 }
-.search{
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    height: 2em;
-}
+
 .search .search-btn{
     width: 5em;
     height: 2em;
@@ -156,6 +161,42 @@ header{
     align-items: center;
 }
 
+.search {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.search input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0.6rem;
+    border: none;
+    border-radius: 0.5rem;
+    background-color: var(--);
+    color: #222;
+    font-size: 1rem;
+    outline: none;
+}
+
+.search input:focus {
+    border-color: var(--button-color);
+}
+
+.search button {
+    width: 100%;
+    padding: 0.7rem;
+    border: none;
+    border-radius: 0.5rem;
+    background-color: var(--button-color);
+    color: var(--text-color);
+    cursor: pointer;
+}
+
+.search button:hover {
+    background-color: #9bb5bf;
+}
 /*layout mobil */
 
 @media (max-width:30em){
@@ -193,6 +234,7 @@ header{
         margin-top: 0.5rem;
         margin-right: 0.5rem;
     }
+
      .nav-bottom {
         background-color: var(--header-color);
         padding: 0.5rem;
@@ -222,6 +264,8 @@ header{
         justify-content: flex-end;
         gap: 0.5rem;
     }
+
+
     #content-area{
         overflow-y: auto;
         height: calc(100vh - 15rem);
@@ -233,6 +277,7 @@ header{
     
 
 /*layout padda*/
+
 @media (min-width:48em) and (max-width:1032px){
       body{
         padding: 0.5em ;
@@ -291,9 +336,23 @@ header{
 }
 
 
+/*Dator (Försök till att få rutorna att täcka hela skärmen)*/
+
+@media (min-width: 1033px) {
+    .container {
+        height: calc(100vh - 1rem);
+        grid-template-rows: auto minmax(0, 1fr);
+    }
+
+    .scrollbar,
+    #content-area {
+        min-height: 0;
+        height: 100%;
+    }
+}
+
 
 /* Login modal */
-
 .verticalContainer {
     display: flex;
     flex-direction: column;
