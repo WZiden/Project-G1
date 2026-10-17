@@ -63,7 +63,7 @@ header{
     position: relative;
 }
 
-.content-area {
+#content-area {
     background-color: var(--content-area-color);
     max-height: 100%;
     overflow-y: auto;
@@ -73,12 +73,11 @@ header{
     display: grid;
 
 }
-.content-area .search {
+
+.top-side{
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     align-items: center;
-    gap: 0.25rem;
-    padding:1rem;
 }
 .scrollbar {
     background-color: var(--box-color);
@@ -143,6 +142,19 @@ header{
  .nav-bottom {
     display: none;
 }
+.search{
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    height: 2em;
+}
+.search .search-btn{
+    width: 5em;
+    height: 2em;
+    font-size: 1em;
+    display: flex;
+    align-items: center;
+}
 
 /*layout mobil */
 
@@ -164,11 +176,11 @@ header{
     grid-column: 1/-1 ; 
     }
     
-    header, .scrollbar .content-area .nav-bottom{
+    header, .scrollbar #content-area .nav-bottom{
     grid-column: 1/-1;
     padding: 0.5rem ;
     }
-    .header-button{
+    .header-button .nav-bottom-btn-mobil{
         display: none;
     }
     
@@ -210,7 +222,7 @@ header{
         justify-content: flex-end;
         gap: 0.5rem;
     }
-    .content-area{
+    #content-area{
         overflow-y: auto;
         height: calc(100vh - 15rem);
     }
@@ -239,7 +251,7 @@ header{
     grid-column: 1/-1 ; 
     }
     
-    header, .scrollbar .content-area .nav-bottom{
+    header, .scrollbar #content-area .nav-bottom{
     grid-column: 1/-1;
     padding: 0.5rem ;
     }
@@ -271,7 +283,7 @@ header{
         justify-content: flex-end;
         gap: 0.5rem;
     }
-    .content-area{
+    #content-area{
         overflow-y: auto;
         height: calc(100vh - 15rem);
     }
