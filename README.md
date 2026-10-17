@@ -7,3 +7,6 @@ I public ska alla filer ligga som användaren behöver komma åt (ex index.html,
 
 För att skapa tabellen som innehåller användarna:
 CREATE TABLE users (userID int PRIMARY KEY NOT NULL AUTO_INCREMENT, username varchar(255) NOT NULL, email varchar(255) NOT NULL UNIQUE, passwordHash varchar(255) NOT NULL)
+
+
+Hej. jag har tagit bort de filerna som heter index mobil och style mobil. då allt nu ligger i projekt istället :)
