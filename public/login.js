@@ -1,7 +1,5 @@
 const loginButton = document.getElementById("showLogin");
-
 const modalContainer = document.getElementById("modalContainer");
-
 const closeModal = document.querySelectorAll(".closeModal");
 
 const loginLink = document.querySelectorAll(".loginLink");
@@ -12,7 +10,7 @@ const loginForm = document.querySelector("#loginForm");
 const forgottenForm = document.querySelector("#forgottenForm");
 const registerForm = document.querySelector("#registerForm");
 
-const loginemail = document.querySelector("#loginemail");
+// const loginemail = document.querySelector("#loginemail");
 // const registeremail = document.querySelector("#registeremail");
 // const forgottenemail = document.querySelector("#forgottenemail");
 
@@ -56,9 +54,7 @@ closeModal.forEach(button => {
 loginLink.forEach(link => {
     link.addEventListener("click", function () {
         resetForms();
-        modalContentLogin.style.display = "block";
-        modalContentForgotten.style.display = "none";
-        modalContentRegister.style.display = "none";
+        resetLoginModal();
 })});
 
 // Forgotten link
@@ -90,39 +86,49 @@ modalContainer.addEventListener("click", function(e) {
     modalContainer.style.display = "none";
 });
 
-/* // TODO
+// TODO extra feature
+/*
 // Check if email already exists
 loginemail.addEventListener("blur", function(e) {
     console.log("Check if email exists", loginemail.value);
 });
  */
 
-
-/* 
+// Send login form
 async function sendLoginForm() {
     // Assiciate the FormData object with the login form element
     const formData = new FormData(loginForm);
 
     try {
         // Send the FormData as an HTTP POST request using fetch()
-        const response = await fetch("login.php", {
+        const response = await fetch("user_login_handler.php", {
             method: "POST",
             body: formData,
         });
-        // TODO felhantering
+
+        const data = await response.json();
+        if (data[0] != 1) {
+            alert("Error: " + data[1]);
+        } else {
+            alert("Welcome " + data[2]);
+        }
+
     } catch (e) {
         // TODO felhantering
-        console.warn(e);
+        console.log("Error logging in");
+        //console.log(e);
     }
 }
 
+/*
+// Send 'reset password' form
 async function sendForgottenForm() {
     // Assiciate the FormData object with the login form element
     const formData = new FormData(forgottenForm);
 
     try {
         // Send the FormData as an HTTP POST request using fetch()
-        const response = await fetch("passwordrecovery.php", {
+        const response = await fetch("user_login_handler.php", {
             method: "POST",
             body: formData,
         });
@@ -133,25 +139,32 @@ async function sendForgottenForm() {
     }
 } */
 
+// Send 'register new account' form
 async function sendRegisterForm() {
     // Assiciate the FormData object with the login form element
     const formData = new FormData(registerForm);
 
     try {
         // Send the FormData as an HTTP POST request using fetch()
-        const response = await fetch("add_user.php", {
+        const response = await fetch("user_login_handler.php", {
             method: "POST",
             body: formData,
         });
-        // TODO felhantering
+
+       const data = await response.json();  
+       if (data[0] != 1) {
+            alert("Error: " + data[1]);
+       } else {
+            resetLoginModal();
+       }
+       
     } catch (e) {
         // TODO felhantering
-        console.error(e);
+        console.log("Error adding user");
     }
 }
 
-/*
-// Send login form
+// User pressed login form button
 loginForm.addEventListener("submit", function(e) {
     e.preventDefault();
     sendLoginForm();
@@ -159,7 +172,8 @@ loginForm.addEventListener("submit", function(e) {
     modalContainer.style.display = "none";
 });
 
-// Send form
+/*
+// User pressed 'reset password' form button
 forgottenForm.addEventListener("submit", function(e) {
     e.preventDefault();
     sendForgottenForm();
@@ -167,12 +181,11 @@ forgottenForm.addEventListener("submit", function(e) {
     resetLoginModal();
 }); */
 
-// Send register form
+// User pressed 'register new account' form button
 registerForm.addEventListener("submit", function(e) {
     e.preventDefault();
     sendRegisterForm();
     registerForm.reset();
-    resetLoginModal();
 });
 
 
