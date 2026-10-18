@@ -5,16 +5,16 @@
 }
 
 :root{
-    --background-color: rgb(211, 203, 190);
+    --background-color: rgb(207, 203, 198);
     --grid-color: #004346;
     --box-color: #004346;
     --button-color: #76949F;
     --text-color: white;
     --card-color: #76949F;
-    /*--card-color:  rgb(76, 104, 129);*/
     --content-area-color: #004346;
     --header-color: #004346;
     --card-button-color : rgb(19, 19, 80);
+    --button-hover: #9bb5bf;
 
     --border-radius: 0.5rem;
     --spacing: 1rem;
@@ -106,6 +106,9 @@ header{
     color: var(--text-color);
 }
 
+.room-btn:hover {
+    background-color: var(--button-hover);
+}
 .scrollbar .room-btn {
     width: 80%;
     margin-top: 1rem;
@@ -195,8 +198,10 @@ header{
 }
 
 .search button:hover {
-    background-color: #9bb5bf;
+    background-color: var(--button-hover);
 }
+
+
 /*layout mobil */
 
 @media (max-width:30em){
@@ -336,19 +341,18 @@ header{
 }
 
 
-/*Dator (Försök till att få rutorna att täcka hela skärmen)*/
-
-@media (min-width: 1033px) {
-    .container {
-        height: calc(100vh - 1rem);
-        grid-template-rows: auto minmax(0, 1fr);
-    }
-
-    .scrollbar,
-    #content-area {
-        min-height: 0;
-        height: 100%;
-    }
+/*Försök till att få rutorna att täcka hela skärmen*/
+html,
+body {
+    margin: 0;
+    min-height: 100%;
+}
+body {
+    overflow:hidden;
+}
+#content-area {
+    min-height: 80vh;
+    box-sizing: border-box;
 }
 
 
