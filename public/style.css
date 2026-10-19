@@ -101,9 +101,10 @@ header{
     border-radius: var(--border-radius);
     border:none;
     overflow-wrap: break-word;
-    padding: 0.3em;
+    padding: 0.7em;
     font-size: 1em;
     color: var(--text-color);
+    cursor: pointer;
 }
 
 .room-btn:hover {
@@ -129,14 +130,16 @@ header{
     padding: 1em;
     border-radius: var(--border-radius);
     display: flex;
-    
+    flex-direction: column;
+
     justify-content: space-evenly;
     align-items: center;
-
 }
 .card p {
     padding: 0.5em;
     border-radius: var(--border-radius);
+    overflow-wrap: anywhere;
+    overflow-y: auto;
 }
 
 .card button{
