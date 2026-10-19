@@ -13,3 +13,6 @@ Hej. jag har tagit bort de filerna som heter index mobil och style mobil. då al
 
 För att skapa tabellen som innehåller cookies:
 CREATE TABLE cookies (userID int PRIMARY KEY NOT NULL, token varchar(255) NOT NULL)
+
+För att skapa tabellen för alla enheter:
+CREATE TABLE entities (entity_id varchar(255) NOT NULL, state varchar(255) NOT NULL, friendly_name varchar(255) NOT NULL, attributes longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`attributes`)), device varchar(255) NOT NULL, last_seen datetime NOT NULL DEFAULT current_timestamp())

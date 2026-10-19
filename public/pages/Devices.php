@@ -1,13 +1,17 @@
+<?php 
+    require_once "../connect_api.php";
+    require_once "../connect_db.php";
+    require_once "../functions.php";
 
+    $devices = getAllDevices($pdo);
 
-<div class="cards">
-    <div class="card">
-        <h3>Lampa 1</h3>
-        <p>Status: On</p>
+?>    
+    
+    <div class='device-grid'>
+        <?php foreach ($devices as $deviceName => $deviceEntities): ?>
+            <?= renderDeviceCard(
+                $deviceName,
+                $deviceEntities
+            ) ?>
+        <?php endforeach; ?>
     </div>
-
-    <div class="card">
-        <h3>Lampa 2</h3>
-        <p>Status: Off</p>
-    </div>
-</div>
