@@ -10,9 +10,7 @@
         <h3>Lampa 2</h3>
         <p>Status: Off</p>
     </div>
-</div>
 
-<div class="cards">
     <div class="card">
         <h3>Lampa 1</h3>
         <p>Status: On</p>
@@ -22,9 +20,8 @@
         <h3>Lampa 2</h3>
         <p>Status: Off</p>
     </div>
-</div>
 
-<div class="cards">
+
     <div class="card">
         <h3>Lampa 1</h3>
         <p>Status: On</p>

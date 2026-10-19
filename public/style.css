@@ -207,7 +207,7 @@ header{
 
 /*layout mobil */
 
-@media (max-width:30em){
+@media (max-width:30em) {
     body{
         padding: 0.5em ;
     }
@@ -233,9 +233,14 @@ header{
         display: none;
     }
     
-    .room-btn{
-        padding: 0.2em;
+   .room-btn, .search button,
+    .search input{
+        width: auto;
+        height: auto;
+        padding: 0.4em 0.8 em;
+        flex-shrink: 0;
     }
+    
     .scrollbar .room-btn {
         display: inline-block;
         width: 5em;
@@ -292,15 +297,13 @@ header{
         overflow-y: auto;
         height: calc(100vh - 15rem);
     }
-    .room-btn {
-        font-size: 0.8em;
-    }
+    
 }    
     
 
 /*layout padda*/
 
-@media (min-width:48em) and (max-width:1032px){
+@media (min-width:30em) and (max-width:65em){
       body{
         padding: 0.5em ;
     }
@@ -326,8 +329,12 @@ header{
         min-height: 6em;
     }
     
-    .room-btn{
-        padding: 0.2em;
+    .room-btn, .search button,
+    .search input{
+        width: auto;
+        height: auto;
+        padding: 0.4em 0.8 em;
+        flex-shrink: 0;
     }
     .scrollbar .room-btn {
         display: inline-block;
@@ -342,8 +349,7 @@ header{
         max-width: 100%;
         overflow-x: auto;
         white-space: nowrap;
-        min-height: auto;
-        
+        min-height: auto;    
     }
       .scrollbar .search {
         display: flex;
