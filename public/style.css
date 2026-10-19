@@ -257,19 +257,33 @@ header{
         padding: 0.3em;
     }
     .scrollbar {
-        display: block;
+        display: flex;
         max-width: 100%;
         overflow-x: auto;
         white-space: nowrap;
-        min-height: auto;
+        min-height: 5em;
         
     }
-      .scrollbar .search {
-        display: flex;
-        justify-content: flex-end;
-        gap: 0.5rem;
-    }
+     
 
+    .scrollbar .search input,
+    .scrollbar .search button {
+    display: flex;
+    justify-content: flex-end;
+    height: auto;
+    padding: 0.2em 0.4em;
+    font-size: 0.9rem;
+    line-height: 1.2;
+    box-sizing: border-box;
+}
+    #content-area .search input,
+    #content-area .search button {
+    height: auto;
+    padding: 0.2em 0.4em;
+    font-size: 0.9rem;
+    line-height: 1.2;
+    box-sizing: border-box;
+}
 
     #content-area{
         overflow-y: auto;
