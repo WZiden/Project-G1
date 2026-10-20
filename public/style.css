@@ -203,7 +203,19 @@ header{
 .search button:hover {
     background-color: var(--button-hover);
 }
-
+/*Försök till att få rutorna att täcka hela skärmen*/
+html,
+body {
+    margin: 0;
+    min-height: 100%;
+}
+body {
+    overflow:hidden;
+}
+#content-area {
+    min-height: 80vh;
+    box-sizing: border-box;
+}
 
 /*layout mobil */
 
@@ -237,7 +249,7 @@ header{
     .search input{
         width: auto;
         height: auto;
-        padding: 0.4em 0.8 em;
+        padding: 0.4em 0.8em;
         flex-shrink: 0;
     }
     
@@ -250,19 +262,17 @@ header{
 
      .nav-bottom {
         background-color: var(--header-color);
-        padding: 0.5rem;
+        padding: 0.3rem;
         display: flex;
         justify-content: space-evenly;
         border-radius: 0.25em;
-        height: 5em;
+        height: 4em;
     }
     .nav-bottom .room-btn{
         display: inline-block;
-        width: auto;
         border-radius: 0.5rem;
         border:none;
         overflow-wrap: break-word;
-        padding: 0.3em;
     }
     .scrollbar {
         display: flex;
@@ -283,7 +293,7 @@ header{
     font-size: 0.9rem;
     line-height: 1.2;
     box-sizing: border-box;
-}
+    }  
     #content-area .search input,
     #content-area .search button {
     height: auto;
@@ -364,19 +374,7 @@ header{
 }
 
 
-/*Försök till att få rutorna att täcka hela skärmen*/
-html,
-body {
-    margin: 0;
-    min-height: 100%;
-}
-body {
-    overflow:hidden;
-}
-#content-area {
-    min-height: 80vh;
-    box-sizing: border-box;
-}
+
 
 
 /* Login modal */
