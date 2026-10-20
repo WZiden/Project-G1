@@ -1,9 +1,9 @@
 <?php
-$secrets = fopen("../.env", "r") or die("Unable to open file!");
-$dbName = trim(fgets($secrets));
-$dbPassword = trim(fgets($secrets));
-$dsn = "mysql:host=localhost;dbname=" . trim(fgets($secrets)) . ";charset=utf8mb4";
-fclose($secrets);
+$credentials = explode("\n", file_get_contents(__DIR__ . "/../.env"));
+$dbName = $credentials[0];
+$dbPassword = $credentials[1];
+$dsn = "mysql:host=localhost;dbname=" . $credentials[2] . ";charset=utf8mb4";
+
 
 $pdo = new PDO(
     $dsn,
