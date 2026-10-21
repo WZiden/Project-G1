@@ -69,6 +69,13 @@ header{
 
 .logo{
     position: relative;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+#userNameHeading {
+    padding-left: 2rem;
 }
 
 #content-area {
@@ -402,6 +409,10 @@ header{
         overflow-y: auto;
         height: calc(100vh - 15rem);
     }
+
+    #userNameHeading {
+        display: none;
+    }
     
 }    
     
@@ -464,6 +475,10 @@ header{
     #content-area{
         overflow-y: auto;
         height: calc(100vh - 15rem);
+    }
+
+    #userNameHeading {
+        display: none;
     }
 
 }
@@ -595,3 +610,9 @@ a:hover {
     cursor: pointer;
 } 
 
+.errorMessage {
+    padding: var(--spacing);
+    text-align: center;
+    border-radius: var(--border-radius);
+    background-color: #dc3545;
+}
