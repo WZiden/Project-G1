@@ -9,7 +9,6 @@ const forgottenLink = document.querySelectorAll(".forgottenLink");
 const registerLink = document.querySelectorAll(".registerLink");
 
 const loginForm = document.querySelector("#loginForm");
-const forgottenForm = document.querySelector("#forgottenForm");
 const registerForm = document.querySelector("#registerForm");
 
 const loginErrorMessage = document.getElementById("loginError");
@@ -74,22 +73,15 @@ function showLogOutBtn() {
     logoutButton.style.display = "block";
 }
 
-/* // TMP log out button
-button.addEventListener("click", function () {
-    modalContainer.style.display = "block";
-}); */
-
 // Login form is displayed first
 function resetLoginModal() {
     modalContentLogin.style.display = "block";
-    modalContentForgotten.style.display = "none";
     modalContentRegister.style.display = "none";
 }
 
 // Reset all forms
 function resetForms() {
     loginForm.reset();
-    forgottenForm.reset();
     registerForm.reset();
 }
 
@@ -109,23 +101,12 @@ loginLink.forEach(link => {
         resetLoginModal();
 })});
 
-// Forgotten link
-forgottenLink.forEach(link => {
-    link.addEventListener("click", function () {
-        resetForms();
-        clearErrorMessage();
-        modalContentLogin.style.display = "none";
-        modalContentForgotten.style.display = "block";
-        modalContentRegister.style.display = "none";
-})});
-
 // Register link
 registerLink.forEach(link => {
     link.addEventListener("click", function () {
         resetForms();
         clearErrorMessage();
         modalContentLogin.style.display = "none";
-        modalContentForgotten.style.display = "none";
         modalContentRegister.style.display = "block";
 })});
 
@@ -180,25 +161,6 @@ async function sendLoginForm() {
     }
 }
 
-/*
-// Send 'reset password' form
-async function sendForgottenForm() {
-    // Assiciate the FormData object with the login form element
-    const formData = new FormData(forgottenForm);
-
-    try {
-        // Send the FormData as an HTTP POST request using fetch()
-        const response = await fetch("user_login_handler.php", {
-            method: "POST",
-            body: formData,
-        });
-        // TODO felhantering
-    } catch (e) {
-        // TODO felhantering
-        console.warn(e);
-    }
-} */
-
 // Send 'register new account' form
 async function sendRegisterForm() {
     // Assiciate the FormData object with the login form element
@@ -232,23 +194,12 @@ loginForm.addEventListener("submit", function(e) {
     loginForm.reset();
 });
 
-/*
-// User pressed 'reset password' form button
-forgottenForm.addEventListener("submit", function(e) {
-    e.preventDefault();
-    sendForgottenForm();
-    forgottenForm.reset();
-    resetLoginModal();
-}); */
-
 // User pressed 'register new account' form button
 registerForm.addEventListener("submit", function(e) {
     e.preventDefault();
     sendRegisterForm();
     registerForm.reset();
 });
-
-
 
 // Check if user is logged in
 async function checkCookie() {
