@@ -144,6 +144,14 @@
             </nav>
         </div>
     </div>
+<script>
+
+    setInterval(() => {
+        fetch('update_db.php')
+        .then(response => response.text())
+        .then(data => console.log(data))
+        .catch(error => console.error(error));}, 10000);
+</script>
 </body>
 
 </html>
