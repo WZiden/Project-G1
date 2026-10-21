@@ -386,7 +386,7 @@
 
             $buttonText = $mainEntity['state'] === 'on' ? 'TURN OFF' : 'TURN ON';
 
-            $buttonColor = $mainEntity['state'] === 'on' ? '#dc3545' : '#198754';
+            $buttonColor = $mainEntity['state'] === 'on' ? '#dc3545' : '#0e603a';
 
             $html .= "<form method='post'>
                 <input type='hidden' name='entity_id' value='{$mainEntity['entity_id']}'>
