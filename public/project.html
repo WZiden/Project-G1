@@ -105,13 +105,12 @@
                 </div>
                 <div class="header-button">
                     <div class ="nav-bottom-btn-mobil">
-                        <button class="room-btn" data-page="Devices"> Presets</button>
                         <button class="room-btn" data-page="Devices"> Devices</button>
                         <button class="room-btn" data-page="History"> History</button>
                         <button class="room-btn" data-page="Profile"> Profile</button>
                     </div>
                     <button class="room-btn" data-page="Alert"> Alerts</button>
-                    <button id="showLogin" class="room-btn" data-room="login"> Login</button>
+                    <button id="showLogin" class="room-btn" data-room="login"> Login</button> <!-- ändra klassen till login el liknande-->
                 
                 </div>
             </header>
@@ -138,7 +137,6 @@
                <div id="page-content"></div>
             </main>
             <nav class="nav-bottom grid-box">
-                <button class="room-btn" data-page="Devices"> Presets</button>
                 <button class="room-btn" data-page="Devices"> Devices</button>
                 <button class="room-btn" data-page="History"> History</button>
                 <button class="room-btn" data-page="Profile"> Profile</button>
@@ -146,6 +144,14 @@
             </nav>
         </div>
     </div>
+<script>
+
+    setInterval(() => {
+        fetch('update_db.php')
+        .then(response => response.text())
+        .then(data => console.log(data))
+        .catch(error => console.error(error));}, 10000);
+</script>
 </body>
 
 </html>
