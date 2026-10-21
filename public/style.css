@@ -69,6 +69,13 @@ header{
 
 .logo{
     position: relative;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+#userNameHeading {
+    padding-left: 2rem;
 }
 
 #content-area {
@@ -203,19 +210,112 @@ header{
 .search button:hover {
     background-color: var(--button-hover);
 }
-/*Försök till att få rutorna att täcka hela skärmen*/
-html,
-body {
+
+.device-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 20px;
+    
+}
+
+.device-card {
+    background-color: var(--card-color);
+        color: var(--text-color);
+        padding: 1em;
+        border-radius: var(--border-radius);
+    border: 1px solid #ddd;
+    border-radius: 12px;
+
+    padding: 16px;
+
+    display: grid;
+
+    grid-template-areas:
+        "title title"
+        "status status"
+        "details details"
+        "controls controls";
+
+    row-gap: 12px;
+
+    box-shadow: 0 2px 8px rgba(0,0,0,.08);
+}
+
+/* Titel */
+
+.device-title {
+
+    grid-area: title;
+
     margin: 0;
-    min-height: 100%;
+
+    text-align: center;
+
+    padding-bottom: 10px;
+
+    border-bottom: 1px solid #eee;
 }
-body {
-    overflow:hidden;
+
+/* Status */
+
+.device-status {
+
+    grid-area: status;
+
+    display: grid;
+
+    grid-template-columns: 120px 1fr;
 }
-#content-area {
-    min-height: 80vh;
-    box-sizing: border-box;
+
+.device-status-label {
+
+    font-weight: bold;
 }
+
+.device-status-value {
+
+    text-align: right;
+}
+
+/* Detaljer */
+
+.device-details {
+
+    grid-area: details;
+
+    display: grid;
+
+    grid-template-columns: 120px 1fr;
+
+    row-gap: 6px;
+}
+
+.device-detail-label {
+
+    font-weight: bold;
+}
+
+.device-detail-value {
+
+    text-align: right;
+}
+
+/* Knapp */
+
+.device-controls {
+
+    grid-area: controls;
+}
+
+.device-button {
+
+    width: 100%;
+
+    padding: 10px;
+
+    font-weight: bold;
+}
+
 
 /*layout mobil */
 
@@ -249,7 +349,7 @@ body {
     .search input{
         width: auto;
         height: auto;
-        padding: 0.4em 0.8em;
+        padding: 0.4em 0.8 em;
         flex-shrink: 0;
     }
     
@@ -262,17 +362,19 @@ body {
 
      .nav-bottom {
         background-color: var(--header-color);
-        padding: 0.3rem;
+        padding: 0.5rem;
         display: flex;
         justify-content: space-evenly;
         border-radius: 0.25em;
-        height: 4em;
+        height: 5em;
     }
     .nav-bottom .room-btn{
         display: inline-block;
+        width: auto;
         border-radius: 0.5rem;
         border:none;
         overflow-wrap: break-word;
+        padding: 0.3em;
     }
     .scrollbar {
         display: flex;
@@ -293,7 +395,7 @@ body {
     font-size: 0.9rem;
     line-height: 1.2;
     box-sizing: border-box;
-    }  
+}
     #content-area .search input,
     #content-area .search button {
     height: auto;
@@ -306,6 +408,10 @@ body {
     #content-area{
         overflow-y: auto;
         height: calc(100vh - 15rem);
+    }
+
+    #userNameHeading {
+        display: none;
     }
     
 }    
@@ -343,7 +449,7 @@ body {
     .search input{
         width: auto;
         height: auto;
-        padding: 0.4em 0.8em;
+        padding: 0.4em 0.8 em;
         flex-shrink: 0;
     }
     .scrollbar .room-btn {
@@ -371,10 +477,26 @@ body {
         height: calc(100vh - 15rem);
     }
 
+    #userNameHeading {
+        display: none;
+    }
+
 }
 
 
-
+/*Försök till att få rutorna att täcka hela skärmen*/
+html,
+body {
+    margin: 0;
+    min-height: 100%;
+}
+body {
+    overflow:hidden;
+}
+#content-area {
+    min-height: 80vh;
+    box-sizing: border-box;
+}
 
 
 /* Login modal */
@@ -393,7 +515,7 @@ body {
     position: fixed;
     top: 0;
     overflow: auto;
-    background-color: rgba(0,0,0,0.8);
+    background-color: rgba(0,0,0,0.1);
 }
 
 .modalContent {
@@ -488,3 +610,9 @@ a:hover {
     cursor: pointer;
 } 
 
+.errorMessage {
+    padding: var(--spacing);
+    text-align: center;
+    border-radius: var(--border-radius);
+    background-color: #dc3545;
+}

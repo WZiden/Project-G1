@@ -44,6 +44,7 @@
                         <a class="registerLink">Register new account</a>
                     </div>
                 </form>
+                <p id="loginError" class="errorMessage"></p>
             </div>
 
             <div class="verticalContainer modalContent" id="modalContentForgotten">
@@ -94,6 +95,7 @@
                         <a class="loginLink">Login</a>
                     </div>
                 </form>
+                <p id="registerError" class="errorMessage"></p>
             </div>
 
         </div>
@@ -102,6 +104,7 @@
             <header class="grid-box">
                 <div class="logo">
                     <h1>Smart Home<h1>
+                    <h3 id="userNameHeading"></h3>
                 </div>
                 <div class="header-button">
                     <div class ="nav-bottom-btn-mobil">
@@ -110,8 +113,10 @@
                         <button class="room-btn" data-page="Profile"> Profile</button>
                     </div>
                     <button class="room-btn" data-page="Alert"> Alerts</button>
+            
                     <button id="showLogin" class="login-btn" data-room="login"> Login</button> 
-                
+                    <button id="showLogout" class="room-btn" data-room="logout"> Logout</button> 
+
                 </div>
             </header>
 
@@ -144,6 +149,14 @@
             </nav>
         </div>
     </div>
+<script>
+
+    setInterval(() => {
+        fetch('update_db.php')
+        .then(response => response.text())
+        .then(data => console.log(data))
+        .catch(error => console.error(error));}, 10000);
+</script>
 </body>
 
 </html>

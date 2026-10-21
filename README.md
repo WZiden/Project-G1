@@ -1,7 +1,12 @@
 # Project-G1
 Group 1 Project
 
-Alla behöver skapa en fil som heter .env som ska ligga högst upp (över public etc). Där ska ni på första raden skriva användarnamnet till databasen, på andra raden lösenordet och på tredje raden namnet på databasen. Denna fil kommer inte laddas upp till Git.
+Alla behöver skapa en fil som heter .env som ska ligga högst upp (över public etc). Där ska ni skriva på: 
+första raden användarnamnet till databasen,
+andra raden lösenordet,
+tredje raden namnet på databasen,
+fjärde raden URL till api,
+femte raden token till api.
 
 I public ska alla filer ligga som användaren behöver komma åt (ex index.html, login.js) och i src ska alla filer ligga som användaren inte behöver komma åt (ex filer som pratar med databasen).
 
