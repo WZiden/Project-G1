@@ -1,59 +1,272 @@
 <?php
-    const MAIN_ENTITY_DOMAINS = [
-        'light',
-        'switch',
-        'climate',
-        'cover',
-        'lock',
-        'binary_sensor'
-    ];
+    require_once __DIR__ . '/vendor/autoload.php';
+
+    use WebSocket\Client;
 
 
-    function getAPI(CurlHandle $ch, string $haURL, string $haToken):array {
-        curl_setopt_array($ch, [
-            CURLOPT_URL => $haURL . "states",
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_HTTPHEADER => [
-                "Authorization: Bearer {$haToken}",
-                "Content-Type: application/json"
-            ]
-        ]);
+    function getHomeAssistantDevices(string $haURL, string $haToken):array {
+        $client = new Client($haURL);
 
-        $response = curl_exec($ch);
+        // Auth required
+        $client->receive();
 
-        if ($response === false){
-            die ('Could not connect to Home Assistant: ' . curl_error($ch));
+        // Auth
+        $client->send(json_encode([
+            "type" => "auth",
+            "access_token" => $haToken
+        ]));
+
+        $auth = json_decode($client->receive(), true);
+
+        if (($auth['type'] ?? null) !== 'auth_ok') {
+            throw new Exception("Failed to authenticate with Home Assistant");
         }
 
-        curl_close($ch);
+        // Device registry
+        $client->send(json_encode([
+            "id" => 1,
+            "type" => "config/device_registry/list"
+        ]));
 
-        $entities = json_decode($response, true);
+        $response = json_decode($client->receive(), true);
 
-        if (!is_array($entities)) {
-            die('Invalid JSON response from Home Assistant');
+        if (
+            !isset($response['success']) ||
+            !$response['success']
+        ) {
+            throw new Exception("Failed to fetch devices");
         }
 
-        if (empty($entities)) {
-            die('No entities returned from Home Assistant');
+        $devices = [];
+        $areas = getHomeAssistantAreas($haURL, $haToken);
+
+        foreach ($response['result'] as $device)
+        {
+            // Hoppa över Home Assistants interna service-enheter
+            if (($device['entry_type'] ?? null) === 'service')
+            {
+                continue;
+            }    
+
+            $devices[] = [
+                'device_id'   => $device['id'],
+                'device_name' => $device['name'],
+                'area_id'     => $device['area_id'],
+                'area_name'   => $areas[$device['area_id']] ?? null
+            ];
+        }
+
+        return $devices;
+    }
+
+    function getHomeAssistantAreas(string $haURL, string $haToken):array {
+        $client = new Client($haURL);
+
+        $client->receive();
+
+        $client->send(json_encode([
+            "type" => "auth",
+            "access_token" => $haToken
+        ]));
+
+        $auth = json_decode($client->receive(), true);
+
+        if (($auth['type'] ?? null) !== 'auth_ok') {
+            throw new Exception(
+                "Failed to authenticate with Home Assistant"
+            );
+        }
+
+        $client->send(json_encode([
+            "id" => 1,
+            "type" => "config/area_registry/list"
+        ]));
+
+        $response = json_decode(
+            $client->receive(),
+            true
+        );
+
+        if (
+            !isset($response['success']) ||
+            !$response['success']
+        ) {
+            throw new Exception(
+                "Failed to fetch areas"
+            );
+        }
+
+        $areas = [];
+
+        foreach ($response['result'] as $area)
+        {
+            $areas[$area['area_id']] = $area['name'];
+        }
+
+        return $areas;
+    }
+
+    function getHomeAssistantEntities(string $haURL, string $haToken):array {
+
+        $client = new Client($haURL);
+
+        // Auth required
+        $client->receive();
+
+        // Auth
+        $client->send(json_encode([
+            "type" => "auth",
+            "access_token" => $haToken
+        ]));
+
+        $auth = json_decode($client->receive(), true);
+
+        if (($auth['type'] ?? null) !== 'auth_ok') {
+            throw new Exception(
+                "Failed to authenticate with Home Assistant"
+            );
+        }
+
+        // Entity registry
+        $client->send(json_encode([
+            "id" => 1,
+            "type" => "config/entity_registry/list"
+        ]));
+
+        $response = json_decode(
+            $client->receive(),
+            true
+        );
+
+        if (
+            !isset($response['success']) ||
+            !$response['success']
+        ) {
+            throw new Exception(
+                "Failed to fetch entities"
+            );
+        }
+
+        $entities = [];
+
+        foreach ($response['result'] as $entity)
+        {
+            // Hoppa över entiteter utan device-koppling
+            if (empty($entity['device_id']))
+            {
+                continue;
+            }
+
+            $entities[] = [
+                'entity_id' => $entity['entity_id'],
+                'device_id' => $entity['device_id']
+            ];
         }
 
         return $entities;
     }
 
-    function getDevices(array $entities):array {
+    function getHomeAssistantStates(string $haURL, string $haToken):array {
+        $client = new Client($haURL);
 
-        $entities = filterEntities($entities);
+        // auth required
+        $client->receive();
 
-        $objectIds = [];
+        // auth
+        $client->send(json_encode([
+            'type' => 'auth',
+            'access_token' => $haToken
+        ]));
 
-        foreach ($entities as $entity) {
+        $auth = json_decode(
+            $client->receive(),
+            true
+        );
 
-            $objectId = explode('.', $entity['entity_id'], 2)[1];
+        if (($auth['type'] ?? null) !== 'auth_ok')
+        {
+            throw new Exception(
+                'Failed to authenticate'
+            );
+        }
 
-            $objectIds[$objectId] = true;
-        }        
+        $client->send(json_encode([
+            'id' => 1,
+            'type' => 'get_states'
+        ]));
 
-        return $objectIds;
+        $response = json_decode(
+            $client->receive(),
+            true
+        );
+
+        if (
+            !isset($response['success']) ||
+            !$response['success']
+        ) {
+            throw new Exception(
+                'Failed to fetch states'
+            );
+        }
+
+        return filterEntities(
+            $response['result']
+        );
+    }
+
+    function getAllRooms(PDO $pdo):array {
+        $stmt = $pdo->query("
+            SELECT DISTINCT area_name
+            FROM devices
+            WHERE area_name IS NOT NULL AND area_name != 'Simulator'
+            ORDER BY area_name
+        ");
+
+        $rooms = $stmt->fetchAll(PDO::FETCH_COLUMN);
+
+        return $rooms;
+    }
+
+    function syncDevices(PDO $pdo, array $devices){
+        $pdo->exec("
+            UPDATE devices
+            SET is_active = 0
+        ");
+    
+        $stmt = $pdo->prepare("
+            INSERT INTO devices (
+                device_id,
+                device_name,
+                area_id,
+                area_name,
+                last_seen,
+                is_active
+            )
+            VALUES (
+                :device_id,
+                :device_name,
+                :area_id,
+                :area_name,
+                NOW(),
+                1
+            )
+            ON DUPLICATE KEY UPDATE
+                device_name = VALUES(device_name),
+                area_id = VALUES(area_id),
+                area_name = VALUES(area_name),
+                last_seen = NOW(),
+                is_active = 1
+        ");
+
+        foreach ($devices as $device)
+        {
+            $stmt->execute([
+                ':device_id'   => $device['device_id'],
+                ':device_name' => $device['device_name'],
+                ':area_id'     => $device['area_id'],
+                ':area_name'   => $device['area_name']
+            ]);
+        }
     }
 
     function filterEntities(array $entities):array {
@@ -112,250 +325,113 @@
         return $filtered;
     }
 
-    function getGroups(array $entities, array $objectIds):array {
-        $groups = [];
-
-        foreach ($entities as $entity) {
-
-            $groupKey = getGroupKey(
-                $entity['entity_id'],
-                $objectIds
-            );
-
-            $groups[$groupKey][] = $entity;
-        }
-
-        ksort($groups);
-
-        return $groups;
-    }
-
-    function getGroupKey(string $entityId, array $objectIds):string {
-        $objectId = explode('.', $entityId, 2)[1];
-
-        $parts = explode('_', $objectId);
-
-        while (count($parts) > 1) {
-
-            array_pop($parts);
-
-            $candidate = implode('_', $parts);
-
-            if (isset($objectIds[$candidate])) {
-                return $candidate;
-            }
-        }
-
-        return $objectId;
-    }
-
-    function updateDB(array $entities, PDO $pdo){
-
-        $objectIds = getDevices($entities);
-
-        $devices = getGroups(
-            filterEntities($entities),
-            $objectIds
-        );
-
-        $allowedAttributes = [
-            'friendly_name',
-            'device_class',
-            'state_class',
-            'unit_of_measurement',
-            'icon'
-        ];
-
-        $sql = "
-        INSERT INTO entities (
-            entity_id,
-            state,
-            friendly_name,
-            attributes,
-            device,
-            last_seen
-        )
-        VALUES (
-            :entity_id,
-            :state,
-            :friendly_name,
-            :attributes,
-            :device,
-            NOW()
-        )
-        ON DUPLICATE KEY UPDATE
-            device = VALUES(device),
-            state = VALUES(state),
-            friendly_name = VALUES(friendly_name),
-            attributes = VALUES(attributes),
-            last_seen = NOW()
-        ";
-
-        $stmt = $pdo->prepare($sql);
-
-        if (!$stmt) {
-            die('Could not prepare statement');
-        }
-
-        foreach ($devices as $deviceName => $deviceEntities) {
-
-            foreach ($deviceEntities as $entity) {
-
-                $filteredAttributes = [];
-
-                foreach ($allowedAttributes as $key) {
-                    if (array_key_exists($key, $entity['attributes'] ?? [])) {
-                        $filteredAttributes[$key] = $entity['attributes'][$key];
-                    }
-                }
-
-                $friendlyName =
-                    $filteredAttributes['friendly_name']
-                    ?? null;
-
-                unset($filteredAttributes['friendly_name']);
-
-                $stmt->execute([
-                    'entity_id'     => $entity['entity_id'],
-                    'device'        => $deviceName,
-                    'state'         => $entity['state'] ?? null,
-                    'friendly_name' => $friendlyName,
-                    'attributes'    => json_encode(
-                        $filteredAttributes,
-                        JSON_UNESCAPED_UNICODE
-                    )
-                ]);
-            }
-        }
-    }
-
     function getAllDevices(PDO $pdo):array {
         $stmt = $pdo->query("
             SELECT *
-            FROM entities
-            ORDER BY device, friendly_name
+            FROM devices
+            WHERE is_active = 1
+            ORDER BY device_name
         ");
 
-        $entities = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-        foreach ($entities as &$entity) {
-            $entity['attributes'] = json_decode($entity['attributes'], true) ?? [];
-        }
-
-        $devices = [];
-
-        foreach ($entities as $entity) {
-            $devices[$entity['device']][] = $entity;
-        }
-
-        return $devices;
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    function filterDevices(array $devices, callable $callback):array {
+    function indexEntitiesByDevice(array $entities):array {
 
-        return array_filter($devices, $callback, ARRAY_FILTER_USE_BOTH);
+        $indexed = [];
+
+        foreach ($entities as $entity)
+        {
+            $indexed[
+                $entity['device_id']
+            ][] = $entity['entity_id'];
+        }
+
+        return $indexed;
     }
 
-    function getMainEntity(array $deviceEntities):?array {
-        foreach ($deviceEntities as $entity) {
+    function indexStatesByEntity(array $states):array {
 
+        $indexed = [];
+
+        foreach ($states as $state)
+        {
+            $indexed[
+                $state['entity_id']
+            ] = $state;
+        }
+
+        return $indexed;
+    }
+
+    function buildDevices(array $devices, array $entitiesByDevice, array $statesByEntity):array {
+        $result = [];
+
+        foreach ($devices as $device)
+        {
+            $deviceEntities = [];
+
+            foreach (
+                $entitiesByDevice[
+                    $device['device_id']
+                ] ?? []
+                as $entityId
+            )
+            {
+                if (
+                    isset(
+                        $statesByEntity[$entityId]
+                    )
+                ) {
+                    $deviceEntities[] =
+                        $statesByEntity[$entityId];
+                }
+            }
+
+        if (empty($deviceEntities))
+        {
+            continue;
+        }
+
+        $result[$device['device_id']] = [
+            'device_id' => $device['device_id'],
+            'device_name' => $device['device_name'],
+            'area_name' => $device['area_name'],
+            'required_user_level' => $device['required_user_level'],
+            'entities' => $deviceEntities
+        ];
+        }
+
+        return $result;
+    }
+
+    function renderDeviceCard(array $device):string {
+        $entities = $device['entities'];
+
+        $mainEntity = null;
+        $secondaryEntities = [];
+
+        foreach ($entities as $entity)
+        {
             $domain = explode('.', $entity['entity_id'], 2)[0];
-            if (in_array($domain, MAIN_ENTITY_DOMAINS)) {
-                return $entity;
+
+            if (
+                $mainEntity === null &&
+                in_array($domain, ["switch", "light"] )
+            ) {
+                $mainEntity = $entity;
+            }
+            else
+            {
+                $secondaryEntities[] = $entity;
             }
         }
-        return null;
-    }
-
-    function getSecondaryEntities(array $deviceEntities, ?array $mainEntity, array $excludeClasses = []):array {
-        $secondary = [];
-
-        foreach ($deviceEntities as $entity) {
-            if ($mainEntity && $entity['entity_id'] === $mainEntity['entity_id']) {
-                continue;
-            }
-
-            $deviceClass = $entity['attributes']['device_class'] ?? '';
-
-            if (in_array($deviceClass, $excludeClasses)) {
-                continue;
-            }
-
-            $secondary[] = $entity;
-        }
-
-        return $secondary;
-    }
-
-    function formatMeasurement(array $entity): string {
-
-        $value = $entity['state'] ?? '';
-
-        $unit =
-            $entity['attributes']['unit_of_measurement']
-            ?? '';
-
-        return trim($value . ' ' . $unit);
-    }
-
-    function formatState(array $entity): string {
-        $state = strtolower($entity['state'] ?? '');
-
-        $deviceClass =
-            $entity['attributes']['device_class']
-            ?? '';
-
-        switch ($deviceClass) {
-            case 'door':
-                return $state === 'on'
-                    ? 'Open'
-                    : 'Closed';
-            case 'window':
-                return $state === 'on'
-                    ? 'Open'
-                    : 'Closed';
-            case 'motion':
-                return $state === 'on'
-                    ? 'Motion Detected'
-                    : 'No Motion';
-            case 'occupancy':
-                return $state === 'on'
-                    ? 'Occupied'
-                    : 'Unoccupied';
-        }
-
-        return ucfirst($state);
-    }
-
-    function getShortLabel(string $friendlyName, string $deviceTitle):string {
-        $label = str_replace( $deviceTitle, '', $friendlyName);
-
-        $label = trim($label);
-
-        return $label !== '' ? $label : $friendlyName;
-    }
-
-    function getDeviceTitle(string $deviceName, array $deviceEntities):string {
-        foreach ($deviceEntities as $entity) {
-            if (!empty($entity['friendly_name'])) {
-                return $entity['friendly_name'];
-            }
-        }
-
-        return ucfirst(str_replace('_', ' ', $deviceName));
-    }
-
-    function renderDeviceCard(string $deviceName, array $deviceEntities):string {
-
-        $mainEntity = getMainEntity($deviceEntities);
-
-        $secondaryEntities = getSecondaryEntities($deviceEntities, $mainEntity);
 
         $html = "<div class='device-card'>";
-        
-        $title = getDeviceTitle($deviceName, $deviceEntities);
 
-        $html .= "<h2 class='device-title'>" . htmlspecialchars($title) ."</h2>";
+        $html .= "<h2 class='device-title'>";
+        $html .= htmlspecialchars($device['device_name']);
+        $html .= "</h2>";
 
         /*
         |--------------------------------------------------------------------------
@@ -363,12 +439,14 @@
         |--------------------------------------------------------------------------
         */
 
-        if ($mainEntity) {
+        if ($mainEntity)
+        {
             $html .= "<div class='device-status-label'>";
-            $html .= "Status: ";
+            $html .= "Status:";
             $html .= "</div>";
+
             $html .= "<div class='device-status-value'>";
-            $html .= htmlspecialchars(formatState($mainEntity));
+            $html .= htmlspecialchars(ucfirst($mainEntity['state']));
             $html .= "</div>";
         }
 
@@ -378,41 +456,100 @@
         |--------------------------------------------------------------------------
         */
 
-        if ($mainEntity && (
-            str_starts_with($mainEntity['entity_id'], 'light.') ||
-            str_starts_with($mainEntity['entity_id'], 'switch.'))) {
-
+        if (
+            $mainEntity &&
+            (
+                str_starts_with($mainEntity['entity_id'], 'light.') ||
+                str_starts_with($mainEntity['entity_id'], 'switch.')
+            )
+        ) {
             $html .= "<div class='device-controls'>";
 
-            $buttonText = $mainEntity['state'] === 'on' ? 'TURN OFF' : 'TURN ON';
+            $buttonText =
+                $mainEntity['state'] === 'on'
+                ? 'TURN OFF'
+                : 'TURN ON';
 
-            $buttonColor = $mainEntity['state'] === 'on' ? '#dc3545' : '#0e603a';
+            $buttonColor =
+                $mainEntity['state'] === 'on'
+                ? '#dc3545'
+                : '#0e603a';
 
-            $html .= "<form method='post'>
-                <input type='hidden' name='entity_id' value='{$mainEntity['entity_id']}'>
-                    <input type='hidden' name='action' value='" . ($mainEntity['state'] === 'on' ? 'turn_off' : 'turn_on') . "'>
-                        <button class='device-button' type='submit' style='
-                                background-color: {$buttonColor};
-                                color: white;
-                                border: none;
-                                border-radius: 6px;
-                                padding: 8px 16px;
-                                cursor: pointer;'>
-                            {$buttonText}
-                        </button>
-            </form>";
-            
+            $html .= "
+                <form method='post'>
+                    <input
+                        type='hidden'
+                        name='entity_id'
+                        value='{$mainEntity['entity_id']}'
+                    >
+
+                    <input
+                        type='hidden'
+                        name='action'
+                        value='" . (
+                            $mainEntity['state'] === 'on'
+                            ? 'turn_off'
+                            : 'turn_on'
+                        ) . "'>
+
+                    <button
+                        class='device-button'
+                        type='submit'
+                        style='
+                            background-color: {$buttonColor};
+                            color: white;
+                            border: none;
+                            border-radius: 6px;
+                            padding: 8px 16px;
+                            cursor: pointer;
+                        '
+                    >
+                        {$buttonText}
+                    </button>
+                </form>
+            ";
+
             $html .= "</div>";
         }
-        
+
         $html .= "<div class='device-details'>";
 
-        foreach ($secondaryEntities as $entity) {
-            $label = getShortLabel($entity['friendly_name'], $title);
-            if (!empty($entity['attributes']['unit_of_measurement'])) {
-                $value = formatMeasurement($entity);
-            } else {
-                $value = formatState($entity);
+        foreach ($secondaryEntities as $entity)
+        {
+            $friendlyName =
+                $entity['attributes']['friendly_name']
+                ?? $entity['entity_id'];
+
+            $label = $friendlyName;
+
+            if (
+                str_starts_with(
+                    $friendlyName,
+                    $device['device_name']
+                )
+            ) {
+                $label = trim(
+                    substr(
+                        $friendlyName,
+                        strlen($device['device_name'])
+                    )
+                );
+            }
+
+            if ($label === '')
+            {
+                $label = $friendlyName;
+            }
+
+            $value = $entity['state'];
+
+            if (
+                !empty(
+                    $entity['attributes']['unit_of_measurement']
+                )
+            ) {
+                $value .= ' ' .
+                    $entity['attributes']['unit_of_measurement'];
             }
 
             $html .= "<div class='device-detail-label'>";
@@ -425,21 +562,12 @@
         }
 
         $html .= "</div>";
-
         $html .= "</div>";
 
         return $html;
     }
 
     function controlDevice(string $entityId, string $action, string $haURL, string $haToken):bool {
-        $allowedActions = [
-            'turn_on',
-            'turn_off'
-        ];
-
-        if (!in_array($action, $allowedActions)) {
-            return false;
-        }
-        return true;
+        return false;
     }
 ?>
