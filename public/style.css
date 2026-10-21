@@ -494,7 +494,7 @@ body {
     overflow:hidden;
 }
 #content-area {
-    min-height: 80vh;
+    min-height: 100vh;
     box-sizing: border-box;
 }
 
