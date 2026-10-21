@@ -4,13 +4,15 @@
     require_once '../src/connect_api.php';
     require_once 'functions.php';
 
-    $devices = getHomeAssistantDevices($haURL, $haToken);
+    $stmt = $pdo->query("
+        SELECT MAX(last_seen)
+        FROM devices");
 
-    try {
+    $lastUpdate = strtotime($stmt->fetchColumn());
+
+    if (time() - $lastUpdate > 1800) {
+        $devices = getHomeAssistantDevices($haURL, $haToken);
+
         syncDevices($pdo, $devices);
-        echo "Success!";
-    }
-    catch (Exception $e) {
-        echo "Failure...";
     }
 ?>
