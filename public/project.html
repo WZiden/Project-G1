@@ -40,30 +40,10 @@
                     </label>
                     <button type="submit">Log in</button>
                     <div class="horizontalcontainer">
-                        <a class="forgottenLink">Forgot your password?</a>
                         <a class="registerLink">Register new account</a>
                     </div>
                 </form>
                 <p id="loginError" class="errorMessage"></p>
-            </div>
-
-            <div class="verticalContainer modalContent" id="modalContentForgotten">
-                <span class="closeModal">&times;</span>
-                <h1>Reset password</h1>
-                <form id="forgottenForm">
-                    <input type="hidden" name="type" value="forgotten">
-                    <label for="forgottenemail">Email</label>
-                    <div class="inputContainer">
-                        <input type="email" placeholder="Enter your email" id="forgottenemail" name="email"
-                            autocomplete="on" required>
-                        <span class="material-symbols-outlined">mail</span>
-                    </div>
-                    <button type="submit">Send verification code</button>
-                    <div class="horizontalcontainer">
-                        <a class="loginLink">Login</a>
-                        <a class="registerLink">Register new account</a>
-                    </div>
-                </form>
             </div>
 
             <div class="verticalContainer modalContent" id="modalContentRegister">
@@ -91,7 +71,6 @@
                     </div>
                     <button type="submit">Register</button>
                     <div class="horizontalcontainer">
-                        <a class="forgottenLink">Forgot your password?</a>
                         <a class="loginLink">Login</a>
                     </div>
                 </form>
@@ -115,7 +94,7 @@
                     <button class="room-btn" data-page="Alert"> Alerts</button>
             
                     <button id="showLogin" class="login-btn" data-room="login"> Login</button> 
-                    <button id="showLogout" class="room-btn" data-room="logout"> Logout</button> 
+                    <button id="showLogout" class="login-btn" data-room="logout"> Logout</button> 
 
                 </div>
             </header>

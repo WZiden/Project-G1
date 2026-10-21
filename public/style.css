@@ -114,7 +114,7 @@ header{
     cursor: pointer;
 }
 
-.room-btn:hover {
+.room-btn:hover, .login-btn:hover {
     background-color: var(--button-hover);
 }
 .scrollbar .room-btn {
