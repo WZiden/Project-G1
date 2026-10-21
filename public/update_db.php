@@ -1,22 +1,16 @@
 <?php
 
-    require_once 'connect_db.php';
-    require_once 'connect_api.php';
+    require_once '../src/connect_db.php';
+    require_once '../src/connect_api.php';
     require_once 'functions.php';
 
-    $stmt = $pdo->query("
-        SELECT MAX(last_seen)
-        FROM entities");
+    $devices = getHomeAssistantDevices($haURL, $haToken);
 
-    $lastUpdate = strtotime($stmt->fetchColumn());
-
-    if (time() - $lastUpdate > 10) {
-        $entites = getAPI($ch, $haURL, $haToken);
-
-        updateDB($entites, $pdo);
-
-        echo "Updated at " . date('H:i:s');
+    try {
+        syncDevices($pdo, $devices);
+        echo "Success!";
     }
-
-
+    catch (Exception $e) {
+        echo "Failure...";
+    }
 ?>
