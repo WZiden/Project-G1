@@ -1,8 +1,8 @@
 <?php
 session_start();
 
-// Get a user from the database
-function getUser(PDO $pdo, string $email) {
+// Get a user from the database by email
+function getUserByEmail(PDO $pdo, string $email) {
     try {
         $stmt = $pdo->prepare("SELECT * FROM users WHERE email = ?");
         $stmt->execute([$email]);
@@ -10,6 +10,31 @@ function getUser(PDO $pdo, string $email) {
         return $result;
     } catch (Exception $e) { 
         return NULL;
+    }
+}
+
+// Get a user from the database by userID
+function getUserByID(PDO $pdo, int $userID) {
+    try {
+        $stmt = $pdo->prepare("SELECT * FROM users WHERE userID = ?");
+        $stmt->execute([$userID]);
+        $result = $stmt->fetch();
+        return $result;
+    } catch (Exception $e) { 
+        return NULL;
+    }
+}
+
+// Check if a cookie exists in the database
+// Return userID or NULL
+function checkCookie(PDO $pdo, string $cookieToken) {
+    try {
+        $stmt = $pdo->prepare("SELECT userID FROM cookies WHERE token = ?");
+        $stmt->execute([$cookieToken]);
+        $result = $stmt->fetch();
+        return $result["userID"];
+    } catch (Exception $e) { 
+        return "kunde inte ansluta till datbasen för att kolla kookie";
     }
 }
 
@@ -43,19 +68,19 @@ function loginUser(PDO $pdo, string $email, string $password, string $remember =
     // Check that all mandatory fields are filled in 
     // and verify whether the user exists in the database
     if (!empty($pdo) && !empty($email) && !empty($password)) {
-        $savedUser = getUser($pdo, $email);
+        $savedUser = getUserByEmail($pdo, $email);
         if (!empty($savedUser)) {
 
             // Check the password
             if (password_verify($password, $savedUser["passwordHash"])) {
                 $_SESSION["username"] = htmlspecialchars($savedUser["username"]);
 
-                 // Set persistent cookie for 1 min if 'remember me' is checked
+                 // Set persistent cookie for 1h if 'remember me' is checked
                 if ($remember === "on") {
                     // Set cookie
                     $salt = "!s9:(K*+ji<%-D";
                     $token = hash("sha256", $salt . time() . $salt);
-                    setcookie("SmartHome", $token, time() + 60, "/");
+                    setcookie("SmartHome", $token, time() + 60 * 60, "/");
 
                     // Add cookie to database
                     $stmt = $pdo->prepare("INSERT INTO cookies (userID, token) VALUES (?, ?) ON DUPLICATE KEY UPDATE token=?");
@@ -68,4 +93,9 @@ function loginUser(PDO $pdo, string $email, string $password, string $remember =
     } else {
         return [0, "All fields must be filled in"];
     }   
+}
+
+// Destoy cokie
+function destroyCookie() {
+    setcookie("SmartHome", "", time() - 60 * 10, "/");
 }
