@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="style.css">
     <script src="login.js" defer></script>
     <script src ="pages.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src = "favorites.js" defer></script>
     <script src="device_control.js"></script>
     <script src="https://kit.fontawesome.com/8d6a80a8d9.js" crossorigin="anonymous"></script>
@@ -91,7 +92,7 @@
                 <div class="header-button">
                     <div class ="nav-bottom-btn-mobil">
                         <button class="room-btn" data-page="Devices"> Devices</button>
-                        <button class="room-btn" data-page="History"> History</button>
+                        <button class="room-btn" data-page="Data"> Data</button>
                         <button class="room-btn" data-page="Profile"> Profile</button>
                     </div>
                     <button class="room-btn" data-page="Alert"> Alerts</button>
@@ -105,7 +106,7 @@
             <nav class="scrollbar grid-box">
                 <div class="button">
                     <form class="search">
-                        <input type="search" placeholder="Search">
+                        <input type="search" placeholder="Search Room">
                         <button type="submit" class="search-btn">Search</button>
                     </form>
                     <button class="room-btn" data-page="Favorite"> Favorite</button>
@@ -116,13 +117,19 @@
             <main  id="content-area"class="grid-box">
                 <div class="top-side"> 
                     <h2 id="page-title"></h2>
-                    <div id ="search-container"></div>
+                    <div class="search-container" id="deviceSearchContainer">
+                        <input
+                            id="deviceSearch"
+                            type="search"
+                            placeholder="Filter devices"
+                        />
+                    </div>
                 </div>
                <div id="page-content"></div>
             </main>
             <nav class="nav-bottom grid-box">
                 <button class="room-btn" data-page="Devices"> Devices</button>
-                <button class="room-btn" data-page="History"> History</button>
+                <button class="room-btn" data-page="History"> Data</button>
                 <button class="room-btn" data-page="Profile"> Profile</button>
               
             </nav>

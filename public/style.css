@@ -15,6 +15,7 @@
     --header-color: #004346;
     --card-button-color : rgb(19, 19, 80);
     --button-hover: #9bb5bf;
+    --red: #dc3545;
 
     --border-radius: 0.5rem;
     --spacing: 1rem;
@@ -97,6 +98,27 @@ header{
     justify-content: space-between;
     align-items: center;
 }
+.search-container {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    min-width: 0;
+}
+.search-container input{
+    width: 100%;
+    max-width: 14rem;
+    min-width: 0;
+    box-sizing: border-box;
+    padding: 0.7em 1em;
+    border: none;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+}
+
+.search-container input:focus {
+    outline: none;
+}
+
 
 .scrollbar {
     background-color: var(--box-color);
@@ -638,7 +660,7 @@ body {
     overflow:hidden;
 }
 #content-area {
-    min-height: 80vh;
+    min-height: 100vh;
     box-sizing: border-box;
 }
 
@@ -748,5 +770,93 @@ a:hover {
     padding: var(--spacing);
     text-align: center;
     border-radius: var(--border-radius);
-    background-color: #dc3545;
+    background-color: var(--red);
+}
+
+.pageForm {
+    padding-bottom: 2rem;
+}
+
+.pageForm fieldset {
+    border: 2px solid var(--button-color);
+    border-radius: var(--border-radius);
+    padding: var(--spacing);
+}
+
+.pageForm legend {
+    font-size: large;
+    padding: var(--spacing);
+}
+
+/*utseende history/data page*/
+
+.history-mode-buttons {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.history-mode-buttons button {
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    border: none;
+    background-color: var(--button-color);
+    color: var(--text-color);
+    cursor: pointer;
+}
+.history-mode-buttons button:hover{
+    background-color:var(--button-hover) ;
+}
+
+.history-mode-buttons button.active {
+    background-color:var( --grid-color);
+    border: 2px solid  #76949F ;
+}
+
+/*kod för timeline*/
+.timeline {
+    border-left: 3px solid var(--button-color);
+    padding-left: 1rem;
+    margin: 2rem 0;
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    border: 2px solid var(--button-color);   /* RAMEN */
+    border-radius: 0.5rem;       /* Rundade hörn */
+    background: var( --grid-color); /* Lätt bakgrund */
+
+}
+
+.timeline-item::before {
+    content: "";
+    position: absolute;
+    left: -10px;
+    top: 5px;
+    width: 12px;
+    height: 12px;
+    background: var(--button-color);
+    border-radius: 50%;
+}
+
+.timeline-time {
+    font-weight: bold;
+    margin-bottom: 0.2rem;
+}
+
+.timeline-message {
+    opacity: 0.9;
+}
+
+.chart-wrapper {
+    width: 100%;
+    height: 250px;     /* ← LÅSER höjden */
+    position: relative; /* ← Chart.js kräver detta */
+}
+
+#tempChart {
+    width: 100% !important;
+    height: 100% !important; /* ← Canvas fyller wrappern */
 }
