@@ -3,6 +3,32 @@
 
     use WebSocket\Client;
 
+    const ALLOWED_SERVICES = [
+        'light' => [
+            'turn_on',
+            'turn_off'
+        ],
+
+        'switch' => [
+            'turn_on',
+            'turn_off'
+        ],
+
+        'climate' => [
+            'set_temperature'
+        ],
+
+        'cover' => [
+            'set_cover_position',
+            'stop_cover'
+        ],
+
+        'lock' => [
+            'lock',
+            'unlock'
+        ]
+    ];
+
 
     function getHomeAssistantDevices(string $haURL, string $haToken):array {
         $client = new Client($haURL);
@@ -425,26 +451,31 @@
 
         $isFavorite = in_array($device['device_id'], $favorites, true);
 
-        $mainEntity = null;
-        $secondaryEntities = [];
+        $controllableEntities = [];
+        $infoEntities = [];
+   
+        $html = "<div class='device-card'>";
 
-        foreach ($entities as $entity)
-        {
+        foreach ($entities as $entity){
             $domain = explode('.', $entity['entity_id'], 2)[0];
 
-            if (
-                $mainEntity === null &&
-                in_array($domain, ["switch", "light"] )
-            ) {
-                $mainEntity = $entity;
+            $mainEntityDomains = [
+                'light',
+                'switch',
+                'climate',
+                'cover',
+                'lock'
+            ];
+
+            if (in_array($domain, $mainEntityDomains, true)){
+                $controllableEntities[] = $entity;
             }
-            else
-            {
-                $secondaryEntities[] = $entity;
+            else{
+                $infoEntities[] = $entity;
             }
         }
 
-        $html = "<div class='device-card'>";
+        $primaryEntity = $controllableEntities[0] ?? null;
 
         $html .= "<div class='device-card-header'>";
         $html .= "<h2 class='device-title'>";
@@ -466,123 +497,47 @@
         ";
         $html .= "</div>";
 
-        /*
-        |--------------------------------------------------------------------------
-        | Status
-        |--------------------------------------------------------------------------
-        */
+        $showEntityLabels = count($controllableEntities) > 1;
 
-        if ($mainEntity)
-        {
-            $html .= "<div class='device-status-label'>";
-            $html .= "Status:";
-            $html .= "</div>";
+        foreach ($controllableEntities as $entity){
+            $domain = explode('.', $entity['entity_id'], 2)[0];
 
-            $html .= "<div class='device-status-value'>";
-            $html .= htmlspecialchars(ucfirst($mainEntity['state']));
-            $html .= "</div>";
-        }
-
-        /*
-        |--------------------------------------------------------------------------
-        | ON/OFF knapp
-        |--------------------------------------------------------------------------
-        */
-
-        if (
-            $mainEntity &&
-            (
-                str_starts_with($mainEntity['entity_id'], 'light.') ||
-                str_starts_with($mainEntity['entity_id'], 'switch.')
-            )
-        ) {
-            $html .= "<div class='device-controls'>";
-
-            $buttonText =
-                $mainEntity['state'] === 'on'
-                ? 'TURN OFF'
-                : 'TURN ON';
-
-            $buttonColor =
-                $mainEntity['state'] === 'on'
-                ? '#dc3545'
-                : '#0e603a';
-
-            $html .= "
-                <form method='post'>
-                    <input
-                        type='hidden'
-                        name='entity_id'
-                        value='{$mainEntity['entity_id']}'
-                    >
-
-                    <input
-                        type='hidden'
-                        name='action'
-                        value='" . (
-                            $mainEntity['state'] === 'on'
-                            ? 'turn_off'
-                            : 'turn_on'
-                        ) . "'>
-
-                    <button
-                        class='device-button'
-                        type='submit'
-                        style='
-                            background-color: {$buttonColor};
-                            color: white;
-                            border: none;
-                            border-radius: 6px;
-                            padding: 8px 16px;
-                            cursor: pointer;
-                        '
-                    >
-                        {$buttonText}
-                    </button>
-                </form>
-            ";
-
-            $html .= "</div>";
-        }
+            switch ($domain){
+                case 'lock':
+                    $html .= renderLockControls($entity);
+                    break;
+                case 'cover':
+                    $html .= renderCoverControls($entity);
+                    break;
+                case 'light':
+                case 'switch':
+                    $html .= renderOnOffControls($entity);
+                    break;
+                case 'climate':
+                    $html .= renderClimateControls($entity);
+                    break;
+            }
+        }               
 
         $html .= "<div class='device-details'>";
 
-        foreach ($secondaryEntities as $entity)
+        foreach ($infoEntities as $entity)
         {
-            $friendlyName =
-                $entity['attributes']['friendly_name']
-                ?? $entity['entity_id'];
-
+            $friendlyName = $entity['attributes']['friendly_name'] ?? $entity['entity_id'];
             $label = $friendlyName;
 
-            if (
-                str_starts_with(
-                    $friendlyName,
-                    $device['device_name']
-                )
-            ) {
-                $label = trim(
-                    substr(
-                        $friendlyName,
-                        strlen($device['device_name'])
-                    )
-                );
+            if (str_starts_with($friendlyName, $device['device_name'])){
+                $label = trim(substr($friendlyName, strlen($device['device_name'])));
             }
 
-            if ($label === '')
-            {
+            if ($label === ''){
                 $label = $friendlyName;
             }
 
             $value = $entity['state'];
 
-            if (
-                !empty(
-                    $entity['attributes']['unit_of_measurement']
-                )
-            ) {
-                $value .= ' ' .
-                    $entity['attributes']['unit_of_measurement'];
+            if (!empty($entity['attributes']['unit_of_measurement'])){
+                $value .= ' ' . $entity['attributes']['unit_of_measurement'];
             }
 
             $html .= "<div class='device-detail-label'>";
@@ -600,7 +555,180 @@
         return $html;
     }
 
-    function controlDevice(string $entityId, string $action, string $haURL, string $haToken):bool {
-        return false;
+    function controlDevice(string $entityId, string $service, string $haURL, string $haToken, array $serviceData = []):bool {
+        $domain = explode('.', $entityId)[0];
+
+        if (
+            !isset(ALLOWED_SERVICES[$domain]) ||
+            !in_array(
+                $service,
+                ALLOWED_SERVICES[$domain],
+                true
+            )
+        ) {
+            throw new Exception(
+                'Service not allowed'
+            );
+        }
+
+        $client = new Client($haURL);
+
+        $client->receive();
+
+        error_log(print_r([
+            'entity_id' => $entityId,
+            'service'    => $service,
+            'serviceData' => $serviceData
+        ], true));
+
+        $client->send(json_encode([
+            "type" => "auth",
+            "access_token" => $haToken
+        ]));
+
+        $auth = json_decode(
+            $client->receive(),
+            true
+        );
+
+        if (($auth['type'] ?? null) !== 'auth_ok')
+        {
+            throw new Exception(
+                "Failed to authenticate"
+            );
+        }
+
+        $client->send(json_encode([
+            "id" => 2,
+            "type" => "call_service",
+            "domain" => $domain,
+            "service" => $service,
+            "service_data" => array_merge(
+                [
+                    "entity_id" => $entityId
+                ],
+                $serviceData
+            )
+        ]));
+
+        $response = json_decode(
+            $client->receive(),
+            true
+        );
+
+        return (
+            isset($response['success'])
+            && $response['success']
+        );
+    }
+
+    function renderOnOffControls(array $mainEntity):string {
+
+        $html = renderEntityHeader($mainEntity);
+        $html .= "<div class='device-controls'>";
+
+        $buttonText = $mainEntity['state'] === 'on' ? 'TURN OFF' : 'TURN ON';
+
+        $buttonClass = $mainEntity['state'] === 'on' ? 'off' : 'on';
+
+        $html .= " <form class='device-control-form' data-entity='{$mainEntity['entity_id']}'>
+                <input type='hidden' name='entity_id' value='{$mainEntity['entity_id']}'>
+                <input type='hidden' name='service'value='" . (
+                        $mainEntity['state'] === 'on'
+                        ? 'turn_off'
+                        : 'turn_on'
+                    ) . "'>
+                <button class='device-button {$buttonClass}' data-entity='{$mainEntity['entity_id']}' type='submit'>
+                    {$buttonText}
+                </button>
+            </form>";
+
+        $html .= "</div>";
+
+        return $html;
+    }
+
+    function renderClimateControls(array $mainEntity):string {
+        $setTemp = $mainEntity['attributes']['temperature'] ?? 0;
+
+        $currentTemp = $mainEntity['attributes']['current_temperature'] ?? 0;
+
+        $minTemp = $mainEntity['attributes']['min_temp'] ?? 5;
+
+        $maxTemp = $mainEntity['attributes']['max_temp'] ?? 30;
+
+        $step = $mainEntity['attributes']['target_temp_step'] ?? 0.5;
+
+        $html = renderEntityHeader($mainEntity);
+
+        $html .= "<div class='device-controls climate-controls'>
+                <div class='climate-target-temp' data-entity='{$mainEntity['entity_id']}'>
+                    {$setTemp}°C
+                </div>
+                <input type='range' class='climate-slider' data-entity='{$mainEntity['entity_id']}'
+                    min='{$minTemp}'
+                    max='{$maxTemp}'
+                    step='{$step}'
+                    value='{$setTemp}'>
+                <div class='climate-current-temp'>
+                    Current Temperature: {$currentTemp}°C
+                </div>
+            </div>";
+
+        return $html;
+    }
+
+    function renderCoverControls(array $mainEntity):string {
+        $position = $mainEntity['attributes']['current_position'] ?? 0;
+
+        $html = renderEntityHeader($mainEntity);
+
+        $html .="<div class='cover-controls'>
+                    <div class='cover-position-label' data-entity='{$mainEntity['entity_id']}'>
+                        {$position}%
+                    </div>
+                    <input type='range' class='cover-slider' data-entity='{$mainEntity['entity_id']}'
+                        min='0'
+                        max='100'
+                        step='1'
+                        value='{$position}'>
+                    <button type='button' class='cover-stop-button' data-entity='{$mainEntity['entity_id']}'>
+                        STOP
+                    </button>
+                </div>";
+
+        return $html;
+    }
+
+    function renderLockControls(array $mainEntity):string {
+        $isLocked = $mainEntity['state'] === 'locked';
+
+        $service = $isLocked ? 'unlock' : 'lock';
+
+        $html = renderEntityHeader($mainEntity);
+
+        $iconClass = $isLocked ? 'fa-lock' : 'fa-lock-open';
+
+        $html .="<div class='lock-controls'>
+                <form class='device-control-form'>
+                    <input type='hidden' name='entity_id' value='{$mainEntity['entity_id']}'>
+                    <input type='hidden' name='service' value='{$service}'>
+                    <button type='submit' class='lock-button' data-locked='" . ($isLocked ? 'true' : 'false') . "'>
+                    <i class='fa-solid fa-lock lock-icon'></i>
+                    <i class='fa-solid fa-lock-open unlock-icon'></i>
+                    </button>
+                </form>
+            </div>";
+
+        return $html;
+    }
+
+    function renderEntityHeader(array $entity):string {
+        $friendlyName = $entity['attributes']['friendly_name'] ?? $entity['entity_id'];
+
+        return "<div class='device-detail-label'>
+                    {$friendlyName}
+                </div>";
+
     }
 ?>

@@ -39,9 +39,11 @@ body{
     height: 100vh;
     color: var(--text-color);
 }
+
 .grid-box {
     border-radius:0.75rem ; 
 }
+
 header{
     display: grid;
     grid-column: 1 / -1;
@@ -61,6 +63,7 @@ header{
     margin-left: auto;
     margin-right: 1rem;
 }
+
 .header-button .nav-bottom-btn-mobil {
     display: flex;
     align-items: center;
@@ -94,6 +97,7 @@ header{
     justify-content: space-between;
     align-items: center;
 }
+
 .scrollbar {
     background-color: var(--box-color);
     border-radius: var(--border-radius);
@@ -117,11 +121,11 @@ header{
 .room-btn:hover, .login-btn:hover {
     background-color: var(--button-hover);
 }
+
 .scrollbar .room-btn {
     width: 80%;
     margin-top: 1rem;
 }
-
 
 .cards {
     display: grid;
@@ -142,6 +146,7 @@ header{
     justify-content: space-evenly;
     align-items: center;
 }
+
 .card p {
     padding: 0.5em;
     border-radius: var(--border-radius);
@@ -159,9 +164,11 @@ header{
     font-size: 1em;
     width: 4em;
 }
+
 .nav-bottom .room-btn{
     display: none;
 }
+
  .nav-bottom {
     display: none;
 }
@@ -250,8 +257,6 @@ header{
     padding-bottom: 10px;
     border-bottom: 1px solid #eee;
 }
-
-/* Titel */
 
 /* Titel centrerad i kortet */
 .device-title {
@@ -348,6 +353,111 @@ header{
     padding: 10px;
 
     font-weight: bold;
+
+    color: white;
+
+    border: none;
+
+    border-radius: 6px;
+
+    padding: 8px 16px;
+
+    cursor: pointer;
+}
+
+.device-button.on {
+    background-color: #0e603a;
+}
+
+.device-button.off {
+    background-color: #dc3545;
+}
+
+.lock-button{
+    background: transparent;
+    border: none;
+    cursor: pointer;
+
+    font-size: 2rem;
+
+    color: #666;
+
+    transition: all .2s ease;
+}
+
+.lock-button i {
+    pointer-events: none;
+}
+
+.lock-button[data-locked="true"]{
+    color: #dc3545;
+}
+
+.lock-button[data-locked="false"]{
+    color: #0e603a;
+}
+
+.lock-button:hover{
+    color: rgb(255, 212, 59);
+    transform: scale(1.15);
+}
+
+/* Låst som standard */
+.lock-button[data-locked="true"] .lock-icon {
+    display: inline-block;
+}
+
+.lock-button[data-locked="true"] .unlock-icon {
+    display: none;
+}
+
+/* Olåst som standard */
+.lock-button[data-locked="false"] .lock-icon {
+    display: none;
+}
+
+.lock-button[data-locked="false"] .unlock-icon {
+    display: inline-block;
+}
+
+/* Hover visar den motsatta ikonen */
+.lock-button[data-locked="true"]:hover .lock-icon{
+    display: none;
+}
+
+.lock-button[data-locked="true"]:hover .unlock-icon {
+    display: inline-block;
+}
+
+.lock-button[data-locked="false"]:hover .lock-icon {
+    display: inline-block;
+}
+
+.lock-button[data-locked="false"]:hover .unlock-icon {
+    display: none;
+}
+
+.climate-controls{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+}
+
+.climate-target-temp{
+    font-size: 1.4rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+.climate-slider{
+    width: 100%;
+}
+
+.climate-current-temp{
+    text-align: center;
+    font-size: 0.9rem;
+    color: white;
 }
 
 
