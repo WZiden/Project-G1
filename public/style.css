@@ -605,16 +605,6 @@ input[type=text], input[type=email], input[type=password], button[type=submit] {
     border-radius: var(--border-radius);
 }
 
-button {
-    background-color: var(--button-color);
-    font-size: large;font-weight: bold;
-}
-
-button:hover {
-    background-color: var(--box-color);
-    color: var(--text-color)
-}
-
 label {
     padding-left: var(--spacing);
 }
