@@ -405,8 +405,25 @@
         return $result;
     }
 
-    function renderDeviceCard(array $device):string {
+    function getFavorites(PDO $pdo, string $userID):array {
+        $stmt = $pdo->prepare("
+            SELECT f.`device_id`
+            FROM `favorites` f
+            JOIN `users` u ON u.`userID` = f.`userID`
+            WHERE u.`username` = :username
+        ");
+
+        $stmt->execute([
+            ':username' => $userID
+        ]);
+
+        return $stmt->fetchAll(PDO::FETCH_COLUMN);
+    }
+
+    function renderDeviceCard(array $device, array $favorites):string {
         $entities = $device['entities'];
+
+        $isFavorite = in_array($device['device_id'], $favorites, true);
 
         $mainEntity = null;
         $secondaryEntities = [];
@@ -429,9 +446,25 @@
 
         $html = "<div class='device-card'>";
 
+        $html .= "<div class='device-card-header'>";
         $html .= "<h2 class='device-title'>";
         $html .= htmlspecialchars($device['device_name']);
         $html .= "</h2>";
+
+        $html .= "
+            <form method='post' class='favorite-form'>
+                <input type='hidden' name='device_id' value='" . htmlspecialchars(
+                        (string)$device['device_id'],
+                        ENT_QUOTES,
+                        'UTF-8') . "'>
+
+                <button type='submit' name='action' value='toggle_favorite' class='favorite-button' aria-pressed='
+                " . ($isFavorite ? 'true' : 'false') . "'>
+                    <i class='" . ($isFavorite ? 'fa-solid' : 'fa-regular') . " fa-star'></i>
+                </button>
+            </form>
+        ";
+        $html .= "</div>";
 
         /*
         |--------------------------------------------------------------------------

@@ -29,3 +29,14 @@ CREATE TABLE `devices` (
   `is_active` tinyint(1) NOT NULL DEFAULT 1,
   `last_seen` timestamp NULL DEFAULT NULL
 )
+
+Tabell för favoriter:
+CREATE TABLE `favorites` (
+    `userID` INT(11) NOT NULL,
+    `device_id` VARCHAR(100) NOT NULL,
+
+    PRIMARY KEY (`userID`, `device_id`),
+
+    FOREIGN KEY (`userID`) REFERENCES `users` (`userID`),
+    FOREIGN KEY (`device_id`) REFERENCES `devices` (`device_id`)
+)
