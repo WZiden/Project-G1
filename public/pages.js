@@ -5,8 +5,7 @@ const pageContent = document.getElementById("page-content");
 
 function loadPage(page, params = {}) {
     pageTitle.textContent = page;
-    searchContainer.innerHTML = "";
-
+   
     const query = new URLSearchParams(params);
     const queryString = query.toString();
     const url = `pages/${page}.php${queryString ? "?" + queryString : ""}`;
@@ -15,10 +14,11 @@ function loadPage(page, params = {}) {
         .then(html => {
             pageContent.innerHTML = html;
             pageTitle.textContent = page;
-
-            if (pagesWithSearch.includes(page)) {
-                addSearchBar();
+            
+            if(page=== "Data"){
+                initHistoryPage()
             }
+            
         })
         .catch(error => {
             console.error("Fel vid laddning av sida:", error);
@@ -36,7 +36,7 @@ buttons.forEach(btn => {
         loadPage(page);
     });
 });
-loadPage("Favorite");
+
 
 function selectRoom(room) {
     fetch("./pages/Room.php?room=" + encodeURIComponent(room))
@@ -66,6 +66,7 @@ fetch("rooms.php")
             container.appendChild(button);
         });
     });
+loadPage("Favorite");
 
 /*Skapar innehållet i history sidan*/
 function initHistoryPage() {
