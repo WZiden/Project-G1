@@ -94,6 +94,27 @@ header{
     justify-content: space-between;
     align-items: center;
 }
+.search-container {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    min-width: 0;
+}
+.search-container input{
+    width: 100%;
+    max-width: 14rem;
+    min-width: 0;
+    box-sizing: border-box;
+    padding: 0.7em 1em;
+    border: none;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+}
+
+.search-container input:focus {
+    outline: none;
+}
+
 .scrollbar {
     background-color: var(--box-color);
     border-radius: var(--border-radius);

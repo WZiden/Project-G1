@@ -104,7 +104,7 @@
             <nav class="scrollbar grid-box">
                 <div class="button">
                     <form class="search">
-                        <input type="search" placeholder="Search">
+                        <input type="search" placeholder="Search Room">
                         <button type="submit" class="search-btn">Search</button>
                     </form>
                     <button class="room-btn" data-page="Favorite"> Favorite</button>
@@ -115,7 +115,13 @@
             <main  id="content-area"class="grid-box">
                 <div class="top-side"> 
                     <h2 id="page-title"></h2>
-                    <div id ="search-container"></div>
+                    <div class="search-container" id="deviceSearchContainer">
+                        <input
+                            id="deviceSearch"
+                            type="search"
+                            placeholder="Filter devices"
+                        />
+                    </div>
                 </div>
                <div id="page-content"></div>
             </main>
