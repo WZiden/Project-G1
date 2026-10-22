@@ -11,6 +11,8 @@
     <script src="login.js" defer></script>
     <script src ="pages.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src = "favorites.js" defer></script>
+    <script src="https://kit.fontawesome.com/8d6a80a8d9.js" crossorigin="anonymous"></script>
     <!--<script src ="search.js" defer></script>-->
    
 </head>
@@ -39,32 +41,12 @@
                     <label>
                         <input type="checkbox" checked="checked" name="remember" class="check">Remember me
                     </label>
-                    <button type="submit">Log in</button>
+                    <button type="submit" class="login-btn">Log in</button>
                     <div class="horizontalcontainer">
-                        <a class="forgottenLink">Forgot your password?</a>
                         <a class="registerLink">Register new account</a>
                     </div>
                 </form>
                 <p id="loginError" class="errorMessage"></p>
-            </div>
-
-            <div class="verticalContainer modalContent" id="modalContentForgotten">
-                <span class="closeModal">&times;</span>
-                <h1>Reset password</h1>
-                <form id="forgottenForm">
-                    <input type="hidden" name="type" value="forgotten">
-                    <label for="forgottenemail">Email</label>
-                    <div class="inputContainer">
-                        <input type="email" placeholder="Enter your email" id="forgottenemail" name="email"
-                            autocomplete="on" required>
-                        <span class="material-symbols-outlined">mail</span>
-                    </div>
-                    <button type="submit">Send verification code</button>
-                    <div class="horizontalcontainer">
-                        <a class="loginLink">Login</a>
-                        <a class="registerLink">Register new account</a>
-                    </div>
-                </form>
             </div>
 
             <div class="verticalContainer modalContent" id="modalContentRegister">
@@ -90,9 +72,8 @@
                             required>
                         <span class="material-symbols-outlined">lock</span>
                     </div>
-                    <button type="submit">Register</button>
+                    <button type="submit" class="login-btn">Register</button>
                     <div class="horizontalcontainer">
-                        <a class="forgottenLink">Forgot your password?</a>
                         <a class="loginLink">Login</a>
                     </div>
                 </form>
@@ -124,21 +105,24 @@
             <nav class="scrollbar grid-box">
                 <div class="button">
                     <form class="search">
-                        <input type="search" placeholder="Search">
+                        <input type="search" placeholder="Search Room">
                         <button type="submit" class="search-btn">Search</button>
                     </form>
                     <button class="room-btn" data-page="Favorite"> Favorite</button>
-                    <button class="room-btn" data-page="Room"> room1</button>
-                    <button class="room-btn" data-room="room2"> room2</button>
-                    <button class="room-btn" data-room="room3"> room3</button>
-                    <button class="room-btn" data-room="room4"> room4</button>
+                  <div id="room-buttons"></div>
                 </div>
             </nav>
 
             <main  id="content-area"class="grid-box">
                 <div class="top-side"> 
                     <h2 id="page-title"></h2>
-                    <div id ="search-container"></div>
+                    <div class="search-container" id="deviceSearchContainer">
+                        <input
+                            id="deviceSearch"
+                            type="search"
+                            placeholder="Filter devices"
+                        />
+                    </div>
                 </div>
                <div id="page-content"></div>
             </main>
@@ -151,12 +135,11 @@
         </div>
     </div>
 <script>
-
     setInterval(() => {
         fetch('update_db.php')
         .then(response => response.text())
         .then(data => console.log(data))
-        .catch(error => console.error(error));}, 10000);
+        .catch(error => console.error(error));}, (60000 * 10));
 </script>
 </body>
 

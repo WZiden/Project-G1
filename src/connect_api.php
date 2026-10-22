@@ -1,4 +1,5 @@
 <?php
 $credentials = explode("\n", file_get_contents(__DIR__ . "/../.env"));
-$haURL = $credentials[3];
-$haToken = $credentials[4];
+$haURL = trim($credentials[3]);
+$haToken = trim($credentials[4]);
+?>
