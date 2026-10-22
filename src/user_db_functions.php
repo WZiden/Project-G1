@@ -34,7 +34,7 @@ function checkCookie(PDO $pdo, string $cookieToken) {
         $result = $stmt->fetch();
         return $result["userID"];
     } catch (Exception $e) { 
-        return "kunde inte ansluta till datbasen för att kolla kookie";
+        return "Unable to check cookie";
     }
 }
 
@@ -74,6 +74,7 @@ function loginUser(PDO $pdo, string $email, string $password, string $remember =
             // Check the password
             if (password_verify($password, $savedUser["passwordHash"])) {
                 $_SESSION["username"] = htmlspecialchars($savedUser["username"]);
+                $_SESSION["userID"] = htmlspecialchars($savedUser["userID"]);
 
                  // Set persistent cookie for 1h if 'remember me' is checked
                 if ($remember === "on") {
@@ -81,6 +82,7 @@ function loginUser(PDO $pdo, string $email, string $password, string $remember =
                     $salt = "!s9:(K*+ji<%-D";
                     $token = hash("sha256", $salt . time() . $salt);
                     setcookie("SmartHome", $token, time() + 60 * 60, "/");
+                    setcookie("Username", $_SESSION["username"], time() + 60 * 60, "/");
 
                     // Add cookie to database
                     $stmt = $pdo->prepare("INSERT INTO cookies (userID, token) VALUES (?, ?) ON DUPLICATE KEY UPDATE token=?");
@@ -99,3 +101,58 @@ function loginUser(PDO $pdo, string $email, string $password, string $remember =
 function destroyCookie() {
     setcookie("SmartHome", "", time() - 60 * 10, "/");
 }
+
+//require_once "connect_db.php";
+//changeUserPassword($pdo, 3, "lina2", "lina", "lina");
+//changeUserName($pdo, 3, "Lina");
+
+function changeUserName(PDO $pdo, int $userID, string $newUserName) {
+    try {
+        $stmt = $pdo->prepare("UPDATE users SET username = ? WHERE userID = ?");
+        $stmt->execute([$newUserName, $userID]);
+        //echo("Username changed");
+        return [1, "Password changed", $newUserName];
+    } catch (Exception $e) {
+        //echo("Username not changed");
+        return [0, "Password not changed"];
+    } 
+}
+
+/*
+function changeUserPassword(PDO $pdo, int $userID, string $oldPassword, string $newPassword, string $confirmedPassword) {
+    // Compare both new password entries
+    if ($newPassword === $confirmedPassword) { 
+        $savedUser = getUserByID($pdo, $userID);
+        if (!empty($savedUser)) {
+            print_r($savedUser);
+            if (password_verify($oldPassword, $savedUser["passwordHash"])) {
+                echo("ok\n");
+            } else {
+                echo("inte ok\n");
+            }
+            // Check the old password
+            if (password_verify($oldPassword, $savedUser["passwordHash"])) {
+                $newPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+                try {
+                    $stmt = $pdo->prepare("UPDATE users SET passwordHash = ? WHERE userID = ?");
+                    $stmt->execute([$newPassword, $userID]);
+                    echo("Password changed");
+                    //return [1, "Password changed"];
+                } catch (Exception $e) {
+                echo("Password not changed");
+                print_r($e->getMessage());
+                //return [0, "Password not changed"];
+                }                 
+            } else {
+                echo("Unable to verify");
+            }
+        } else {
+            echo("Wrong password");
+            //return [0, "Wrong password"];
+        }
+    } else {
+        echo("Passwords does not match");
+        //return [0, "Passwords does not match"];
+    }
+}
+    */

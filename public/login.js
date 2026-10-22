@@ -223,6 +223,20 @@ async function checkCookie() {
     } 
 }
 
+
+function getCookieName() {
+    let startPosition = document.cookie.search("Username=") + 9;
+    let endposition = document.cookie.indexOf(";", startPosition);
+    if (endposition == -1) {
+        let userName = document.cookie.substring(startPosition);
+        console.log(userName);  
+    } else {
+        let userName = document.cookie.substring(startPosition, endposition);
+        console.log(userName);        
+    }
+
+}
+
 // Check cookie on load page
 document.addEventListener("DOMContentLoaded", function() {
     loginErrorMessage.style.display = "none";

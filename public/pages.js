@@ -3,6 +3,8 @@ const pageTitle = document.getElementById("page-title");
 const buttons = document.querySelectorAll(".room-btn");
 const pageContent = document.getElementById("page-content");
 
+
+
 function loadPage(page, params = {}) {
     pageTitle.textContent = page;
    
@@ -19,6 +21,10 @@ function loadPage(page, params = {}) {
                 initHistoryPage()
             }
             
+            if (page === "Profile") {
+                //document.getElementById("pageUsername").innerText = "";
+                //document.getElementById("profileError").style.backgroundColor = "transparent";
+            }
         })
         .catch(error => {
             console.error("Fel vid laddning av sida:", error);
@@ -30,9 +36,9 @@ function loadPage(page, params = {}) {
 }
 
 buttons.forEach(btn => {
-    btn.addEventListener("click",() => {
+    btn.addEventListener("click", () => {
         const page = btn.dataset.page;
-       
+
         loadPage(page);
     });
 });
