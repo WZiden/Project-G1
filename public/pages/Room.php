@@ -1,13 +1,34 @@
+<?php 
+    require_once "../connect_api.php";
+    require_once "../connect_db.php";
+    require_once "../functions.php";
 
+    $room = $_GET['room'] ?? '';
 
-<div class="cards">
-    <div class="card">
-        <h3>Lampa 1</h3>
-        <p>Status: On</p>
+    $devices = getAllDevices($pdo);
+    $entities = getHomeAssistantEntities(
+        $haURL,
+        $haToken
+    );
+    $states = getHomeAssistantStates(
+        $haURL,
+        $haToken
+    );
+    $entitiesByDevice = indexEntitiesByDevice($entities);
+    $statesByEntity = indexStatesByEntity($states);
+
+    $devices = buildDevices(
+        $devices,
+        $entitiesByDevice,
+        $statesByEntity
+    );
+
+?>
+
+    <div class='device-grid'>
+        <?php foreach ($devices as $device){
+            if ($device['area_name'] === $room){
+                echo renderDeviceCard($device);
+            }
+        }?>
     </div>
-
-    <div class="card">
-        <h3>Lampa 2</h3>
-        <p>Status: Off</p>
-    </div>
-</div>

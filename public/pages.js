@@ -15,23 +15,28 @@ function addSearchBar(){
     `;
 }
 
-function loadPage(page){
+function loadPage(page, params = {}) {
     pageTitle.textContent = page;
-    searchContainer.innerHTML ="";
+    searchContainer.innerHTML = "";
 
-    fetch(`pages/${page}.php`)
+    const query = new URLSearchParams(params);
+    const queryString = query.toString();
+    const url = `pages/${page}.php${queryString ? "?" + queryString : ""}`;
+
+    fetch(url)
         .then(response => response.text())
-        .then(html =>{
+        .then(html => {
             pageContent.innerHTML = html;
             pageTitle.textContent = page;
-            if(pagesWithSearch.includes(page)){
-            addSearchBar();
+
+            if (pagesWithSearch.includes(page)) {
+                addSearchBar();
             }
         })
-        .catch(()=>{
-            contentArea.innerHTML="<p>Error loading page.</p>"
+        .catch(error => {
+            console.error("Fel vid laddning av sida:", error);
+            contentArea.innerHTML = "<p>Error loading page.</p>";
         });
-   
 }
 
 buttons.forEach(btn => {
@@ -43,5 +48,33 @@ buttons.forEach(btn => {
 });
 loadPage("Favorite");
 
+function selectRoom(room) {
+    fetch("./pages/Room.php?room=" + encodeURIComponent(room))
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById("page-content").innerHTML = data;
+        })
+        .catch(error => console.error(error));
+}
 
+fetch("rooms.php")
+    .then(response => response.json())
+    .then(rooms => {
+        const container = document.getElementById("room-buttons");
+
+        rooms.forEach(room => {
+            const button = document.createElement("button");
+
+            button.className = "room-btn";
+            button.type = "button";
+            button.dataset.page = "Room";
+            button.textContent = room;
+
+            button.addEventListener("click", () => {
+                loadPage("Room", { room: room });
+            });
+
+            container.appendChild(button);
+        });
+    });
 
