@@ -1,13 +1,13 @@
 const contentArea = document.getElementById("content-area");
 const pageTitle = document.getElementById("page-title");
-const searchContainer= document.getElementById("search-container");
+const searchContainer = document.getElementById("search-container");
 const buttons = document.querySelectorAll(".room-btn");
 const pageContent = document.getElementById("page-content");
 
-const pagesWithSearch = ["Devices","Favorite","Room"];
-function addSearchBar(){
-   
-    searchContainer.innerHTML= `
+const pagesWithSearch = ["Devices", "Favorite", "Room"];
+function addSearchBar() {
+
+    searchContainer.innerHTML = `
     <form class="search">
         <input type="search" placeholder="Search">
         <button type="submit" class="search-btn">Search</button>
@@ -32,6 +32,10 @@ function loadPage(page, params = {}) {
             if (pagesWithSearch.includes(page)) {
                 addSearchBar();
             }
+            if (page === "Profile") {
+                //document.getElementById("pageUsername").innerText = "";
+                //document.getElementById("profileError").style.backgroundColor = "transparent";
+            }
         })
         .catch(error => {
             console.error("Fel vid laddning av sida:", error);
@@ -40,9 +44,9 @@ function loadPage(page, params = {}) {
 }
 
 buttons.forEach(btn => {
-    btn.addEventListener("click",() => {
+    btn.addEventListener("click", () => {
         const page = btn.dataset.page;
-       
+
         loadPage(page);
     });
 });
