@@ -1,9 +1,15 @@
 <?php 
-    require_once "../connect_api.php";
-    require_once "../connect_db.php";
+    session_start();
+    $haURL = "";
+    $haToken = "";
+    
+    require_once "../../src/connect_api.php";
+    require_once "../../src/connect_db.php";
     require_once "../functions.php";
 
     $room = $_GET['room'] ?? '';
+
+    $favorites = getFavorites($pdo, $_SESSION['username']);
 
     $devices = getAllDevices($pdo);
     $entities = getHomeAssistantEntities(
@@ -28,7 +34,7 @@
     <div class='device-grid'>
         <?php foreach ($devices as $device){
             if ($device['area_name'] === $room){
-                echo renderDeviceCard($device);
+                echo renderDeviceCard($device, $favorites);
             }
         }?>
     </div>

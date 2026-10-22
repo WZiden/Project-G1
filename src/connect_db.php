@@ -1,8 +1,8 @@
 <?php
 $credentials = explode("\n", file_get_contents(__DIR__ . "/../.env"));
-$dbName = $credentials[0];
-$dbPassword = $credentials[1];
-$dsn = "mysql:host=localhost;dbname=" . $credentials[2] . ";charset=utf8mb4";
+$dbName = trim($credentials[0]);
+$dbPassword = trim($credentials[1]);
+$dsn = "mysql:host=localhost;dbname=" . trim($credentials[2]) . ";charset=utf8mb4";
 
 
 $pdo = new PDO(
@@ -13,3 +13,4 @@ $pdo = new PDO(
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
     ]
 );
+?>
