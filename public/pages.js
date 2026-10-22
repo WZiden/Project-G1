@@ -140,12 +140,12 @@ function drawTempChart() {
     new Chart(ctx, {
         type: "line",
         data: {
-            labels: ["08:00", "10:00", "12:00", "14:00"],
+            labels: ["08:00", "10:00", "12:00", "14:00","17:00", "19:00"],
             datasets: [{
                 label: "Temperatur (°C)",
-                data: [21, 22, 23, 22],
-                borderColor: "#4a90e2",
-                backgroundColor: "rgba(74,144,226,0.2)",
+                data: [21, 22, 23, 22, 25, 10],
+                borderColor: " #76949F",
+                backgroundColor: " #76949F",
                 borderWidth: 2,
                 tension: 0.3 // gör linjen mjuk
             }]
@@ -154,8 +154,25 @@ function drawTempChart() {
             responsive: true,
             maintainAspectRatio: false,
             scales: {
+                x:{
+                    grid:{
+                        color: "grey",
+                        lineWidth:0.5
+                    },
+                    ticks: {
+                        color: "white",
+                    }
+                },
+    
                 y: {
-                    beginAtZero: false
+                    beginAtZero: false,
+                    grid: {
+                        color:"grey",
+                        lineWidth:0.5
+                    },
+                    ticks:{
+                        color: "white"
+                    }
                 }
             }
         }

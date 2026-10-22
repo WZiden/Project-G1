@@ -699,12 +699,13 @@ a:hover {
 }
 
 .history-mode-buttons button.active {
-    background-color:var(--button-hover);
-
+    background-color:var( --grid-color);
+    border: 2px solid  #76949F ;
 }
+
 /*kod för timeline*/
 .timeline {
-    border-left: 3px solid #ccc;
+    border-left: 3px solid var(--button-color);
     padding-left: 1rem;
     margin: 2rem 0;
 }
@@ -713,9 +714,9 @@ a:hover {
     position: relative;
     margin-bottom: 1.5rem;
     padding: 1rem;
-    border: 2px solid #4a90e2;   /* RAMEN */
+    border: 2px solid var(--button-color);   /* RAMEN */
     border-radius: 0.5rem;       /* Rundade hörn */
-    background: rgba(255,255,255,0.1); /* Lätt bakgrund */
+    background: var( --grid-color); /* Lätt bakgrund */
 
 }
 
@@ -726,7 +727,7 @@ a:hover {
     top: 5px;
     width: 12px;
     height: 12px;
-    background: #4a90e2;
+    background: var(--button-color);
     border-radius: 50%;
 }
 
