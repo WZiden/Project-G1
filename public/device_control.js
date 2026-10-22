@@ -1,4 +1,4 @@
-async function callDeviceService(entityId, service, serviceData = {}){
+async function callDeviceService(device, entityId, service, serviceData = {}){
     const formData = new FormData();
 
     formData.append('entity_id', entityId);
@@ -7,13 +7,25 @@ async function callDeviceService(entityId, service, serviceData = {}){
 
     formData.append('service_data', JSON.stringify(serviceData));
 
+    formData.append('device', device);
+
     const response = await fetch('device_control.php',
         {
             method: 'POST',
             body: formData
         });
 
-    return await response.json();
+    const result = await response.json();
+
+    if(!response.ok || !result.success){
+        if(response.status === 403){
+            alert(result.message);
+        }
+
+        throw new Error(result.message || 'Something went wrong');
+    }
+
+    return result;
 }
 
 document.addEventListener('submit', async function(event){
@@ -29,8 +41,10 @@ document.addEventListener('submit', async function(event){
 
     const service = form.querySelector('[name="service"]').value;
 
+    const device = form.dataset.deviceName;
+
     try{
-        const result = await callDeviceService(entityId, service);
+        const result = await callDeviceService(device, entityId, service);
 
         console.log(result);
 
@@ -93,12 +107,16 @@ document.addEventListener('input', function(event){
 document.addEventListener('change', async function(event){
     const slider = event.target;
 
+
     if (!slider.matches('.climate-slider')){
         return;
     }
 
+    const controls = slider.closest('.climate-controls');
+    const device = controls.dataset.deviceName;
+
     try{
-        const result = await callDeviceService(slider.dataset.entity, 'set_temperature',
+        const result = await callDeviceService(device, slider.dataset.entity, 'set_temperature',
                 {
                     temperature: Number(slider.value)
                 });
@@ -126,15 +144,19 @@ document.addEventListener('input', function(event){
     }
 });
 
-document.addEventListener('change', async function(event){
+document.addEventListener('change', async function(event) {
     const slider = event.target;
 
-    if (!slider.matches('.cover-slider')){
+    if (!slider.matches('.cover-slider')) {
         return;
     }
 
+    const controls = slider.closest('.cover-controls');
+
+    const device = controls.dataset.deviceName;
+
     try{
-        const result = await callDeviceService(slider.dataset.entity, 'set_cover_position',
+        const result = await callDeviceService(device, slider.dataset.entity, 'set_cover_position',
             {
                 position: Number(slider.value)
             });
@@ -147,14 +169,18 @@ document.addEventListener('change', async function(event){
 });
 
 document.addEventListener('click', async function(event){
-    const button = event.target;
+    const button = event.target.closest('.cover-stop-button');
 
-    if (!button.matches('.cover-stop-button')){
+
+    if (!button){
         return;
     }
 
+    const controls = button.closest('.cover-controls');
+    const device = controls.dataset.deviceName;
+
     try{
-        const result = await callDeviceService(button.dataset.entity, 'stop_cover');
+        const result = await callDeviceService(device, button.dataset.entity, 'stop_cover');
 
         console.log(result);
     }
@@ -179,6 +205,8 @@ document.addEventListener('click', async function(event) {
     const form = button.closest('form');
     const entity = form.querySelector('[name="entity_id"]').value;
     const serviceInput = form.querySelector('[name="service"]');
+    const device = form.dataset.deviceName;
+
 
     const wasLocked = button.dataset.locked === 'true';
     const service = serviceInput.value;
@@ -186,7 +214,7 @@ document.addEventListener('click', async function(event) {
     button.dataset.loading = 'true';
 
     try {
-        await callDeviceService(entity, service);
+        await callDeviceService(device, entity, service);
 
         // Uppdatera tillståndet först när anropet lyckats
         button.dataset.locked = String(!wasLocked);

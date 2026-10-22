@@ -362,6 +362,24 @@
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    function getPermission(PDO $pdo, string $userID, $device):bool {
+        $stmt = $pdo->prepare("
+            SELECT u.permission_level <= d.required_user_level AS has_permission
+            FROM users u
+            JOIN devices d ON d.device_name = :device
+            WHERE u.userID = :userID
+        ");
+
+        $stmt->execute([
+            ':userID' => $userID,
+            ':device' => $device
+        ]);
+
+        $result = $stmt->fetchColumn();
+
+        return $result !== false && (bool) $result;
+    }
+
     function indexEntitiesByDevice(array $entities):array {
 
         $indexed = [];
@@ -497,24 +515,22 @@
         ";
         $html .= "</div>";
 
-        $showEntityLabels = count($controllableEntities) > 1;
-
         foreach ($controllableEntities as $entity){
             $domain = explode('.', $entity['entity_id'], 2)[0];
 
             switch ($domain){
                 case 'lock':
-                    $html .= renderLockControls($entity);
+                    $html .= renderLockControls($entity, $device['device_name']);
                     break;
                 case 'cover':
-                    $html .= renderCoverControls($entity);
+                    $html .= renderCoverControls($entity, $device['device_name']);
                     break;
                 case 'light':
                 case 'switch':
-                    $html .= renderOnOffControls($entity);
+                    $html .= renderOnOffControls($entity, $device['device_name']);
                     break;
                 case 'climate':
-                    $html .= renderClimateControls($entity);
+                    $html .= renderClimateControls($entity, $device['device_name']);
                     break;
             }
         }               
@@ -525,6 +541,7 @@
         {
             $friendlyName = $entity['attributes']['friendly_name'] ?? $entity['entity_id'];
             $label = $friendlyName;
+            $entityID = htmlspecialchars($entity['entity_id'], ENT_QUOTES, 'UTF-8');
 
             if (str_starts_with($friendlyName, $device['device_name'])){
                 $label = trim(substr($friendlyName, strlen($device['device_name'])));
@@ -544,7 +561,7 @@
             $html .= htmlspecialchars($label);
             $html .= "</div>";
 
-            $html .= "<div class='device-detail-value'>";
+            $html .= "<div class='device-detail-value entity-state' data-entity-id='{$entityID}'>";
             $html .= htmlspecialchars($value);
             $html .= "</div>";
         }
@@ -622,7 +639,8 @@
         );
     }
 
-    function renderOnOffControls(array $mainEntity):string {
+    function renderOnOffControls(array $mainEntity, string $device):string {
+        $entityID = htmlspecialchars($mainEntity['entity_id'], ENT_QUOTES, 'UTF-8');
 
         $html = renderEntityHeader($mainEntity);
         $html .= "<div class='device-controls'>";
@@ -631,14 +649,14 @@
 
         $buttonClass = $mainEntity['state'] === 'on' ? 'off' : 'on';
 
-        $html .= " <form class='device-control-form' data-entity='{$mainEntity['entity_id']}'>
-                <input type='hidden' name='entity_id' value='{$mainEntity['entity_id']}'>
+        $html .= " <form class='device-control-form' data-entity='{$entityID}' data-device-name='{$device}'>
+                <input type='hidden' name='entity_id' value='{$entityID}'>
                 <input type='hidden' name='service'value='" . (
                         $mainEntity['state'] === 'on'
                         ? 'turn_off'
                         : 'turn_on'
                     ) . "'>
-                <button class='device-button {$buttonClass}' data-entity='{$mainEntity['entity_id']}' type='submit'>
+                <button class='device-button {$buttonClass}' data-entity='{$entityID}' data-entity-id='{$entityID}' type='submit'>
                     {$buttonText}
                 </button>
             </form>";
@@ -648,7 +666,7 @@
         return $html;
     }
 
-    function renderClimateControls(array $mainEntity):string {
+    function renderClimateControls(array $mainEntity, string $device):string {
         $setTemp = $mainEntity['attributes']['temperature'] ?? 0;
 
         $currentTemp = $mainEntity['attributes']['current_temperature'] ?? 0;
@@ -659,18 +677,20 @@
 
         $step = $mainEntity['attributes']['target_temp_step'] ?? 0.5;
 
+        $entityID = htmlspecialchars($mainEntity['entity_id'], ENT_QUOTES, 'UTF-8');
+
         $html = renderEntityHeader($mainEntity);
 
-        $html .= "<div class='device-controls climate-controls'>
-                <div class='climate-target-temp' data-entity='{$mainEntity['entity_id']}'>
+        $html .= "<div class='device-controls climate-controls' data-device-name='{$device}'>
+                <div class='climate-target-temp' data-entity='{$entityID}' data-entity-id='{$entityID}'>
                     {$setTemp}°C
                 </div>
-                <input type='range' class='climate-slider' data-entity='{$mainEntity['entity_id']}'
+                <input type='range' class='climate-slider' data-entity='{$entityID}' data-entity-id='{$entityID}'
                     min='{$minTemp}'
                     max='{$maxTemp}'
                     step='{$step}'
                     value='{$setTemp}'>
-                <div class='climate-current-temp'>
+                <div class='climate-current-temp' data-entity-id='{$entityID}'>
                     Current Temperature: {$currentTemp}°C
                 </div>
             </div>";
@@ -678,16 +698,17 @@
         return $html;
     }
 
-    function renderCoverControls(array $mainEntity):string {
+    function renderCoverControls(array $mainEntity, string $device):string {
         $position = $mainEntity['attributes']['current_position'] ?? 0;
+        $entityID = htmlspecialchars($mainEntity['entity_id'], ENT_QUOTES, 'UTF-8');
 
         $html = renderEntityHeader($mainEntity);
 
-        $html .="<div class='cover-controls'>
-                    <div class='cover-position-label' data-entity='{$mainEntity['entity_id']}'>
+        $html .="<div class='cover-controls' data-device-name='{$device}'>
+                    <div class='cover-position-label' data-entity='{$entityID}' data-entity-id='{$entityID}' >
                         {$position}%
                     </div>
-                    <input type='range' class='cover-slider' data-entity='{$mainEntity['entity_id']}'
+                    <input type='range' class='cover-slider' data-entity='{$mainEntity['entity_id']}' data-entity-id='{$entityID}'
                         min='0'
                         max='100'
                         step='1'
@@ -700,8 +721,10 @@
         return $html;
     }
 
-    function renderLockControls(array $mainEntity):string {
+    function renderLockControls(array $mainEntity, string $device):string {
         $isLocked = $mainEntity['state'] === 'locked';
+
+        $entityID = htmlspecialchars($mainEntity['entity_id'], ENT_QUOTES, 'UTF-8');
 
         $service = $isLocked ? 'unlock' : 'lock';
 
@@ -710,10 +733,10 @@
         $iconClass = $isLocked ? 'fa-lock' : 'fa-lock-open';
 
         $html .="<div class='lock-controls'>
-                <form class='device-control-form'>
-                    <input type='hidden' name='entity_id' value='{$mainEntity['entity_id']}'>
+                <form class='device-control-form' data-device-name='{$device}'>
+                    <input type='hidden' name='entity_id' value='{$entityID}'>
                     <input type='hidden' name='service' value='{$service}'>
-                    <button type='submit' class='lock-button' data-locked='" . ($isLocked ? 'true' : 'false') . "'>
+                    <button type='submit' class='lock-button' data-entity-id='{$entityID}' data-locked='" . ($isLocked ? 'true' : 'false') . "'>
                     <i class='fa-solid fa-lock lock-icon'></i>
                     <i class='fa-solid fa-lock-open unlock-icon'></i>
                     </button>
