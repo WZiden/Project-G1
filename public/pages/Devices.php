@@ -1,35 +1,36 @@
 <?php 
     session_start();
-    $haURL = "";
-    $haToken = "";
 
-    require_once '../../src/connect_api.php';
-    require_once '../../src/connect_db.php';
-    require_once '../functions.php';
+    require_once __DIR__ . '/../../src/connect_api.php';
+    require_once __DIR__ . '/../../src/connect_db.php';
+    require_once __DIR__ . '/../functions.php';
 
-    $favorites = getFavorites($pdo, $_SESSION['username']);
+    if(isset($_SESSION['userID'])){
+        $favorites = getFavorites($pdo, $_SESSION['username']);
 
-    $devices = getAllDevices($pdo);
-    $entities = getHomeAssistantEntities(
-        $haURL,
-        $haToken
-    );
-    $states = getHomeAssistantStates(
-        $haURL,
-        $haToken
-    );
-    $entitiesByDevice = indexEntitiesByDevice($entities);
-    $statesByEntity = indexStatesByEntity($states);
+        $devices = getAllDevices($pdo);
+        $entities = getHomeAssistantEntities(
+            $haURL,
+            $haToken
+        );
+        $states = getHomeAssistantStates(
+            $haURL,
+            $haToken
+        );
+        $entitiesByDevice = indexEntitiesByDevice($entities);
+        $statesByEntity = indexStatesByEntity($states);
 
-    $devices = buildDevices(
-        $devices,
-        $entitiesByDevice,
-        $statesByEntity
-    );
+        $devices = buildDevices(
+            $devices,
+            $entitiesByDevice,
+            $statesByEntity
+        );
+
+        echo "<div class='device-grid'>";
+        foreach ($devices as $device){
+            echo renderDeviceCard($device, $favorites);
+        }
+        echo "</div>";
+    }
 ?>    
-    
-    <div class='device-grid'>
-        <?php foreach ($devices as $device): ?>
-            <?= renderDeviceCard($device, $favorites) ?>
-        <?php endforeach; ?>
-    </div>
+

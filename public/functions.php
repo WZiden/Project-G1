@@ -1,5 +1,5 @@
 <?php
-    require_once __DIR__ . '/vendor/autoload.php';
+    require_once __DIR__ . '/../vendor/autoload.php';
 
     use WebSocket\Client;
 
@@ -29,24 +29,36 @@
         ]
     ];
 
+    function connectHA(string $haURL, string $haToken): Client {
 
-    function getHomeAssistantDevices(string $haURL, string $haToken):array {
         $client = new Client($haURL);
 
-        // Auth required
+        // auth required
         $client->receive();
 
-        // Auth
+        // auth
         $client->send(json_encode([
-            "type" => "auth",
-            "access_token" => $haToken
+            'type' => 'auth',
+            'access_token' => $haToken
         ]));
 
-        $auth = json_decode($client->receive(), true);
+        $auth = json_decode(
+            $client->receive(),
+            true
+        );
 
-        if (($auth['type'] ?? null) !== 'auth_ok') {
-            throw new Exception("Failed to authenticate with Home Assistant");
+        if (($auth['type'] ?? null) !== 'auth_ok')
+        {
+            throw new Exception(
+                'Failed to authenticate'
+            );
         }
+
+        return $client;
+    }
+
+    function getHomeAssistantDevices(string $haURL, string $haToken):array {
+        $client = connectHA($haURL, $haToken);
 
         // Device registry
         $client->send(json_encode([
@@ -86,22 +98,7 @@
     }
 
     function getHomeAssistantAreas(string $haURL, string $haToken):array {
-        $client = new Client($haURL);
-
-        $client->receive();
-
-        $client->send(json_encode([
-            "type" => "auth",
-            "access_token" => $haToken
-        ]));
-
-        $auth = json_decode($client->receive(), true);
-
-        if (($auth['type'] ?? null) !== 'auth_ok') {
-            throw new Exception(
-                "Failed to authenticate with Home Assistant"
-            );
-        }
+        $client = connectHA($haURL, $haToken);
 
         $client->send(json_encode([
             "id" => 1,
@@ -134,24 +131,7 @@
 
     function getHomeAssistantEntities(string $haURL, string $haToken):array {
 
-        $client = new Client($haURL);
-
-        // Auth required
-        $client->receive();
-
-        // Auth
-        $client->send(json_encode([
-            "type" => "auth",
-            "access_token" => $haToken
-        ]));
-
-        $auth = json_decode($client->receive(), true);
-
-        if (($auth['type'] ?? null) !== 'auth_ok') {
-            throw new Exception(
-                "Failed to authenticate with Home Assistant"
-            );
-        }
+        $client = connectHA($haURL, $haToken);
 
         // Entity registry
         $client->send(json_encode([
@@ -244,7 +224,7 @@
         $stmt = $pdo->query("
             SELECT DISTINCT area_name
             FROM devices
-            WHERE area_name IS NOT NULL AND area_name != 'Simulator'
+            WHERE area_name IS NOT NULL AND area_name != 'Simulator' AND is_active = 1
             ORDER BY area_name
         ");
 
@@ -351,6 +331,39 @@
         return $filtered;
     }
 
+    function searchDevices(PDO $pdo, string $search):array {
+        $stmt = $pdo->prepare("
+            SELECT
+                *
+            FROM devices
+            WHERE
+                is_active = 1
+                AND device_name LIKE :search
+            ORDER BY device_name
+            LIMIT 50
+        ");
+
+        $stmt->execute([':search' => "%{$search}%"]);
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    function searchRooms(PDO $pdo, string $search):array {
+        $stmt = $pdo->prepare("
+            SELECT DISTINCT area_name
+            FROM devices
+            WHERE
+                area_name IS NOT NULL
+                AND area_name LIKE :search
+            ORDER BY area_name
+            LIMIT 20
+        ");
+
+        $stmt->execute([':search' => "%{$search}%"]);
+
+        return $stmt->fetchAll(PDO::FETCH_COLUMN);
+    }
+
     function getAllDevices(PDO $pdo):array {
         $stmt = $pdo->query("
             SELECT *
@@ -362,7 +375,7 @@
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    function getPermission(PDO $pdo, string $userID, $device):bool {
+    function getPermission(PDO $pdo, string $userID, mixed $device):bool {
         $stmt = $pdo->prepare("
             SELECT u.permission_level <= d.required_user_level AS has_permission
             FROM users u
@@ -441,7 +454,7 @@
             'device_id' => $device['device_id'],
             'device_name' => $device['device_name'],
             'area_name' => $device['area_name'],
-            'required_user_level' => $device['required_user_level'],
+            'required_user_level' => $device['required_user_level'] ?? 2,
             'entities' => $deviceEntities
         ];
         }
@@ -482,6 +495,7 @@
                 'switch',
                 'climate',
                 'cover',
+                'camera',
                 'lock'
             ];
 
@@ -532,6 +546,9 @@
                 case 'climate':
                     $html .= renderClimateControls($entity, $device['device_name']);
                     break;
+                case 'camera':
+                    $html .= renderCameraCard($entity);
+                    break;
             }
         }               
 
@@ -575,45 +592,11 @@
     function controlDevice(string $entityId, string $service, string $haURL, string $haToken, array $serviceData = []):bool {
         $domain = explode('.', $entityId)[0];
 
-        if (
-            !isset(ALLOWED_SERVICES[$domain]) ||
-            !in_array(
-                $service,
-                ALLOWED_SERVICES[$domain],
-                true
-            )
-        ) {
-            throw new Exception(
-                'Service not allowed'
-            );
+        if (!isset(ALLOWED_SERVICES[$domain]) || !in_array($service, ALLOWED_SERVICES[$domain], true)){
+            throw new Exception('Service not allowed');
         }
 
-        $client = new Client($haURL);
-
-        $client->receive();
-
-        error_log(print_r([
-            'entity_id' => $entityId,
-            'service'    => $service,
-            'serviceData' => $serviceData
-        ], true));
-
-        $client->send(json_encode([
-            "type" => "auth",
-            "access_token" => $haToken
-        ]));
-
-        $auth = json_decode(
-            $client->receive(),
-            true
-        );
-
-        if (($auth['type'] ?? null) !== 'auth_ok')
-        {
-            throw new Exception(
-                "Failed to authenticate"
-            );
-        }
+        $client = connectHA($haURL, $haToken);
 
         $client->send(json_encode([
             "id" => 2,
@@ -628,40 +611,35 @@
             )
         ]));
 
-        $response = json_decode(
-            $client->receive(),
-            true
-        );
+        $response = json_decode($client->receive(), true);
 
-        return (
-            isset($response['success'])
-            && $response['success']
-        );
+        return (isset($response['success'])&& $response['success']);
     }
 
     function renderOnOffControls(array $mainEntity, string $device):string {
+        $isOn = $mainEntity['state'] === 'on';
+
         $entityID = htmlspecialchars($mainEntity['entity_id'], ENT_QUOTES, 'UTF-8');
 
+        $service = $isOn ? 'turn_off' : 'turn_on';
+
+        $state = ucfirst(htmlspecialchars($mainEntity['state'], ENT_QUOTES, 'UTF-8'));
+
         $html = renderEntityHeader($mainEntity);
-        $html .= "<div class='device-controls'>";
 
-        $buttonText = $mainEntity['state'] === 'on' ? 'TURN OFF' : 'TURN ON';
-
-        $buttonClass = $mainEntity['state'] === 'on' ? 'off' : 'on';
-
-        $html .= " <form class='device-control-form' data-entity='{$entityID}' data-device-name='{$device}'>
-                <input type='hidden' name='entity_id' value='{$entityID}'>
-                <input type='hidden' name='service'value='" . (
-                        $mainEntity['state'] === 'on'
-                        ? 'turn_off'
-                        : 'turn_on'
-                    ) . "'>
-                <button class='device-button {$buttonClass}' data-entity='{$entityID}' data-entity-id='{$entityID}' type='submit'>
-                    {$buttonText}
-                </button>
-            </form>";
-
-        $html .= "</div>";
+        $html .= "<div class='toggle-controls'>
+                <form class='device-control-form' data-device-name='{$device}'>
+                    <input type='hidden' name='entity_id' value='{$entityID}'>
+                    <input type='hidden' name='service' value='{$service}'>
+                    <button type='submit' class='toggle-button' data-entity-id='{$entityID}' data-state='" . ($isOn ? 'on' : 'off') . "'>
+                        <i class='fa-solid fa-toggle-on toggle-on-icon'></i>
+                        <i class='fa-solid fa-toggle-off toggle-off-icon'></i>
+                    </button>
+                </form>
+            </div>
+            <div class='cover-status entity-status' data-entity-id='{$entityID}'>
+                <p>{$state}</p>
+            </div>";
 
         return $html;
     }
@@ -700,22 +678,33 @@
 
     function renderCoverControls(array $mainEntity, string $device):string {
         $position = $mainEntity['attributes']['current_position'] ?? 0;
+
         $entityID = htmlspecialchars($mainEntity['entity_id'], ENT_QUOTES, 'UTF-8');
+
+        $state = ucfirst(htmlspecialchars($mainEntity['state'], ENT_QUOTES, 'UTF-8'));
 
         $html = renderEntityHeader($mainEntity);
 
         $html .="<div class='cover-controls' data-device-name='{$device}'>
-                    <div class='cover-position-label' data-entity='{$entityID}' data-entity-id='{$entityID}' >
-                        {$position}%
+                    <div class='cover-slider-container'>
+                        <div class='cover-position-label' data-entity='{$entityID}' data-entity-id='{$entityID}' >
+                            {$position}%
+                        </div>
+                        <div class='cover-slider' data-device-name='{$device}'>
+                        <input type='range' class='cover-slider' data-entity='{$mainEntity['entity_id']}' data-entity-id='{$entityID}'
+                            min='0'
+                            max='100'
+                            step='1'
+                            value='{$position}'>
+                        </div>
                     </div>
-                    <input type='range' class='cover-slider' data-entity='{$mainEntity['entity_id']}' data-entity-id='{$entityID}'
-                        min='0'
-                        max='100'
-                        step='1'
-                        value='{$position}'>
-                    <button type='button' class='cover-stop-button' data-entity='{$mainEntity['entity_id']}'>
-                        STOP
-                    </button>
+
+                </div>                    
+                <button type='button' class='cover-stop-button' data-entity='{$mainEntity['entity_id']}'>
+                    STOP
+                </button>
+                <div class='cover-status entity-status' data-entity-id='{$entityID}'>
+                    <p>{$state}</p>
                 </div>";
 
         return $html;
@@ -726,13 +715,14 @@
 
         $entityID = htmlspecialchars($mainEntity['entity_id'], ENT_QUOTES, 'UTF-8');
 
+        $state = ucfirst(htmlspecialchars($mainEntity['state'], ENT_QUOTES, 'UTF-8'));
+
         $service = $isLocked ? 'unlock' : 'lock';
 
         $html = renderEntityHeader($mainEntity);
 
-        $iconClass = $isLocked ? 'fa-lock' : 'fa-lock-open';
-
         $html .="<div class='lock-controls'>
+                <p class='entity-status' data-entity-id='{$entityID}'>{$state}</p>
                 <form class='device-control-form' data-device-name='{$device}'>
                     <input type='hidden' name='entity_id' value='{$entityID}'>
                     <input type='hidden' name='service' value='{$service}'>
@@ -746,11 +736,23 @@
         return $html;
     }
 
+    function renderCameraCard(array $mainEntity):string {
+        $entityID = htmlspecialchars($mainEntity['entity_id'], ENT_QUOTES, 'UTF-8');
+
+        $html = renderEntityHeader($mainEntity);
+
+        $html .= "<div class='camera-container'>
+                <img src='camera.php?entity_id={$entityID}' class='camera-feed' data-entity-id='{$entityID}' alt='Camera feed'>
+            </div>";
+
+        return $html;
+    }
+
     function renderEntityHeader(array $entity):string {
         $friendlyName = $entity['attributes']['friendly_name'] ?? $entity['entity_id'];
 
         return "<div class='device-detail-label'>
-                    {$friendlyName}
+                    {$friendlyName}:
                 </div>";
 
     }

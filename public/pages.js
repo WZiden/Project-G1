@@ -5,8 +5,8 @@ const pageContent = document.getElementById("page-content");
 
 
 
-function loadPage(page, params = {}) {
-    pageTitle.textContent = page;
+function loadPage(page, params = {}, title = page) {
+    pageTitle.textContent = title;
    
     const query = new URLSearchParams(params);
     const queryString = query.toString();
@@ -15,7 +15,12 @@ function loadPage(page, params = {}) {
         .then(response => response.text())
         .then(html => {
             pageContent.innerHTML = html;
-            pageTitle.textContent = page;
+
+            const roomName = document.getElementById("room-name");
+
+            if (roomName) {
+                pageTitle.textContent = roomName.textContent;
+            }
             
             if(page=== "Data"){
                 initHistoryPage()
@@ -30,9 +35,6 @@ function loadPage(page, params = {}) {
             console.error("Fel vid laddning av sida:", error);
             contentArea.innerHTML = "<p>Error loading page.</p>";
         });
-
-
-    
 }
 
 buttons.forEach(btn => {
@@ -66,7 +68,7 @@ fetch("rooms.php")
             button.textContent = room;
 
             button.addEventListener("click", () => {
-                loadPage("Room", { room: room });
+                loadPage("Room", { room: room }, room);
             });
 
             container.appendChild(button);

@@ -36,51 +36,29 @@ document.addEventListener('submit', async function(event){
     }
 
     event.preventDefault();
-
     const entityId = form.querySelector('[name="entity_id"]').value;
-
     const service = form.querySelector('[name="service"]').value;
-
     const device = form.dataset.deviceName;
 
     try{
         const result = await callDeviceService(device, entityId, service);
-
         console.log(result);
-
         if (!result.success){
             return;
         }
 
-        const statusElement = document.querySelector(`.device-status-value[data-entity="${entityId}"]`);
-
-        const button = form.querySelector('.device-button');
-
         const serviceInput = form.querySelector('[name="service"]');
+        const button = form.querySelector('.toggle-button');
 
-        if (service === 'turn_on'){
-            if (statusElement){
-                statusElement.textContent = 'On';
+        if (button){
+            if (service === 'turn_on'){
+                button.dataset.state = 'on';
+                serviceInput.value = 'turn_off';
             }
-
-            button.textContent = 'TURN OFF';
-
-            button.classList.remove('on');
-            button.classList.add('off');
-
-            serviceInput.value = 'turn_off';
-        }
-        else if (service === 'turn_off'){
-            if (statusElement){
-                statusElement.textContent = 'Off';
+            else if (service === 'turn_off'){
+                button.dataset.state = 'off';
+                serviceInput.value = 'turn_on';
             }
-
-            button.textContent = 'TURN ON';
-
-            button.classList.remove('off');
-            button.classList.add('on');
-
-            serviceInput.value = 'turn_on';
         }
     }
     catch(error){

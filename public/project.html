@@ -9,10 +9,12 @@
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <link rel="stylesheet" href="style.css">
     <script src="login.js" defer></script>
-    <script src ="pages.js" defer></script>
+    <script src="pages.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src = "favorites.js" defer></script>
+    <script src="favorites.js" defer></script>
     <script src="device_control.js"></script>
+    <script src="websocket.js"></script>
+    <script src="search.js"></script>
     <script src="https://kit.fontawesome.com/8d6a80a8d9.js" crossorigin="anonymous"></script>
     <!--<script src ="search.js" defer></script>-->
    
@@ -106,7 +108,8 @@
             <nav class="scrollbar grid-box">
                 <div class="button">
                     <form class="search">
-                        <input type="search" placeholder="Search Room">
+                        <input id="globalSearch" type="search" placeholder="Search">
+                        <div id="search-results"></div>
                         <button type="submit" class="search-btn">Search</button>
                     </form>
                     <button class="room-btn" data-page="Favorite"> Favorite</button>
