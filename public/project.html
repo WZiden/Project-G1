@@ -69,9 +69,16 @@
                             autocomplete="on" required>
                         <span class="material-symbols-outlined">mail</span>
                     </div>
+                    <p>The password must conain at least one lowercase letter (a-z), one uppercase letter (A-Z), one digit, and it must be at least 8 characters long.</p>
                     <label for="registerpassword">Password</label>
                     <div class="inputContainer">
                         <input type="password" placeholder="Enter your password" id="registerpassword" name="password"
+                            required>
+                        <span class="material-symbols-outlined">lock</span>
+                    </div>
+                    <label for="confirmpassword">Confirm password</label>
+                    <div class="inputContainer">
+                        <input type="password" placeholder="Confirm your password" id="confirmpassword" name="confirmpassword"
                             required>
                         <span class="material-symbols-outlined">lock</span>
                     </div>
@@ -95,7 +102,7 @@
                     <div class ="nav-bottom-btn-mobil">
                         <button class="room-btn" data-page="Devices"> Devices</button>
                         <button class="room-btn" data-page="Data"> Data</button>
-                        <button class="room-btn" data-page="Profile"> Profile</button>
+                        <button class="room-btn" data-page="Settings"> Settings</button>
                     </div>
                     <button class="room-btn" data-page="Alert"> Alerts</button>
             
@@ -133,7 +140,7 @@
             <nav class="nav-bottom grid-box">
                 <button class="room-btn" data-page="Devices"> Devices</button>
                 <button class="room-btn" data-page="History"> Data</button>
-                <button class="room-btn" data-page="Profile"> Profile</button>
+                <button class="room-btn" data-page="Settings"> Settings</button>
               
             </nav>
         </div>

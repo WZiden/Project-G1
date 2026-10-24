@@ -26,9 +26,12 @@ function loadPage(page, params = {}, title = page) {
                 initHistoryPage()
             }
             
-            if (page === "Profile") {
-                //document.getElementById("pageUsername").innerText = "";
-                //document.getElementById("profileError").style.backgroundColor = "transparent";
+            if (page === "Settings") {
+                document.getElementById("settingsStatusMessage").style.backgroundColor = "transparent";
+                document.getElementById("deviceSearchContainer").style.display = "none";
+                initSettingsPage();
+            } else {
+                document.getElementById("deviceSearchContainer").style.display = "inherit";
             }
         })
         .catch(error => {
@@ -180,3 +183,110 @@ function drawTempChart() {
         }
     });
 }
+
+/*** Settings page ***/
+function initSettingsPage() {
+    const changeNameForm = document.getElementById("changeNameForm");
+    const changePasswordForm = document.getElementById("changePasswordForm");
+
+    // User pressed change username form button
+    changeNameForm.addEventListener("submit", function(e) {
+        e.preventDefault();
+        sendChangeName();
+        changeNameForm.reset();
+    });
+
+    // User pressed change password form button
+    changePasswordForm.addEventListener("submit", function(e) {
+        e.preventDefault();
+        sendChangePassword();
+        changePasswordForm.reset();
+    });
+
+    getCookieUsername();
+}
+
+// Extract username from cookie
+function getCookieUsername() {
+    let startPosition = document.cookie.search("Username=") + 9;
+    let endposition = document.cookie.indexOf(";", startPosition);
+    let userName = "";
+    if (endposition == -1) {
+        userName = document.cookie.substring(startPosition);
+    } else {
+        userName = document.cookie.substring(startPosition, endposition);
+    }
+    document.getElementById("pageUsername").innerText = "Username: " + userName;
+
+}
+
+async function sendChangeName() {
+    // Assiciate the FormData object with the login form element
+    const formData = new FormData(changeNameForm);
+
+    const statusMessage = document.getElementById("settingsStatusMessage");
+    const errorColor = getComputedStyle(document.querySelector(":root")).getPropertyValue("--red");
+    const successColor = getComputedStyle(document.querySelector(":root")).getPropertyValue("--green");
+
+
+    try {
+        // Send the FormData as an HTTP POST request using fetch()
+        const response = await fetch("user_login_handler.php", {
+            method: "POST",
+            body: formData,
+        });
+
+        const data = await response.json();
+        if (data[0] != 1) {
+            statusMessage.style.backgroundColor = errorColor;
+            statusMessage.innerText = "Error: " + data[1];
+        } else {
+            document.getElementById("pageUsername").innerText = "Username: " + data[2];
+            document.getElementById("userNameHeading").innerText = data[2];
+            statusMessage.style.backgroundColor = successColor;
+            statusMessage.innerText = "Username changed";
+        }
+
+    } catch (e) {
+        // TODO felhantering
+        console.log("Error changing name");
+        statusMessage.style.backgroundColor = errorColor;
+        statusMessage.innerText = "Error trying to change name";
+        //console.log(e);
+    }
+}
+
+async function sendChangePassword() {
+    // Assiciate the FormData object with the login form element
+    const formData = new FormData(changePasswordForm);
+
+    statusMessage = document.getElementById("settingsStatusMessage");
+    const errorColor = getComputedStyle(document.querySelector(":root")).getPropertyValue("--red");
+    const successColor = getComputedStyle(document.querySelector(":root")).getPropertyValue("--green");
+
+
+    try {
+        // Send the FormData as an HTTP POST request using fetch()
+        const response = await fetch("user_login_handler.php", {
+            method: "POST",
+            body: formData,
+        });
+        const data = await response.json();
+        if (data[0] != 1) {
+            statusMessage.style.backgroundColor = errorColor;
+            statusMessage.innerText = "Error: " + data[1];
+        } else {
+            statusMessage.style.backgroundColor = successColor;
+            statusMessage.innerText = "Password changed";
+        }
+
+    } catch (e) {
+        // TODO felhantering
+        console.log("Error changing name");
+        statusMessage.style.backgroundColor = errorColor;
+        statusMessage.innerText = "Error trying to change name";
+        //console.log(e);
+    }    
+}
+
+/******/

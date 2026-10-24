@@ -8,8 +8,10 @@ if (isset($_COOKIE["SmartHome"])) {
     $userID = checkCookie($pdo, $_COOKIE["SmartHome"]);
     if (isset($userID)) {
         $user = getUserByID($pdo, $userID);
-        $userName = $user["username"];
-        $_SESSION["username"] = htmlspecialchars($userName);
+        $_SESSION["username"] = htmlspecialchars($user["username"]);
+        $_SESSION["userID"] = $user["userID"];
+        $_SESSION["email"] = $user["email"];
+
         echo json_encode([1, $_SESSION["username"]]);
         exit();
     }

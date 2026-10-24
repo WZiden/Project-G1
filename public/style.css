@@ -16,6 +16,7 @@
     --card-button-color : rgb(19, 19, 80);
     --button-hover: #9bb5bf;
     --red: #dc3545;
+    --green: #0e603a;
 
     --border-radius: 0.5rem;
     --spacing: 1rem;
@@ -660,6 +661,11 @@ header{
 }
 
 
+#settingsStatusMessage {
+    height: 3rem;
+    width: 50%;
+    justify-self: center;
+}
 
 /*layout mobil */
 
@@ -757,6 +763,10 @@ header{
     #userNameHeading {
         display: none;
     }
+
+    #settingsStatusMessage {
+        width: 100%;
+    }
     
 }    
     
@@ -825,6 +835,10 @@ header{
         display: none;
     }
 
+    #settingsStatusMessage {
+        width: 100%;
+    }
+
 }
 
 
@@ -889,11 +903,13 @@ body {
     font-size: x-large;
     padding: var(--spacing);
     cursor: pointer;
+    color: var(--box-color);
 }
 
 .verticalContainer h1 {
     text-align: center;
     padding-bottom: var(--spacing);
+    color: var(--box-color);
 }
 
 .horizontalcontainer {
@@ -923,6 +939,11 @@ form span {
     position: absolute;
     right: calc(var(--spacing) / 2);
     top: 25%;
+    color: var(--box-color);
+}
+
+form p {
+    padding: var(--spacing);
 }
 
 input[type=checkbox] {
