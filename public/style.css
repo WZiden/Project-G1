@@ -764,6 +764,10 @@ form span {
     color: var(--box-color);
 }
 
+form p {
+    padding: var(--spacing);
+}
+
 input[type=checkbox] {
     margin: 0 var(--spacing) var(--spacing) 0;
     border-radius: var(--border-radius);

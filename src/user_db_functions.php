@@ -49,6 +49,10 @@ function addUser(PDO $pdo, string $name, string $email, string $password, string
     if ($password != $confirmPassword) {
         return [0, "Passwords do not match"];
     }
+    $regex = "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/";
+    if (!preg_match($regex, $password)) {
+        return [0, "Password does not meet the requirements"];
+    }
     // Check that all mandatory fields are filled in
     if (!empty($pdo) && !empty($name) && !empty($email) && !empty($password)) {
         $password = password_hash($password, PASSWORD_DEFAULT);
@@ -140,6 +144,10 @@ function changeUserName(PDO $pdo, int $userID, string $newUserName) {
 function changeUserPassword(PDO $pdo, int $userID, string $oldPassword, string $newPassword, string $confirmedPassword) {
     // Compare both new password entries
     if ($newPassword === $confirmedPassword) {
+        $regex = "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/";
+        if (!preg_match($regex, $newPassword)) {
+            return [0, "Password does not meet the requirements"];
+        }
         // Verify the old password
         if (verifyUserWithID($pdo, $userID, $oldPassword)) {
             // Change password
