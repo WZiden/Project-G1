@@ -3,7 +3,7 @@
 
     require_once __DIR__ . '/../../src/connect_api.php';
     require_once __DIR__ . '/../../src/connect_db.php';
-    require_once __DIR__ . '/../functions.php';
+    require_once __DIR__ . '/../../src/functions.php';
 
     if(isset($_SESSION['userID'])){
         $favorites = getFavorites($pdo, $_SESSION['username']);
