@@ -223,8 +223,8 @@ async function checkCookie() {
     } 
 }
 
-
-function getCookieName() {
+// Extract username from cookie
+function getCookieUsername() {
     let startPosition = document.cookie.search("Username=") + 9;
     let endposition = document.cookie.indexOf(";", startPosition);
     if (endposition == -1) {

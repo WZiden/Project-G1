@@ -29,7 +29,7 @@ function getUserByID(PDO $pdo, int $userID) {
 // Return userID or NULL
 function checkCookie(PDO $pdo, string $cookieToken) {
     try {
-        $stmt = $pdo->prepare("SELECT userID FROM cookies WHERE token = ?");
+        $stmt = $pdo->prepare("SELECT userID FROM users WHERE token = ?");
         $stmt->execute([$cookieToken]);
         $result = $stmt->fetch();
         return $result["userID"];
@@ -49,8 +49,8 @@ function addUser(PDO $pdo, string $name, string $email, string $password) {
     // Check that all mandatory fields are filled in
     if (!empty($pdo) && !empty($name) && !empty($email) && !empty($password)) {
         try {
-            $stmt = $pdo->prepare("INSERT INTO users (username, email, passwordHash) VALUES (?, ?, ?)");
-            $stmt->execute([$name, $email, $password]);
+            $stmt = $pdo->prepare("INSERT INTO users (username, email, passwordHash, permission_level) VALUES (?, ?, ?, ?)");
+            $stmt->execute([$name, $email, $password, 2]);
 
             return [1, "User added"];
         } catch (Exception $e) {
@@ -59,6 +59,18 @@ function addUser(PDO $pdo, string $name, string $email, string $password) {
     } else {
         return [0, "All fields must be filled in"];
     }
+}
+
+// Verify that the userID and password for a user matches
+function verifyUserWithID(PDO $pdo, string $userID, string $password) {
+    $savedUser = getUserByID($pdo, $userID);
+    if (!empty($savedUser)) {
+        // Check the password
+        if (password_verify($password, $savedUser["passwordHash"])) {
+            return true;
+        }           
+    }
+    return false;
 }
 
 // Log in user
@@ -74,7 +86,8 @@ function loginUser(PDO $pdo, string $email, string $password, string $remember =
             // Check the password
             if (password_verify($password, $savedUser["passwordHash"])) {
                 $_SESSION["username"] = htmlspecialchars($savedUser["username"]);
-                $_SESSION["userID"] = htmlspecialchars($savedUser["userID"]);
+                $_SESSION["userID"] = $savedUser["userID"];
+                $_SESSION["email"] = $savedUser["email"];
 
                  // Set persistent cookie for 1h if 'remember me' is checked
                 if ($remember === "on") {
@@ -82,12 +95,13 @@ function loginUser(PDO $pdo, string $email, string $password, string $remember =
                     $salt = "!s9:(K*+ji<%-D";
                     $token = hash("sha256", $salt . time() . $salt);
                     setcookie("SmartHome", $token, time() + 60 * 60, "/");
-                    setcookie("Username", $_SESSION["username"], time() + 60 * 60, "/");
 
                     // Add cookie to database
-                    $stmt = $pdo->prepare("INSERT INTO cookies (userID, token) VALUES (?, ?) ON DUPLICATE KEY UPDATE token=?");
-                    $stmt->execute([$savedUser["userID"], $token, $token]);
+                    $stmt = $pdo->prepare("UPDATE users SET token = ? WHERE userID = ?");
+                    $stmt->execute([$token, $savedUser["userID"]]);
                 }
+                setcookie("Username", $_SESSION["username"]);
+                    
                 return [1, "User logged in", $_SESSION["username"]];
             }           
         }
@@ -97,62 +111,47 @@ function loginUser(PDO $pdo, string $email, string $password, string $remember =
     }   
 }
 
-// Destoy cokie
+// Destoy cookie
 function destroyCookie() {
     setcookie("SmartHome", "", time() - 60 * 10, "/");
 }
 
-//require_once "connect_db.php";
-//changeUserPassword($pdo, 3, "lina2", "lina", "lina");
-//changeUserName($pdo, 3, "Lina");
-
+// Change username
 function changeUserName(PDO $pdo, int $userID, string $newUserName) {
     try {
         $stmt = $pdo->prepare("UPDATE users SET username = ? WHERE userID = ?");
         $stmt->execute([$newUserName, $userID]);
-        //echo("Username changed");
-        return [1, "Password changed", $newUserName];
+        $_SESSION["username"] = htmlspecialchars($newUserName);
+        setcookie("Username", $_SESSION["username"]);
+        return [1, "Username changed", $newUserName];
     } catch (Exception $e) {
-        //echo("Username not changed");
-        return [0, "Password not changed"];
+        return [0, "Username not changed"];
     } 
-}
+} 
 
-/*
+// Change user password
 function changeUserPassword(PDO $pdo, int $userID, string $oldPassword, string $newPassword, string $confirmedPassword) {
     // Compare both new password entries
-    if ($newPassword === $confirmedPassword) { 
-        $savedUser = getUserByID($pdo, $userID);
-        if (!empty($savedUser)) {
-            print_r($savedUser);
-            if (password_verify($oldPassword, $savedUser["passwordHash"])) {
-                echo("ok\n");
-            } else {
-                echo("inte ok\n");
-            }
-            // Check the old password
-            if (password_verify($oldPassword, $savedUser["passwordHash"])) {
-                $newPassword = password_hash($newPassword, PASSWORD_DEFAULT);
-                try {
-                    $stmt = $pdo->prepare("UPDATE users SET passwordHash = ? WHERE userID = ?");
-                    $stmt->execute([$newPassword, $userID]);
-                    echo("Password changed");
-                    //return [1, "Password changed"];
-                } catch (Exception $e) {
-                echo("Password not changed");
-                print_r($e->getMessage());
-                //return [0, "Password not changed"];
-                }                 
-            } else {
-                echo("Unable to verify");
-            }
+    if ($newPassword === $confirmedPassword) {
+        // Verify the old password
+        if (verifyUserWithID($pdo, $userID, $oldPassword)) {
+            // Change password
+            $newPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+            try {
+                $stmt = $pdo->prepare("UPDATE users SET passwordHash = ? WHERE userID = ?");
+                $stmt->execute([$newPassword, $userID]);
+                return [1, "Password changed"];
+            } catch (Exception $e) {
+            return [0, "Password not changed"];
+            } 
         } else {
-            echo("Wrong password");
-            //return [0, "Wrong password"];
+            return [0, "Wrong password"];
         }
     } else {
-        echo("Passwords does not match");
-        //return [0, "Passwords does not match"];
+        return [0, "Passwords does not match"];
     }
 }
-    */
+    
+//require_once "connect_db.php";
+
+

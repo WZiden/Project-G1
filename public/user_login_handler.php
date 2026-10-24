@@ -22,8 +22,21 @@ switch ($_POST["type"]) {
       PASSWORD_DEFAULT));
       echo(json_encode($result));
     break;
-  case "forgotten":
-    //code block
+  case "changeName":
+    $result = changeUserName(
+      $pdo, 
+      $_SESSION["userID"], 
+      $_POST["newUserName"]);
+      echo(json_encode($result));
+    break;
+  case "changePassword":
+    $result = changeUserPassword(
+      $pdo, 
+      $_SESSION["userID"], 
+      $_POST["oldPassword"],
+      $_POST["newPassword"],
+      $_POST["confirmPassword"]);
+      echo(json_encode($result));
     break;
   default:
     //code block
