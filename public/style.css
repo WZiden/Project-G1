@@ -725,11 +725,13 @@ body {
     font-size: x-large;
     padding: var(--spacing);
     cursor: pointer;
+    color: var(--box-color);
 }
 
 .verticalContainer h1 {
     text-align: center;
     padding-bottom: var(--spacing);
+    color: var(--box-color);
 }
 
 .horizontalcontainer {
@@ -759,6 +761,7 @@ form span {
     position: absolute;
     right: calc(var(--spacing) / 2);
     top: 25%;
+    color: var(--box-color);
 }
 
 input[type=checkbox] {

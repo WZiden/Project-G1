@@ -237,7 +237,7 @@ async function sendChangeName() {
         const data = await response.json();
         if (data[0] != 1) {
             statusMessage.style.backgroundColor = errorColor;
-            statusMessage.innerText = "Error" + data[1];
+            statusMessage.innerText = "Error: " + data[1];
         } else {
             document.getElementById("pageUsername").innerText = "Username: " + data[2];
             document.getElementById("userNameHeading").innerText = data[2];

@@ -41,13 +41,17 @@ function checkCookie(PDO $pdo, string $cookieToken) {
 // Add a user to the database
 // Requires a PDO instance, a name, an email, an unhashed password
 // Returns an array with: 1/0 (success/failure code), String (success/failure message)
-function addUser(PDO $pdo, string $name, string $email, string $password) {
+function addUser(PDO $pdo, string $name, string $email, string $password, string $confirmPassword) {
     // Check for special characters in username
     if ($name !== htmlspecialchars($name)) {
         return [0, "The name must not contain any special characters"];
     }
+    if ($password != $confirmPassword) {
+        return [0, "Passwords do not match"];
+    }
     // Check that all mandatory fields are filled in
     if (!empty($pdo) && !empty($name) && !empty($email) && !empty($password)) {
+        $password = password_hash($password, PASSWORD_DEFAULT);
         try {
             $stmt = $pdo->prepare("INSERT INTO users (username, email, passwordHash, permission_level) VALUES (?, ?, ?, ?)");
             $stmt->execute([$name, $email, $password, 2]);
@@ -118,6 +122,9 @@ function destroyCookie() {
 
 // Change username
 function changeUserName(PDO $pdo, int $userID, string $newUserName) {
+    if ($newUserName !== htmlspecialchars($newUserName)) {
+        return [0, "The name must not contain any special characters"];
+    }
     try {
         $stmt = $pdo->prepare("UPDATE users SET username = ? WHERE userID = ?");
         $stmt->execute([$newUserName, $userID]);
@@ -148,7 +155,7 @@ function changeUserPassword(PDO $pdo, int $userID, string $oldPassword, string $
             return [0, "Wrong password"];
         }
     } else {
-        return [0, "Passwords does not match"];
+        return [0, "Passwords do not match"];
     }
 }
     

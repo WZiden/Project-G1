@@ -18,8 +18,8 @@ switch ($_POST["type"]) {
       $pdo, 
       $_POST["username"], 
       $_POST["email"], 
-      password_hash($_POST["password"], 
-      PASSWORD_DEFAULT));
+      $_POST["password"],
+      $_POST["confirmpassword"]);
       echo(json_encode($result));
     break;
   case "changeName":
