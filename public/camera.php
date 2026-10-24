@@ -1,6 +1,5 @@
 <?php
-    $restURL = '';
-    require_once '../src/connect_api.php';
+    require_once __DIR__ . '/../src/connect_api.php';
 
     $entityId = $_GET['entity_id'] ?? '';
 

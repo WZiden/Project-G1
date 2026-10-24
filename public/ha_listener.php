@@ -1,8 +1,8 @@
 <?php
     
-    require_once '../src/connect_api.php';
-    require_once '../src/connect_db.php';
-    require_once 'functions.php';
+    require_once __DIR__ . '/../src/connect_api.php';
+    require_once __DIR__ . '/../src/connect_db.php';
+    require_once __DIR__ . '/../src/functions.php';
 
     $stmt = $pdo->query("
         SELECT device_id
