@@ -2,7 +2,7 @@
 
     require_once '../src/connect_db.php';
     require_once '../src/connect_api.php';
-    require_once 'functions.php';
+    require_once '../src/functions.php';
 
     $stmt = $pdo->query("
         SELECT MAX(last_seen)

@@ -1,6 +1,6 @@
 <?php
 require_once "../src/connect_db.php";
-require_once "functions.php";
+require_once "../src/functions.php";
 
 $rooms = getAllRooms($pdo);
 

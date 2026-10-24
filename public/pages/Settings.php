@@ -20,7 +20,7 @@
  <form id="changePasswordForm" class="pageForm">
     <fieldset>
         <legend>Change your password</legend>
-        <p>The password must conain at least one lowercase letter, one uppercase letter, one digit, and it must be at least 8 characters long.</p>
+        <p>The password must conain at least one lowercase letter (a-z), one uppercase letter (A-Z), one digit, and it must be at least 8 characters long.</p>
         <input type="hidden" name="type" value="changePassword">
         <label for="oldPassword">Your old password</label>
         <div class="inputContainer">
