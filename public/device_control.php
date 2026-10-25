@@ -27,19 +27,26 @@ if (!$entityId || !$service){
 
     exit;
 }
+//Get the old value before it changes
+$states= getHomeAssistantStates($haURL, $haToken);
+$oldValue = extractOldValue($states, $entityId );
 
 if (getPermission($pdo, $userID, $deviceName)){
-    try{
-
+    try{  
+      
         $success = controlDevice(
             $entityId,
             $service,
             $haURL,
             $haToken,
             $serviceData
-        );
+        );  
+
+        $newValue = extractNewValue($entityId, $service, $serviceData);
 
         echo json_encode(['success' => $success]);
+        logDeviceAttempt ( $pdo, $userID, 1, $deviceName, $oldValue, $newValue, $success );
+
     }
     catch (Exception $e){
         http_response_code(500);
@@ -47,14 +54,21 @@ if (getPermission($pdo, $userID, $deviceName)){
         echo json_encode([
             'success' => false,
             'message' => $e->getMessage()
+           
         ]);
+        $newValue = extractNewValue($entityId, $service, $serviceData); 
+        logDeviceAttempt ( $pdo, $userID, 1, $deviceName, $oldValue, $newValue, 0 );
     }
-}else {
+    
+}
+else {
     http_response_code(403);
 
     echo json_encode([
         'success' => false,
         'message' => 'You do not have permission to control this device.'
     ]);
-    exit;
+    $newValue = extractNewValue($entityId, $service, $serviceData);
+    logDeviceAttempt ( $pdo, $userID, 0, $deviceName, $oldValue, $newValue, 0 );
+    exit;  
 }

@@ -17,3 +17,8 @@
     </div>
 
 </div>
+
+
+<!--för att får till histork sidan så måste jag hämta alla data 
+och få med användar namnet tid och vad som hände.
+ -->

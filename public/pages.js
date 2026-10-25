@@ -76,21 +76,12 @@ loadPage("Favorite");
 
 /*Skapar innehållet i history sidan*/
 function initHistoryPage() {
-    const container = document.getElementById("historyStatsContent");
     const btnHistory = document.getElementById("btnHistory");
     const btnStats = document.getElementById("btnStats");
 
 
-    if (!container || !btnHistory || !btnStats ) return;
+    if (!btnHistory || !btnStats ) return;
 
-    const logg = [
-        { time: "08:12", message: "System startade", type: "system" },
-        { time: "09:45", message: "Användare loggade in", type: "info" },
-        { time: "11:03", message: "Fel: API timeout", type: "error" },
-        { time: "14:22", message: "Backup klar", type: "system" }
-    ];
-
-    logg.sort((a, b) => a.time.localeCompare(b.time));
 
     function renderLog() {
         document.getElementById("historyView").style.display = "block";
@@ -99,14 +90,23 @@ function initHistoryPage() {
         const timeline = document.querySelector(".timeline");
         timeline.innerHTML = "";
 
-        logg.forEach(entry => {
-            const item = document.createElement("div");
-            item.classList.add("timeline-item");
-            item.innerHTML = `
-                <div class="timeline-time">${entry.time}</div>
-                <div class="timeline-message">${entry.message}</div>
-            `;
-            timeline.appendChild(item);
+        fetch("pages/gethistory.php")
+        .then(res => res.json())
+        .then(rows =>{
+            rows.forEach(row=> {
+                const item=document.createElement("div");
+                item.classList.add("timeline-item");
+
+                item.innerHTML =`
+                    <div class="timeline-time">${row.time}</div>
+                    <div class ="timeline-message">
+                        ${row.username} change ${row.device_name}
+                        from <b>${row.oldValue}<b> to <b> ${row.newValue}</b>
+                    </div>
+                `;
+                timeline.appendChild(item)
+            });
+   
         });
 
         btnHistory.classList.add("active");
