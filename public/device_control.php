@@ -3,7 +3,7 @@ session_start();
 
 require_once '../src/connect_db.php';
 require_once '../src/connect_api.php';
-require_once 'functions.php';
+require_once '../src/functions.php';
 
 header('Content-Type: application/json; charset=utf-8');
 

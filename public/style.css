@@ -16,6 +16,7 @@
     --card-button-color : rgb(19, 19, 80);
     --button-hover: #9bb5bf;
     --red: #dc3545;
+    --green: #0e603a;
 
     --border-radius: 0.5rem;
     --spacing: 1rem;
@@ -119,7 +120,6 @@ header{
     outline: none;
 }
 
-
 .scrollbar {
     background-color: var(--box-color);
     border-radius: var(--border-radius);
@@ -205,6 +205,7 @@ header{
 
 .search {
     display: flex;
+    position: relative;
     align-items: center;
     gap: 0.5rem;
     margin-bottom: 0.5rem;
@@ -239,6 +240,51 @@ header{
 .search button:hover {
     background-color: var(--button-hover);
 }
+
+#search-results{
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+
+    background: white;
+    border-radius: 0 0 8px 8px;
+
+    max-height: 300px;
+    overflow-y: auto;
+
+    z-index: 1000;
+}
+
+.search-section-title{
+    color: black;
+    font-weight: bold;
+    padding: .5rem;
+    border-bottom: 1px solid #eee;
+}
+
+.search-result{
+    display: block;
+    width: 100%;
+
+    padding: .5rem;
+
+    text-align: left;
+
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.search-result:hover{
+    background: #f5f5f5;
+}
+
+.entity-header-row .device-detail-label{
+    display:flex;
+    align-items:center;
+}
+
 
 .device-grid {
     display: grid;
@@ -317,6 +363,71 @@ header{
     color: rgb(255, 212, 59);
 }
 
+.toggle-button{
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0 !important;
+
+    width:fit-content !important;
+    height: fit-content !important;
+
+    float: right;
+
+    font-size: 2.5rem;
+
+    transition: all .2s ease;
+}
+
+.toggle-button i{
+    pointer-events: none;
+}
+
+.toggle-button[data-state="on"]{
+    color: #11814d;
+}
+
+.toggle-button[data-state="off"]{
+    color: #dc3545;
+}
+
+.toggle-button:hover{
+    color: rgb(255, 212, 59);
+    transform: scale(1.15);
+}
+
+.toggle-button[data-state="on"] .toggle-on-icon{
+    display: inline-block;
+}
+
+.toggle-button[data-state="on"] .toggle-off-icon{
+    display: none;
+}
+
+.toggle-button[data-state="off"] .toggle-on-icon{
+    display: none;
+}
+
+.toggle-button[data-state="off"] .toggle-off-icon{
+    display: inline-block;
+}
+
+.toggle-button[data-state="on"]:hover .toggle-on-icon{
+    display: none;
+}
+
+.toggle-button[data-state="on"]:hover .toggle-off-icon{
+    display: inline-block;
+}
+
+.toggle-button[data-state="off"]:hover .toggle-on-icon{
+    display: inline-block;
+}
+
+.toggle-button[data-state="off"]:hover .toggle-off-icon{
+    display: none;
+}
+
 /* Status */
 
 .device-status {
@@ -352,8 +463,10 @@ header{
 }
 
 .device-detail-label {
-
     font-weight: bold;
+    display: flex;
+    align-items: center;
+
 }
 
 .device-detail-value {
@@ -388,17 +501,68 @@ header{
 }
 
 .device-button.on {
-    background-color: #0e603a;
+    background-color: #11814d;
 }
 
 .device-button.off {
     background-color: #dc3545;
 }
 
+.cover-status{
+    grid-column: 1 / -1;
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cover-slider-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.cover-slider{
+    width: 100%;
+    max-width: 200px;
+}
+
+.cover-position-label{
+    margin-bottom: 0.25rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+.cover-stop-button{
+    grid-column: 1 / -1;
+    width: 50%;
+    margin: 0 auto;
+}
+
+.device-control-form {
+    float: right;
+}
+
+.lock-controls{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
 .lock-button{
     background: transparent;
     border: none;
     cursor: pointer;
+
+    padding: 0 !important;
+
+    width: fit-content !important;
+    height: fit-content !important;
+
+    float: right;
 
     font-size: 2rem;
 
@@ -416,7 +580,7 @@ header{
 }
 
 .lock-button[data-locked="false"]{
-    color: #0e603a;
+    color: #11814d;
 }
 
 .lock-button:hover{
@@ -482,6 +646,26 @@ header{
     color: white;
 }
 
+.camera-container{
+    grid-column: 1 / -1;
+    margin-top: 0.5rem;
+    overflow: hidden;
+    border-radius: 12px;
+}
+
+.camera-feed{
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+}
+
+
+#settingsStatusMessage {
+    height: 3rem;
+    width: 50%;
+    justify-self: center;
+}
 
 /*layout mobil */
 
@@ -579,6 +763,10 @@ header{
     #userNameHeading {
         display: none;
     }
+
+    #settingsStatusMessage {
+        width: 100%;
+    }
     
 }    
     
@@ -647,6 +835,10 @@ header{
         display: none;
     }
 
+    #settingsStatusMessage {
+        width: 100%;
+    }
+
 }
 
 
@@ -711,11 +903,13 @@ body {
     font-size: x-large;
     padding: var(--spacing);
     cursor: pointer;
+    color: var(--box-color);
 }
 
 .verticalContainer h1 {
     text-align: center;
     padding-bottom: var(--spacing);
+    color: var(--box-color);
 }
 
 .horizontalcontainer {
@@ -745,6 +939,11 @@ form span {
     position: absolute;
     right: calc(var(--spacing) / 2);
     top: 25%;
+    color: var(--box-color);
+}
+
+form p {
+    padding: var(--spacing);
 }
 
 input[type=checkbox] {

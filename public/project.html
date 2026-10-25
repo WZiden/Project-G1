@@ -9,10 +9,12 @@
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <link rel="stylesheet" href="style.css">
     <script src="login.js" defer></script>
-    <script src ="pages.js" defer></script>
+    <script src="pages.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src = "favorites.js" defer></script>
+    <script src="favorites.js" defer></script>
     <script src="device_control.js"></script>
+    <script src="websocket.js"></script>
+    <script src="search.js"></script>
     <script src="https://kit.fontawesome.com/8d6a80a8d9.js" crossorigin="anonymous"></script>
 
    
@@ -67,9 +69,16 @@
                             autocomplete="on" required>
                         <span class="material-symbols-outlined">mail</span>
                     </div>
+                    <p>The password must conain at least one lowercase letter (a-z), one uppercase letter (A-Z), one digit, and it must be at least 8 characters long.</p>
                     <label for="registerpassword">Password</label>
                     <div class="inputContainer">
                         <input type="password" placeholder="Enter your password" id="registerpassword" name="password"
+                            required>
+                        <span class="material-symbols-outlined">lock</span>
+                    </div>
+                    <label for="confirmpassword">Confirm password</label>
+                    <div class="inputContainer">
+                        <input type="password" placeholder="Confirm your password" id="confirmpassword" name="confirmpassword"
                             required>
                         <span class="material-symbols-outlined">lock</span>
                     </div>
@@ -93,7 +102,7 @@
                     <div class ="nav-bottom-btn-mobil">
                         <button class="room-btn" data-page="Devices"> Devices</button>
                         <button class="room-btn" data-page="Data"> Data</button>
-                        <button class="room-btn" data-page="Profile"> Profile</button>
+                        <button class="room-btn" data-page="Settings"> Settings</button>
                     </div>
                     <button class="room-btn" data-page="Alert"> Alerts</button>
             
@@ -106,7 +115,8 @@
             <nav class="scrollbar grid-box">
                 <div class="button">
                     <form class="search">
-                        <input type="search" placeholder="Search Room">
+                        <input id="globalSearch" type="search" placeholder="Search">
+                        <div id="search-results"></div>
                         <button type="submit" class="search-btn">Search</button>
                     </form>
                     <button class="room-btn" data-page="Favorite"> Favorite</button>
@@ -130,7 +140,7 @@
             <nav class="nav-bottom grid-box">
                 <button class="room-btn" data-page="Devices"> Devices</button>
                 <button class="room-btn" data-page="History"> Data</button>
-                <button class="room-btn" data-page="Profile"> Profile</button>
+                <button class="room-btn" data-page="Settings"> Settings</button>
               
             </nav>
         </div>
