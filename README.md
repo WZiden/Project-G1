@@ -38,3 +38,25 @@ CREATE TABLE `favorites` (
     FOREIGN KEY (`userID`) REFERENCES `users` (`userID`),
     FOREIGN KEY (`device_id`) REFERENCES `devices` (`device_id`)
 )
+
+
+
+hej här är tabellen för userlog
+CREATE TABLE `userlog` (
+  `logID` int(11) NOT NULL,
+  `userID` int(11) NOT NULL,
+  `permission` tinyint(1) NOT NULL,
+  `device_name` varchar(100) NOT NULL,
+  `oldValue` varchar(20) NOT NULL,
+  `newValue` varchar(20) NOT NULL,
+  `changeConfirmed` tinyint(1) NOT NULL,
+  `time` datetime NOT NULL
+)
+man måste lägga till uniqe på device_name i devices för att de ska gå att lägga in FK mellan tabellerna
+
+ALTER TABLE `userlog`
+  ADD CONSTRAINT `device_name` FOREIGN KEY (`device_name`) REFERENCES `devices` (`device_name`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `userID` FOREIGN KEY (`userID`) REFERENCES `users` (`userID`) ON DELETE CASCADE ON UPDATE CASCADE;
+COMMIT;
+
+
