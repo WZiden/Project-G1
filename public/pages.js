@@ -25,6 +25,10 @@ function loadPage(page, params = {}, title = page) {
             if(page=== "Data"){
                 initHistoryPage()
             }
+
+            if (page === "Alert") {
+                initAlertsPage();
+            }
             
             if (page === "Settings") {
                 document.getElementById("settingsStatusMessage").style.backgroundColor = "transparent";
@@ -288,5 +292,4 @@ async function sendChangePassword() {
         //console.log(e);
     }    
 }
-
 /******/

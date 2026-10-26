@@ -1059,3 +1059,46 @@ a:hover {
     width: 100% !important;
     height: 100% !important; /* ← Canvas fyller wrappern */
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*Alerts*/
+.alerts-page {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    color: var(--text-color);
+}
+
+.alerts-section {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.alerts-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.alerts-list .timeline-item {
+    background-color: var(--grid-color);
+    border: 2px solid var(--button-color);
+    border-radius: var(--border-radius);
+    padding: 1rem;
+}
+
+#alertsFeedback:empty {
+    display: none;
+}
