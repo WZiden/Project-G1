@@ -795,13 +795,14 @@
         }
         
     }
-      function extractNewValue(string $entityId, string $service, array $serviceData ): mixed {
-         $domain =explode ('.', $entityId)[0];
+
+    function extractNewValue(string $entityId, string $service, array $serviceData ): mixed {
+        $domain =explode ('.', $entityId)[0];
         switch ($domain) {
             case 'light':
                 if($service === 'turn_on') return 'on';
                 if($service === 'turn_off')return 'off';
-               
+                
                 return $serviceData['brightness'] ?? 'unknown';
 
             case 'switch':
@@ -819,8 +820,9 @@
             default:
                 return 'unknown';
         }
-        
-      }          
+    
+    }
+            
     function logDeviceAttempt ( PDO $pdo, int $userID, bool $permissionGranted, string $deviceName, mixed $oldValue, mixed $newValue,bool $success ):void {
         $stmt = $pdo-> prepare("
         INSERT INTO userlog (

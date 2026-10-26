@@ -8,26 +8,8 @@
     if(isset($_SESSION['userID'])){
         $room = $_GET['room'] ?? '';
         $query = $_GET['query'] ?? '';
-
+        $devices = json_decode(file_get_contents(__DIR__ . '/../../cache/devices.json'), true);
         $favorites = getFavorites($pdo, $_SESSION['username']);
-
-        $devices = searchDevices($pdo, $query);
-        $entities = getHomeAssistantEntities(
-            $haURL,
-            $haToken
-        );
-        $states = getHomeAssistantStates(
-            $haURL,
-            $haToken
-        );
-        $entitiesByDevice = indexEntitiesByDevice($entities);
-        $statesByEntity = indexStatesByEntity($states);
-
-        $devices = buildDevices(
-            $devices,
-            $entitiesByDevice,
-            $statesByEntity
-        );
 
         echo "<div class='device-grid'>";
         foreach ($devices as $device){
