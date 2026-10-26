@@ -873,7 +873,7 @@ body {
     position: fixed;
     top: 0;
     overflow: auto;
-    background-color: rgba(0,0,0,0.1);
+    background-color: rgba(0,0,0,0.8);
 }
 
 .modalContent {
@@ -896,14 +896,6 @@ body {
 
 #modalContentRegister {
     display: none;
-}
-
-.closeModal {
-    font-weight: bold;
-    font-size: x-large;
-    padding: var(--spacing);
-    cursor: pointer;
-    color: var(--box-color);
 }
 
 .verticalContainer h1 {
@@ -985,6 +977,17 @@ a:hover {
 .pageForm legend {
     font-size: large;
     padding: var(--spacing);
+}
+
+.pageForm checkbox {
+    display: block;
+}
+
+.pageForm select {
+    padding: calc(var(--spacing) / 2);
+    margin: var(--spacing);
+    border-radius: var(--border-radius);
+    text-align: center;
 }
 
 /*utseende history/data page*/
