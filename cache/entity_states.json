@@ -17,7 +17,7 @@
         }
     },
     "sensor.pc1_energy": {
-        "state": "34.152",
+        "state": "34.153",
         "attributes": {
             "state_class": "total_increasing",
             "unit_of_measurement": "kWh",
@@ -26,7 +26,7 @@
         }
     },
     "sensor.illuminance_workstations": {
-        "state": "620",
+        "state": "613",
         "attributes": {
             "state_class": "measurement",
             "unit_of_measurement": "lx",
@@ -44,7 +44,7 @@
         }
     },
     "sensor.illuminance_lounge": {
-        "state": "802",
+        "state": "799",
         "attributes": {
             "state_class": "measurement",
             "unit_of_measurement": "lx",
@@ -53,7 +53,7 @@
         }
     },
     "sensor.room_temperature": {
-        "state": "25.8",
+        "state": "25.7",
         "attributes": {
             "state_class": "measurement",
             "unit_of_measurement": "\u00b0C",
@@ -62,7 +62,7 @@
         }
     },
     "sensor.room_co2": {
-        "state": "713",
+        "state": "718",
         "attributes": {
             "state_class": "measurement",
             "unit_of_measurement": "ppm",
@@ -71,7 +71,7 @@
         }
     },
     "sensor.room_noise": {
-        "state": "39",
+        "state": "41",
         "attributes": {
             "state_class": "measurement",
             "unit_of_measurement": "dB",
@@ -80,7 +80,7 @@
         }
     },
     "sensor.window_temperature": {
-        "state": "24.9",
+        "state": "25.0",
         "attributes": {
             "state_class": "measurement",
             "unit_of_measurement": "\u00b0C",
@@ -203,7 +203,7 @@
         }
     },
     "sensor.solar_irradiance": {
-        "state": "29",
+        "state": "30",
         "attributes": {
             "state_class": "measurement",
             "unit_of_measurement": "W\/m\u00b2",
