@@ -756,4 +756,87 @@
                 </div>";
 
     }
+
+    
+
+    //funktioner för userlog
+    
+    // då state innehåller hela raden så måste vi ta ut de vi är ute efter
+    function extractOldValue(array $states,string $entityId  ):mixed{
+        $state =null;
+
+        foreach($states as $item){
+            if ($item['entity_id'] === $entityId ){
+                $state=$item;
+                break;
+            }
+        }
+        if($state === null) {
+            throw new Exception("Entity not found: $entityId");
+        }
+
+        $domain =explode ('.', $state ['entity_id'])[0];
+        switch ($domain) {
+            case 'light':
+                if($state['state'] === 'on' || $state ['state'] === 'off'){
+                    return $state ['state'];
+                }
+                return $state['attributes']['brightness']??null;
+            case 'switch':
+                return $state['state'];
+            case 'climate':
+                return $state['attributes']['temperature']??null;
+            case 'cover':
+                return $state['attributes']['current_position']??null;
+            case 'lock':
+            return $state ['state'];
+            default:
+                return $state ['state'];
+        }
+        
+    }
+      function extractNewValue(string $entityId, string $service, array $serviceData ): mixed {
+         $domain =explode ('.', $entityId)[0];
+        switch ($domain) {
+            case 'light':
+                if($service === 'turn_on') return 'on';
+                if($service === 'turn_off')return 'off';
+               
+                return $serviceData['brightness'] ?? 'unknown';
+
+            case 'switch':
+                if($service === 'turn_on') return 'on';
+                if($service === 'turn_off')return 'off';
+                return 'unknown';
+            case 'climate':
+                return $serviceData['temperature'] ?? 'unknown';
+            case 'cover':
+                return $serviceData['position']?? $serviceData['current_position']?? 'unknown';
+            case 'lock':
+                if($service === 'lock') return 'locked';
+                if($service === 'unlock')return 'unlocked';
+                return 'unknown';
+            default:
+                return 'unknown';
+        }
+        
+      }          
+    function logDeviceAttempt ( PDO $pdo, int $userID, bool $permissionGranted, string $deviceName, mixed $oldValue, mixed $newValue,bool $success ):void {
+        $stmt = $pdo-> prepare("
+        INSERT INTO userlog (
+        userID, permission, device_name, oldValue, newValue, changeConfirmed, time)
+        VALUES (?, ?, ?, ?, ?, ?, now())
+        ");
+
+        $stmt ->execute ([
+            $userID,
+            $permissionGranted ? 1:0,
+            $deviceName,
+            $oldValue,
+            $newValue,
+            $success ? 1: 0
+        ]);
+
+    }
 ?>
+
