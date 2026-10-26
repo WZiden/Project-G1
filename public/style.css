@@ -1182,3 +1182,13 @@ a:hover {
 #alertsFeedback:empty {
     display: none;
 }
+
+#room-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#room-buttons button {
+    width: 100%;
+}
