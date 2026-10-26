@@ -218,6 +218,10 @@ function initSettingsPage() {
         adminView.style.display = "block";
         pageUsername.style.display = "none";
         pageAdmin.style.display = "block";
+
+        // Get users for drop down
+        getUsersDropdown();
+        populateUserList();
     }); 
 
     // Change username form button
@@ -250,18 +254,23 @@ function initSettingsPage() {
 
     // Check password requirements
     newPassword.addEventListener("blur", function(e) {
-        if (newPassword.value.length < 8) {
-            statusMessage.style.backgroundColor = errorColor;
-            statusMessage.innerText = "The password must be at least 8 characters";
-        } else if (!newPassword.value.match(/[a-z]/)) {
-            statusMessage.style.backgroundColor = errorColor;
-            statusMessage.innerText = "The password must contain a lowercase letter";
-        } else if (!newPassword.value.match(/[A-A]/)) {
-            statusMessage.style.backgroundColor = errorColor;
-            statusMessage.innerText = "The password must contain an uppercase letter";
-        } else if (!newPassword.value.match(/[0-9]/)) {
-            statusMessage.style.backgroundColor = errorColor;
-            statusMessage.innerText = "The password must contain a number";
+        if (newPassword.value.length > 0) {
+            if (newPassword.value.length < 8) {
+                statusMessage.style.backgroundColor = errorColor;
+                statusMessage.innerText = "The password must be at least 8 characters";
+            } else if (!newPassword.value.match(/[a-z]/)) {
+                statusMessage.style.backgroundColor = errorColor;
+                statusMessage.innerText = "The password must contain a lowercase letter";
+            } else if (!newPassword.value.match(/[A-A]/)) {
+                statusMessage.style.backgroundColor = errorColor;
+                statusMessage.innerText = "The password must contain an uppercase letter";
+            } else if (!newPassword.value.match(/[0-9]/)) {
+                statusMessage.style.backgroundColor = errorColor;
+                statusMessage.innerText = "The password must contain a number";
+            } else {
+                statusMessage.style.backgroundColor = "transparent";
+                statusMessage.innerText = "";
+            }
         } else {
             statusMessage.style.backgroundColor = "transparent";
             statusMessage.innerText = "";
@@ -270,9 +279,14 @@ function initSettingsPage() {
 
     // Password confirm check
     confirmPassword.addEventListener("blur", function(e) {
-        if (confirmPassword.value !== newPassword.value) {
-            statusMessage.style.backgroundColor = errorColor;
-            statusMessage.innerText = "The passwords do not match";
+        if (confirmPassword.value.length > 0) {
+            if (confirmPassword.value !== newPassword.value) {
+                statusMessage.style.backgroundColor = errorColor;
+                statusMessage.innerText = "The passwords do not match";
+            } else {
+                statusMessage.style.backgroundColor = "transparent";
+                statusMessage.innerText = "";
+            }
         } else {
             statusMessage.style.backgroundColor = "transparent";
             statusMessage.innerText = "";
@@ -281,31 +295,9 @@ function initSettingsPage() {
     
 
     getCookieUsername();
-
-    // Get users for drop down
-    getUsersDropdown();
 }
 
-// TODO
-function getUsersDropdown() {
-    const dropdown = document.getElementById("selectUser");
-
-    const opt1 = document.createElement("option");
-    const opt2 = document.createElement("option");
-    const opt3 = document.createElement("option");
-    const opt4 = document.createElement("option");
-
-    opt1.text = "Anna" + ": " + "anna@gmail.com";
-    opt2.text = "Stina" + ": " + "stina@gmail.com";
-    opt3.text = "Hanna" + ": " + "hanna@gmail.com";
-    opt4.text = "Lina" + ": " + "lina@gmail.com";
-
-    dropdown.add(opt1);
-    dropdown.add(opt2);
-    dropdown.add(opt3);
-    dropdown.add(opt4);
-
-}
+/*** User stuff ***/
 
 // Extract username from cookie
 function getCookieUsername() {
@@ -384,6 +376,49 @@ async function sendChangePassword() {
     } catch (e) {
         console.log(e);
     }    
+}
+/*** Admin stuff ***/
+
+// TODO
+function getUsersDropdown() {
+    const dropdown = document.getElementById("selectUser");
+    const opt1 = document.createElement("option");
+    const opt2 = document.createElement("option");
+    const opt3 = document.createElement("option");
+    const opt4 = document.createElement("option");
+
+    opt1.text = "Anna" + ": " + "anna@gmail.com";
+    opt2.text = "Stina" + ": " + "stina@gmail.com";
+    opt3.text = "Hanna" + ": " + "hanna@gmail.com";
+    opt4.text = "Lina" + ": " + "lina@gmail.com";
+
+    dropdown.add(opt1);
+    dropdown.add(opt2);
+    dropdown.add(opt3);
+    dropdown.add(opt4);
+}
+
+// TODO get all users
+async function populateUserList() {
+    try {
+        const response = await fetch("getUsers.php");
+
+        const data = await response.json();
+        if (!response.ok) {
+            throw new Error("HTTP: " + response.status);
+        } else {
+            //const dropdown = document.getElementById("selectUser");
+
+            //console.log(JSON.response["username"]);
+            console.log(data);
+            console.log(data["username"]);
+            console.log(data["userID"]);
+            console.log(data["permission_level"]);
+        }
+        
+    } catch (e) {
+        console.log(e);
+    }
 }
 
 /******/
