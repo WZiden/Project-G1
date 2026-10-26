@@ -1,4 +1,3 @@
-
 document.addEventListener('submit', async function (event) {
     const form = event.target;
 

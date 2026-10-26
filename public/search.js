@@ -86,6 +86,7 @@ document.addEventListener('input', async function(event){
 
             html += `
                 <button
+                    type="button"
                     class="search-result"
                     data-type="device"
                     data-id="${device.device_id}">
@@ -107,6 +108,7 @@ document.addEventListener('input', async function(event){
 
             html += `
                 <button
+                    type="button"
                     class="search-result"
                     data-type="room"
                     data-room="${room}">
@@ -129,14 +131,15 @@ document.addEventListener('click', function(event){
 
     const type = result.dataset.type;
 
-    if (type === 'device'){
-        const deviceId = result.dataset.id;
+    if (type === 'device') {
+
+        const deviceName = result.textContent.trim();
 
         loadPage('Search', {
-            type: 'device', deviceId: deviceId
+            query: deviceName
         });
     }
-
+    
     if (type === 'room'){
 
         const room = result.dataset.room;

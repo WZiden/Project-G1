@@ -7,6 +7,18 @@ const pageContent = document.getElementById("page-content");
 
 function loadPage(page, params = {}, title = page) {
     pageTitle.textContent = title;
+
+    const searchInput = document.querySelector('.search input[type="search"]');
+
+    if (searchInput) {
+        searchInput.value = '';
+    }
+
+    const searchResults = document.getElementById('search-results');
+
+    if (searchResults) {
+        searchResults.innerHTML = '';
+    }
    
     const query = new URLSearchParams(params);
     const queryString = query.toString();
