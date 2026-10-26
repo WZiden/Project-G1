@@ -7,39 +7,46 @@ switch ($_POST["type"]) {
   case "login":
     $remember = $_POST["remember"] ?? "off";
     $result = loginUser(
-      $pdo, 
-      $_POST["email"], 
+      $pdo,
+      $_POST["email"],
       $_POST["password"],
-      $remember);
-      echo(json_encode($result));
+      $remember
+    );
+    echo (json_encode($result));
     break;
   case "register":
     $result = addUser(
-      $pdo, 
-      $_POST["username"], 
-      $_POST["email"], 
+      $pdo,
+      $_POST["username"],
+      $_POST["email"],
       $_POST["password"],
-      $_POST["confirmpassword"]);
-      echo(json_encode($result));
-    break;
+      $_POST["confirmpassword"]
+    );
+    if (!$result) {
+      http_response_code(400);
+    }    break;
   case "changeName":
     $result = changeUserName(
-      $pdo, 
-      $_SESSION["userID"], 
-      $_POST["newUserName"]);
-      echo(json_encode($result));
+      $pdo,
+      $_SESSION["userID"],
+      $_POST["newUserName"]
+    );
+    if (!$result) {
+      http_response_code(400);
+    }
     break;
   case "changePassword":
     $result = changeUserPassword(
-      $pdo, 
-      $_SESSION["userID"], 
+      $pdo,
+      $_SESSION["userID"],
       $_POST["oldPassword"],
       $_POST["newPassword"],
-      $_POST["confirmPassword"]);
-      echo(json_encode($result));
+      $_POST["confirmPassword"]
+    );
+    if (!$result) {
+      http_response_code(400);
+    }
     break;
   default:
-    //code block
+  http_response_code(400);
 }
-
-

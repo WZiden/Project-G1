@@ -7,6 +7,18 @@ const pageContent = document.getElementById("page-content");
 
 function loadPage(page, params = {}, title = page) {
     pageTitle.textContent = title;
+
+    const searchInput = document.querySelector('.search input[type="search"]');
+
+    if (searchInput) {
+        searchInput.value = '';
+    }
+
+    const searchResults = document.getElementById('search-results');
+
+    if (searchResults) {
+        searchResults.innerHTML = '';
+    }
    
     const query = new URLSearchParams(params);
     const queryString = query.toString();
@@ -192,36 +204,138 @@ function drawTempChart() {
 function initSettingsPage() {
     const changeNameForm = document.getElementById("changeNameForm");
     const changePasswordForm = document.getElementById("changePasswordForm");
+    const userSettingsButton = document.getElementById("userSettings");
+    const adminSettingsButton = document.getElementById("adminSettings");
+    const userView = document.getElementById("userView");
+    const adminView = document.getElementById("adminView");
+    const pageUsername = document.getElementById("pageUsername");
+    const pageAdmin = document.getElementById("pageAdmin");
+    const statusMessage = document.getElementById("settingsStatusMessage");
+    const newUserName = document.getElementById("newUserName");
+    const newPassword = document.getElementById("newPassword");
+    const confirmPassword = document.getElementById("confirmPassword");
+    const errorColor = getComputedStyle(document.querySelector(":root")).getPropertyValue("--red");
 
-    // User pressed change username form button
+    userView.style.display = "block";
+    adminView.style.display = "none";
+    pageAdmin.style.display = "none";
+
+    // Settings view button
+    userSettingsButton.addEventListener("click", function () {
+        userView.style.display = "block";
+        adminView.style.display = "none";
+        pageUsername.style.display = "block";
+        pageAdmin.style.display = "none";
+    });
+
+    // Admin view button
+    adminSettingsButton.addEventListener("click", function () {
+        userView.style.display = "none";
+        adminView.style.display = "block";
+        pageUsername.style.display = "none";
+        pageAdmin.style.display = "block";
+    }); 
+
+    // Change username form button
     changeNameForm.addEventListener("submit", function(e) {
         e.preventDefault();
         sendChangeName();
         changeNameForm.reset();
+        contentArea.scrollTo({top: 0, behavior: "smooth"});
     });
 
-    // User pressed change password form button
+    // Change password form button
     changePasswordForm.addEventListener("submit", function(e) {
         e.preventDefault();
         sendChangePassword();
         changePasswordForm.reset();
+        contentArea.scrollTo({top: 0, behavior: "smooth"});
     });
 
+    // No special characters in usernames
+    newUserName.addEventListener("input", function(e) {
+        const nameRegex = /[&"'<>]/;
+        if (newUserName.value.match(nameRegex)) {
+            statusMessage.style.backgroundColor = errorColor;
+            statusMessage.innerText = "The name must not contain any special characters";
+        } else {
+            statusMessage.style.backgroundColor = "transparent";
+            statusMessage.innerText = "";
+        }
+    });
+
+    // Check password requirements
+    newPassword.addEventListener("blur", function(e) {
+        if (newPassword.value.length < 8) {
+            statusMessage.style.backgroundColor = errorColor;
+            statusMessage.innerText = "The password must be at least 8 characters";
+        } else if (!newPassword.value.match(/[a-z]/)) {
+            statusMessage.style.backgroundColor = errorColor;
+            statusMessage.innerText = "The password must contain a lowercase letter";
+        } else if (!newPassword.value.match(/[A-A]/)) {
+            statusMessage.style.backgroundColor = errorColor;
+            statusMessage.innerText = "The password must contain an uppercase letter";
+        } else if (!newPassword.value.match(/[0-9]/)) {
+            statusMessage.style.backgroundColor = errorColor;
+            statusMessage.innerText = "The password must contain a number";
+        } else {
+            statusMessage.style.backgroundColor = "transparent";
+            statusMessage.innerText = "";
+        }
+    });
+
+    // Password confirm check
+    confirmPassword.addEventListener("blur", function(e) {
+        if (confirmPassword.value !== newPassword.value) {
+            statusMessage.style.backgroundColor = errorColor;
+            statusMessage.innerText = "The passwords do not match";
+        } else {
+            statusMessage.style.backgroundColor = "transparent";
+            statusMessage.innerText = "";
+        }
+    });
+    
+
     getCookieUsername();
+
+    // Get users for drop down
+    getUsersDropdown();
+}
+
+// TODO
+function getUsersDropdown() {
+    const dropdown = document.getElementById("selectUser");
+
+    const opt1 = document.createElement("option");
+    const opt2 = document.createElement("option");
+    const opt3 = document.createElement("option");
+    const opt4 = document.createElement("option");
+
+    opt1.text = "Anna" + ": " + "anna@gmail.com";
+    opt2.text = "Stina" + ": " + "stina@gmail.com";
+    opt3.text = "Hanna" + ": " + "hanna@gmail.com";
+    opt4.text = "Lina" + ": " + "lina@gmail.com";
+
+    dropdown.add(opt1);
+    dropdown.add(opt2);
+    dropdown.add(opt3);
+    dropdown.add(opt4);
+
 }
 
 // Extract username from cookie
 function getCookieUsername() {
-    let startPosition = document.cookie.search("Username=") + 9;
-    let endposition = document.cookie.indexOf(";", startPosition);
-    let userName = "";
-    if (endposition == -1) {
-        userName = document.cookie.substring(startPosition);
-    } else {
-        userName = document.cookie.substring(startPosition, endposition);
+    if (document.cookie.search("Username=") != -1) {
+        let startPosition = document.cookie.search("Username=") + 9;
+        let endposition = document.cookie.indexOf(";", startPosition);
+        let userName = "";
+        if (endposition == -1) {
+            userName = document.cookie.substring(startPosition);
+        } else {
+            userName = document.cookie.substring(startPosition, endposition);
+        }
+        document.getElementById("pageUsername").innerText = "Username: " + userName;
     }
-    document.getElementById("pageUsername").innerText = "Username: " + userName;
-
 }
 
 async function sendChangeName() {
@@ -232,7 +346,6 @@ async function sendChangeName() {
     const errorColor = getComputedStyle(document.querySelector(":root")).getPropertyValue("--red");
     const successColor = getComputedStyle(document.querySelector(":root")).getPropertyValue("--green");
 
-
     try {
         // Send the FormData as an HTTP POST request using fetch()
         const response = await fetch("user_login_handler.php", {
@@ -240,13 +353,15 @@ async function sendChangeName() {
             body: formData,
         });
 
-        const data = await response.json();
-        if (data[0] != 1) {
+        if (response.status == 400) {
             statusMessage.style.backgroundColor = errorColor;
-            statusMessage.innerText = "Error: " + data[1];
+            statusMessage.innerText = "Error: faulty input";
+        } else if (response.status == 500) {
+            statusMessage.style.backgroundColor = errorColor;
+            statusMessage.innerText = "Error: server error";   
         } else {
-            document.getElementById("pageUsername").innerText = "Username: " + data[2];
-            document.getElementById("userNameHeading").innerText = data[2];
+            document.getElementById("pageUsername").innerText = "Username: " + formData.get("newUserName");
+            document.getElementById("userNameHeading").innerText = formData.get("newUserName");
             statusMessage.style.backgroundColor = successColor;
             statusMessage.innerText = "Username changed";
         }
@@ -268,28 +383,22 @@ async function sendChangePassword() {
     const errorColor = getComputedStyle(document.querySelector(":root")).getPropertyValue("--red");
     const successColor = getComputedStyle(document.querySelector(":root")).getPropertyValue("--green");
 
-
     try {
         // Send the FormData as an HTTP POST request using fetch()
         const response = await fetch("user_login_handler.php", {
             method: "POST",
             body: formData,
         });
-        const data = await response.json();
-        if (data[0] != 1) {
+
+        if (response.status == 400) {
             statusMessage.style.backgroundColor = errorColor;
-            statusMessage.innerText = "Error: " + data[1];
+            statusMessage.innerText = "Error: invalid user input";
         } else {
             statusMessage.style.backgroundColor = successColor;
             statusMessage.innerText = "Password changed";
         }
-
     } catch (e) {
-        // TODO felhantering
-        console.log("Error changing name");
-        statusMessage.style.backgroundColor = errorColor;
-        statusMessage.innerText = "Error trying to change name";
-        //console.log(e);
+        console.log(e);
     }    
 }
 /******/
