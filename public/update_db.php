@@ -10,13 +10,18 @@
 
     $lastUpdate = strtotime($stmt->fetchColumn());
 
-    if (time() - $lastUpdate > 1800) {
+    if (!$lastUpdate ||time() - $lastUpdate > 1800) {
         $devices = getHomeAssistantDevices($haURL, $haToken);
-        $entities = $entitiesByDevice = indexEntitiesByDevice(getHomeAssistantEntities($haURL, $haToken));
+        $entities = indexEntitiesByDevice(getHomeAssistantEntities($haURL, $haToken));
         $states = indexStatesByEntity(getHomeAssistantStates($haURL, $haToken));
 
         $devices = buildDevices($devices, $entities, $states);
-
+        
         syncDevices($pdo, $devices);
+
+        file_put_contents(
+            '../cache/devices.json',
+            json_encode($devices, JSON_PRETTY_PRINT)
+        );
     }
 ?>
