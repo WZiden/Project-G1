@@ -166,6 +166,7 @@ async function sendLoginForm() {
             //showLogOutBtn();
             userNameHeading.innerText = data[2];
             modalContainer.style.display = "none";
+            location.reload();
         }
 
     } catch (e) {
