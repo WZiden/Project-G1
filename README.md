@@ -19,8 +19,8 @@ Hej. jag har tagit bort de filerna som heter index mobil och style mobil. då al
 
 OBS. Ni kan ta bort tabellen för enheter. Lägg istället till denna:
 CREATE TABLE `devices` (
-  `device_id` varchar(64) NOT NULL,
-  `device_name` varchar(255) NOT NULL,
+  `device_id` varchar(64) NOT NULL PRIMARY KEY,
+  `device_name` varchar(255) NOT NULL UNIQUE,
   `area_id` varchar(64) DEFAULT NULL,
   `area_name` varchar(255) NOT NULL,
   `required_user_level` tinyint(4) NOT NULL DEFAULT 2,
@@ -29,12 +29,37 @@ CREATE TABLE `devices` (
 )
 
 Tabell för favoriter:
-CREATE TABLE `favorites` (
-    `userID` INT(11) NOT NULL,
-    `device_id` VARCHAR(100) NOT NULL,
+CREATE TABLE favorites (
+    userID INT NOT NULL,
+    device_id VARCHAR(255) NOT NULL,
 
-    PRIMARY KEY (`userID`, `device_id`),
+    PRIMARY KEY (userID, device_id),
 
-    FOREIGN KEY (`userID`) REFERENCES `users` (`userID`),
-    FOREIGN KEY (`device_id`) REFERENCES `devices` (`device_id`)
+    FOREIGN KEY (userID)
+        REFERENCES users(userID)
+        ON DELETE CASCADE,
+
+    FOREIGN KEY (device_id)
+        REFERENCES devices(device_id)
+        ON DELETE CASCADE
 )
+
+hej här är tabellen för userlog
+CREATE TABLE `userlog` (
+  `logID` int(11) NOT NULL,
+  `userID` int(11) NOT NULL,
+  `permission` tinyint(1) NOT NULL,
+  `device_name` varchar(100) NOT NULL,
+  `oldValue` varchar(20) NOT NULL,
+  `newValue` varchar(20) NOT NULL,
+  `changeConfirmed` tinyint(1) NOT NULL,
+  `time` datetime NOT NULL
+)
+man måste lägga till uniqe på device_name i devices för att de ska gå att lägga in FK mellan tabellerna
+
+ALTER TABLE `userlog`
+  ADD CONSTRAINT `device_name` FOREIGN KEY (`device_name`) REFERENCES `devices` (`device_name`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `userID` FOREIGN KEY (`userID`) REFERENCES `users` (`userID`) ON DELETE CASCADE ON UPDATE CASCADE;
+COMMIT;
+
+

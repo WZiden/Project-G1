@@ -1,7 +1,5 @@
-const loginButton = document.getElementById("showLogin");
 const logoutButton = document.getElementById("showLogout");
 const modalContainer = document.getElementById("modalContainer");
-const closeModal = document.querySelectorAll(".closeModal");
 const userNameHeading = document.getElementById("userNameHeading");
 
 const loginLink = document.querySelectorAll(".loginLink");
@@ -15,32 +13,88 @@ const loginErrorMessage = document.getElementById("loginError");
 const registerErrorMessage = document.getElementById("registerError");
 
 // const loginemail = document.querySelector("#loginemail");
-// const registeremail = document.querySelector("#registeremail");
-// const forgottenemail = document.querySelector("#forgottenemail");
+const registeremail = document.querySelector("#registeremail");
+
+const registerusername = document.getElementById("registerusername");
+const registerpassword = document.getElementById("registerpassword");
+const confirmpassword = document.getElementById("confirmpassword");
 
 
 
+// No special characters in usernames
+registerusername.addEventListener("input", function(e) {
+    const nameRegex = /[&"'<>]/;
+    if (registerusername.value.match(nameRegex)) {
+        newErrorMessage("The name must not contain any special characters");
+    } else {
+        clearErrorMessage();
+    }
+});
 
+// Check email format
+registeremail.addEventListener("blur", function(e) {
+    if (registeremail.value.length > 0) {
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        if (!emailRegex.test(registeremail.value)) {
+            newErrorMessage("Not a valid email format");
+        } else {
+            clearErrorMessage();
+        }
+    } else {
+        clearErrorMessage();
+    }
+});
 
+// Check password requirements
+registerpassword.addEventListener("blur", function(e) {
+    if (registerpassword.value.length > 0) {
+        if (registerpassword.value.length < 8) {
+            newErrorMessage("The password must be at least 8 characters");
+        } else if (!registerpassword.value.match(/[a-z]/)) {
+            newErrorMessage("The password must contain a lowercase letter");
+        } else if (!registerpassword.value.match(/[A-Z]/)) {
+            newErrorMessage("The password must contain an uppercase letter");
+        } else if (!registerpassword.value.match(/[0-9]/)) {
+            newErrorMessage("The password must contain a number");
+        } else {
+            clearErrorMessage();
+        }        
+    } else {
+        clearErrorMessage();
+    }
+});
 
+/*
+// TODO jämföra lösenord
+confirmpassword.addEventListener("blur", function(e) {
+    if (registerpassword.value.length > 0) {
+        if (confirmpassword != XXX) {
+            newErrorMessage("The passwords do not match");
+        } else {
+            clearErrorMessage();
+        }        
+    }
+});
+*/
+
+function newErrorMessage(text) {
+    registerErrorMessage.style.display = "block";
+    registerErrorMessage.innerText = text;  
+}
 
 // Log out
 async function logOut() {
     try {
-        // Send the FormData as an HTTP POST request using fetch()
         const response = await fetch("logOut.php");
 
         if (!response.ok) {
             throw new Error("HTTP: " + response.status);
         }
         
-        userNameHeading.innerText = "";
-        showLoginBtn();
+        location.reload();
 
     } catch (e) {
-        // TODO felhantering
-        console.log("Error logging out");
-        //console.log(e);
+        console.log(e);
     }
 }
 
@@ -56,23 +110,6 @@ logoutButton.addEventListener("click", function () {
     logOut();
 });
 
-// Show login page modal
-loginButton.addEventListener("click", function () {
-    modalContainer.style.display = "block";
-});
-
-// Show Login button
-function showLoginBtn() {
-    loginButton.style.display = "block";
-    logoutButton.style.display = "none";
-}
-
-// Show Logout button
-function showLogOutBtn() {
-    loginButton.style.display = "none";
-    logoutButton.style.display = "block";
-}
-
 // Login form is displayed first
 function resetLoginModal() {
     modalContentLogin.style.display = "block";
@@ -84,15 +121,6 @@ function resetForms() {
     loginForm.reset();
     registerForm.reset();
 }
-
-// Upper left cross exit
-closeModal.forEach(button => {
-    button.addEventListener("click", function () {
-        resetForms();
-        resetLoginModal();
-        clearErrorMessage();
-        modalContainer.style.display = "none";
-})});
 
 // Login link
 loginLink.forEach(link => {
@@ -109,18 +137,6 @@ registerLink.forEach(link => {
         modalContentLogin.style.display = "none";
         modalContentRegister.style.display = "block";
 })});
-
-// Close the form when clicks occur outside of the form
-modalContainer.addEventListener("click", function(e) {
-    // Do not detect clicks in children elements
-    if (e.target !== e.currentTarget) {
-        return;
-    }
-    resetForms();
-    clearErrorMessage();
-    resetLoginModal();
-    modalContainer.style.display = "none";
-});
 
 // TODO extra feature
 /*
@@ -147,9 +163,10 @@ async function sendLoginForm() {
             loginErrorMessage.style.display = "block";
             loginErrorMessage.innerText = "Error: " + data[1];
         } else {
-            showLogOutBtn();
+            //showLogOutBtn();
             userNameHeading.innerText = data[2];
             modalContainer.style.display = "none";
+            location.reload();
         }
 
     } catch (e) {
@@ -173,17 +190,14 @@ async function sendRegisterForm() {
             body: formData,
         });
 
-       const data = await response.json();  
-       if (data[0] != 1) {
+       if (response.status == 400) {
             registerErrorMessage.style.display = "block";
-            registerErrorMessage.innerText = "Error: " + data[1]
+            registerErrorMessage.innerText = "Error: unable to create new user";
        } else {
             resetLoginModal();
        }
-       
     } catch (e) {
-        // TODO felhantering
-        console.log("Error adding user");
+        console.log(e);
     }
 }
 
@@ -202,24 +216,26 @@ registerForm.addEventListener("submit", function(e) {
 });
 
 // Check if user is logged in
-async function checkCookie() {
+async function checkLogin() {
     try {
         const response = await fetch("onPageLoad.php");
         const data = await response.json(); 
 
-        if (data[0] != 1) {
+        if (response.status == 401) {
             modalContainer.style.display = "block";
-            showLoginBtn();
+            //showLoginBtn();
         } else {
-            showLogOutBtn();
-            userNameHeading.innerText = data[1];
+            //showLogOutBtn();
+            userNameHeading.innerText = data;
         }
        
     } catch (e) {
+        console.log("i error check login");
         // TODO felhantering
-        //console.log(e);
-        console.log("Error checking cookie");
-        showLoginBtn();
+        console.log(e);
+        //console.log("Error checking cookie");
+        modalContainer.style.display = "block";
+        //showLoginBtn();
     } 
 }
 
@@ -237,8 +253,8 @@ function getCookieUsername() {
 
 }
 
-// Check cookie on load page
+// Check login on load page
 document.addEventListener("DOMContentLoaded", function() {
     loginErrorMessage.style.display = "none";
-    checkCookie();
+    checkLogin();
 });

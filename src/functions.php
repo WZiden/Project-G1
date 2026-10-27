@@ -453,6 +453,7 @@
         $result[$device['device_id']] = [
             'device_id' => $device['device_id'],
             'device_name' => $device['device_name'],
+            'area_id' => $device['area_id'],
             'area_name' => $device['area_name'],
             'required_user_level' => $device['required_user_level'] ?? 2,
             'entities' => $deviceEntities
@@ -484,20 +485,21 @@
 
         $controllableEntities = [];
         $infoEntities = [];
+
+        $mainEntityDomains = [
+            'light',
+            'switch',
+            'climate',
+            'cover',
+            'camera',
+            'lock',
+            'select'
+        ];
    
         $html = "<div class='device-card'>";
 
         foreach ($entities as $entity){
             $domain = explode('.', $entity['entity_id'], 2)[0];
-
-            $mainEntityDomains = [
-                'light',
-                'switch',
-                'climate',
-                'cover',
-                'camera',
-                'lock'
-            ];
 
             if (in_array($domain, $mainEntityDomains, true)){
                 $controllableEntities[] = $entity;
@@ -507,26 +509,17 @@
             }
         }
 
-        $primaryEntity = $controllableEntities[0] ?? null;
-
         $html .= "<div class='device-card-header'>";
         $html .= "<h2 class='device-title'>";
         $html .= htmlspecialchars($device['device_name']);
         $html .= "</h2>";
 
-        $html .= "
-            <form method='post' class='favorite-form'>
-                <input type='hidden' name='device_id' value='" . htmlspecialchars(
-                        (string)$device['device_id'],
-                        ENT_QUOTES,
-                        'UTF-8') . "'>
-
-                <button type='submit' name='action' value='toggle_favorite' class='favorite-button' aria-pressed='
-                " . ($isFavorite ? 'true' : 'false') . "'>
+        $html .= "<form method='post' class='favorite-form'>
+                <input type='hidden' name='device_id' value='" . htmlspecialchars((string)$device['device_id'], ENT_QUOTES, 'UTF-8') . "'>
+                <button type='submit' name='action' value='toggle_favorite' class='favorite-button' aria-pressed='" . ($isFavorite ? 'true' : 'false') . "'>
                     <i class='" . ($isFavorite ? 'fa-solid' : 'fa-regular') . " fa-star'></i>
                 </button>
-            </form>
-        ";
+            </form>";
         $html .= "</div>";
 
         foreach ($controllableEntities as $entity){
@@ -539,7 +532,16 @@
                 case 'cover':
                     $html .= renderCoverControls($entity, $device['device_name']);
                     break;
-                case 'light':
+                    case 'light':
+                        $modes = $entity['attributes']['supported_color_modes'] ?? [];
+                        if (in_array('rgb', $modes, true)) {
+                            $html .= renderRGBLightControls( $entity, $device['device_name']);
+                        } elseif (in_array('brightness', $modes, true)) {
+                            $html .= renderDimmableLightControls($entity, $device['device_name']);
+                        } else {
+                            $html .= renderOnOffControls($entity, $device['device_name']);
+                        }
+                        break;
                 case 'switch':
                     $html .= renderOnOffControls($entity, $device['device_name']);
                     break;
@@ -548,6 +550,9 @@
                     break;
                 case 'camera':
                     $html .= renderCameraCard($entity);
+                    break;
+                case 'select':
+                    $html .= renderSelectControls($entity, $device['device_name']);
                     break;
             }
         }               
@@ -589,33 +594,6 @@
         return $html;
     }
 
-    function controlDevice(string $entityId, string $service, string $haURL, string $haToken, array $serviceData = []):bool {
-        $domain = explode('.', $entityId)[0];
-
-        if (!isset(ALLOWED_SERVICES[$domain]) || !in_array($service, ALLOWED_SERVICES[$domain], true)){
-            throw new Exception('Service not allowed');
-        }
-
-        $client = connectHA($haURL, $haToken);
-
-        $client->send(json_encode([
-            "id" => 2,
-            "type" => "call_service",
-            "domain" => $domain,
-            "service" => $service,
-            "service_data" => array_merge(
-                [
-                    "entity_id" => $entityId
-                ],
-                $serviceData
-            )
-        ]));
-
-        $response = json_decode($client->receive(), true);
-
-        return (isset($response['success'])&& $response['success']);
-    }
-
     function renderOnOffControls(array $mainEntity, string $device):string {
         $isOn = $mainEntity['state'] === 'on';
 
@@ -628,6 +606,9 @@
         $html = renderEntityHeader($mainEntity);
 
         $html .= "<div class='toggle-controls'>
+                <div class='cover-status entity-status' data-entity-id='{$entityID}'>
+                    <p>{$state}</p>
+                </div>  
                 <form class='device-control-form' data-device-name='{$device}'>
                     <input type='hidden' name='entity_id' value='{$entityID}'>
                     <input type='hidden' name='service' value='{$service}'>
@@ -636,9 +617,6 @@
                         <i class='fa-solid fa-toggle-off toggle-off-icon'></i>
                     </button>
                 </form>
-            </div>
-            <div class='cover-status entity-status' data-entity-id='{$entityID}'>
-                <p>{$state}</p>
             </div>";
 
         return $html;
@@ -685,12 +663,15 @@
 
         $html = renderEntityHeader($mainEntity);
 
-        $html .="<div class='cover-controls' data-device-name='{$device}'>
+        $html .="<div class='cover-status entity-status' data-entity-id='{$entityID}'>
+                    <p>{$state}</p>
+                </div>
+                <div class='cover-controls' data-device-name='{$device}'>
                     <div class='cover-slider-container'>
                         <div class='cover-position-label' data-entity='{$entityID}' data-entity-id='{$entityID}' >
                             {$position}%
                         </div>
-                        <div class='cover-slider' data-device-name='{$device}'>
+                        <div class='cover-slider-container' data-device-name='{$device}'>
                         <input type='range' class='cover-slider' data-entity='{$mainEntity['entity_id']}' data-entity-id='{$entityID}'
                             min='0'
                             max='100'
@@ -702,10 +683,7 @@
                 </div>                    
                 <button type='button' class='cover-stop-button' data-entity='{$mainEntity['entity_id']}'>
                     STOP
-                </button>
-                <div class='cover-status entity-status' data-entity-id='{$entityID}'>
-                    <p>{$state}</p>
-                </div>";
+                </button>";
 
         return $html;
     }
@@ -748,13 +726,155 @@
         return $html;
     }
 
+    function renderSelectControls(array $entity, string $device):string {
+        $entityID = htmlspecialchars($entity['entity_id'], ENT_QUOTES, 'UTF-8');
+        $currentValue = htmlspecialchars($entity['state'], ENT_QUOTES, 'UTF-8');
+
+        $options = $entity['attributes']['options'] ?? [];
+
+        $html = renderEntityHeader($entity);
+
+        $html .= "<div class='entity-status' data-entity-id='{$entityID}'>
+                {$currentValue}
+            </div>
+            <form class='select-control-form' data-device-name='{$device}' data-entity-id='{$entityID}'>
+                <div class='select-control-option select-control'>
+                <input type='hidden' name='entity_id' value='{$entityID}'>
+                <select name='option' class='entity-select'>";
+
+        foreach ($options as $option) {
+            $selected = ($option === $currentValue) ? 'selected': '';
+
+            $safeOption = ucfirst(htmlspecialchars( $option, ENT_QUOTES, 'UTF-8'));
+
+            $html .= "<option value='{$safeOption}' {$selected}>{$safeOption}</option>";
+        }
+
+        $html .= "</select>
+                </div>
+                <div class='select-control-button select-control'>
+                <button type='submit'>
+                    Save
+                </button>
+                </div>
+            </form>";
+
+        return $html;
+    }
+
+    function renderDimmableLightControls(array $mainEntity, string $device):string {
+        $isOn = $mainEntity['state'] === 'on';
+
+        $entityID = htmlspecialchars($mainEntity['entity_id'], ENT_QUOTES, 'UTF-8');
+
+        $brightness = $mainEntity['attributes']['brightness'] ?? 255;
+
+        $service = $isOn ? 'turn_off' : 'turn_on';
+
+        $state = ucfirst(htmlspecialchars( $mainEntity['state'], ENT_QUOTES, 'UTF-8'));
+
+        $html = renderEntityHeader($mainEntity);
+
+        $html .= "<div class='entity-status' data-entity-id='{$entityID}'>
+                {$state}
+            </div>
+            <div class='light-controls' data-device-name='{$device}'>
+                <input type='range' class='brightness-slider' data-entity-id='{$entityID}' min='1' max='255' step='1' value='{$brightness}'>
+                <form class='device-control-form'>
+                    <input type='hidden' name='entity_id' value='{$entityID}'>
+                    <input type='hidden' name='service' value='{$service}'>
+                    <button type='submit' class='toggle-button' data-entity-id='{$entityID}' data-state='" . ($isOn ? 'on' : 'off') . "'>
+                        <i class='fa-solid fa-toggle-on toggle-on-icon'></i>
+                        <i class='fa-solid fa-toggle-off toggle-off-icon'></i>
+                    </button>
+                </form>
+            </div>
+        <div class='brightness-value' data-entity-id='{$entityID}'>
+            <p>Brightness: {$brightness}</p>
+        </div>";
+
+        return $html;
+    }
+
+    function renderRGBLightControls(array $mainEntity, string $device):string {
+        $isOn = $mainEntity['state'] === 'on';
+
+        $entityID = htmlspecialchars($mainEntity['entity_id'], ENT_QUOTES, 'UTF-8');
+
+        $brightness = $mainEntity['attributes']['brightness'] ?? 255;
+
+        $rgb = $mainEntity['attributes']['rgb_color'] ?? [255,255,255];
+
+        $r = $rgb[0] ?? 255;
+        $g = $rgb[1] ?? 255;
+        $b = $rgb[2] ?? 255;
+
+        $service = $isOn ? 'turn_off' : 'turn_on';
+
+        $state = ucfirst(htmlspecialchars( $mainEntity['state'], ENT_QUOTES, 'UTF-8'));
+
+        $hexColor = sprintf('#%02X%02X%02X', $r, $g, $b); //detta är rad 821
+
+        $html = renderEntityHeader($mainEntity);
+
+        $html .= "<div class='entity-status' data-entity-id='{$entityID}'>
+                {$state}
+            </div>
+                <div class='rgb-controls' data-device-name='{$device}'>
+                <input type='color' class='rgb-picker' data-entity-id='{$entityID}' value='{$hexColor}'>
+                <input type='range' class='brightness-slider' data-entity-id='{$entityID}' min='1' max='255' step='1' value='{$brightness}'>
+                <form class='device-control-form'>
+                    <input type='hidden' name='entity_id' value='{$entityID}'>
+                    <input type='hidden' name='service' value='{$service}'>
+                    <button type='submit' class='toggle-button' data-entity-id='{$entityID}' data-state='" . ($isOn ? 'on' : 'off') . "'>
+                        <i class='fa-solid fa-toggle-on toggle-on-icon'></i>
+                        <i class='fa-solid fa-toggle-off toggle-off-icon'></i>
+                    </button>
+                </form>
+            </div>
+            <div class='brightness-value' data-entity-id='{$entityID}'>
+                <p>Brightness: {$brightness}</p>
+            </div>";
+
+        return $html;
+    }
+
     function renderEntityHeader(array $entity):string {
         $friendlyName = $entity['attributes']['friendly_name'] ?? $entity['entity_id'];
+
+        $friendlyName = htmlspecialchars($friendlyName, ENT_QUOTES, 'UTF-8');
 
         return "<div class='device-detail-label'>
                     {$friendlyName}:
                 </div>";
 
+    }
+
+    function controlDevice(string $entityId, string $service, string $haURL, string $haToken, array $serviceData = []):bool {
+        $domain = explode('.', $entityId)[0];
+
+        if (!isset(ALLOWED_SERVICES[$domain]) || !in_array($service, ALLOWED_SERVICES[$domain], true)){
+            throw new Exception('Service not allowed');
+        }
+
+        $client = connectHA($haURL, $haToken);
+
+        $client->send(json_encode([
+            "id" => 2,
+            "type" => "call_service",
+            "domain" => $domain,
+            "service" => $service,
+            "service_data" => array_merge(
+                [
+                    "entity_id" => $entityId
+                ],
+                $serviceData
+            )
+        ]));
+
+        $response = json_decode($client->receive(), true);
+
+        return (isset($response['success'])&& $response['success']);
     }
 
     
@@ -795,13 +915,14 @@
         }
         
     }
-      function extractNewValue(string $entityId, string $service, array $serviceData ): mixed {
-         $domain =explode ('.', $entityId)[0];
+
+    function extractNewValue(string $entityId, string $service, array $serviceData ): mixed {
+        $domain =explode ('.', $entityId)[0];
         switch ($domain) {
             case 'light':
                 if($service === 'turn_on') return 'on';
                 if($service === 'turn_off')return 'off';
-               
+                
                 return $serviceData['brightness'] ?? 'unknown';
 
             case 'switch':
@@ -819,8 +940,9 @@
             default:
                 return 'unknown';
         }
-        
-      }          
+    
+    }
+            
     function logDeviceAttempt ( PDO $pdo, int $userID, bool $permissionGranted, string $deviceName, mixed $oldValue, mixed $newValue,bool $success ):void {
         $stmt = $pdo-> prepare("
         INSERT INTO userlog (
@@ -838,5 +960,7 @@
         ]);
 
     }
+
+
 ?>
 

@@ -1,2 +1,10 @@
+<div class="alerts-page">
+    <section class="alerts-section">
+        <h3>Current Alerts</h3>
+        <div id="alertsList" class="alerts-list">
+        <p class="alerts-empty" id="alertsLoading">-</p>
+        </div>
+    </section>
+    <p id="alertsFeedback" role="status"></p>
 
-<p>Dina varningar visas här. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos magnam assumenda dolorum sint ipsum sequi repudiandae numquam dolore, ad laudantium accusamus nostrum natus inventore voluptatum, cumque voluptas eum pariatur aspernatur.</p>
+</div>
