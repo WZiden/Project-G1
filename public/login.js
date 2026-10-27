@@ -221,7 +221,7 @@ async function checkLogin() {
         if (response.status == 401) {
             modalContainer.style.display = "block";
         } else {
-            userNameHeading.innerText = data;
+            userNameHeading.innerText = "Welcome " + data;
         }
 
     } catch (e) {
