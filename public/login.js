@@ -13,7 +13,7 @@ const loginErrorMessage = document.getElementById("loginError");
 const registerErrorMessage = document.getElementById("registerError");
 
 // const loginemail = document.querySelector("#loginemail");
-// const registeremail = document.querySelector("#registeremail");
+const registeremail = document.querySelector("#registeremail");
 
 const registerusername = document.getElementById("registerusername");
 const registerpassword = document.getElementById("registerpassword");
@@ -26,6 +26,20 @@ registerusername.addEventListener("input", function(e) {
     const nameRegex = /[&"'<>]/;
     if (registerusername.value.match(nameRegex)) {
         newErrorMessage("The name must not contain any special characters");
+    } else {
+        clearErrorMessage();
+    }
+});
+
+// Check email format
+registeremail.addEventListener("blur", function(e) {
+    if (registeremail.value.length > 0) {
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        if (!emailRegex.test(registeremail.value)) {
+            newErrorMessage("Not a valid email format");
+        } else {
+            clearErrorMessage();
+        }
     } else {
         clearErrorMessage();
     }
@@ -50,6 +64,19 @@ registerpassword.addEventListener("blur", function(e) {
     }
 });
 
+/*
+// TODO jämföra lösenord
+confirmpassword.addEventListener("blur", function(e) {
+    if (registerpassword.value.length > 0) {
+        if (confirmpassword != XXX) {
+            newErrorMessage("The passwords do not match");
+        } else {
+            clearErrorMessage();
+        }        
+    }
+});
+*/
+
 function newErrorMessage(text) {
     registerErrorMessage.style.display = "block";
     registerErrorMessage.innerText = text;  
@@ -58,7 +85,6 @@ function newErrorMessage(text) {
 // Log out
 async function logOut() {
     try {
-        // Send the FormData as an HTTP POST request using fetch()
         const response = await fetch("logOut.php");
 
         if (!response.ok) {
@@ -140,6 +166,7 @@ async function sendLoginForm() {
             //showLogOutBtn();
             userNameHeading.innerText = data[2];
             modalContainer.style.display = "none";
+            location.reload();
         }
 
     } catch (e) {
