@@ -673,11 +673,13 @@ header{
     body{
         padding: 0.5em ;
     }
+
+    
     .container {
     grid-template-columns: 1fr;
     grid-template-rows: auto auto 1fr auto;
     margin: 0;
-    padding: 0.5;
+    padding: 0.5em;
     overflow-x:hidden ;
     gap: 0.5em;
     
@@ -699,7 +701,7 @@ header{
     .search input{
         width: auto;
         height: auto;
-        padding: 0.4em 0.8 em;
+        padding: 0.4em 0.8em;
         flex-shrink: 0;
     }
     
@@ -738,26 +740,26 @@ header{
 
     .scrollbar .search input,
     .scrollbar .search button {
-    display: flex;
-    justify-content: flex-end;
-    height: auto;
-    padding: 0.2em 0.4em;
-    font-size: 0.9rem;
-    line-height: 1.2;
-    box-sizing: border-box;
-}
+        display: flex;
+        justify-content: flex-end;
+        height: auto;
+        padding: 0.2em 0.4em;
+        font-size: 0.9rem;
+        line-height: 1.2;
+        box-sizing: border-box;
+    }
     #content-area .search input,
     #content-area .search button {
-    height: auto;
-    padding: 0.2em 0.4em;
-    font-size: 0.9rem;
-    line-height: 1.2;
-    box-sizing: border-box;
-}
+        height: auto;
+        padding: 0.2em 0.4em;
+        font-size: 0.9rem;
+        line-height: 1.2;
+        box-sizing: border-box;
+    }
 
     #content-area{
         overflow-y: auto;
-        height: calc(100vh - 15rem);
+        height: calc(100vh - 10em);
     }
 
     #userNameHeading {
@@ -767,8 +769,7 @@ header{
     #settingsStatusMessage {
         width: 100%;
     }
-    
-}    
+}      
     
 
 /*layout padda*/
@@ -778,22 +779,22 @@ header{
         padding: 0.5em ;
     }
     .container {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto auto 1fr auto;
-    margin: 0;
-    padding: 0.5;
-    overflow-x:hidden ;
-    gap: 0.5em;
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto 1fr auto;
+        margin: 0;
+        padding: 0.5;
+        overflow-x:hidden ;
+        gap: 0.5em;
     
   
     }
     .grid-box {
-    grid-column: 1/-1 ; 
+        grid-column: 1/-1 ; 
     }
     
     header, .scrollbar #content-area .nav-bottom{
-    grid-column: 1/-1;
-    padding: 0.5rem ;
+        grid-column: 1/-1;
+        padding: 0.5rem ;
     }
     header {
         min-height: 6em;
@@ -1026,7 +1027,7 @@ a:hover {
     border: 2px solid var(--button-color);   /* RAMEN */
     border-radius: 0.5rem;       /* Rundade hörn */
     background: var( --grid-color); /* Lätt bakgrund */
-
+    width:fit-content;
 }
 
 .timeline-item::before {

@@ -11,7 +11,8 @@ function loadPage(page, params = {}, title = page) {
     const query = new URLSearchParams(params);
     const queryString = query.toString();
     const url = `pages/${page}.php${queryString ? "?" + queryString : ""}`;
-     fetch(url)
+  
+    fetch(url)
         .then(response => response.text())
         .then(html => {
             pageContent.innerHTML = html;
@@ -84,15 +85,20 @@ function initHistoryPage() {
     const btnHistory = document.getElementById("btnHistory");
     const btnStats = document.getElementById("btnStats");
 
-
     if (!btnHistory || !btnStats ) return;
+
+  
 
 
     function renderLog() {
         document.getElementById("historyView").style.display = "block";
         document.getElementById("statsView").style.display = "none";
-
+        const searchInput= document.getElementById("deviceSearch");
         const timeline = document.querySelector(".timeline");
+
+        if(searchInput){
+            searchInput.placeholder = "Filter history";
+        }
         timeline.innerHTML = "";
 
         fetch("pages/gethistory.php")
@@ -104,10 +110,7 @@ function initHistoryPage() {
 
                 item.innerHTML =`
                     <div class="timeline-time">${row.time}</div>
-                    <div class ="timeline-message">
-                        ${row.username} change ${row.device_name}
-                        from <b>${row.oldValue}<b> to <b> ${row.newValue}</b>
-                    </div>
+                    <div class ="timeline-message">${row.message}</div>
                 `;
                 timeline.appendChild(item)
             });
@@ -120,9 +123,13 @@ function initHistoryPage() {
     }
 
     function renderStats() {
-     document.getElementById("historyView").style.display="none";
-     document.getElementById("statsView").style.display ="block";
-
+        document.getElementById("historyView").style.display="none";
+        document.getElementById("statsView").style.display ="block";
+        const timeline = document.querySelector(".timeline");
+        const searchInput= document.getElementById("deviceSearch");
+        if(searchInput){
+            searchInput.placeholder = "Filter Statistics";
+        }
         btnStats.classList.add("active");
         btnHistory.classList.remove("active");
        
