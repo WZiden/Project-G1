@@ -1115,3 +1115,12 @@ a:hover {
 #room-buttons button {
     width: 100%;
 }
+
+#adminView section {
+    border: 2px solid var(--button-color);
+    border-radius: var(--border-radius);
+    padding: var(--spacing);
+    margin-top: var(--spacing);
+    overflow: scroll;
+    max-height: 400px;
+}

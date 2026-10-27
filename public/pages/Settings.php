@@ -51,15 +51,20 @@
 
 <!-- Admin stuff -->
 <div id="adminView">
+    <section>
+        <h3>All users</h3>
+        <ul id="userList"></ul>        
+    </section>
+    <section>
+        <h3>All Devices</h3>
+        <ul id="deviceList"></ul>        
+    </section>
+
+
     <form id="changeUserForm" class="pageForm">
         <fieldset>
             <legend>Manage users</legend>
             <input type="hidden" name="type" value="changeUser">
-            <label for="selectUser">Select user</label>
-            <select name="selectUser" id="selectUser"><option>-- Select user --</option></select>
-            <label>
-                <input type="checkbox" name="isAdmin" class="check">Admin
-            </label>
             <label for="newUserPassword">New password</label>
             <div class="inputContainer">
                 <input type="password" placeholder="Enter a new password" id="newUserPassword" name="newUserPassword" required>

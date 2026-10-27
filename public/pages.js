@@ -19,11 +19,11 @@ function loadPage(page, params = {}, title = page) {
     if (searchResults) {
         searchResults.innerHTML = '';
     }
-   
+
     const query = new URLSearchParams(params);
     const queryString = query.toString();
     const url = `pages/${page}.php${queryString ? "?" + queryString : ""}`;
-     fetch(url)
+    fetch(url)
         .then(response => response.text())
         .then(html => {
             pageContent.innerHTML = html;
@@ -33,15 +33,15 @@ function loadPage(page, params = {}, title = page) {
             if (roomName) {
                 pageTitle.textContent = roomName.textContent;
             }
-            
-            if(page=== "Data"){
+
+            if (page === "Data") {
                 initHistoryPage()
             }
 
             if (page === "Alert") {
                 initAlertsPage();
             }
-            
+
             if (page === "Settings") {
                 document.getElementById("settingsStatusMessage").style.backgroundColor = "transparent";
                 document.getElementById("deviceSearchContainer").style.display = "none";
@@ -101,7 +101,7 @@ function initHistoryPage() {
     const btnStats = document.getElementById("btnStats");
 
 
-    if (!btnHistory || !btnStats ) return;
+    if (!btnHistory || !btnStats) return;
 
 
     function renderLog() {
@@ -112,36 +112,36 @@ function initHistoryPage() {
         timeline.innerHTML = "";
 
         fetch("pages/gethistory.php")
-        .then(res => res.json())
-        .then(rows =>{
-            rows.forEach(row=> {
-                const item=document.createElement("div");
-                item.classList.add("timeline-item");
+            .then(res => res.json())
+            .then(rows => {
+                rows.forEach(row => {
+                    const item = document.createElement("div");
+                    item.classList.add("timeline-item");
 
-                item.innerHTML =`
+                    item.innerHTML = `
                     <div class="timeline-time">${row.time}</div>
                     <div class ="timeline-message">
                         ${row.username} change ${row.device_name}
                         from <b>${row.oldValue}<b> to <b> ${row.newValue}</b>
                     </div>
                 `;
-                timeline.appendChild(item)
+                    timeline.appendChild(item)
+                });
+
             });
-   
-        });
 
         btnHistory.classList.add("active");
         btnStats.classList.remove("active");
-       
+
     }
 
     function renderStats() {
-     document.getElementById("historyView").style.display="none";
-     document.getElementById("statsView").style.display ="block";
+        document.getElementById("historyView").style.display = "none";
+        document.getElementById("statsView").style.display = "block";
 
         btnStats.classList.add("active");
         btnHistory.classList.remove("active");
-       
+
 
         drawTempChart(); // ← ritar grafen
     }
@@ -161,7 +161,7 @@ function drawTempChart() {
     new Chart(ctx, {
         type: "line",
         data: {
-            labels: ["08:00", "10:00", "12:00", "14:00","17:00", "19:00"],
+            labels: ["08:00", "10:00", "12:00", "14:00", "17:00", "19:00"],
             datasets: [{
                 label: "Temperatur (°C)",
                 data: [21, 22, 23, 22, 25, 10],
@@ -175,23 +175,23 @@ function drawTempChart() {
             responsive: true,
             maintainAspectRatio: false,
             scales: {
-                x:{
-                    grid:{
+                x: {
+                    grid: {
                         color: "grey",
-                        lineWidth:0.5
+                        lineWidth: 0.5
                     },
                     ticks: {
                         color: "white",
                     }
                 },
-    
+
                 y: {
                     beginAtZero: false,
                     grid: {
-                        color:"grey",
-                        lineWidth:0.5
+                        color: "grey",
+                        lineWidth: 0.5
                     },
-                    ticks:{
+                    ticks: {
                         color: "white"
                     }
                 }
@@ -235,29 +235,29 @@ function initSettingsPage() {
         pageUsername.style.display = "none";
         pageAdmin.style.display = "block";
 
-        // Get users for drop down
-        getUsersDropdown();
+        // List all users and devices
         populateUserList();
-    }); 
+        //populateDeviceList();
+    });
 
     // Change username form button
-    changeNameForm.addEventListener("submit", function(e) {
+    changeNameForm.addEventListener("submit", function (e) {
         e.preventDefault();
         sendChangeName();
         changeNameForm.reset();
-        contentArea.scrollTo({top: 0, behavior: "smooth"});
+        contentArea.scrollTo({ top: 0, behavior: "smooth" });
     });
 
     // Change password form button
-    changePasswordForm.addEventListener("submit", function(e) {
+    changePasswordForm.addEventListener("submit", function (e) {
         e.preventDefault();
         sendChangePassword();
         changePasswordForm.reset();
-        contentArea.scrollTo({top: 0, behavior: "smooth"});
+        contentArea.scrollTo({ top: 0, behavior: "smooth" });
     });
 
     // No special characters in usernames
-    newUserName.addEventListener("input", function(e) {
+    newUserName.addEventListener("input", function (e) {
         const nameRegex = /[&"'<>]/;
         if (newUserName.value.match(nameRegex)) {
             statusMessage.style.backgroundColor = errorColor;
@@ -269,7 +269,7 @@ function initSettingsPage() {
     });
 
     // Check password requirements
-    newPassword.addEventListener("blur", function(e) {
+    newPassword.addEventListener("blur", function (e) {
         if (newPassword.value.length > 0) {
             if (newPassword.value.length < 8) {
                 statusMessage.style.backgroundColor = errorColor;
@@ -294,7 +294,7 @@ function initSettingsPage() {
     });
 
     // Password confirm check
-    confirmPassword.addEventListener("blur", function(e) {
+    confirmPassword.addEventListener("blur", function (e) {
         if (confirmPassword.value.length > 0) {
             if (confirmPassword.value !== newPassword.value) {
                 statusMessage.style.backgroundColor = errorColor;
@@ -308,7 +308,7 @@ function initSettingsPage() {
             statusMessage.innerText = "";
         }
     });
-    
+
 
     getCookieUsername();
 }
@@ -350,7 +350,7 @@ async function sendChangeName() {
             statusMessage.innerText = "Error: faulty input";
         } else if (response.status == 500) {
             statusMessage.style.backgroundColor = errorColor;
-            statusMessage.innerText = "Error: server error";   
+            statusMessage.innerText = "Error: server error";
         } else {
             document.getElementById("pageUsername").innerText = "Username: " + formData.get("newUserName");
             document.getElementById("userNameHeading").innerText = formData.get("newUserName");
@@ -391,47 +391,58 @@ async function sendChangePassword() {
         }
     } catch (e) {
         console.log(e);
-    }    
+    }
 }
 /*** Admin stuff ***/
 
-// TODO
-function getUsersDropdown() {
-    const dropdown = document.getElementById("selectUser");
-    const opt1 = document.createElement("option");
-    const opt2 = document.createElement("option");
-    const opt3 = document.createElement("option");
-    const opt4 = document.createElement("option");
-
-    opt1.text = "Anna" + ": " + "anna@gmail.com";
-    opt2.text = "Stina" + ": " + "stina@gmail.com";
-    opt3.text = "Hanna" + ": " + "hanna@gmail.com";
-    opt4.text = "Lina" + ": " + "lina@gmail.com";
-
-    dropdown.add(opt1);
-    dropdown.add(opt2);
-    dropdown.add(opt3);
-    dropdown.add(opt4);
-}
-
-// TODO get all users
+// Populate user list
 async function populateUserList() {
     try {
-        const response = await fetch("getUsers.php");
+        const response = await fetch("get_users_list.php");
+
+        const data = await response.json();
+        if (!response.ok) {
+            throw new Error("HTTP: " + response.status);
+            console.log("response inte ok");
+        } else {
+            console.log("response ok");
+            const userList = document.getElementById("userList");
+            userList.innerHTML = "";
+
+            data.forEach(element => {
+                const row = document.createElement("li");
+                row.textContent = "User ID: " + element["userID"] + " Username: " + element["username"] + " Role: ";
+                if (element["permission_level"] == 1) {
+                    row.textContent += "Admin";
+                } else {
+                    row.textContent += "User";
+                }
+                userList.appendChild(row);
+            });
+        }
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+// Populate device list
+async function populateDeviceList() {
+    try {
+        const response = await fetch("get_devices_list.php");
 
         const data = await response.json();
         if (!response.ok) {
             throw new Error("HTTP: " + response.status);
         } else {
-            //const dropdown = document.getElementById("selectUser");
+            const deviceList = document.getElementById("deviceList");
+            deviceList.innerHTML = "";
 
-            //console.log(JSON.response["username"]);
-            console.log(data);
-            console.log(data["username"]);
-            console.log(data["userID"]);
-            console.log(data["permission_level"]);
+            data.forEach(element => {
+                const row = document.createElement("li");
+                row.textContent = "Device ID: " + element["device_id"] + " Device name: " + element["device_name"] + " Required level: " +  element["required_user_level"];
+                deviceList.appendChild(row);
+            });
         }
-        
     } catch (e) {
         console.log(e);
     }
