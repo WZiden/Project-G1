@@ -30,4 +30,18 @@ SELECT
    ORDER BY userlog.time DESC
     ");
 $stmt->execute();
-echo json_encode($stmt ->fetchAll(PDO::FETCH_ASSOC));
+
+$rows = $stmt-> fetchAll(PDO::FETCH_ASSOC);
+
+foreach ($rows as &$row) {
+    if($row['permission']==0) {
+        $row['message'] = "{$row['username']} try to change {$row['device_name']} without permission.";
+    }
+    else if ($row['changeConfirmed'] ==0) {
+        $row['message'] = "{$row['username']} try to change {$row['device_name']} without succes.";
+    }
+    else {
+        $row['message'] = "{$row['username']} change {$row['device_name']} from <b>{$row['oldValue']}</b> to <b>{$row['newValue']}</b> succesfully.";
+    }
+}
+echo json_encode($rows);

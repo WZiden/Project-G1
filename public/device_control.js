@@ -22,6 +22,12 @@ async function callDeviceService(device, entityId, service, serviceData = {}){
             alert(result.message);
         }
 
+        console.log(
+{
+    status: response.status,
+    result: result
+});
+
         throw new Error(result.message || 'Something went wrong');
     }
 
@@ -203,5 +209,97 @@ document.addEventListener('click', async function(event) {
         console.error(error);
     } finally {
         button.dataset.loading = 'false';
+    }
+});
+
+document.addEventListener('change', async function(event){
+    const picker = event.target;
+
+    if (!picker.matches('.rgb-picker')){
+        return;
+    }
+
+    const controls = picker.closest('.rgb-controls');
+    const device = controls.dataset.deviceName;
+
+    const hex = picker.value;
+
+    const r = parseInt(hex.slice(1, 3), 16);
+    const g = parseInt(hex.slice(3, 5), 16);
+    const b = parseInt(hex.slice(5, 7), 16);
+
+    try{
+        const result = await callDeviceService(device, picker.dataset.entityId, 'turn_on', {
+                rgb_color: [r, g, b]
+            }
+        );
+
+        console.log(result);
+    }
+    catch(error){
+        console.error(error);
+    }
+});
+
+document.addEventListener('input', function(event){
+    const slider = event.target;
+
+    if (!slider.matches('.brightness-slider')){
+        return;
+    }
+
+    const label = document.querySelector(`.brightness-value[data-entity-id="${slider.dataset.entityId}"]`);
+
+    if (label){
+        label.textContent = slider.value;
+    }
+});
+
+document.addEventListener('change', async function(event){
+    const slider = event.target;
+
+    if (!slider.matches('.brightness-slider')){
+        return;
+    }
+
+    const controls = slider.closest('.rgb-controls');
+    const device = controls.dataset.deviceName;
+
+    try{
+        const result = await callDeviceService(device, slider.dataset.entityId, 'turn_on', {
+                brightness: Number(slider.value)
+            }
+        );
+
+        console.log(result);
+    }
+    catch(error){
+        console.error(error);
+    }
+});
+
+document.addEventListener('submit', async function(event){
+    const form = event.target;
+
+    if (!form.matches('.select-control-form')){
+        return;
+    }
+
+    event.preventDefault();
+
+    const entityId = form.querySelector('[name="entity_id"]').value;
+    const option = form.querySelector('[name="option"]').value;
+    const device = form.dataset.deviceName;
+
+    try{
+        const result = await callDeviceService(device, entityId, 'select_option', {
+                option: option
+            }
+        );
+
+        console.log(result);
+    }
+    catch(error){
+        console.error(error);
     }
 });

@@ -39,6 +39,7 @@ function updateEntity(entityId, state){
     updateClimate(entityId, state);
     updateCover(entityId, state);
     updateStatusText(entityId, state);
+    updateRGB(entityId, state);
 
 }
 
@@ -167,6 +168,41 @@ function updateStatusText(entityId, state){
 
     });
 
+}
+
+function updateRGB(entityId, state){
+
+    const colorPicker = document.querySelector(`.rgb-picker[data-entity-id="${entityId}"]`);
+
+    const brightnessSlider = document.querySelector(`.brightness-slider[data-entity-id="${entityId}"]`);
+
+    const brightnessValue = document.querySelector(`.brightness-value[data-entity-id="${entityId}"]`);
+
+    if (colorPicker && state.attributes?.rgb_color){
+
+        const [r, g, b] = state.attributes.rgb_color;
+
+        colorPicker.value = '#' + [r, g, b].map(v => Number(v).toString(16).padStart(2, '0')).join('');
+    }
+
+    if (brightnessSlider && state.attributes?.brightness !== undefined){
+        brightnessSlider.value = state.attributes.brightness;
+    }
+
+    if (brightnessValue && state.attributes?.brightness !== undefined){
+        brightnessValue.textContent = state.attributes.brightness;
+    }
+}
+
+function updateSelect(entityId, state){
+
+    const select = document.querySelector(`.entity-select[data-entity-id="${entityId}"]`);
+
+    if (!select){
+        return;
+    }
+
+    select.value = state.state;
 }
 
 setInterval(() => {

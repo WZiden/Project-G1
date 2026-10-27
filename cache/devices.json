@@ -1,0 +1,2112 @@
+[
+    {
+        "device_id": "81eafd64aae84a70db5448464af41862",
+        "device_name": "Coffee maker",
+        "area_id": "lounge",
+        "area_name": "Lounge",
+        "required_user_level": 2,
+        "entities": [
+            {
+                "entity_id": "switch.coffee_maker",
+                "state": "off",
+                "attributes": {
+                    "device_class": "outlet",
+                    "icon": "mdi:coffee-maker",
+                    "friendly_name": "Coffee maker"
+                },
+                "last_changed": "2026-10-26T14:09:31.062058+00:00",
+                "last_reported": "2026-10-26T14:09:31.062058+00:00",
+                "last_updated": "2026-10-26T14:09:31.062058+00:00",
+                "context": {
+                    "id": "01M5W8Q0DM56GGDK54H8VRS2ZW",
+                    "parent_id": null,
+                    "user_id": "af90d6f1c0d743e5a88ce1bc8eabbe8d"
+                }
+            },
+            {
+                "entity_id": "sensor.coffee_maker_power",
+                "state": "0",
+                "attributes": {
+                    "state_class": "measurement",
+                    "unit_of_measurement": "W",
+                    "device_class": "power",
+                    "friendly_name": "Coffee maker Power"
+                },
+                "last_changed": "2026-10-26T14:09:46.585990+00:00",
+                "last_reported": "2026-10-26T14:09:46.585990+00:00",
+                "last_updated": "2026-10-26T14:09:46.585990+00:00",
+                "context": {
+                    "id": "01M5W8QFJSZX5PSK7G59381378",
+                    "parent_id": null,
+                    "user_id": null
+                }
+            },
+            {
+                "entity_id": "sensor.coffee_maker_energy",
+                "state": "19.509",
+                "attributes": {
+                    "state_class": "total_increasing",
+                    "unit_of_measurement": "kWh",
+                    "device_class": "energy",
+                    "friendly_name": "Coffee maker Energy"
+                },
+                "last_changed": "2026-10-26T14:09:46.586976+00:00",
+                "last_reported": "2026-10-26T14:09:46.586976+00:00",
+                "last_updated": "2026-10-26T14:09:46.586976+00:00",
+                "context": {
+                    "id": "01M5W8QFJTD5TR3RR5W73B40C7",
+                    "parent_id": null,
+                    "user_id": null
+                }
+            }
+        ]
+    },
+    {
+        "device_id": "36a098dfb28a1593f0ad9323d07d7261",
+        "device_name": "Curtain 1",
+        "area_id": "room",
+        "area_name": "Room",
+        "required_user_level": 2,
+        "entities": [
+            {
+                "entity_id": "cover.curtain_1",
+                "state": "open",
+                "attributes": {
+                    "is_closed": false,
+                    "current_position": 47,
+                    "device_class": "curtain",
+                    "friendly_name": "Curtain 1",
+                    "supported_features": 15
+                },
+                "last_changed": "2026-10-26T08:01:40.341594+00:00",
+                "last_reported": "2026-10-26T08:11:45.962076+00:00",
+                "last_updated": "2026-10-26T08:11:45.962076+00:00",
+                "context": {
+                    "id": "01M5VM7YD7ZPBM9VESFPBFFCVY",
+                    "parent_id": null,
+                    "user_id": "af90d6f1c0d743e5a88ce1bc8eabbe8d"
+                }
+            }
+        ]
+    },
+    {
+        "device_id": "c8b92b6862a82e87f87eb3ec0dce0a73",
+        "device_name": "Curtain 2",
+        "area_id": "room",
+        "area_name": "Room",
+        "required_user_level": 2,
+        "entities": [
+            {
+                "entity_id": "cover.curtain_2",
+                "state": "open",
+                "attributes": {
+                    "is_closed": false,
+                    "current_position": 65,
+                    "device_class": "curtain",
+                    "friendly_name": "Curtain 2",
+                    "supported_features": 15
+                },
+                "last_changed": "2026-10-26T08:07:34.999867+00:00",
+                "last_reported": "2026-10-26T14:12:20.363828+00:00",
+                "last_updated": "2026-10-26T14:12:20.363828+00:00",
+                "context": {
+                    "id": "01M5W8W5R9W8S200XCHFXJJD1W",
+                    "parent_id": null,
+                    "user_id": "af90d6f1c0d743e5a88ce1bc8eabbe8d"
+                }
+            }
+        ]
+    },
+    {
+        "device_id": "9d3f3c176d77f4cbee824ecfd705686d",
+        "device_name": "Entrance door",
+        "area_id": "entrance",
+        "area_name": "Entrance",
+        "required_user_level": 2,
+        "entities": [
+            {
+                "entity_id": "binary_sensor.door_entrance",
+                "state": "off",
+                "attributes": {
+                    "device_class": "door",
+                    "friendly_name": "Entrance door"
+                },
+                "last_changed": "2026-10-26T19:13:47.417876+00:00",
+                "last_reported": "2026-10-26T19:13:47.417876+00:00",
+                "last_updated": "2026-10-26T19:13:47.417876+00:00",
+                "context": {
+                    "id": "01M5WT44WSXMPQW8GPBJVTVCAA",
+                    "parent_id": null,
+                    "user_id": null
+                }
+            },
+            {
+                "entity_id": "sensor.door_entrance_battery",
+                "state": "82.0",
+                "attributes": {
+                    "state_class": "measurement",
+                    "unit_of_measurement": "%",
+                    "device_class": "battery",
+                    "friendly_name": "Entrance door Battery"
+                },
+                "last_changed": "2026-10-25T08:46:35.644112+00:00",
+                "last_reported": "2026-10-25T08:46:35.644112+00:00",
+                "last_updated": "2026-10-25T08:46:35.644112+00:00",
+                "context": {
+                    "id": "01M5S3V03WSGP3NYYX9KAHGP24",
+                    "parent_id": null,
+                    "user_id": null
+                }
+            }
+        ]
+    },
+    {
+        "device_id": "435eb4fe57e0f82400ae585d0a9c4b31",
+        "device_name": "Entrance motion",
+        "area_id": "entrance",
+        "area_name": "Entrance",
+        "required_user_level": 2,
+        "entities": [
+            {
+                "entity_id": "binary_sensor.motion_entrance",
+                "state": "off",
+                "attributes": {
+                    "device_class": "motion",
+                    "friendly_name": "Entrance motion"
+                },
+                "last_changed": "2026-10-26T19:14:37.424061+00:00",
+                "last_reported": "2026-10-26T19:14:37.424061+00:00",
+                "last_updated": "2026-10-26T19:14:37.424061+00:00",
+                "context": {
+                    "id": "01M5WT5NQG5T10H80H05NJV6TJ",
+                    "parent_id": null,
+                    "user_id": null
+                }
+            },
+            {
+                "entity_id": "sensor.motion_entrance_battery",
+                "state": "85.0",
+                "attributes": {
+                    "state_class": "measurement",
+                    "unit_of_measurement": "%",
+                    "device_class": "battery",
+                    "friendly_name": "Entrance motion Battery"
+                },
+                "last_changed": "2026-10-26T18:18:18.084210+00:00",
+                "last_reported": "2026-10-26T18:18:18.084210+00:00",
+                "last_updated": "2026-10-26T18:18:18.084210+00:00",
+                "context": {
+                    "id": "01M5WPYHK4077BC7SN8D8ADMT8",
+                    "parent_id": null,
+                    "user_id": null
+                }
+            }
+        ]
+    },
+    {
+        "device_id": "79b7a8dc40d482c1f5b447172f7d4871",
+        "device_name": "Floor lamp",
+        "area_id": "lounge",
+        "area_name": "Lounge",
+        "required_user_level": 2,
+        "entities": [
+            {
+                "entity_id": "light.floor_lamp",
+                "state": "off",
+                "attributes": {
+                    "supported_color_modes": [
+                        "brightness"
+                    ],
+                    "color_mode": null,
+                    "brightness": null,
+                    "friendly_name": "Floor lamp",
+                    "supported_features": 40
+                },
+                "last_changed": "2026-10-26T11:34:40.096745+00:00",
+                "last_reported": "2026-10-26T11:34:40.096745+00:00",
+                "last_updated": "2026-10-26T11:34:40.096745+00:00",
+                "context": {
+                    "id": "01M5VZVF6ZWEM0EZM44TEBFJ9Q",
+                    "parent_id": null,
+                    "user_id": "af90d6f1c0d743e5a88ce1bc8eabbe8d"
+                }
+            }
+        ]
+    },
+    {
+        "device_id": "a46854cb9ab7774644001d14ecdc0b77",
+        "device_name": "Fridge",
+        "area_id": "lounge",
+        "area_name": "Lounge",
+        "required_user_level": 2,
+        "entities": [
+            {
+                "entity_id": "sensor.fridge_power",
+                "state": "90",
+                "attributes": {
+                    "state_class": "measurement",
+                    "unit_of_measurement": "W",
+                    "device_class": "power",
+                    "friendly_name": "Fridge Power"
+                },
+                "last_changed": "2026-10-26T19:38:48.598746+00:00",
+                "last_reported": "2026-10-26T19:38:48.598746+00:00",
+                "last_updated": "2026-10-26T19:38:48.598746+00:00",
+                "context": {
+                    "id": "01M5WVHYWP8C4MVY549PJ8EP19",
+                    "parent_id": null,
+                    "user_id": null
+                }
+            },
+            {
+                "entity_id": "binary_sensor.fridge_door",
+                "state": "off",
+                "attributes": {
+                    "device_class": "door",
+                    "friendly_name": "Fridge Door"
+                },
+                "last_changed": "2026-10-26T15:49:56.209843+00:00",
+                "last_reported": "2026-10-26T15:49:56.209843+00:00",
+                "last_updated": "2026-10-26T15:49:56.209843+00:00",
+                "context": {
+                    "id": "01M5WEEWBHJWM7FYYYKT30PR78",
+                    "parent_id": null,
+                    "user_id": null
+                }
+            }
+        ]
+    },
+    {
+        "device_id": "3cd8a9ac689bc37601f74e3d9b0b9947",
+        "device_name": "Locker cabinet",
+        "area_id": "whiteboard_corner",
+        "area_name": "Whiteboard corner",
+        "required_user_level": 2,
+        "entities": [
+            {
+                "entity_id": "lock.locker_1",
+                "state": "locked",
+                "attributes": {
+                    "friendly_name": "Locker cabinet Locker 1",
+                    "supported_features": 0
+                },
+                "last_changed": "2026-10-26T11:15:15.380463+00:00",
+                "last_reported": "2026-10-26T11:15:15.380463+00:00",
+                "last_updated": "2026-10-26T11:15:15.380463+00:00",
+                "context": {
+                    "id": "01M5VYQXSK5C4JRY3AFV2E4CCT",
+                    "parent_id": null,
+                    "user_id": "af90d6f1c0d743e5a88ce1bc8eabbe8d"
+                }
+            },
+            {
+                "entity_id": "lock.locker_2",
+                "state": "unlocked",
+                "attributes": {
+                    "friendly_name": "Locker cabinet Locker 2",
+                    "supported_features": 0
+                },
+                "last_changed": "2026-10-26T13:57:42.846730+00:00",
+                "last_reported": "2026-10-26T13:57:42.846730+00:00",
+                "last_updated": "2026-10-26T13:57:42.846730+00:00",
+                "context": {
+                    "id": "01M5W81CSWTWFNRTZVSMBS0W0X",
+                    "parent_id": null,
+                    "user_id": "af90d6f1c0d743e5a88ce1bc8eabbe8d"
+                }
+            },
+            {
+                "entity_id": "lock.locker_3",
+                "state": "locked",
+                "attributes": {
+                    "friendly_name": "Locker cabinet Locker 3",
+                    "supported_features": 0
+                },
+                "last_changed": "2026-10-24T11:56:56.960054+00:00",
+                "last_reported": "2026-10-24T11:56:56.960054+00:00",
+                "last_updated": "2026-10-24T11:56:56.960054+00:00",
+                "context": {
+                    "id": "01M5PWATR0ZC5J7SMN2928DHCE",
+                    "parent_id": null,
+                    "user_id": null
+                }
+            },
+            {
+                "entity_id": "lock.locker_4",
+                "state": "locked",
+                "attributes": {
+                    "friendly_name": "Locker cabinet Locker 4",
+                    "supported_features": 0
+                },
+                "last_changed": "2026-10-25T14:51:01.947332+00:00",
+                "last_reported": "2026-10-25T14:51:01.947332+00:00",
+                "last_updated": "2026-10-25T14:51:01.947332+00:00",
+                "context": {
+                    "id": "01M5SRP9XVZNDZGQFSJ39RV7BT",
+                    "parent_id": null,
+                    "user_id": null
+                }
+            }
+        ]
+    },
+    {
+        "device_id": "fc18213038e7d50abc99990f2b28b7e8",
+        "device_name": "Lounge ceiling lights",
+        "area_id": "lounge",
+        "area_name": "Lounge",
+        "required_user_level": 2,
+        "entities": [
+            {
+                "entity_id": "light.ceiling_lounge",
+                "state": "on",
+                "attributes": {
+                    "supported_color_modes": [
+                        "brightness"
+                    ],
+                    "color_mode": "brightness",
+                    "brightness": 204,
+                    "friendly_name": "Lounge ceiling lights",
+                    "supported_features": 40
+                },
+                "last_changed": "2026-10-26T19:13:37.435350+00:00",
+                "last_reported": "2026-10-26T19:13:37.435350+00:00",
+                "last_updated": "2026-10-26T19:13:37.435350+00:00",
+                "context": {
+                    "id": "01M5WT3V4VKNSVV6TAF2K1QJJQ",
+                    "parent_id": null,
+                    "user_id": null
+                }
+            }
+        ]
+    },
+    {
+        "device_id": "dd427a0bb4cb3ad425286a90b8f5a4e1",
+        "device_name": "Lounge fisheye camera",
+        "area_id": "lounge",
+        "area_name": "Lounge",
+        "required_user_level": 2,
+        "entities": [
+            {
+                "entity_id": "camera.lounge_fisheye",
+                "state": "idle",
+                "attributes": {
+                    "access_token": "ba1626327a9d55c983b7f49c2d8eed142c0ae3e1b127be00347a153e75db5358",
+                    "entity_picture": "\/api\/camera_proxy\/camera.lounge_fisheye?token=ba1626327a9d55c983b7f49c2d8eed142c0ae3e1b127be00347a153e75db5358",
+                    "friendly_name": "Lounge fisheye camera",
+                    "supported_features": 0
+                },
+                "last_changed": "2026-09-03T11:56:51.408622+00:00",
+                "last_reported": "2026-10-26T19:47:02.602658+00:00",
+                "last_updated": "2026-10-26T19:47:02.602658+00:00",
+                "context": {
+                    "id": "01M5WW11AAZ6HT99W7PR6CGVK9",
+                    "parent_id": null,
+                    "user_id": null
+                }
+            },
+            {
+                "entity_id": "sensor.people_lounge",
+                "state": "0",
+                "attributes": {
+                    "state_class": "measurement",
+                    "icon": "mdi:account-group",
+                    "friendly_name": "Lounge fisheye camera People"
+                },
+                "last_changed": "2026-10-26T19:49:12.678911+00:00",
+                "last_reported": "2026-10-26T19:49:12.678911+00:00",
+                "last_updated": "2026-10-26T19:49:12.678911+00:00",
+                "context": {
+                    "id": "01M5WW50B6WNDYQVY6KM4P1P67",
+                    "parent_id": null,
+                    "user_id": null
+                }
+            }
+        ]
+    },
+    {
+        "device_id": "e0277e85a0e65db80e257b03adbe7657",
+        "device_name": "Lounge light level",
+        "area_id": "lounge",
+        "area_name": "Lounge",
+        "required_user_level": 2,
+        "entities": [
+            {
+                "entity_id": "sensor.illuminance_lounge",
+                "state": "350",
+                "attributes": {
+                    "state_class": "measurement",
+                    "unit_of_measurement": "lx",
+                    "device_class": "illuminance",
+                    "friendly_name": "Lounge light level"
+                },
+                "last_changed": "2026-10-26T19:51:18.687348+00:00",
+                "last_reported": "2026-10-26T19:51:18.687348+00:00",
+                "last_updated": "2026-10-26T19:51:18.687348+00:00",
+                "context": {
+                    "id": "01M5WW8VCZ1A69NNH0NR0BW3YY",
+                    "parent_id": null,
+                    "user_id": null
+                }
+            }
+        ]
+    },
+    {
+        "device_id": "afa5dfc3b4383e63853ebc8ec33c1ee3",
+        "device_name": "Lounge motion",
+        "area_id": "lounge",
+        "area_name": "Lounge",
+        "required_user_level": 2,
+        "entities": [
+            {
+                "entity_id": "binary_sensor.motion_lounge",
+                "state": "off",
+                "attributes": {
+                    "device_class": "motion",
+                    "friendly_name": "Lounge motion"
+                },
+                "last_changed": "2026-10-26T13:56:45.515545+00:00",
+                "last_reported": "2026-10-26T13:56:45.515545+00:00",
+                "last_updated": "2026-10-26T13:56:45.515545+00:00",
+                "context": {
+                    "id": "01M5W7ZMTBKJ4AY6MZ3FGMYW1S",
+                    "parent_id": null,
+                    "user_id": null
+                }
+            },
+            {
+                "entity_id": "sensor.motion_lounge_battery",
+                "state": "93.6",
+                "attributes": {
+                    "state_class": "measurement",
+                    "unit_of_measurement": "%",
+                    "device_class": "battery",
+                    "friendly_name": "Lounge motion Battery"
+                },
+                "last_changed": "2026-10-26T06:19:13.667250+00:00",
+                "last_reported": "2026-10-26T06:19:13.667250+00:00",
+                "last_updated": "2026-10-26T06:19:13.667250+00:00",
+                "context": {
+                    "id": "01M5VDSWC37SJ2DZWF6JJ8EAR3",
+                    "parent_id": null,
+                    "user_id": null
+                }
+            }
+        ]
+    },
+    {
+        "device_id": "9f8a0cf8e8f9ac8629d08de51c078610",
+        "device_name": "Lounge presence",
+        "area_id": "lounge",
+        "area_name": "Lounge",
+        "required_user_level": 2,
+        "entities": [
+            {
+                "entity_id": "binary_sensor.presence_lounge",
+                "state": "off",
+                "attributes": {
+                    "device_class": "occupancy",
+                    "friendly_name": "Lounge presence"
+                },
+                "last_changed": "2026-10-26T14:02:15.547948+00:00",
+                "last_reported": "2026-10-26T14:02:15.547948+00:00",
+                "last_updated": "2026-10-26T14:02:15.547948+00:00",
+                "context": {
+                    "id": "01M5W89Q3V3JG2XVNXFMNK43T5",
+                    "parent_id": null,
+                    "user_id": null
+                }
+            },
+            {
+                "entity_id": "sensor.presence_lounge_targets",
+                "state": "0",
+                "attributes": {
+                    "state_class": "measurement",
+                    "icon": "mdi:radar",
+                    "friendly_name": "Lounge presence Targets"
+                },
+                "last_changed": "2026-10-26T14:02:15.548834+00:00",
+                "last_reported": "2026-10-26T14:02:15.548834+00:00",
+                "last_updated": "2026-10-26T14:02:15.548834+00:00",
+                "context": {
+                    "id": "01M5W89Q3WMEQ5YM0YZHZ9MEBS",
+                    "parent_id": null,
+                    "user_id": null
+                }
+            }
+        ]
+    },
+    {
+        "device_id": "a0b91a9bf357512198808c4c245f96e6",
+        "device_name": "Lounge TV",
+        "area_id": "lounge",
+        "area_name": "Lounge",
+        "required_user_level": 2,
+        "entities": [
+            {
+                "entity_id": "switch.tv_lounge",
+                "state": "off",
+                "attributes": {
+                    "device_class": "switch",
+                    "icon": "mdi:television",
+                    "friendly_name": "Lounge TV"
+                },
+                "last_changed": "2026-10-26T08:01:09.863495+00:00",
+                "last_reported": "2026-10-26T08:01:09.863495+00:00",
+                "last_updated": "2026-10-26T08:01:09.863495+00:00",
+                "context": {
+                    "id": "01M5VKMH74G4CGWDH1GXQ65A19",
+                    "parent_id": null,
+                    "user_id": "af90d6f1c0d743e5a88ce1bc8eabbe8d"
+                }
+            },
+            {
+                "entity_id": "select.tv_lounge_source",
+                "state": "HDMI 1",
+                "attributes": {
+                    "options": [
+                        "HDMI 1",
+                        "HDMI 2",
+                        "Chromecast"
+                    ],
+                    "icon": "mdi:video-input-hdmi",
+                    "friendly_name": "Lounge TV Source"
+                },
+                "last_changed": "2026-10-26T07:17:28.034639+00:00",
+                "last_reported": "2026-10-26T07:17:28.034639+00:00",
+                "last_updated": "2026-10-26T07:17:28.034639+00:00",
+                "context": {
+                    "id": "01M5VH4GV2ADF45BAHM0XW513V",
+                    "parent_id": null,
+                    "user_id": null
+                }
+            },
+            {
+                "entity_id": "sensor.tv_lounge_power",
+                "state": "0",
+                "attributes": {
+                    "state_class": "measurement",
+                    "unit_of_measurement": "W",
+                    "device_class": "power",
+                    "friendly_name": "Lounge TV Power"
+                },
+                "last_changed": "2026-10-26T08:01:14.297757+00:00",
+                "last_reported": "2026-10-26T08:01:14.297757+00:00",
+                "last_updated": "2026-10-26T08:01:14.297757+00:00",
+                "context": {
+                    "id": "01M5VKMNHSYN9EWPMVWJDS79C9",
+                    "parent_id": null,
+                    "user_id": null
+                }
+            }
+        ]
+    },
+    {
+        "device_id": "213634bc9756c59c3fec6554abdd27b2",
+        "device_name": "Outdoor",
+        "area_id": "outdoor",
+        "area_name": "Outdoor",
+        "required_user_level": 2,
+        "entities": [
+            {
+                "entity_id": "sensor.outdoor_temperature",
+                "state": "9.7",
+                "attributes": {
+                    "state_class": "measurement",
+                    "unit_of_measurement": "\u00b0C",
+                    "device_class": "temperature",
+                    "friendly_name": "Outdoor Temperature"
+                },
+                "last_changed": "2026-10-26T19:50:48.693653+00:00",
+                "last_reported": "2026-10-26T19:50:48.693653+00:00",
+                "last_updated": "2026-10-26T19:50:48.693653+00:00",
+                "context": {
+                    "id": "01M5WW7Y3NN6KWQA5KSV873VD6",
+                    "parent_id": null,
+                    "user_id": null
+                }
+            },
+            {
+                "entity_id": "sensor.outdoor_humidity",
+                "state": "90",
+                "attributes": {
+                    "state_class": "measurement",
+                    "unit_of_measurement": "%",
+                    "device_class": "humidity",
+                    "friendly_name": "Outdoor Humidity"
+                },
+                "last_changed": "2026-10-26T19:30:48.560182+00:00",
+                "last_reported": "2026-10-26T19:30:48.560182+00:00",
+                "last_updated": "2026-10-26T19:30:48.560182+00:00",
+                "context": {
+                    "id": "01M5WV3A3GTDT24SHYNMSPBAWX",
+                    "parent_id": null,
+                    "user_id": null
+                }
+            },
+            {
+                "entity_id": "sensor.cloud_cover",
+                "state": "22",
+                "attributes": {
+                    "state_class": "measurement",
+                    "unit_of_measurement": "%",
+                    "icon": "mdi:weather-cloudy",
+                    "friendly_name": "Outdoor Cloud cover"
+                },
+                "last_changed": "2026-10-26T19:49:18.689325+00:00",
+                "last_reported": "2026-10-26T19:49:18.689325+00:00",
+                "last_updated": "2026-10-26T19:49:18.689325+00:00",
+                "context": {
+                    "id": "01M5WW5671V6ERMNCP3BK3Y4RB",
+                    "parent_id": null,
+                    "user_id": null
+                }
+            },
+            {
+                "entity_id": "sensor.solar_irradiance",
+                "state": "0",
+                "attributes": {
+                    "state_class": "measurement",
+                    "unit_of_measurement": "W\/m\u00b2",
+                    "device_class": "irradiance",
+                    "friendly_name": "Outdoor Solar irradiance"
+                },
+                "last_changed": "2026-10-26T15:57:47.266601+00:00",
+                "last_reported": "2026-10-26T15:57:47.266601+00:00",
+                "last_updated": "2026-10-26T15:57:47.266601+00:00",
+                "context": {
+                    "id": "01M5WEX8C2J2V01V7H71H7DPSY",
+                    "parent_id": null,
+                    "user_id": null
+                }
+            },
+            {
+                "entity_id": "sensor.weather_condition",
+                "state": "clear-night",
+                "attributes": {
+                    "options": [
+                        "clear-night",
+                        "sunny",
+                        "partlycloudy",
+                        "cloudy",
+                        "fog",
+                        "rainy",
+                        "snowy",
+                        "windy"
+                    ],
+                    "device_class": "enum",
+                    "icon": "mdi:weather-partly-cloudy",
+                    "friendly_name": "Outdoor Condition"
+                },
+                "last_changed": "2026-10-26T18:00:48.008684+00:00",
+                "last_reported": "2026-10-26T18:00:48.008684+00:00",
+                "last_updated": "2026-10-26T18:00:48.008684+00:00",
+                "context": {
+                    "id": "01M5WNYG48ER93NGCC09KRT3X2",
+                    "parent_id": null,
+                    "user_id": null
+                }
+            }
+        ]
+    },
+    {
+        "device_id": "ed32e51f1ae593e54e34bc2a80179896",
+        "device_name": "Overview camera",
+        "area_id": "room",
+        "area_name": "Room",
+        "required_user_level": 2,
+        "entities": [
+            {
+                "entity_id": "camera.overview",
+                "state": "idle",
+                "attributes": {
+                    "access_token": "436b54c7b74234247261804f8d373214dc7bfd9b87f695ff87f2ab3ceba0c172",
+                    "entity_picture": "\/api\/camera_proxy\/camera.overview?token=436b54c7b74234247261804f8d373214dc7bfd9b87f695ff87f2ab3ceba0c172",
+                    "friendly_name": "Overview camera",
+                    "supported_features": 0
+                },
+                "last_changed": "2026-09-03T11:56:51.408583+00:00",
+                "last_reported": "2026-10-26T19:47:02.602703+00:00",
+                "last_updated": "2026-10-26T19:47:02.602703+00:00",
+                "context": {
+                    "id": "01M5WW11AAPVGDJYFZKMR78ZGP",
+                    "parent_id": null,
+                    "user_id": null
+                }
+            },
+            {
+                "entity_id": "sensor.people_count",
+                "state": "1",
+                "attributes": {
+                    "state_class": "measurement",
+                    "icon": "mdi:account-group",
+                    "friendly_name": "Overview camera People"
+                },
+                "last_changed": "2026-10-26T19:13:47.461758+00:00",
+                "last_reported": "2026-10-26T19:13:47.461758+00:00",
+                "last_updated": "2026-10-26T19:13:47.461758+00:00",
+                "context": {
+                    "id": "01M5WT44Y57H05MYZ6NX30DTVV",
+                    "parent_id": null,
+                    "user_id": null
+                }
+            }
+        ]
+    },
+    {
+        "device_id": "03f26f0ff4a0d8bb674388230882579e",
+        "device_name": "PC 1",
+        "area_id": "workstations",
+        "area_name": "Workstations",
+        "required_user_level": 2,
+        "entities": [
+            {
+                "entity_id": "switch.pc1",
+                "state": "off",
+                "attributes": {
+                    "device_class": "outlet",
+                    "icon": "mdi:desktop-tower",
+                    "friendly_name": "PC 1"
+                },
+                "last_changed": "2026-10-26T16:08:26.317305+00:00",
+                "last_reported": "2026-10-26T16:08:26.317305+00:00",
+                "last_updated": "2026-10-26T16:08:26.317305+00:00",
+                "context": {
+                    "id": "01M5WFGREDD9D2700NAGJ4WRT6",
+                    "parent_id": null,
+                    "user_id": null
+                }
+            },
+            {
+                "entity_id": "sensor.pc1_power",
+                "state": "2",
+                "attributes": {
+                    "state_class": "measurement",
+                    "unit_of_measurement": "W",
+                    "device_class": "power",
+                    "friendly_name": "PC 1 Power"
+                },
+                "last_changed": "2026-10-26T16:08:47.296752+00:00",
+                "last_reported": "2026-10-26T16:08:47.296752+00:00",
+                "last_updated": "2026-10-26T16:08:47.296752+00:00",
+                "context": {
+                    "id": "01M5WFHCY08RS46T6EAX0R6N7A",
+                    "parent_id": null,
+                    "user_id": null
+                }
+            },
+            {
+                "entity_id": "sensor.pc1_energy",
+                "state": "34.554",
+                "attributes": {
+                    "state_class": "total_increasing",
+                    "unit_of_measurement": "kWh",
+                    "device_class": "energy",
+                    "friendly_name": "PC 1 Energy"
+                },
+                "last_changed": "2026-10-26T19:41:18.599328+00:00",
+                "last_reported": "2026-10-26T19:41:18.599328+00:00",
+                "last_updated": "2026-10-26T19:41:18.599328+00:00",
+                "context": {
+                    "id": "01M5WVPHC79GXR4N3M734N5MVT",
+                    "parent_id": null,
+                    "user_id": null
+                }
+            }
+        ]
+    },
+    {
+        "device_id": "17f93e44c93f3bfc1f55e28ecb2b03b4",
+        "device_name": "PC 2",
+        "area_id": "workstations",
+        "area_name": "Workstations",
+        "required_user_level": 2,
+        "entities": [
+            {
+                "entity_id": "switch.pc2",
+                "state": "on",
+                "attributes": {
+                    "device_class": "outlet",
+                    "icon": "mdi:desktop-tower",
+                    "friendly_name": "PC 2"
+                },
+                "last_changed": "2026-10-22T11:28:03.579309+00:00",
+                "last_reported": "2026-10-22T11:28:03.579309+00:00",
+                "last_updated": "2026-10-22T11:28:03.579309+00:00",
+                "context": {
+                    "id": "01M5HNWFZV4WD0PTHA2SX3CSA8",
+                    "parent_id": null,
+                    "user_id": null
+                }
+            },
+            {
+                "entity_id": "sensor.pc2_power",
+                "state": "45",
+                "attributes": {
+                    "state_class": "measurement",
+                    "unit_of_measurement": "W",
+                    "device_class": "power",
+                    "friendly_name": "PC 2 Power"
+                },
+                "last_changed": "2026-10-22T12:51:10.085587+00:00",
+                "last_reported": "2026-10-22T12:51:10.085587+00:00",
+                "last_updated": "2026-10-22T12:51:10.085587+00:00",
+                "context": {
+                    "id": "01M5HTMNM50C0JWM3V5VTZ9ZH0",
+                    "parent_id": null,
+                    "user_id": null
+                }
+            },
+            {
+                "entity_id": "sensor.pc2_energy",
+                "state": "19.111",
+                "attributes": {
+                    "state_class": "total_increasing",
+                    "unit_of_measurement": "kWh",
+                    "device_class": "energy",
+                    "friendly_name": "PC 2 Energy"
+                },
+                "last_changed": "2026-10-26T19:50:48.664819+00:00",
+                "last_reported": "2026-10-26T19:50:48.664819+00:00",
+                "last_updated": "2026-10-26T19:50:48.664819+00:00",
+                "context": {
+                    "id": "01M5WW7Y2RZ8VKZJAKJA4R3P99",
+                    "parent_id": null,
+                    "user_id": null
+                }
+            }
+        ]
+    },
+    {
+        "device_id": "e40dd297afb60d60a3209b06c362c3ba",
+        "device_name": "PC 3",
+        "area_id": "workstations",
+        "area_name": "Workstations",
+        "required_user_level": 2,
+        "entities": [
+            {
+                "entity_id": "switch.pc3",
+                "state": "off",
+                "attributes": {
+                    "device_class": "outlet",
+                    "icon": "mdi:desktop-tower",
+                    "friendly_name": "PC 3"
+                },
+                "last_changed": "2026-10-26T16:09:41.305974+00:00",
+                "last_reported": "2026-10-26T16:09:41.305974+00:00",
+                "last_updated": "2026-10-26T16:09:41.305974+00:00",
+                "context": {
+                    "id": "01M5WFK1NSHCJ1TPXA3SRJ795S",
+                    "parent_id": null,
+                    "user_id": null
+                }
+            },
+            {
+                "entity_id": "sensor.pc3_energy",
+                "state": "15.545",
+                "attributes": {
+                    "state_class": "total_increasing",
+                    "unit_of_measurement": "kWh",
+                    "device_class": "energy",
+                    "friendly_name": "PC 3 Energy"
+                },
+                "last_changed": "2026-10-26T19:23:48.491318+00:00",
+                "last_reported": "2026-10-26T19:23:48.491318+00:00",
+                "last_updated": "2026-10-26T19:23:48.491318+00:00",
+                "context": {
+                    "id": "01M5WTPFWBG0BTTKW5R4GHVC5A",
+                    "parent_id": null,
+                    "user_id": null
+                }
+            },
+            {
+                "entity_id": "sensor.pc3_power",
+                "state": "2",
+                "attributes": {
+                    "state_class": "measurement",
+                    "unit_of_measurement": "W",
+                    "device_class": "power",
+                    "friendly_name": "PC 3 Power"
+                },
+                "last_changed": "2026-10-26T16:09:47.306237+00:00",
+                "last_reported": "2026-10-26T16:09:47.306237+00:00",
+                "last_updated": "2026-10-26T16:09:47.306237+00:00",
+                "context": {
+                    "id": "01M5WFK7HARZF4ZDFD52EYJM90",
+                    "parent_id": null,
+                    "user_id": null
+                }
+            }
+        ]
+    },
+    {
+        "device_id": "a8784317000510bb6c9effbf39a28bbc",
+        "device_name": "PC 4",
+        "area_id": "workstations",
+        "area_name": "Workstations",
+        "required_user_level": 2,
+        "entities": [
+            {
+                "entity_id": "switch.pc4",
+                "state": "off",
+                "attributes": {
+                    "device_class": "outlet",
+                    "icon": "mdi:desktop-tower",
+                    "friendly_name": "PC 4"
+                },
+                "last_changed": "2026-10-22T12:57:44.134147+00:00",
+                "last_reported": "2026-10-22T12:57:44.134147+00:00",
+                "last_updated": "2026-10-22T12:57:44.134147+00:00",
+                "context": {
+                    "id": "01M5HV0PE6QXXWJ7F81DP42FDK",
+                    "parent_id": null,
+                    "user_id": null
+                }
+            },
+            {
+                "entity_id": "sensor.pc4_power",
+                "state": "2",
+                "attributes": {
+                    "state_class": "measurement",
+                    "unit_of_measurement": "W",
+                    "device_class": "power",
+                    "friendly_name": "PC 4 Power"
+                },
+                "last_changed": "2026-10-22T12:58:10.132771+00:00",
+                "last_reported": "2026-10-22T12:58:10.132771+00:00",
+                "last_updated": "2026-10-22T12:58:10.132771+00:00",
+                "context": {
+                    "id": "01M5HV1FTMNCJA3EPX3HE385VH",
+                    "parent_id": null,
+                    "user_id": null
+                }
+            },
+            {
+                "entity_id": "sensor.pc4_energy",
+                "state": "12.751",
+                "attributes": {
+                    "state_class": "total_increasing",
+                    "unit_of_measurement": "kWh",
+                    "device_class": "energy",
+                    "friendly_name": "PC 4 Energy"
+                },
+                "last_changed": "2026-10-26T19:32:48.550353+00:00",
+                "last_reported": "2026-10-26T19:32:48.550353+00:00",
+                "last_updated": "2026-10-26T19:32:48.550353+00:00",
+                "context": {
+                    "id": "01M5WV6Z96CK32SMK7XNMAW7N5",
+                    "parent_id": null,
+                    "user_id": null
+                }
+            }
+        ]
+    },
+    {
+        "device_id": "16a24220f75efee91848f24499a4a09b",
+        "device_name": "Radiator",
+        "area_id": "room",
+        "area_name": "Room",
+        "required_user_level": 2,
+        "entities": [
+            {
+                "entity_id": "sensor.radiator_valve",
+                "state": "0",
+                "attributes": {
+                    "state_class": "measurement",
+                    "unit_of_measurement": "%",
+                    "icon": "mdi:radiator",
+                    "friendly_name": "Radiator Valve"
+                },
+                "last_changed": "2026-10-26T08:52:44.633858+00:00",
+                "last_reported": "2026-10-26T08:52:44.633858+00:00",
+                "last_updated": "2026-10-26T08:52:44.633858+00:00",
+                "context": {
+                    "id": "01M5VPJZES5ADEGTBCMYV6RQ7Q",
+                    "parent_id": null,
+                    "user_id": null
+                }
+            },
+            {
+                "entity_id": "climate.radiator",
+                "state": "heat",
+                "attributes": {
+                    "hvac_modes": [
+                        "off",
+                        "heat"
+                    ],
+                    "min_temp": 5,
+                    "max_temp": 30,
+                    "target_temp_step": 0.5,
+                    "current_temperature": 22.5,
+                    "temperature": 18,
+                    "hvac_action": "idle",
+                    "friendly_name": "Radiator",
+                    "supported_features": 385
+                },
+                "last_changed": "2026-09-03T11:56:51.423950+00:00",
+                "last_reported": "2026-10-26T19:51:27.708061+00:00",
+                "last_updated": "2026-10-26T19:51:27.708061+00:00",
+                "context": {
+                    "id": "01M5WW946W81HZCZ0TDJ9E73JP",
+                    "parent_id": null,
+                    "user_id": null
+                }
+            }
+        ]
+    },
+    {
+        "device_id": "04eb14df42ea57fcebcafa30fd502a05",
+        "device_name": "RGB panel north-east",
+        "area_id": "whiteboard_corner",
+        "area_name": "Whiteboard corner",
+        "required_user_level": 2,
+        "entities": [
+            {
+                "entity_id": "light.rgb_panel_northeast",
+                "state": "on",
+                "attributes": {
+                    "supported_color_modes": [
+                        "rgb"
+                    ],
+                    "color_mode": "rgb",
+                    "brightness": 255,
+                    "hs_color": [
+                        120,
+                        37.255
+                    ],
+                    "rgb_color": [
+                        160,
+                        255,
+                        160
+                    ],
+                    "xy_color": [
+                        0.27,
+                        0.476
+                    ],
+                    "friendly_name": "RGB panel north-east",
+                    "supported_features": 40
+                },
+                "last_changed": "2026-10-26T07:17:28.047237+00:00",
+                "last_reported": "2026-10-26T12:24:29.962566+00:00",
+                "last_updated": "2026-10-26T12:24:29.962566+00:00",
+                "context": {
+                    "id": "01M5W2PQ0A9PEW23D8AFAK4W4A",
+                    "parent_id": null,
+                    "user_id": null
+                }
+            }
+        ]
+    },
+    {
+        "device_id": "4f29b19377a3ffc8c9a348c651a27881",
+        "device_name": "RGB panel north-west",
+        "area_id": "entrance",
+        "area_name": "Entrance",
+        "required_user_level": 2,
+        "entities": [
+            {
+                "entity_id": "light.rgb_panel_northwest",
+                "state": "on",
+                "attributes": {
+                    "supported_color_modes": [
+                        "rgb"
+                    ],
+                    "color_mode": "rgb",
+                    "brightness": 255,
+                    "hs_color": [
+                        120,
+                        37.255
+                    ],
+                    "rgb_color": [
+                        160,
+                        255,
+                        160
+                    ],
+                    "xy_color": [
+                        0.27,
+                        0.476
+                    ],
+                    "friendly_name": "RGB panel north-west",
+                    "supported_features": 40
+                },
+                "last_changed": "2026-10-26T14:13:25.464259+00:00",
+                "last_reported": "2026-10-26T14:13:25.464259+00:00",
+                "last_updated": "2026-10-26T14:13:25.464259+00:00",
+                "context": {
+                    "id": "01M5W8Y5AKJ25Q0554AEC4N4JW",
+                    "parent_id": null,
+                    "user_id": "af90d6f1c0d743e5a88ce1bc8eabbe8d"
+                }
+            }
+        ]
+    },
+    {
+        "device_id": "b409dfdca8ffa40956cda9a8fc540a32",
+        "device_name": "RGB panel south",
+        "area_id": "workstations",
+        "area_name": "Workstations",
+        "required_user_level": 2,
+        "entities": [
+            {
+                "entity_id": "light.rgb_panel_south",
+                "state": "on",
+                "attributes": {
+                    "supported_color_modes": [
+                        "rgb"
+                    ],
+                    "color_mode": "rgb",
+                    "brightness": 255,
+                    "hs_color": [
+                        120,
+                        37.255
+                    ],
+                    "rgb_color": [
+                        160,
+                        255,
+                        160
+                    ],
+                    "xy_color": [
+                        0.27,
+                        0.476
+                    ],
+                    "friendly_name": "RGB panel south",
+                    "supported_features": 40
+                },
+                "last_changed": "2026-10-26T07:17:28.024543+00:00",
+                "last_reported": "2026-10-26T12:24:29.938428+00:00",
+                "last_updated": "2026-10-26T12:24:29.938428+00:00",
+                "context": {
+                    "id": "01M5W2PPZJJX79V85JR26NBP7M",
+                    "parent_id": null,
+                    "user_id": null
+                }
+            }
+        ]
+    },
+    {
+        "device_id": "6eb5c05c29a71aab37325eba7b9a10e8",
+        "device_name": "RGB pole 1",
+        "area_id": "workstations",
+        "area_name": "Workstations",
+        "required_user_level": 2,
+        "entities": [
+            {
+                "entity_id": "light.rgb_pole_1",
+                "state": "on",
+                "attributes": {
+                    "supported_color_modes": [
+                        "rgb"
+                    ],
+                    "color_mode": "rgb",
+                    "brightness": 255,
+                    "hs_color": [
+                        120,
+                        37.255
+                    ],
+                    "rgb_color": [
+                        160,
+                        255,
+                        160
+                    ],
+                    "xy_color": [
+                        0.27,
+                        0.476
+                    ],
+                    "friendly_name": "RGB pole 1",
+                    "supported_features": 40
+                },
+                "last_changed": "2026-10-26T07:17:28.022274+00:00",
+                "last_reported": "2026-10-26T12:24:29.935940+00:00",
+                "last_updated": "2026-10-26T12:24:29.935940+00:00",
+                "context": {
+                    "id": "01M5W2PPZFY8J3YT294QJBFXEJ",
+                    "parent_id": null,
+                    "user_id": null
+                }
+            }
+        ]
+    },
+    {
+        "device_id": "af27639894c73763ae727d381150e83f",
+        "device_name": "RGB pole 2",
+        "area_id": "lounge",
+        "area_name": "Lounge",
+        "required_user_level": 2,
+        "entities": [
+            {
+                "entity_id": "light.rgb_pole_2",
+                "state": "on",
+                "attributes": {
+                    "supported_color_modes": [
+                        "rgb"
+                    ],
+                    "color_mode": "rgb",
+                    "brightness": 255,
+                    "hs_color": [
+                        120,
+                        37.255
+                    ],
+                    "rgb_color": [
+                        160,
+                        255,
+                        160
+                    ],
+                    "xy_color": [
+                        0.27,
+                        0.476
+                    ],
+                    "friendly_name": "RGB pole 2",
+                    "supported_features": 40
+                },
+                "last_changed": "2026-10-26T07:17:28.030235+00:00",
+                "last_reported": "2026-10-26T12:24:29.943529+00:00",
+                "last_updated": "2026-10-26T12:24:29.943529+00:00",
+                "context": {
+                    "id": "01M5W2PPZQMPVE6XB3B5C33F8D",
+                    "parent_id": null,
+                    "user_id": null
+                }
+            }
+        ]
+    },
+    {
+        "device_id": "ec2deba3c842a0848510456324358b37",
+        "device_name": "RGB pole 3",
+        "area_id": "workstations",
+        "area_name": "Workstations",
+        "required_user_level": 2,
+        "entities": [
+            {
+                "entity_id": "light.rgb_pole_3",
+                "state": "on",
+                "attributes": {
+                    "supported_color_modes": [
+                        "rgb"
+                    ],
+                    "color_mode": "rgb",
+                    "brightness": 255,
+                    "hs_color": [
+                        120,
+                        37.255
+                    ],
+                    "rgb_color": [
+                        160,
+                        255,
+                        160
+                    ],
+                    "xy_color": [
+                        0.27,
+                        0.476
+                    ],
+                    "friendly_name": "RGB pole 3",
+                    "supported_features": 40
+                },
+                "last_changed": "2026-10-26T07:17:28.023319+00:00",
+                "last_reported": "2026-10-26T12:24:29.937171+00:00",
+                "last_updated": "2026-10-26T12:24:29.937171+00:00",
+                "context": {
+                    "id": "01M5W2PPZHR5BTNFFHVR9JNQEM",
+                    "parent_id": null,
+                    "user_id": null
+                }
+            }
+        ]
+    },
+    {
+        "device_id": "024e465920a9e1c4e9926afb3cf7cc78",
+        "device_name": "RGB pole 4",
+        "area_id": "entrance",
+        "area_name": "Entrance",
+        "required_user_level": 2,
+        "entities": [
+            {
+                "entity_id": "light.rgb_pole_4",
+                "state": "off",
+                "attributes": {
+                    "supported_color_modes": [
+                        "rgb"
+                    ],
+                    "color_mode": null,
+                    "brightness": null,
+                    "hs_color": null,
+                    "rgb_color": null,
+                    "xy_color": null,
+                    "friendly_name": "RGB pole 4",
+                    "supported_features": 40
+                },
+                "last_changed": "2026-10-26T14:13:15.922924+00:00",
+                "last_reported": "2026-10-26T14:13:15.922924+00:00",
+                "last_updated": "2026-10-26T14:13:15.922924+00:00",
+                "context": {
+                    "id": "01M5W8XW0H1N26YHQYBPC1ZB9H",
+                    "parent_id": null,
+                    "user_id": "af90d6f1c0d743e5a88ce1bc8eabbe8d"
+                }
+            }
+        ]
+    },
+    {
+        "device_id": "693fd12f60ce8e71a81290132448c442",
+        "device_name": "Robot vacuum",
+        "area_id": "lounge",
+        "area_name": "Lounge",
+        "required_user_level": 2,
+        "entities": [
+            {
+                "entity_id": "sensor.robot_vacuum_battery",
+                "state": "100",
+                "attributes": {
+                    "state_class": "measurement",
+                    "unit_of_measurement": "%",
+                    "device_class": "battery",
+                    "friendly_name": "Robot vacuum Battery"
+                },
+                "last_changed": "2026-10-23T21:36:52.513460+00:00",
+                "last_reported": "2026-10-23T21:36:52.513460+00:00",
+                "last_updated": "2026-10-23T21:36:52.513460+00:00",
+                "context": {
+                    "id": "01M5NB3ZS141NZM1RZ5TF56NVP",
+                    "parent_id": null,
+                    "user_id": null
+                }
+            },
+            {
+                "entity_id": "vacuum.robot_vacuum",
+                "state": "docked",
+                "attributes": {
+                    "friendly_name": "Robot vacuum",
+                    "supported_features": 12444
+                },
+                "last_changed": "2026-10-23T20:46:06.207630+00:00",
+                "last_reported": "2026-10-23T20:46:06.207630+00:00",
+                "last_updated": "2026-10-23T20:46:06.207630+00:00",
+                "context": {
+                    "id": "01M5N870VZZY2NMSQTZ7AGWFSR",
+                    "parent_id": null,
+                    "user_id": null
+                }
+            }
+        ]
+    },
+    {
+        "device_id": "d2e7769b95380941ef3e07278135019a",
+        "device_name": "Room climate",
+        "area_id": "room",
+        "area_name": "Room",
+        "required_user_level": 2,
+        "entities": [
+            {
+                "entity_id": "sensor.room_temperature",
+                "state": "22.6",
+                "attributes": {
+                    "state_class": "measurement",
+                    "unit_of_measurement": "\u00b0C",
+                    "device_class": "temperature",
+                    "friendly_name": "Room climate Temperature"
+                },
+                "last_changed": "2026-10-26T19:51:18.689676+00:00",
+                "last_reported": "2026-10-26T19:51:18.689676+00:00",
+                "last_updated": "2026-10-26T19:51:18.689676+00:00",
+                "context": {
+                    "id": "01M5WW8VD1CH9THXRC5HWT7AE0",
+                    "parent_id": null,
+                    "user_id": null
+                }
+            },
+            {
+                "entity_id": "sensor.room_humidity",
+                "state": "42",
+                "attributes": {
+                    "state_class": "measurement",
+                    "unit_of_measurement": "%",
+                    "device_class": "humidity",
+                    "friendly_name": "Room climate Humidity"
+                },
+                "last_changed": "2026-10-26T19:50:18.686024+00:00",
+                "last_reported": "2026-10-26T19:50:18.686024+00:00",
+                "last_updated": "2026-10-26T19:50:18.686024+00:00",
+                "context": {
+                    "id": "01M5WW70SYPHN4WCPHAR44D745",
+                    "parent_id": null,
+                    "user_id": null
+                }
+            },
+            {
+                "entity_id": "sensor.room_co2",
+                "state": "476",
+                "attributes": {
+                    "state_class": "measurement",
+                    "unit_of_measurement": "ppm",
+                    "device_class": "carbon_dioxide",
+                    "friendly_name": "Room climate CO2"
+                },
+                "last_changed": "2026-10-26T19:51:18.692369+00:00",
+                "last_reported": "2026-10-26T19:51:18.692369+00:00",
+                "last_updated": "2026-10-26T19:51:18.692369+00:00",
+                "context": {
+                    "id": "01M5WW8VD4DC9G1BPMT2D8XVSJ",
+                    "parent_id": null,
+                    "user_id": null
+                }
+            },
+            {
+                "entity_id": "sensor.room_noise",
+                "state": "33",
+                "attributes": {
+                    "state_class": "measurement",
+                    "unit_of_measurement": "dB",
+                    "device_class": "sound_pressure",
+                    "friendly_name": "Room climate Noise"
+                },
+                "last_changed": "2026-10-26T19:51:18.693926+00:00",
+                "last_reported": "2026-10-26T19:51:18.693926+00:00",
+                "last_updated": "2026-10-26T19:51:18.693926+00:00",
+                "context": {
+                    "id": "01M5WW8VD5JPSPR59E1KF0GYTP",
+                    "parent_id": null,
+                    "user_id": null
+                }
+            }
+        ]
+    },
+    {
+        "device_id": "04f584c5e9747ae2e61dd95e462dce53",
+        "device_name": "Side door",
+        "area_id": "whiteboard_corner",
+        "area_name": "Whiteboard corner",
+        "required_user_level": 2,
+        "entities": [
+            {
+                "entity_id": "binary_sensor.door_side",
+                "state": "off",
+                "attributes": {
+                    "device_class": "door",
+                    "friendly_name": "Side door"
+                },
+                "last_changed": "2026-10-22T08:42:02.559762+00:00",
+                "last_reported": "2026-10-22T08:42:02.559762+00:00",
+                "last_updated": "2026-10-22T08:42:02.559762+00:00",
+                "context": {
+                    "id": "01M5HCCGDZ3CR1M7ZR8PR4PDM2",
+                    "parent_id": null,
+                    "user_id": null
+                }
+            },
+            {
+                "entity_id": "sensor.door_side_battery",
+                "state": "62.2",
+                "attributes": {
+                    "state_class": "measurement",
+                    "unit_of_measurement": "%",
+                    "device_class": "battery",
+                    "friendly_name": "Side door Battery"
+                },
+                "last_changed": "2026-10-25T08:44:05.654197+00:00",
+                "last_reported": "2026-10-25T08:44:05.654197+00:00",
+                "last_updated": "2026-10-25T08:44:05.654197+00:00",
+                "context": {
+                    "id": "01M5S3PDMPQ4SQD1MEQ9SBD3N7",
+                    "parent_id": null,
+                    "user_id": null
+                }
+            }
+        ]
+    },
+    {
+        "device_id": "2368f5a1506e92cc72f19885f780af72",
+        "device_name": "Speakers",
+        "area_id": "lounge",
+        "area_name": "Lounge",
+        "required_user_level": 2,
+        "entities": [
+            {
+                "entity_id": "switch.speakers",
+                "state": "off",
+                "attributes": {
+                    "device_class": "outlet",
+                    "icon": "mdi:speaker",
+                    "friendly_name": "Speakers"
+                },
+                "last_changed": "2026-10-16T13:55:30.717430+00:00",
+                "last_reported": "2026-10-16T13:55:30.717430+00:00",
+                "last_updated": "2026-10-16T13:55:30.717430+00:00",
+                "context": {
+                    "id": "01M52FY5RXQ07CX1F5ZHD4QYBP",
+                    "parent_id": null,
+                    "user_id": null
+                }
+            },
+            {
+                "entity_id": "sensor.speakers_power",
+                "state": "0",
+                "attributes": {
+                    "state_class": "measurement",
+                    "unit_of_measurement": "W",
+                    "device_class": "power",
+                    "friendly_name": "Speakers Power"
+                },
+                "last_changed": "2026-10-16T13:55:46.706536+00:00",
+                "last_reported": "2026-10-16T13:55:46.706536+00:00",
+                "last_updated": "2026-10-16T13:55:46.706536+00:00",
+                "context": {
+                    "id": "01M52FYNCJ585751CSQJZKVEJ8",
+                    "parent_id": null,
+                    "user_id": null
+                }
+            }
+        ]
+    },
+    {
+        "device_id": "f5614b96cbe6a010a94131c4bfdf4fb0",
+        "device_name": "Table lamp",
+        "area_id": "lounge",
+        "area_name": "Lounge",
+        "required_user_level": 2,
+        "entities": [
+            {
+                "entity_id": "light.table_lamp",
+                "state": "off",
+                "attributes": {
+                    "supported_color_modes": [
+                        "onoff"
+                    ],
+                    "color_mode": null,
+                    "friendly_name": "Table lamp",
+                    "supported_features": 40
+                },
+                "last_changed": "2026-10-25T11:57:32.109529+00:00",
+                "last_reported": "2026-10-25T11:57:32.109529+00:00",
+                "last_updated": "2026-10-25T11:57:32.109529+00:00",
+                "context": {
+                    "id": "01M5SERM2BEFVTCDPC66JQZ58X",
+                    "parent_id": null,
+                    "user_id": "af90d6f1c0d743e5a88ce1bc8eabbe8d"
+                }
+            }
+        ]
+    },
+    {
+        "device_id": "b192b4e2d0c186982d8d7df5bb50ff89",
+        "device_name": "Ventilation",
+        "area_id": "room",
+        "area_name": "Room",
+        "required_user_level": 2,
+        "entities": [
+            {
+                "entity_id": "select.ventilation",
+                "state": "low",
+                "attributes": {
+                    "options": [
+                        "low",
+                        "normal",
+                        "boost"
+                    ],
+                    "icon": "mdi:fan",
+                    "friendly_name": "Ventilation"
+                },
+                "last_changed": "2026-10-26T18:00:27.011750+00:00",
+                "last_reported": "2026-10-26T18:00:27.011750+00:00",
+                "last_updated": "2026-10-26T18:00:27.011750+00:00",
+                "context": {
+                    "id": "01M5WNXVM3AH5TKD9GWJ4A5QXV",
+                    "parent_id": null,
+                    "user_id": null
+                }
+            },
+            {
+                "entity_id": "sensor.ventilation_airflow",
+                "state": "90",
+                "attributes": {
+                    "state_class": "measurement",
+                    "unit_of_measurement": "m\u00b3\/h",
+                    "icon": "mdi:weather-windy",
+                    "friendly_name": "Ventilation Airflow"
+                },
+                "last_changed": "2026-10-26T18:00:48.002410+00:00",
+                "last_reported": "2026-10-26T18:00:48.002410+00:00",
+                "last_updated": "2026-10-26T18:00:48.002410+00:00",
+                "context": {
+                    "id": "01M5WNYG425VX9H0D5C5DTP627",
+                    "parent_id": null,
+                    "user_id": null
+                }
+            }
+        ]
+    },
+    {
+        "device_id": "3f0d90c0c09e21d7c34b370c0f15f402",
+        "device_name": "Video wall",
+        "area_id": "workstations",
+        "area_name": "Workstations",
+        "required_user_level": 2,
+        "entities": [
+            {
+                "entity_id": "switch.video_wall",
+                "state": "off",
+                "attributes": {
+                    "device_class": "switch",
+                    "icon": "mdi:monitor-multiple",
+                    "friendly_name": "Video wall"
+                },
+                "last_changed": "2026-10-26T09:10:28.717609+00:00",
+                "last_reported": "2026-10-26T09:10:28.717609+00:00",
+                "last_updated": "2026-10-26T09:10:28.717609+00:00",
+                "context": {
+                    "id": "01M5VQKEKDA5T7GHW8HB2NF5BT",
+                    "parent_id": null,
+                    "user_id": null
+                }
+            },
+            {
+                "entity_id": "sensor.video_wall_power",
+                "state": "4",
+                "attributes": {
+                    "state_class": "measurement",
+                    "unit_of_measurement": "W",
+                    "device_class": "power",
+                    "friendly_name": "Video wall Power"
+                },
+                "last_changed": "2026-10-26T09:10:44.718699+00:00",
+                "last_reported": "2026-10-26T09:10:44.718699+00:00",
+                "last_updated": "2026-10-26T09:10:44.718699+00:00",
+                "context": {
+                    "id": "01M5VQKY7ETJF82XJJZ4SWF6TM",
+                    "parent_id": null,
+                    "user_id": null
+                }
+            },
+            {
+                "entity_id": "select.video_wall_content",
+                "state": "Dashboards",
+                "attributes": {
+                    "options": [
+                        "Dashboards",
+                        "Cameras",
+                        "Mirror PC"
+                    ],
+                    "icon": "mdi:view-dashboard",
+                    "friendly_name": "Video wall Content"
+                },
+                "last_changed": "2026-10-22T08:20:27.400793+00:00",
+                "last_reported": "2026-10-22T08:20:27.400793+00:00",
+                "last_updated": "2026-10-22T08:20:27.400793+00:00",
+                "context": {
+                    "id": "01M5HB4ZM8S2NYNR8X4Y560F2J",
+                    "parent_id": null,
+                    "user_id": null
+                }
+            }
+        ]
+    },
+    {
+        "device_id": "b978fd74365d6dca114eb191bdedf7e9",
+        "device_name": "Whiteboard ceiling light",
+        "area_id": "whiteboard_corner",
+        "area_name": "Whiteboard corner",
+        "required_user_level": 2,
+        "entities": [
+            {
+                "entity_id": "light.ceiling_whiteboard",
+                "state": "on",
+                "attributes": {
+                    "supported_color_modes": [
+                        "brightness"
+                    ],
+                    "color_mode": "brightness",
+                    "brightness": 204,
+                    "friendly_name": "Whiteboard ceiling light",
+                    "supported_features": 40
+                },
+                "last_changed": "2026-10-26T19:13:37.448480+00:00",
+                "last_reported": "2026-10-26T19:13:37.448480+00:00",
+                "last_updated": "2026-10-26T19:13:37.448480+00:00",
+                "context": {
+                    "id": "01M5WT3V58Z22GM71C57621PZ2",
+                    "parent_id": null,
+                    "user_id": null
+                }
+            }
+        ]
+    },
+    {
+        "device_id": "970657585f2f96d59ddb092418bb5568",
+        "device_name": "Window 1",
+        "area_id": "room",
+        "area_name": "Room",
+        "required_user_level": 2,
+        "entities": [
+            {
+                "entity_id": "binary_sensor.window_1",
+                "state": "off",
+                "attributes": {
+                    "device_class": "window",
+                    "friendly_name": "Window 1"
+                },
+                "last_changed": "2026-10-26T16:26:46.443336+00:00",
+                "last_reported": "2026-10-26T16:26:46.443336+00:00",
+                "last_updated": "2026-10-26T16:26:46.443336+00:00",
+                "context": {
+                    "id": "01M5WGJASBRDWPSJK61KQQR6A6",
+                    "parent_id": null,
+                    "user_id": null
+                }
+            },
+            {
+                "entity_id": "sensor.window_1_battery",
+                "state": "79.3",
+                "attributes": {
+                    "state_class": "measurement",
+                    "unit_of_measurement": "%",
+                    "device_class": "battery",
+                    "friendly_name": "Window 1 Battery"
+                },
+                "last_changed": "2026-10-25T07:11:05.085421+00:00",
+                "last_reported": "2026-10-25T07:11:05.085421+00:00",
+                "last_updated": "2026-10-25T07:11:05.085421+00:00",
+                "context": {
+                    "id": "01M5RYC3VXAH4DE94AHPNZSPFV",
+                    "parent_id": null,
+                    "user_id": null
+                }
+            }
+        ]
+    },
+    {
+        "device_id": "e2f0470c9600dcc734691ddb77e52e6d",
+        "device_name": "Window 2",
+        "area_id": "room",
+        "area_name": "Room",
+        "required_user_level": 2,
+        "entities": [
+            {
+                "entity_id": "binary_sensor.window_2",
+                "state": "off",
+                "attributes": {
+                    "device_class": "window",
+                    "friendly_name": "Window 2"
+                },
+                "last_changed": "2026-10-26T10:27:44.235037+00:00",
+                "last_reported": "2026-10-26T10:27:44.235037+00:00",
+                "last_updated": "2026-10-26T10:27:44.235037+00:00",
+                "context": {
+                    "id": "01M5VW0XFBNFAV8M03YP16NCX2",
+                    "parent_id": null,
+                    "user_id": null
+                }
+            },
+            {
+                "entity_id": "sensor.window_2_battery",
+                "state": "94.0",
+                "attributes": {
+                    "state_class": "measurement",
+                    "unit_of_measurement": "%",
+                    "device_class": "battery",
+                    "friendly_name": "Window 2 Battery"
+                },
+                "last_changed": "2026-10-25T10:17:06.226330+00:00",
+                "last_reported": "2026-10-25T10:17:06.226330+00:00",
+                "last_updated": "2026-10-25T10:17:06.226330+00:00",
+                "context": {
+                    "id": "01M5S90QDJEQE2X0QBZ762QTDA",
+                    "parent_id": null,
+                    "user_id": null
+                }
+            }
+        ]
+    },
+    {
+        "device_id": "1c89a611b4c633b4f98014b2af0889e9",
+        "device_name": "Window climate",
+        "area_id": "room",
+        "area_name": "Room",
+        "required_user_level": 2,
+        "entities": [
+            {
+                "entity_id": "sensor.window_temperature",
+                "state": "21.7",
+                "attributes": {
+                    "state_class": "measurement",
+                    "unit_of_measurement": "\u00b0C",
+                    "device_class": "temperature",
+                    "friendly_name": "Window climate Temperature"
+                },
+                "last_changed": "2026-10-26T19:50:48.688200+00:00",
+                "last_reported": "2026-10-26T19:50:48.688200+00:00",
+                "last_updated": "2026-10-26T19:50:48.688200+00:00",
+                "context": {
+                    "id": "01M5WW7Y3G74T9PESA4DADVFPS",
+                    "parent_id": null,
+                    "user_id": null
+                }
+            },
+            {
+                "entity_id": "sensor.window_humidity",
+                "state": "44",
+                "attributes": {
+                    "state_class": "measurement",
+                    "unit_of_measurement": "%",
+                    "device_class": "humidity",
+                    "friendly_name": "Window climate Humidity"
+                },
+                "last_changed": "2026-10-26T19:48:18.671588+00:00",
+                "last_reported": "2026-10-26T19:48:18.671588+00:00",
+                "last_updated": "2026-10-26T19:48:18.671588+00:00",
+                "context": {
+                    "id": "01M5WW3BKF6V43HFQ88PCM3KZV",
+                    "parent_id": null,
+                    "user_id": null
+                }
+            }
+        ]
+    },
+    {
+        "device_id": "a4fc46cb4d5c94ea52a8d088144decd2",
+        "device_name": "Workstation ceiling lights",
+        "area_id": "workstations",
+        "area_name": "Workstations",
+        "required_user_level": 2,
+        "entities": [
+            {
+                "entity_id": "light.ceiling_workstations",
+                "state": "on",
+                "attributes": {
+                    "supported_color_modes": [
+                        "brightness"
+                    ],
+                    "color_mode": "brightness",
+                    "brightness": 204,
+                    "friendly_name": "Workstation ceiling lights",
+                    "supported_features": 40
+                },
+                "last_changed": "2026-10-26T19:13:37.425326+00:00",
+                "last_reported": "2026-10-26T19:13:37.425326+00:00",
+                "last_updated": "2026-10-26T19:13:37.425326+00:00",
+                "context": {
+                    "id": "01M5WT3V4HZX9HYQKQC955HGC5",
+                    "parent_id": null,
+                    "user_id": null
+                }
+            }
+        ]
+    },
+    {
+        "device_id": "c251e6c46264132fe710aed59b79c8c3",
+        "device_name": "Workstation dome camera",
+        "area_id": "workstations",
+        "area_name": "Workstations",
+        "required_user_level": 2,
+        "entities": [
+            {
+                "entity_id": "sensor.people_workstations",
+                "state": "1",
+                "attributes": {
+                    "state_class": "measurement",
+                    "icon": "mdi:account-group",
+                    "friendly_name": "Workstation dome camera People"
+                },
+                "last_changed": "2026-10-26T19:39:07.596386+00:00",
+                "last_reported": "2026-10-26T19:39:07.596386+00:00",
+                "last_updated": "2026-10-26T19:39:07.596386+00:00",
+                "context": {
+                    "id": "01M5WVJHECQRBGFZCTQ8V6NANP",
+                    "parent_id": null,
+                    "user_id": null
+                }
+            },
+            {
+                "entity_id": "camera.workstations_dome",
+                "state": "idle",
+                "attributes": {
+                    "access_token": "fb0587ff7113dd01c8c2adc79472f3c6a074a8e990727dd732b919c737a28ed1",
+                    "entity_picture": "\/api\/camera_proxy\/camera.workstations_dome?token=fb0587ff7113dd01c8c2adc79472f3c6a074a8e990727dd732b919c737a28ed1",
+                    "friendly_name": "Workstation dome camera",
+                    "supported_features": 0
+                },
+                "last_changed": "2026-09-03T11:56:51.407011+00:00",
+                "last_reported": "2026-10-26T19:47:02.602549+00:00",
+                "last_updated": "2026-10-26T19:47:02.602549+00:00",
+                "context": {
+                    "id": "01M5WW11AA74R51QJ92BN0HRAF",
+                    "parent_id": null,
+                    "user_id": null
+                }
+            }
+        ]
+    },
+    {
+        "device_id": "7a3ec42919d779dee95125bacd13d43f",
+        "device_name": "Workstation light level",
+        "area_id": "workstations",
+        "area_name": "Workstations",
+        "required_user_level": 2,
+        "entities": [
+            {
+                "entity_id": "sensor.illuminance_workstations",
+                "state": "479",
+                "attributes": {
+                    "state_class": "measurement",
+                    "unit_of_measurement": "lx",
+                    "device_class": "illuminance",
+                    "friendly_name": "Workstation light level"
+                },
+                "last_changed": "2026-10-26T19:51:18.678012+00:00",
+                "last_reported": "2026-10-26T19:51:18.678012+00:00",
+                "last_updated": "2026-10-26T19:51:18.678012+00:00",
+                "context": {
+                    "id": "01M5WW8VCPCXV7R5FCCBP52853",
+                    "parent_id": null,
+                    "user_id": null
+                }
+            }
+        ]
+    },
+    {
+        "device_id": "517501b34a732aefcbd2c7f4b80cbfc5",
+        "device_name": "Workstation motion",
+        "area_id": "workstations",
+        "area_name": "Workstations",
+        "required_user_level": 2,
+        "entities": [
+            {
+                "entity_id": "binary_sensor.motion_workstations",
+                "state": "off",
+                "attributes": {
+                    "device_class": "motion",
+                    "friendly_name": "Workstation motion"
+                },
+                "last_changed": "2026-10-26T19:48:12.666180+00:00",
+                "last_reported": "2026-10-26T19:48:12.666180+00:00",
+                "last_updated": "2026-10-26T19:48:12.666180+00:00",
+                "context": {
+                    "id": "01M5WW35QTG4YV8XFS957D8BP0",
+                    "parent_id": null,
+                    "user_id": null
+                }
+            },
+            {
+                "entity_id": "sensor.motion_workstations_battery",
+                "state": "87.9",
+                "attributes": {
+                    "state_class": "measurement",
+                    "unit_of_measurement": "%",
+                    "device_class": "battery",
+                    "friendly_name": "Workstation motion Battery"
+                },
+                "last_changed": "2026-10-25T22:10:40.598127+00:00",
+                "last_reported": "2026-10-25T22:10:40.598127+00:00",
+                "last_updated": "2026-10-25T22:10:40.598127+00:00",
+                "context": {
+                    "id": "01M5THVAAPV5KYQ8FK35D89EVX",
+                    "parent_id": null,
+                    "user_id": null
+                }
+            }
+        ]
+    },
+    {
+        "device_id": "4ddecaae4ce7819e0fdee0ec538732ef",
+        "device_name": "Workstation presence",
+        "area_id": "workstations",
+        "area_name": "Workstations",
+        "required_user_level": 2,
+        "entities": [
+            {
+                "entity_id": "binary_sensor.presence_workstations",
+                "state": "on",
+                "attributes": {
+                    "device_class": "occupancy",
+                    "friendly_name": "Workstation presence"
+                },
+                "last_changed": "2026-10-26T19:13:47.431039+00:00",
+                "last_reported": "2026-10-26T19:13:47.431039+00:00",
+                "last_updated": "2026-10-26T19:13:47.431039+00:00",
+                "context": {
+                    "id": "01M5WT44X7MYYC1ESSEVYYRF66",
+                    "parent_id": null,
+                    "user_id": null
+                }
+            },
+            {
+                "entity_id": "sensor.presence_workstations_targets",
+                "state": "1",
+                "attributes": {
+                    "state_class": "measurement",
+                    "icon": "mdi:radar",
+                    "friendly_name": "Workstation presence Targets"
+                },
+                "last_changed": "2026-10-26T19:13:47.431977+00:00",
+                "last_reported": "2026-10-26T19:13:47.431977+00:00",
+                "last_updated": "2026-10-26T19:13:47.431977+00:00",
+                "context": {
+                    "id": "01M5WT44X7PN5XSN1TAMBPRAAR",
+                    "parent_id": null,
+                    "user_id": null
+                }
+            }
+        ]
+    },
+    {
+        "device_id": "704b4305305876cbc5d73756c420ddc6",
+        "device_name": "Workstation TV",
+        "area_id": "workstations",
+        "area_name": "Workstations",
+        "required_user_level": 2,
+        "entities": [
+            {
+                "entity_id": "switch.tv_workstations",
+                "state": "off",
+                "attributes": {
+                    "device_class": "switch",
+                    "icon": "mdi:television",
+                    "friendly_name": "Workstation TV"
+                },
+                "last_changed": "2026-10-26T13:54:30.478507+00:00",
+                "last_reported": "2026-10-26T13:54:30.478507+00:00",
+                "last_updated": "2026-10-26T13:54:30.478507+00:00",
+                "context": {
+                    "id": "01M5W7VGYEP37D0BZDGRQJF266",
+                    "parent_id": null,
+                    "user_id": null
+                }
+            },
+            {
+                "entity_id": "sensor.tv_workstations_power",
+                "state": "0",
+                "attributes": {
+                    "state_class": "measurement",
+                    "unit_of_measurement": "W",
+                    "device_class": "power",
+                    "friendly_name": "Workstation TV Power"
+                },
+                "last_changed": "2026-10-26T13:54:46.481935+00:00",
+                "last_reported": "2026-10-26T13:54:46.481935+00:00",
+                "last_updated": "2026-10-26T13:54:46.481935+00:00",
+                "context": {
+                    "id": "01M5W7W0JH69RHFMTZC2W9F0FN",
+                    "parent_id": null,
+                    "user_id": null
+                }
+            },
+            {
+                "entity_id": "select.tv_workstations_source",
+                "state": "HDMI 2",
+                "attributes": {
+                    "options": [
+                        "HDMI 1",
+                        "HDMI 2",
+                        "Chromecast"
+                    ],
+                    "icon": "mdi:video-input-hdmi",
+                    "friendly_name": "Workstation TV Source"
+                },
+                "last_changed": "2026-10-23T10:58:27.506014+00:00",
+                "last_reported": "2026-10-23T10:58:27.506014+00:00",
+                "last_updated": "2026-10-23T10:58:27.506014+00:00",
+                "context": {
+                    "id": "01M5M6K0HJKW67GRBWEETTWXKT",
+                    "parent_id": null,
+                    "user_id": null
+                }
+            }
+        ]
+    }
+]

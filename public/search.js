@@ -168,3 +168,19 @@ document.addEventListener('submit', function(event){
         query: query
     });
 });
+
+// filter history
+
+document.addEventListener("input",function(event){
+    if(event.target.id !== "deviceSearch")return;
+    const searchText = event.target.value.toLowerCase().trim();
+
+    filterItems(".timeline-item", searchText);
+});
+
+function filterItems(selector, searchText) {
+    document.querySelectorAll(selector).forEach(item => {
+        const text = item.textContent.toLowerCase();
+        item.style.display= text.includes(searchText) ? "":"none";
+    });
+}

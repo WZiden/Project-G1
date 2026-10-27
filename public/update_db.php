@@ -16,6 +16,10 @@
         $states = indexStatesByEntity(getHomeAssistantStates($haURL, $haToken));
 
         $devices = buildDevices($devices, $entities, $states);
+
+        usort($devices, function ($a, $b) {
+            return strcasecmp($a['device_name'], $b['device_name']);
+        });
         
         syncDevices($pdo, $devices);
 
