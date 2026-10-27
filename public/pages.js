@@ -244,7 +244,7 @@ function initSettingsPage() {
 
         // List all users and devices
         populateUserList();
-        //populateDeviceList();
+        populateDeviceList();
     });
 
     // Change username form button
