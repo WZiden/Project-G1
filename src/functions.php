@@ -26,6 +26,10 @@
         'lock' => [
             'lock',
             'unlock'
+        ],
+
+        'select' => [
+            'select_option'
         ]
     ];
 
@@ -734,7 +738,7 @@
 
         $html = renderEntityHeader($entity);
 
-        $html .= "<div class='entity-status' data-entity-id='{$entityID}'>
+        $html .= "<div class='entity-status' data-entity-id='{$entityID}' data-device-name='{$device}'>
                 {$currentValue}
             </div>
             <form class='select-control-form' data-device-name='{$device}' data-entity-id='{$entityID}'>
@@ -745,9 +749,9 @@
         foreach ($options as $option) {
             $selected = ($option === $currentValue) ? 'selected': '';
 
-            $safeOption = ucfirst(htmlspecialchars( $option, ENT_QUOTES, 'UTF-8'));
+            $safeOption = htmlspecialchars( $option, ENT_QUOTES, 'UTF-8');
 
-            $html .= "<option value='{$safeOption}' {$selected}>{$safeOption}</option>";
+            $html .= "<option value='" . ucfirst($safeOption) . "' {$selected}>{$safeOption}</option>";
         }
 
         $html .= "</select>
@@ -778,9 +782,9 @@
         $html .= "<div class='entity-status' data-entity-id='{$entityID}'>
                 {$state}
             </div>
-            <div class='light-controls' data-device-name='{$device}'>
+            <div class='light-controls rgb-controls' data-device-name='{$device}'>
                 <input type='range' class='brightness-slider' data-entity-id='{$entityID}' min='1' max='255' step='1' value='{$brightness}'>
-                <form class='device-control-form'>
+                <form class='device-control-form' data-device-name='{$device}'>
                     <input type='hidden' name='entity_id' value='{$entityID}'>
                     <input type='hidden' name='service' value='{$service}'>
                     <button type='submit' class='toggle-button' data-entity-id='{$entityID}' data-state='" . ($isOn ? 'on' : 'off') . "'>
@@ -823,7 +827,7 @@
                 <div class='rgb-controls' data-device-name='{$device}'>
                 <input type='color' class='rgb-picker' data-entity-id='{$entityID}' value='{$hexColor}'>
                 <input type='range' class='brightness-slider' data-entity-id='{$entityID}' min='1' max='255' step='1' value='{$brightness}'>
-                <form class='device-control-form'>
+                <form class='device-control-form' data-device-name='{$device}'>
                     <input type='hidden' name='entity_id' value='{$entityID}'>
                     <input type='hidden' name='service' value='{$service}'>
                     <button type='submit' class='toggle-button' data-entity-id='{$entityID}' data-state='" . ($isOn ? 'on' : 'off') . "'>

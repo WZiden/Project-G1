@@ -22,6 +22,12 @@ async function callDeviceService(device, entityId, service, serviceData = {}){
             alert(result.message);
         }
 
+        console.log(
+{
+    status: response.status,
+    result: result
+});
+
         throw new Error(result.message || 'Something went wrong');
     }
 
@@ -262,6 +268,32 @@ document.addEventListener('change', async function(event){
     try{
         const result = await callDeviceService(device, slider.dataset.entityId, 'turn_on', {
                 brightness: Number(slider.value)
+            }
+        );
+
+        console.log(result);
+    }
+    catch(error){
+        console.error(error);
+    }
+});
+
+document.addEventListener('submit', async function(event){
+    const form = event.target;
+
+    if (!form.matches('.select-control-form')){
+        return;
+    }
+
+    event.preventDefault();
+
+    const entityId = form.querySelector('[name="entity_id"]').value;
+    const option = form.querySelector('[name="option"]').value;
+    const device = form.dataset.deviceName;
+
+    try{
+        const result = await callDeviceService(device, entityId, 'select_option', {
+                option: option
             }
         );
 
