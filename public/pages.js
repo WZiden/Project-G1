@@ -412,9 +412,31 @@ async function populateUserList() {
             throw new Error("HTTP: " + response.status);
             console.log("response inte ok");
         } else {
-            console.log("response ok");
-            const userList = document.getElementById("userList");
-            userList.innerHTML = "";
+
+            const deviceTable = document.getElementById("userTableBody");
+            data.forEach(element => {
+                const newRow = deviceTable.insertRow();
+                const cellID = newRow.insertCell(0);
+                const cellName = newRow.insertCell(1);
+                const cellLevel = newRow.insertCell(2);
+                const select = document.createElement("select");
+                select.id = element["userID"];
+                const options = ["Admin", "User"];
+                options.forEach((option) => {
+                    const selectOptions = document.createElement("option");
+                    selectOptions.value = option.toLowerCase();
+                    selectOptions.textContent = option;
+                    select.appendChild(selectOptions);
+                    if (element["permission_level"] == 1) {
+                        select.selectedIndex = 0;
+                    } else if (element["permission_level"] == 2) {
+                        select.selectedIndex = 1;
+                    }
+                })
+                cellID.innerText = element["userID"];
+                cellName.innerText = element["username"];
+                cellLevel.appendChild(select);
+            });
 
             data.forEach(element => {
                 const row = document.createElement("li");
@@ -441,13 +463,30 @@ async function populateDeviceList() {
         if (!response.ok) {
             throw new Error("HTTP: " + response.status);
         } else {
-            const deviceList = document.getElementById("deviceList");
-            deviceList.innerHTML = "";
 
+            const deviceTable = document.getElementById("deviceTableBody");
             data.forEach(element => {
-                const row = document.createElement("li");
-                row.textContent = "Device ID: " + element["device_id"] + " Device name: " + element["device_name"] + " Required level: " +  element["required_user_level"];
-                deviceList.appendChild(row);
+                const newRow = deviceTable.insertRow();
+                const cellID = newRow.insertCell(0);
+                const cellName = newRow.insertCell(1);
+                const cellLevel = newRow.insertCell(2);
+                const select = document.createElement("select");
+                select.id = element["device_id"];
+                const options = ["Admin", "User"];
+                options.forEach((option) => {
+                    const selectOptions = document.createElement("option");
+                    selectOptions.value = option.toLowerCase();
+                    selectOptions.textContent = option;
+                    select.appendChild(selectOptions);
+                    if (element["required_user_level"] == 1) {
+                        select.selectedIndex = 0;
+                    } else if (element["required_user_level"] == 2) {
+                        select.selectedIndex = 1;
+                    }
+                })
+                cellID.innerText = element["device_id"];
+                cellName.innerText = element["device_name"];
+                cellLevel.appendChild(select);
             });
         }
     } catch (e) {

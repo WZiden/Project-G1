@@ -51,16 +51,37 @@
 
 <!-- Admin stuff -->
 <div id="adminView">
-    <section>
-        <h3>All users</h3>
-        <ul id="userList"></ul>        
-    </section>
-    <section>
-        <h3>All Devices</h3>
-        <ul id="deviceList"></ul>        
+
+    <section class="tablecontainer">
+        <table id="userTable">
+            <caption>Users</caption>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Role</th>            
+                </tr>            
+            </thead>
+            <tbody id="userTableBody"></tbody>
+        </table>
+</section>
+
+    <section class="tablecontainer">
+        <table id="deviceTable">
+            <caption>Devices</caption>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Required level</th>            
+                </tr>            
+            </thead>
+            <tbody id="deviceTableBody"></tbody>
+        </table>
     </section>
 
 
+<!-- 
     <form id="changeUserForm" class="pageForm">
         <fieldset>
             <legend>Manage users</legend>
@@ -77,5 +98,7 @@
             </div>
             <button type="submit" class="login-btn">Confirm</button>        
         </fieldset>
-    </form>
+    </form> 
+-->
+
 </div>
