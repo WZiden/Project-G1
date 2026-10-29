@@ -21,7 +21,7 @@ function loadPage(page, params = {}, title = page) {
     if (searchResults) {
         searchResults.innerHTML = '';
     }
-   
+
     const query = new URLSearchParams(params);
     const queryString = query.toString();
     const url = `pages/${page}.php${queryString ? "?" + queryString : ""}`;
@@ -36,15 +36,15 @@ function loadPage(page, params = {}, title = page) {
             if (roomName) {
                 pageTitle.textContent = roomName.textContent;
             }
-            
-            if(page=== "Data"){
+
+            if (page === "Data") {
                 initHistoryPage()
             }
 
             if (page === "Alert") {
                 initAlertsPage();
             }
-            
+
             if (page === "Settings") {
                 document.getElementById("settingsStatusMessage").style.backgroundColor = "transparent";
                 document.getElementById("deviceSearchContainer").style.display = "none";
@@ -120,24 +120,24 @@ function initHistoryPage() {
         timeline.innerHTML = "";
 
         fetch("pages/gethistory.php")
-        .then(res => res.json())
-        .then(rows =>{
-            rows.forEach(row=> {
-                const item=document.createElement("div");
-                item.classList.add("timeline-item");
+            .then(res => res.json())
+            .then(rows => {
+                rows.forEach(row => {
+                    const item = document.createElement("div");
+                    item.classList.add("timeline-item");
 
-                item.innerHTML =`
+                    item.innerHTML = `
                     <div class="timeline-time">${row.time}</div>
                     <div class ="timeline-message">${row.message}</div>
                 `;
-                timeline.appendChild(item)
+                    timeline.appendChild(item)
+                });
+
             });
-   
-        });
 
         btnHistory.classList.add("active");
         btnStats.classList.remove("active");
-       
+
     }
 
     async function renderStats() {
@@ -209,29 +209,29 @@ function initSettingsPage() {
         pageUsername.style.display = "none";
         pageAdmin.style.display = "block";
 
-        // Get users for drop down
-        getUsersDropdown();
+        // List all users and devices
         populateUserList();
-    }); 
+        populateDeviceList();
+    });
 
     // Change username form button
-    changeNameForm.addEventListener("submit", function(e) {
+    changeNameForm.addEventListener("submit", function (e) {
         e.preventDefault();
         sendChangeName();
         changeNameForm.reset();
-        contentArea.scrollTo({top: 0, behavior: "smooth"});
+        contentArea.scrollTo({ top: 0, behavior: "smooth" });
     });
 
     // Change password form button
-    changePasswordForm.addEventListener("submit", function(e) {
+    changePasswordForm.addEventListener("submit", function (e) {
         e.preventDefault();
         sendChangePassword();
         changePasswordForm.reset();
-        contentArea.scrollTo({top: 0, behavior: "smooth"});
+        contentArea.scrollTo({ top: 0, behavior: "smooth" });
     });
 
     // No special characters in usernames
-    newUserName.addEventListener("input", function(e) {
+    newUserName.addEventListener("input", function (e) {
         const nameRegex = /[&"'<>]/;
         if (newUserName.value.match(nameRegex)) {
             statusMessage.style.backgroundColor = errorColor;
@@ -243,7 +243,7 @@ function initSettingsPage() {
     });
 
     // Check password requirements
-    newPassword.addEventListener("blur", function(e) {
+    newPassword.addEventListener("blur", function (e) {
         if (newPassword.value.length > 0) {
             if (newPassword.value.length < 8) {
                 statusMessage.style.backgroundColor = errorColor;
@@ -268,7 +268,7 @@ function initSettingsPage() {
     });
 
     // Password confirm check
-    confirmPassword.addEventListener("blur", function(e) {
+    confirmPassword.addEventListener("blur", function (e) {
         if (confirmPassword.value.length > 0) {
             if (confirmPassword.value !== newPassword.value) {
                 statusMessage.style.backgroundColor = errorColor;
@@ -282,7 +282,7 @@ function initSettingsPage() {
             statusMessage.innerText = "";
         }
     });
-    
+
 
     getCookieUsername();
 }
@@ -324,7 +324,7 @@ async function sendChangeName() {
             statusMessage.innerText = "Error: faulty input";
         } else if (response.status == 500) {
             statusMessage.style.backgroundColor = errorColor;
-            statusMessage.innerText = "Error: server error";   
+            statusMessage.innerText = "Error: server error";
         } else {
             document.getElementById("pageUsername").innerText = "Username: " + formData.get("newUserName");
             document.getElementById("userNameHeading").innerText = formData.get("newUserName");
@@ -365,47 +365,97 @@ async function sendChangePassword() {
         }
     } catch (e) {
         console.log(e);
-    }    
+    }
 }
 /*** Admin stuff ***/
 
-// TODO
-function getUsersDropdown() {
-    const dropdown = document.getElementById("selectUser");
-    const opt1 = document.createElement("option");
-    const opt2 = document.createElement("option");
-    const opt3 = document.createElement("option");
-    const opt4 = document.createElement("option");
-
-    opt1.text = "Anna" + ": " + "anna@gmail.com";
-    opt2.text = "Stina" + ": " + "stina@gmail.com";
-    opt3.text = "Hanna" + ": " + "hanna@gmail.com";
-    opt4.text = "Lina" + ": " + "lina@gmail.com";
-
-    dropdown.add(opt1);
-    dropdown.add(opt2);
-    dropdown.add(opt3);
-    dropdown.add(opt4);
-}
-
-// TODO get all users
+// Populate user list
 async function populateUserList() {
     try {
-        const response = await fetch("getUsers.php");
+        const response = await fetch("get_users_list.php");
+
+        const data = await response.json();
+        if (!response.ok) {
+            throw new Error("HTTP: " + response.status);
+            console.log("response inte ok");
+        } else {
+
+            const deviceTable = document.getElementById("userTableBody");
+            data.forEach(element => {
+                const newRow = deviceTable.insertRow();
+                const cellID = newRow.insertCell(0);
+                const cellName = newRow.insertCell(1);
+                const cellLevel = newRow.insertCell(2);
+                const select = document.createElement("select");
+                select.id = element["userID"];
+                const options = ["Admin", "User"];
+                options.forEach((option) => {
+                    const selectOptions = document.createElement("option");
+                    selectOptions.value = option.toLowerCase();
+                    selectOptions.textContent = option;
+                    select.appendChild(selectOptions);
+                    if (element["permission_level"] == 1) {
+                        select.selectedIndex = 0;
+                    } else if (element["permission_level"] == 2) {
+                        select.selectedIndex = 1;
+                    }
+                })
+                cellID.innerText = element["userID"];
+                cellName.innerText = element["username"];
+                cellLevel.appendChild(select);
+            });
+
+            data.forEach(element => {
+                const row = document.createElement("li");
+                row.textContent = "User ID: " + element["userID"] + " Username: " + element["username"] + " Role: ";
+                if (element["permission_level"] == 1) {
+                    row.textContent += "Admin";
+                } else {
+                    row.textContent += "User";
+                }
+                userList.appendChild(row);
+            });
+        }
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+// Populate device list
+async function populateDeviceList() {
+    try {
+        const response = await fetch("get_devices_list.php");
 
         const data = await response.json();
         if (!response.ok) {
             throw new Error("HTTP: " + response.status);
         } else {
-            //const dropdown = document.getElementById("selectUser");
 
-            //console.log(JSON.response["username"]);
-            console.log(data);
-            console.log(data["username"]);
-            console.log(data["userID"]);
-            console.log(data["permission_level"]);
+            const deviceTable = document.getElementById("deviceTableBody");
+            data.forEach(element => {
+                const newRow = deviceTable.insertRow();
+                const cellID = newRow.insertCell(0);
+                const cellName = newRow.insertCell(1);
+                const cellLevel = newRow.insertCell(2);
+                const select = document.createElement("select");
+                select.id = element["device_id"];
+                const options = ["Admin", "User"];
+                options.forEach((option) => {
+                    const selectOptions = document.createElement("option");
+                    selectOptions.value = option.toLowerCase();
+                    selectOptions.textContent = option;
+                    select.appendChild(selectOptions);
+                    if (element["required_user_level"] == 1) {
+                        select.selectedIndex = 0;
+                    } else if (element["required_user_level"] == 2) {
+                        select.selectedIndex = 1;
+                    }
+                })
+                cellID.innerText = element["device_id"];
+                cellName.innerText = element["device_name"];
+                cellLevel.appendChild(select);
+            });
         }
-        
     } catch (e) {
         console.log(e);
     }

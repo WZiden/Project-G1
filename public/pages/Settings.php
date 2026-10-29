@@ -51,15 +51,41 @@
 
 <!-- Admin stuff -->
 <div id="adminView">
+
+    <section class="tablecontainer">
+        <table id="userTable">
+            <caption>Users</caption>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Role</th>            
+                </tr>            
+            </thead>
+            <tbody id="userTableBody"></tbody>
+        </table>
+</section>
+
+    <section class="tablecontainer">
+        <table id="deviceTable">
+            <caption>Devices</caption>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Required level</th>            
+                </tr>            
+            </thead>
+            <tbody id="deviceTableBody"></tbody>
+        </table>
+    </section>
+
+
+<!-- 
     <form id="changeUserForm" class="pageForm">
         <fieldset>
             <legend>Manage users</legend>
             <input type="hidden" name="type" value="changeUser">
-            <label for="selectUser">Select user</label>
-            <select name="selectUser" id="selectUser"><option>-- Select user --</option></select>
-            <label>
-                <input type="checkbox" name="isAdmin" class="check">Admin
-            </label>
             <label for="newUserPassword">New password</label>
             <div class="inputContainer">
                 <input type="password" placeholder="Enter a new password" id="newUserPassword" name="newUserPassword" required>
@@ -72,5 +98,7 @@
             </div>
             <button type="submit" class="login-btn">Confirm</button>        
         </fieldset>
-    </form>
+    </form> 
+-->
+
 </div>

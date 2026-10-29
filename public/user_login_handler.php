@@ -12,7 +12,9 @@ switch ($_POST["type"]) {
       $_POST["password"],
       $remember
     );
-    echo (json_encode($result));
+    if (!$result) {
+      http_response_code(400);
+    }
     break;
   case "register":
     $result = addUser(
@@ -24,7 +26,8 @@ switch ($_POST["type"]) {
     );
     if (!$result) {
       http_response_code(400);
-    }    break;
+    }
+    break;
   case "changeName":
     $result = changeUserName(
       $pdo,
@@ -48,5 +51,5 @@ switch ($_POST["type"]) {
     }
     break;
   default:
-  http_response_code(400);
+    http_response_code(400);
 }
