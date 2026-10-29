@@ -14,13 +14,13 @@
                     "icon": "mdi:coffee-maker",
                     "friendly_name": "Coffee maker"
                 },
-                "last_changed": "2026-10-26T14:09:31.062058+00:00",
-                "last_reported": "2026-10-26T14:09:31.062058+00:00",
-                "last_updated": "2026-10-26T14:09:31.062058+00:00",
+                "last_changed": "2026-10-28T07:57:26.227783+00:00",
+                "last_reported": "2026-10-28T07:57:26.227783+00:00",
+                "last_updated": "2026-10-28T07:57:26.227783+00:00",
                 "context": {
-                    "id": "01M5W8Q0DM56GGDK54H8VRS2ZW",
+                    "id": "01M60R74TKS86VCFSNMJT1914B",
                     "parent_id": null,
-                    "user_id": "af90d6f1c0d743e5a88ce1bc8eabbe8d"
+                    "user_id": null
                 }
             },
             {
@@ -32,29 +32,29 @@
                     "device_class": "power",
                     "friendly_name": "Coffee maker Power"
                 },
-                "last_changed": "2026-10-26T14:09:46.585990+00:00",
-                "last_reported": "2026-10-26T14:09:46.585990+00:00",
-                "last_updated": "2026-10-26T14:09:46.585990+00:00",
+                "last_changed": "2026-10-28T07:57:32.177674+00:00",
+                "last_reported": "2026-10-28T07:57:32.177674+00:00",
+                "last_updated": "2026-10-28T07:57:32.177674+00:00",
                 "context": {
-                    "id": "01M5W8QFJSZX5PSK7G59381378",
+                    "id": "01M60R7AMH04DYNPW6VVGXXTNR",
                     "parent_id": null,
                     "user_id": null
                 }
             },
             {
                 "entity_id": "sensor.coffee_maker_energy",
-                "state": "19.509",
+                "state": "20.406",
                 "attributes": {
                     "state_class": "total_increasing",
                     "unit_of_measurement": "kWh",
                     "device_class": "energy",
                     "friendly_name": "Coffee maker Energy"
                 },
-                "last_changed": "2026-10-26T14:09:46.586976+00:00",
-                "last_reported": "2026-10-26T14:09:46.586976+00:00",
-                "last_updated": "2026-10-26T14:09:46.586976+00:00",
+                "last_changed": "2026-10-28T07:57:32.179172+00:00",
+                "last_reported": "2026-10-28T07:57:32.179172+00:00",
+                "last_updated": "2026-10-28T07:57:32.179172+00:00",
                 "context": {
-                    "id": "01M5W8QFJTD5TR3RR5W73B40C7",
+                    "id": "01M60R7AMK1FJJQ97CJQA3KNNF",
                     "parent_id": null,
                     "user_id": null
                 }
@@ -101,18 +101,18 @@
                 "state": "open",
                 "attributes": {
                     "is_closed": false,
-                    "current_position": 65,
+                    "current_position": 100,
                     "device_class": "curtain",
                     "friendly_name": "Curtain 2",
                     "supported_features": 15
                 },
                 "last_changed": "2026-10-26T08:07:34.999867+00:00",
-                "last_reported": "2026-10-26T14:12:20.363828+00:00",
-                "last_updated": "2026-10-26T14:12:20.363828+00:00",
+                "last_reported": "2026-10-27T14:58:29.810161+00:00",
+                "last_updated": "2026-10-27T14:58:29.810161+00:00",
                 "context": {
-                    "id": "01M5W8W5R9W8S200XCHFXJJD1W",
+                    "id": "01M5YXXD9JQZ4EDM1ZYQNJESWG",
                     "parent_id": null,
-                    "user_id": "af90d6f1c0d743e5a88ce1bc8eabbe8d"
+                    "user_id": null
                 }
             }
         ]
@@ -131,29 +131,29 @@
                     "device_class": "door",
                     "friendly_name": "Entrance door"
                 },
-                "last_changed": "2026-10-26T19:13:47.417876+00:00",
-                "last_reported": "2026-10-26T19:13:47.417876+00:00",
-                "last_updated": "2026-10-26T19:13:47.417876+00:00",
+                "last_changed": "2026-10-28T09:01:26.564914+00:00",
+                "last_reported": "2026-10-28T09:01:26.564914+00:00",
+                "last_updated": "2026-10-28T09:01:26.564914+00:00",
                 "context": {
-                    "id": "01M5WT44WSXMPQW8GPBJVTVCAA",
+                    "id": "01M60VWB54DZFJXRKRHRA5VHK3",
                     "parent_id": null,
                     "user_id": null
                 }
             },
             {
                 "entity_id": "sensor.door_entrance_battery",
-                "state": "82.0",
+                "state": "81.8",
                 "attributes": {
                     "state_class": "measurement",
                     "unit_of_measurement": "%",
                     "device_class": "battery",
                     "friendly_name": "Entrance door Battery"
                 },
-                "last_changed": "2026-10-25T08:46:35.644112+00:00",
-                "last_reported": "2026-10-25T08:46:35.644112+00:00",
-                "last_updated": "2026-10-25T08:46:35.644112+00:00",
+                "last_changed": "2026-10-28T16:46:35.504847+00:00",
+                "last_reported": "2026-10-28T16:46:35.504847+00:00",
+                "last_updated": "2026-10-28T16:46:35.504847+00:00",
                 "context": {
-                    "id": "01M5S3V03WSGP3NYYX9KAHGP24",
+                    "id": "01M61PG1ZGFTBWDSWDXACG4KF8",
                     "parent_id": null,
                     "user_id": null
                 }
@@ -174,29 +174,29 @@
                     "device_class": "motion",
                     "friendly_name": "Entrance motion"
                 },
-                "last_changed": "2026-10-26T19:14:37.424061+00:00",
-                "last_reported": "2026-10-26T19:14:37.424061+00:00",
-                "last_updated": "2026-10-26T19:14:37.424061+00:00",
+                "last_changed": "2026-10-28T09:02:11.570402+00:00",
+                "last_reported": "2026-10-28T09:02:11.570402+00:00",
+                "last_updated": "2026-10-28T09:02:11.570402+00:00",
                 "context": {
-                    "id": "01M5WT5NQG5T10H80H05NJV6TJ",
+                    "id": "01M60VXQ3J7JCTPC83K1ZZ89PD",
                     "parent_id": null,
                     "user_id": null
                 }
             },
             {
                 "entity_id": "sensor.motion_entrance_battery",
-                "state": "85.0",
+                "state": "84.8",
                 "attributes": {
                     "state_class": "measurement",
                     "unit_of_measurement": "%",
                     "device_class": "battery",
                     "friendly_name": "Entrance motion Battery"
                 },
-                "last_changed": "2026-10-26T18:18:18.084210+00:00",
-                "last_reported": "2026-10-26T18:18:18.084210+00:00",
-                "last_updated": "2026-10-26T18:18:18.084210+00:00",
+                "last_changed": "2026-10-28T18:18:36.073946+00:00",
+                "last_reported": "2026-10-28T18:18:36.073946+00:00",
+                "last_updated": "2026-10-28T18:18:36.073946+00:00",
                 "context": {
-                    "id": "01M5WPYHK4077BC7SN8D8ADMT8",
+                    "id": "01M61VRH593RW08R7N9J48A1P0",
                     "parent_id": null,
                     "user_id": null
                 }
@@ -222,11 +222,11 @@
                     "friendly_name": "Floor lamp",
                     "supported_features": 40
                 },
-                "last_changed": "2026-10-26T11:34:40.096745+00:00",
-                "last_reported": "2026-10-26T11:34:40.096745+00:00",
-                "last_updated": "2026-10-26T11:34:40.096745+00:00",
+                "last_changed": "2026-10-27T11:34:13.617418+00:00",
+                "last_reported": "2026-10-27T11:34:13.617418+00:00",
+                "last_updated": "2026-10-27T11:34:13.617418+00:00",
                 "context": {
-                    "id": "01M5VZVF6ZWEM0EZM44TEBFJ9Q",
+                    "id": "01M5YJ7CBF7XFA712SFS3TPSH4",
                     "parent_id": null,
                     "user_id": "af90d6f1c0d743e5a88ce1bc8eabbe8d"
                 }
@@ -249,11 +249,11 @@
                     "device_class": "power",
                     "friendly_name": "Fridge Power"
                 },
-                "last_changed": "2026-10-26T19:38:48.598746+00:00",
-                "last_reported": "2026-10-26T19:38:48.598746+00:00",
-                "last_updated": "2026-10-26T19:38:48.598746+00:00",
+                "last_changed": "2026-10-28T22:58:37.818384+00:00",
+                "last_reported": "2026-10-28T22:58:37.818384+00:00",
+                "last_updated": "2026-10-28T22:58:37.818384+00:00",
                 "context": {
-                    "id": "01M5WVHYWP8C4MVY549PJ8EP19",
+                    "id": "01M62BS93TVJWTC4TH13QN7A6G",
                     "parent_id": null,
                     "user_id": null
                 }
@@ -265,11 +265,11 @@
                     "device_class": "door",
                     "friendly_name": "Fridge Door"
                 },
-                "last_changed": "2026-10-26T15:49:56.209843+00:00",
-                "last_reported": "2026-10-26T15:49:56.209843+00:00",
-                "last_updated": "2026-10-26T15:49:56.209843+00:00",
+                "last_changed": "2026-10-28T08:33:31.414314+00:00",
+                "last_reported": "2026-10-28T08:33:31.414314+00:00",
+                "last_updated": "2026-10-28T08:33:31.414314+00:00",
                 "context": {
-                    "id": "01M5WEEWBHJWM7FYYYKT30PR78",
+                    "id": "01M60T978PKP2HETXFGJ38N95R",
                     "parent_id": null,
                     "user_id": null
                 }
@@ -285,16 +285,16 @@
         "entities": [
             {
                 "entity_id": "lock.locker_1",
-                "state": "locked",
+                "state": "unlocked",
                 "attributes": {
                     "friendly_name": "Locker cabinet Locker 1",
                     "supported_features": 0
                 },
-                "last_changed": "2026-10-26T11:15:15.380463+00:00",
-                "last_reported": "2026-10-26T11:15:15.380463+00:00",
-                "last_updated": "2026-10-26T11:15:15.380463+00:00",
+                "last_changed": "2026-10-28T15:56:47.700213+00:00",
+                "last_reported": "2026-10-28T15:56:47.700213+00:00",
+                "last_updated": "2026-10-28T15:56:47.700213+00:00",
                 "context": {
-                    "id": "01M5VYQXSK5C4JRY3AFV2E4CCT",
+                    "id": "01M61KMW6JMR6D3QSAQT9VHE3G",
                     "parent_id": null,
                     "user_id": "af90d6f1c0d743e5a88ce1bc8eabbe8d"
                 }
@@ -322,11 +322,11 @@
                     "friendly_name": "Locker cabinet Locker 3",
                     "supported_features": 0
                 },
-                "last_changed": "2026-10-24T11:56:56.960054+00:00",
-                "last_reported": "2026-10-24T11:56:56.960054+00:00",
-                "last_updated": "2026-10-24T11:56:56.960054+00:00",
+                "last_changed": "2026-10-28T07:33:11.048779+00:00",
+                "last_reported": "2026-10-28T07:33:11.048779+00:00",
+                "last_updated": "2026-10-28T07:33:11.048779+00:00",
                 "context": {
-                    "id": "01M5PWATR0ZC5J7SMN2928DHCE",
+                    "id": "01M60PTQR8KWQ1B1CB6X4TKVJP",
                     "parent_id": null,
                     "user_id": null
                 }
@@ -358,21 +358,21 @@
         "entities": [
             {
                 "entity_id": "light.ceiling_lounge",
-                "state": "on",
+                "state": "off",
                 "attributes": {
                     "supported_color_modes": [
                         "brightness"
                     ],
-                    "color_mode": "brightness",
-                    "brightness": 204,
+                    "color_mode": null,
+                    "brightness": null,
                     "friendly_name": "Lounge ceiling lights",
                     "supported_features": 40
                 },
-                "last_changed": "2026-10-26T19:13:37.435350+00:00",
-                "last_reported": "2026-10-26T19:13:37.435350+00:00",
-                "last_updated": "2026-10-26T19:13:37.435350+00:00",
+                "last_changed": "2026-10-28T21:30:31.279435+00:00",
+                "last_reported": "2026-10-28T21:30:31.279435+00:00",
+                "last_updated": "2026-10-28T21:30:31.279435+00:00",
                 "context": {
-                    "id": "01M5WT3V4VKNSVV6TAF2K1QJJQ",
+                    "id": "01M626QYFF2JX4N3DN1B50K0DN",
                     "parent_id": null,
                     "user_id": null
                 }
@@ -390,16 +390,16 @@
                 "entity_id": "camera.lounge_fisheye",
                 "state": "idle",
                 "attributes": {
-                    "access_token": "ba1626327a9d55c983b7f49c2d8eed142c0ae3e1b127be00347a153e75db5358",
-                    "entity_picture": "\/api\/camera_proxy\/camera.lounge_fisheye?token=ba1626327a9d55c983b7f49c2d8eed142c0ae3e1b127be00347a153e75db5358",
+                    "access_token": "9c197eef1c7b12301fe5b08211a233f900f44eadc80edad649c03382961995ee",
+                    "entity_picture": "\/api\/camera_proxy\/camera.lounge_fisheye?token=9c197eef1c7b12301fe5b08211a233f900f44eadc80edad649c03382961995ee",
                     "friendly_name": "Lounge fisheye camera",
                     "supported_features": 0
                 },
                 "last_changed": "2026-09-03T11:56:51.408622+00:00",
-                "last_reported": "2026-10-26T19:47:02.602658+00:00",
-                "last_updated": "2026-10-26T19:47:02.602658+00:00",
+                "last_reported": "2026-10-28T23:07:03.288023+00:00",
+                "last_updated": "2026-10-28T23:07:03.288023+00:00",
                 "context": {
-                    "id": "01M5WW11AAZ6HT99W7PR6CGVK9",
+                    "id": "01M62C8PQRX67MVJEX68ASWJSR",
                     "parent_id": null,
                     "user_id": null
                 }
@@ -412,11 +412,11 @@
                     "icon": "mdi:account-group",
                     "friendly_name": "Lounge fisheye camera People"
                 },
-                "last_changed": "2026-10-26T19:49:12.678911+00:00",
-                "last_reported": "2026-10-26T19:49:12.678911+00:00",
-                "last_updated": "2026-10-26T19:49:12.678911+00:00",
+                "last_changed": "2026-10-28T22:37:26.699633+00:00",
+                "last_reported": "2026-10-28T22:37:26.699633+00:00",
+                "last_updated": "2026-10-28T22:37:26.699633+00:00",
                 "context": {
-                    "id": "01M5WW50B6WNDYQVY6KM4P1P67",
+                    "id": "01M62AJFSBE15A21DF7VBZMCMA",
                     "parent_id": null,
                     "user_id": null
                 }
@@ -432,18 +432,18 @@
         "entities": [
             {
                 "entity_id": "sensor.illuminance_lounge",
-                "state": "350",
+                "state": "0",
                 "attributes": {
                     "state_class": "measurement",
                     "unit_of_measurement": "lx",
                     "device_class": "illuminance",
                     "friendly_name": "Lounge light level"
                 },
-                "last_changed": "2026-10-26T19:51:18.687348+00:00",
-                "last_reported": "2026-10-26T19:51:18.687348+00:00",
-                "last_updated": "2026-10-26T19:51:18.687348+00:00",
+                "last_changed": "2026-10-28T21:30:37.271432+00:00",
+                "last_reported": "2026-10-28T21:30:37.271432+00:00",
+                "last_updated": "2026-10-28T21:30:37.271432+00:00",
                 "context": {
-                    "id": "01M5WW8VCZ1A69NNH0NR0BW3YY",
+                    "id": "01M626R4AQ5X182EDPB1P18CVE",
                     "parent_id": null,
                     "user_id": null
                 }
@@ -464,29 +464,29 @@
                     "device_class": "motion",
                     "friendly_name": "Lounge motion"
                 },
-                "last_changed": "2026-10-26T13:56:45.515545+00:00",
-                "last_reported": "2026-10-26T13:56:45.515545+00:00",
-                "last_updated": "2026-10-26T13:56:45.515545+00:00",
+                "last_changed": "2026-10-28T08:55:26.561780+00:00",
+                "last_reported": "2026-10-28T08:55:26.561780+00:00",
+                "last_updated": "2026-10-28T08:55:26.561780+00:00",
                 "context": {
-                    "id": "01M5W7ZMTBKJ4AY6MZ3FGMYW1S",
+                    "id": "01M60VHBK1N2VZCZKJMKQQ099W",
                     "parent_id": null,
                     "user_id": null
                 }
             },
             {
                 "entity_id": "sensor.motion_lounge_battery",
-                "state": "93.6",
+                "state": "93.4",
                 "attributes": {
                     "state_class": "measurement",
                     "unit_of_measurement": "%",
                     "device_class": "battery",
                     "friendly_name": "Lounge motion Battery"
                 },
-                "last_changed": "2026-10-26T06:19:13.667250+00:00",
-                "last_reported": "2026-10-26T06:19:13.667250+00:00",
-                "last_updated": "2026-10-26T06:19:13.667250+00:00",
+                "last_changed": "2026-10-28T06:19:01.549394+00:00",
+                "last_reported": "2026-10-28T06:19:01.549394+00:00",
+                "last_updated": "2026-10-28T06:19:01.549394+00:00",
                 "context": {
-                    "id": "01M5VDSWC37SJ2DZWF6JJ8EAR3",
+                    "id": "01M60JJYHD89RSVHHSAWYCZXKH",
                     "parent_id": null,
                     "user_id": null
                 }
@@ -507,11 +507,11 @@
                     "device_class": "occupancy",
                     "friendly_name": "Lounge presence"
                 },
-                "last_changed": "2026-10-26T14:02:15.547948+00:00",
-                "last_reported": "2026-10-26T14:02:15.547948+00:00",
-                "last_updated": "2026-10-26T14:02:15.547948+00:00",
+                "last_changed": "2026-10-28T08:59:41.620723+00:00",
+                "last_reported": "2026-10-28T08:59:41.620723+00:00",
+                "last_updated": "2026-10-28T08:59:41.620723+00:00",
                 "context": {
-                    "id": "01M5W89Q3V3JG2XVNXFMNK43T5",
+                    "id": "01M60VS4NM5MMR9XXY7J1K30FS",
                     "parent_id": null,
                     "user_id": null
                 }
@@ -524,11 +524,11 @@
                     "icon": "mdi:radar",
                     "friendly_name": "Lounge presence Targets"
                 },
-                "last_changed": "2026-10-26T14:02:15.548834+00:00",
-                "last_reported": "2026-10-26T14:02:15.548834+00:00",
-                "last_updated": "2026-10-26T14:02:15.548834+00:00",
+                "last_changed": "2026-10-28T08:59:41.620920+00:00",
+                "last_reported": "2026-10-28T08:59:41.620920+00:00",
+                "last_updated": "2026-10-28T08:59:41.620920+00:00",
                 "context": {
-                    "id": "01M5W89Q3WMEQ5YM0YZHZ9MEBS",
+                    "id": "01M60VS4NMVE4N0R6F3YN71FXT",
                     "parent_id": null,
                     "user_id": null
                 }
@@ -550,13 +550,13 @@
                     "icon": "mdi:television",
                     "friendly_name": "Lounge TV"
                 },
-                "last_changed": "2026-10-26T08:01:09.863495+00:00",
-                "last_reported": "2026-10-26T08:01:09.863495+00:00",
-                "last_updated": "2026-10-26T08:01:09.863495+00:00",
+                "last_changed": "2026-10-28T08:51:26.566386+00:00",
+                "last_reported": "2026-10-28T08:51:26.566386+00:00",
+                "last_updated": "2026-10-28T08:51:26.566386+00:00",
                 "context": {
-                    "id": "01M5VKMH74G4CGWDH1GXQ65A19",
+                    "id": "01M60VA1762B9NM9A7T3QWWBKT",
                     "parent_id": null,
-                    "user_id": "af90d6f1c0d743e5a88ce1bc8eabbe8d"
+                    "user_id": null
                 }
             },
             {
@@ -571,11 +571,11 @@
                     "icon": "mdi:video-input-hdmi",
                     "friendly_name": "Lounge TV Source"
                 },
-                "last_changed": "2026-10-26T07:17:28.034639+00:00",
-                "last_reported": "2026-10-26T07:17:28.034639+00:00",
-                "last_updated": "2026-10-26T07:17:28.034639+00:00",
+                "last_changed": "2026-10-28T07:11:30.898715+00:00",
+                "last_reported": "2026-10-28T07:11:30.898715+00:00",
+                "last_updated": "2026-10-28T07:11:30.898715+00:00",
                 "context": {
-                    "id": "01M5VH4GV2ADF45BAHM0XW513V",
+                    "id": "01M60NK22J5F662D8NHABH7G53",
                     "parent_id": null,
                     "user_id": null
                 }
@@ -589,11 +589,11 @@
                     "device_class": "power",
                     "friendly_name": "Lounge TV Power"
                 },
-                "last_changed": "2026-10-26T08:01:14.297757+00:00",
-                "last_reported": "2026-10-26T08:01:14.297757+00:00",
-                "last_updated": "2026-10-26T08:01:14.297757+00:00",
+                "last_changed": "2026-10-28T08:51:32.517108+00:00",
+                "last_reported": "2026-10-28T08:51:32.517108+00:00",
+                "last_updated": "2026-10-28T08:51:32.517108+00:00",
                 "context": {
-                    "id": "01M5VKMNHSYN9EWPMVWJDS79C9",
+                    "id": "01M60VA715ZCH064G4YPNAXQ1D",
                     "parent_id": null,
                     "user_id": null
                 }
@@ -609,54 +609,54 @@
         "entities": [
             {
                 "entity_id": "sensor.outdoor_temperature",
-                "state": "9.7",
+                "state": "6.7",
                 "attributes": {
                     "state_class": "measurement",
                     "unit_of_measurement": "\u00b0C",
                     "device_class": "temperature",
                     "friendly_name": "Outdoor Temperature"
                 },
-                "last_changed": "2026-10-26T19:50:48.693653+00:00",
-                "last_reported": "2026-10-26T19:50:48.693653+00:00",
-                "last_updated": "2026-10-26T19:50:48.693653+00:00",
+                "last_changed": "2026-10-28T22:53:07.802391+00:00",
+                "last_reported": "2026-10-28T22:53:07.802391+00:00",
+                "last_updated": "2026-10-28T22:53:07.802391+00:00",
                 "context": {
-                    "id": "01M5WW7Y3NN6KWQA5KSV873VD6",
+                    "id": "01M62BF6TT59DASYB39RSJKBZB",
                     "parent_id": null,
                     "user_id": null
                 }
             },
             {
                 "entity_id": "sensor.outdoor_humidity",
-                "state": "90",
+                "state": "92",
                 "attributes": {
                     "state_class": "measurement",
                     "unit_of_measurement": "%",
                     "device_class": "humidity",
                     "friendly_name": "Outdoor Humidity"
                 },
-                "last_changed": "2026-10-26T19:30:48.560182+00:00",
-                "last_reported": "2026-10-26T19:30:48.560182+00:00",
-                "last_updated": "2026-10-26T19:30:48.560182+00:00",
+                "last_changed": "2026-10-28T22:30:37.661369+00:00",
+                "last_reported": "2026-10-28T22:30:37.661369+00:00",
+                "last_updated": "2026-10-28T22:30:37.661369+00:00",
                 "context": {
-                    "id": "01M5WV3A3GTDT24SHYNMSPBAWX",
+                    "id": "01M62A60AXQTY5JQ1CHKVPKRFR",
                     "parent_id": null,
                     "user_id": null
                 }
             },
             {
                 "entity_id": "sensor.cloud_cover",
-                "state": "22",
+                "state": "41",
                 "attributes": {
                     "state_class": "measurement",
                     "unit_of_measurement": "%",
                     "icon": "mdi:weather-cloudy",
                     "friendly_name": "Outdoor Cloud cover"
                 },
-                "last_changed": "2026-10-26T19:49:18.689325+00:00",
-                "last_reported": "2026-10-26T19:49:18.689325+00:00",
-                "last_updated": "2026-10-26T19:49:18.689325+00:00",
+                "last_changed": "2026-10-28T23:06:07.888262+00:00",
+                "last_reported": "2026-10-28T23:06:07.888262+00:00",
+                "last_updated": "2026-10-28T23:06:07.888262+00:00",
                 "context": {
-                    "id": "01M5WW5671V6ERMNCP3BK3Y4RB",
+                    "id": "01M62C70MG6ZDVBBMQ241RC5AK",
                     "parent_id": null,
                     "user_id": null
                 }
@@ -670,11 +670,11 @@
                     "device_class": "irradiance",
                     "friendly_name": "Outdoor Solar irradiance"
                 },
-                "last_changed": "2026-10-26T15:57:47.266601+00:00",
-                "last_reported": "2026-10-26T15:57:47.266601+00:00",
-                "last_updated": "2026-10-26T15:57:47.266601+00:00",
+                "last_changed": "2026-10-28T16:00:05.252841+00:00",
+                "last_reported": "2026-10-28T16:00:05.252841+00:00",
+                "last_updated": "2026-10-28T16:00:05.252841+00:00",
                 "context": {
-                    "id": "01M5WEX8C2J2V01V7H71H7DPSY",
+                    "id": "01M61KTX44DA8DN8PBK6G2C3K4",
                     "parent_id": null,
                     "user_id": null
                 }
@@ -697,11 +697,11 @@
                     "icon": "mdi:weather-partly-cloudy",
                     "friendly_name": "Outdoor Condition"
                 },
-                "last_changed": "2026-10-26T18:00:48.008684+00:00",
-                "last_reported": "2026-10-26T18:00:48.008684+00:00",
-                "last_updated": "2026-10-26T18:00:48.008684+00:00",
+                "last_changed": "2026-10-28T18:00:35.993886+00:00",
+                "last_reported": "2026-10-28T18:00:35.993886+00:00",
+                "last_updated": "2026-10-28T18:00:35.993886+00:00",
                 "context": {
-                    "id": "01M5WNYG48ER93NGCC09KRT3X2",
+                    "id": "01M61TQJCSJ872KTDF594CKDYK",
                     "parent_id": null,
                     "user_id": null
                 }
@@ -719,33 +719,33 @@
                 "entity_id": "camera.overview",
                 "state": "idle",
                 "attributes": {
-                    "access_token": "436b54c7b74234247261804f8d373214dc7bfd9b87f695ff87f2ab3ceba0c172",
-                    "entity_picture": "\/api\/camera_proxy\/camera.overview?token=436b54c7b74234247261804f8d373214dc7bfd9b87f695ff87f2ab3ceba0c172",
+                    "access_token": "e64068f5c0c9dfdd50cf04f87f53d31b7bf415e8d56012524dd574c001e041e3",
+                    "entity_picture": "\/api\/camera_proxy\/camera.overview?token=e64068f5c0c9dfdd50cf04f87f53d31b7bf415e8d56012524dd574c001e041e3",
                     "friendly_name": "Overview camera",
                     "supported_features": 0
                 },
                 "last_changed": "2026-09-03T11:56:51.408583+00:00",
-                "last_reported": "2026-10-26T19:47:02.602703+00:00",
-                "last_updated": "2026-10-26T19:47:02.602703+00:00",
+                "last_reported": "2026-10-28T23:07:03.288068+00:00",
+                "last_updated": "2026-10-28T23:07:03.288068+00:00",
                 "context": {
-                    "id": "01M5WW11AAPVGDJYFZKMR78ZGP",
+                    "id": "01M62C8PQRD5C5QTE2Y5A7MZ01",
                     "parent_id": null,
                     "user_id": null
                 }
             },
             {
                 "entity_id": "sensor.people_count",
-                "state": "1",
+                "state": "0",
                 "attributes": {
                     "state_class": "measurement",
                     "icon": "mdi:account-group",
                     "friendly_name": "Overview camera People"
                 },
-                "last_changed": "2026-10-26T19:13:47.461758+00:00",
-                "last_reported": "2026-10-26T19:13:47.461758+00:00",
-                "last_updated": "2026-10-26T19:13:47.461758+00:00",
+                "last_changed": "2026-10-28T09:01:11.631591+00:00",
+                "last_reported": "2026-10-28T09:01:11.631591+00:00",
+                "last_updated": "2026-10-28T09:01:11.631591+00:00",
                 "context": {
-                    "id": "01M5WT44Y57H05MYZ6NX30DTVV",
+                    "id": "01M60VVWJFFTZKCF2Y3756SN1Q",
                     "parent_id": null,
                     "user_id": null
                 }
@@ -767,11 +767,11 @@
                     "icon": "mdi:desktop-tower",
                     "friendly_name": "PC 1"
                 },
-                "last_changed": "2026-10-26T16:08:26.317305+00:00",
-                "last_reported": "2026-10-26T16:08:26.317305+00:00",
-                "last_updated": "2026-10-26T16:08:26.317305+00:00",
+                "last_changed": "2026-10-27T10:57:03.284954+00:00",
+                "last_reported": "2026-10-27T10:57:03.284954+00:00",
+                "last_updated": "2026-10-27T10:57:03.284954+00:00",
                 "context": {
-                    "id": "01M5WFGREDD9D2700NAGJ4WRT6",
+                    "id": "01M5YG3A9MZ93629XGTQA777CW",
                     "parent_id": null,
                     "user_id": null
                 }
@@ -785,29 +785,29 @@
                     "device_class": "power",
                     "friendly_name": "PC 1 Power"
                 },
-                "last_changed": "2026-10-26T16:08:47.296752+00:00",
-                "last_reported": "2026-10-26T16:08:47.296752+00:00",
-                "last_updated": "2026-10-26T16:08:47.296752+00:00",
+                "last_changed": "2026-10-27T10:57:24.285423+00:00",
+                "last_reported": "2026-10-27T10:57:24.285423+00:00",
+                "last_updated": "2026-10-27T10:57:24.285423+00:00",
                 "context": {
-                    "id": "01M5WFHCY08RS46T6EAX0R6N7A",
+                    "id": "01M5YG3YSXX47EGJ58ZRPKZ28A",
                     "parent_id": null,
                     "user_id": null
                 }
             },
             {
                 "entity_id": "sensor.pc1_energy",
-                "state": "34.554",
+                "state": "34.866",
                 "attributes": {
                     "state_class": "total_increasing",
                     "unit_of_measurement": "kWh",
                     "device_class": "energy",
                     "friendly_name": "PC 1 Energy"
                 },
-                "last_changed": "2026-10-26T19:41:18.599328+00:00",
-                "last_reported": "2026-10-26T19:41:18.599328+00:00",
-                "last_updated": "2026-10-26T19:41:18.599328+00:00",
+                "last_changed": "2026-10-28T22:40:07.687863+00:00",
+                "last_reported": "2026-10-28T22:40:07.687863+00:00",
+                "last_updated": "2026-10-28T22:40:07.687863+00:00",
                 "context": {
-                    "id": "01M5WVPHC79GXR4N3M734N5MVT",
+                    "id": "01M62AQD07YBXDZ0CNTFA878RS",
                     "parent_id": null,
                     "user_id": null
                 }
@@ -858,18 +858,18 @@
             },
             {
                 "entity_id": "sensor.pc2_energy",
-                "state": "19.111",
+                "state": "21.418",
                 "attributes": {
                     "state_class": "total_increasing",
                     "unit_of_measurement": "kWh",
                     "device_class": "energy",
                     "friendly_name": "PC 2 Energy"
                 },
-                "last_changed": "2026-10-26T19:50:48.664819+00:00",
-                "last_reported": "2026-10-26T19:50:48.664819+00:00",
-                "last_updated": "2026-10-26T19:50:48.664819+00:00",
+                "last_changed": "2026-10-28T23:06:37.859523+00:00",
+                "last_reported": "2026-10-28T23:06:37.859523+00:00",
+                "last_updated": "2026-10-28T23:06:37.859523+00:00",
                 "context": {
-                    "id": "01M5WW7Y2RZ8VKZJAKJA4R3P99",
+                    "id": "01M62C7XX3FMTZHK5TA4C68B0E",
                     "parent_id": null,
                     "user_id": null
                 }
@@ -902,18 +902,18 @@
             },
             {
                 "entity_id": "sensor.pc3_energy",
-                "state": "15.545",
+                "state": "15.648",
                 "attributes": {
                     "state_class": "total_increasing",
                     "unit_of_measurement": "kWh",
                     "device_class": "energy",
                     "friendly_name": "PC 3 Energy"
                 },
-                "last_changed": "2026-10-26T19:23:48.491318+00:00",
-                "last_reported": "2026-10-26T19:23:48.491318+00:00",
-                "last_updated": "2026-10-26T19:23:48.491318+00:00",
+                "last_changed": "2026-10-28T22:53:37.776278+00:00",
+                "last_reported": "2026-10-28T22:53:37.776278+00:00",
+                "last_updated": "2026-10-28T22:53:37.776278+00:00",
                 "context": {
-                    "id": "01M5WTPFWBG0BTTKW5R4GHVC5A",
+                    "id": "01M62BG43GJHQ0RCYVZ6T2R606",
                     "parent_id": null,
                     "user_id": null
                 }
@@ -982,18 +982,18 @@
             },
             {
                 "entity_id": "sensor.pc4_energy",
-                "state": "12.751",
+                "state": "12.854",
                 "attributes": {
                     "state_class": "total_increasing",
                     "unit_of_measurement": "kWh",
                     "device_class": "energy",
                     "friendly_name": "PC 4 Energy"
                 },
-                "last_changed": "2026-10-26T19:32:48.550353+00:00",
-                "last_reported": "2026-10-26T19:32:48.550353+00:00",
-                "last_updated": "2026-10-26T19:32:48.550353+00:00",
+                "last_changed": "2026-10-28T23:02:37.834625+00:00",
+                "last_reported": "2026-10-28T23:02:37.834625+00:00",
+                "last_updated": "2026-10-28T23:02:37.834625+00:00",
                 "context": {
-                    "id": "01M5WV6Z96CK32SMK7XNMAW7N5",
+                    "id": "01M62C0KGATM72VK7ZCCZSRWN1",
                     "parent_id": null,
                     "user_id": null
                 }
@@ -1009,18 +1009,18 @@
         "entities": [
             {
                 "entity_id": "sensor.radiator_valve",
-                "state": "0",
+                "state": "27",
                 "attributes": {
                     "state_class": "measurement",
                     "unit_of_measurement": "%",
                     "icon": "mdi:radiator",
                     "friendly_name": "Radiator Valve"
                 },
-                "last_changed": "2026-10-26T08:52:44.633858+00:00",
-                "last_reported": "2026-10-26T08:52:44.633858+00:00",
-                "last_updated": "2026-10-26T08:52:44.633858+00:00",
+                "last_changed": "2026-10-28T22:44:07.738800+00:00",
+                "last_reported": "2026-10-28T22:44:07.738800+00:00",
+                "last_updated": "2026-10-28T22:44:07.738800+00:00",
                 "context": {
-                    "id": "01M5VPJZES5ADEGTBCMYV6RQ7Q",
+                    "id": "01M62AYQDTN1F0R9FTB013RCW2",
                     "parent_id": null,
                     "user_id": null
                 }
@@ -1036,17 +1036,17 @@
                     "min_temp": 5,
                     "max_temp": 30,
                     "target_temp_step": 0.5,
-                    "current_temperature": 22.5,
-                    "temperature": 18,
-                    "hvac_action": "idle",
+                    "current_temperature": 25.4,
+                    "temperature": 26,
+                    "hvac_action": "heating",
                     "friendly_name": "Radiator",
                     "supported_features": 385
                 },
                 "last_changed": "2026-09-03T11:56:51.423950+00:00",
-                "last_reported": "2026-10-26T19:51:27.708061+00:00",
-                "last_updated": "2026-10-26T19:51:27.708061+00:00",
+                "last_reported": "2026-10-28T23:07:16.924750+00:00",
+                "last_updated": "2026-10-28T23:07:16.924750+00:00",
                 "context": {
-                    "id": "01M5WW946W81HZCZ0TDJ9E73JP",
+                    "id": "01M62C941WT5984M8WT8NMC420",
                     "parent_id": null,
                     "user_id": null
                 }
@@ -1062,34 +1062,24 @@
         "entities": [
             {
                 "entity_id": "light.rgb_panel_northeast",
-                "state": "on",
+                "state": "off",
                 "attributes": {
                     "supported_color_modes": [
                         "rgb"
                     ],
-                    "color_mode": "rgb",
-                    "brightness": 255,
-                    "hs_color": [
-                        120,
-                        37.255
-                    ],
-                    "rgb_color": [
-                        160,
-                        255,
-                        160
-                    ],
-                    "xy_color": [
-                        0.27,
-                        0.476
-                    ],
+                    "color_mode": null,
+                    "brightness": null,
+                    "hs_color": null,
+                    "rgb_color": null,
+                    "xy_color": null,
                     "friendly_name": "RGB panel north-east",
                     "supported_features": 40
                 },
-                "last_changed": "2026-10-26T07:17:28.047237+00:00",
-                "last_reported": "2026-10-26T12:24:29.962566+00:00",
-                "last_updated": "2026-10-26T12:24:29.962566+00:00",
+                "last_changed": "2026-10-28T21:30:31.318017+00:00",
+                "last_reported": "2026-10-28T21:30:31.318017+00:00",
+                "last_updated": "2026-10-28T21:30:31.318017+00:00",
                 "context": {
-                    "id": "01M5W2PQ0A9PEW23D8AFAK4W4A",
+                    "id": "01M626QYGP4M7F3BHFE05W9EPJ",
                     "parent_id": null,
                     "user_id": null
                 }
@@ -1105,36 +1095,26 @@
         "entities": [
             {
                 "entity_id": "light.rgb_panel_northwest",
-                "state": "on",
+                "state": "off",
                 "attributes": {
                     "supported_color_modes": [
                         "rgb"
                     ],
-                    "color_mode": "rgb",
-                    "brightness": 255,
-                    "hs_color": [
-                        120,
-                        37.255
-                    ],
-                    "rgb_color": [
-                        160,
-                        255,
-                        160
-                    ],
-                    "xy_color": [
-                        0.27,
-                        0.476
-                    ],
+                    "color_mode": null,
+                    "brightness": null,
+                    "hs_color": null,
+                    "rgb_color": null,
+                    "xy_color": null,
                     "friendly_name": "RGB panel north-west",
                     "supported_features": 40
                 },
-                "last_changed": "2026-10-26T14:13:25.464259+00:00",
-                "last_reported": "2026-10-26T14:13:25.464259+00:00",
-                "last_updated": "2026-10-26T14:13:25.464259+00:00",
+                "last_changed": "2026-10-28T21:30:31.275864+00:00",
+                "last_reported": "2026-10-28T21:30:31.275864+00:00",
+                "last_updated": "2026-10-28T21:30:31.275864+00:00",
                 "context": {
-                    "id": "01M5W8Y5AKJ25Q0554AEC4N4JW",
+                    "id": "01M626QYFB0CWYZ5ZC8FFVDKQM",
                     "parent_id": null,
-                    "user_id": "af90d6f1c0d743e5a88ce1bc8eabbe8d"
+                    "user_id": null
                 }
             }
         ]
@@ -1148,36 +1128,26 @@
         "entities": [
             {
                 "entity_id": "light.rgb_panel_south",
-                "state": "on",
+                "state": "off",
                 "attributes": {
                     "supported_color_modes": [
                         "rgb"
                     ],
-                    "color_mode": "rgb",
-                    "brightness": 255,
-                    "hs_color": [
-                        120,
-                        37.255
-                    ],
-                    "rgb_color": [
-                        160,
-                        255,
-                        160
-                    ],
-                    "xy_color": [
-                        0.27,
-                        0.476
-                    ],
+                    "color_mode": null,
+                    "brightness": null,
+                    "hs_color": null,
+                    "rgb_color": null,
+                    "xy_color": null,
                     "friendly_name": "RGB panel south",
                     "supported_features": 40
                 },
-                "last_changed": "2026-10-26T07:17:28.024543+00:00",
-                "last_reported": "2026-10-26T12:24:29.938428+00:00",
-                "last_updated": "2026-10-26T12:24:29.938428+00:00",
+                "last_changed": "2026-10-28T10:13:47.536163+00:00",
+                "last_reported": "2026-10-28T10:13:47.536163+00:00",
+                "last_updated": "2026-10-28T10:13:47.536163+00:00",
                 "context": {
-                    "id": "01M5W2PPZJJX79V85JR26NBP7M",
+                    "id": "01M6100TCDJS258V28R52J8DXJ",
                     "parent_id": null,
-                    "user_id": null
+                    "user_id": "af90d6f1c0d743e5a88ce1bc8eabbe8d"
                 }
             }
         ]
@@ -1191,36 +1161,26 @@
         "entities": [
             {
                 "entity_id": "light.rgb_pole_1",
-                "state": "on",
+                "state": "off",
                 "attributes": {
                     "supported_color_modes": [
                         "rgb"
                     ],
-                    "color_mode": "rgb",
-                    "brightness": 255,
-                    "hs_color": [
-                        120,
-                        37.255
-                    ],
-                    "rgb_color": [
-                        160,
-                        255,
-                        160
-                    ],
-                    "xy_color": [
-                        0.27,
-                        0.476
-                    ],
+                    "color_mode": null,
+                    "brightness": null,
+                    "hs_color": null,
+                    "rgb_color": null,
+                    "xy_color": null,
                     "friendly_name": "RGB pole 1",
                     "supported_features": 40
                 },
-                "last_changed": "2026-10-26T07:17:28.022274+00:00",
-                "last_reported": "2026-10-26T12:24:29.935940+00:00",
-                "last_updated": "2026-10-26T12:24:29.935940+00:00",
+                "last_changed": "2026-10-28T10:14:06.035226+00:00",
+                "last_reported": "2026-10-28T10:14:06.035226+00:00",
+                "last_updated": "2026-10-28T10:14:06.035226+00:00",
                 "context": {
-                    "id": "01M5W2PPZFY8J3YT294QJBFXEJ",
+                    "id": "01M6101CEHZ4EHZB81W976YK6N",
                     "parent_id": null,
-                    "user_id": null
+                    "user_id": "af90d6f1c0d743e5a88ce1bc8eabbe8d"
                 }
             }
         ]
@@ -1234,34 +1194,24 @@
         "entities": [
             {
                 "entity_id": "light.rgb_pole_2",
-                "state": "on",
+                "state": "off",
                 "attributes": {
                     "supported_color_modes": [
                         "rgb"
                     ],
-                    "color_mode": "rgb",
-                    "brightness": 255,
-                    "hs_color": [
-                        120,
-                        37.255
-                    ],
-                    "rgb_color": [
-                        160,
-                        255,
-                        160
-                    ],
-                    "xy_color": [
-                        0.27,
-                        0.476
-                    ],
+                    "color_mode": null,
+                    "brightness": null,
+                    "hs_color": null,
+                    "rgb_color": null,
+                    "xy_color": null,
                     "friendly_name": "RGB pole 2",
                     "supported_features": 40
                 },
-                "last_changed": "2026-10-26T07:17:28.030235+00:00",
-                "last_reported": "2026-10-26T12:24:29.943529+00:00",
-                "last_updated": "2026-10-26T12:24:29.943529+00:00",
+                "last_changed": "2026-10-28T21:30:31.280290+00:00",
+                "last_reported": "2026-10-28T21:30:31.280290+00:00",
+                "last_updated": "2026-10-28T21:30:31.280290+00:00",
                 "context": {
-                    "id": "01M5W2PPZQMPVE6XB3B5C33F8D",
+                    "id": "01M626QYFG76T2J4DZZEX7E0C7",
                     "parent_id": null,
                     "user_id": null
                 }
@@ -1277,36 +1227,26 @@
         "entities": [
             {
                 "entity_id": "light.rgb_pole_3",
-                "state": "on",
+                "state": "off",
                 "attributes": {
                     "supported_color_modes": [
                         "rgb"
                     ],
-                    "color_mode": "rgb",
-                    "brightness": 255,
-                    "hs_color": [
-                        120,
-                        37.255
-                    ],
-                    "rgb_color": [
-                        160,
-                        255,
-                        160
-                    ],
-                    "xy_color": [
-                        0.27,
-                        0.476
-                    ],
+                    "color_mode": null,
+                    "brightness": null,
+                    "hs_color": null,
+                    "rgb_color": null,
+                    "xy_color": null,
                     "friendly_name": "RGB pole 3",
                     "supported_features": 40
                 },
-                "last_changed": "2026-10-26T07:17:28.023319+00:00",
-                "last_reported": "2026-10-26T12:24:29.937171+00:00",
-                "last_updated": "2026-10-26T12:24:29.937171+00:00",
+                "last_changed": "2026-10-28T10:14:00.201853+00:00",
+                "last_reported": "2026-10-28T10:14:00.201853+00:00",
+                "last_updated": "2026-10-28T10:14:00.201853+00:00",
                 "context": {
-                    "id": "01M5W2PPZHR5BTNFFHVR9JNQEM",
+                    "id": "01M61016R75VTX7SCZ849Z5DAR",
                     "parent_id": null,
-                    "user_id": null
+                    "user_id": "af90d6f1c0d743e5a88ce1bc8eabbe8d"
                 }
             }
         ]
@@ -1333,13 +1273,13 @@
                     "friendly_name": "RGB pole 4",
                     "supported_features": 40
                 },
-                "last_changed": "2026-10-26T14:13:15.922924+00:00",
-                "last_reported": "2026-10-26T14:13:15.922924+00:00",
-                "last_updated": "2026-10-26T14:13:15.922924+00:00",
+                "last_changed": "2026-10-28T21:30:31.275522+00:00",
+                "last_reported": "2026-10-28T21:30:31.275522+00:00",
+                "last_updated": "2026-10-28T21:30:31.275522+00:00",
                 "context": {
-                    "id": "01M5W8XW0H1N26YHQYBPC1ZB9H",
+                    "id": "01M626QYFB0FMRVAK5XGKBS9RE",
                     "parent_id": null,
-                    "user_id": "af90d6f1c0d743e5a88ce1bc8eabbe8d"
+                    "user_id": null
                 }
             }
         ]
@@ -1360,11 +1300,11 @@
                     "device_class": "battery",
                     "friendly_name": "Robot vacuum Battery"
                 },
-                "last_changed": "2026-10-23T21:36:52.513460+00:00",
-                "last_reported": "2026-10-23T21:36:52.513460+00:00",
-                "last_updated": "2026-10-23T21:36:52.513460+00:00",
+                "last_changed": "2026-10-28T22:45:07.732666+00:00",
+                "last_reported": "2026-10-28T22:45:07.732666+00:00",
+                "last_updated": "2026-10-28T22:45:07.732666+00:00",
                 "context": {
-                    "id": "01M5NB3ZS141NZM1RZ5TF56NVP",
+                    "id": "01M62B0J0MQNS4Q2ABG8QN1T0E",
                     "parent_id": null,
                     "user_id": null
                 }
@@ -1376,11 +1316,11 @@
                     "friendly_name": "Robot vacuum",
                     "supported_features": 12444
                 },
-                "last_changed": "2026-10-23T20:46:06.207630+00:00",
-                "last_reported": "2026-10-23T20:46:06.207630+00:00",
-                "last_updated": "2026-10-23T20:46:06.207630+00:00",
+                "last_changed": "2026-10-28T21:50:01.436109+00:00",
+                "last_reported": "2026-10-28T21:50:01.436109+00:00",
+                "last_updated": "2026-10-28T21:50:01.436109+00:00",
                 "context": {
-                    "id": "01M5N870VZZY2NMSQTZ7AGWFSR",
+                    "id": "01M627VN6W7QVDVPRS5A6AV5AZ",
                     "parent_id": null,
                     "user_id": null
                 }
@@ -1396,72 +1336,72 @@
         "entities": [
             {
                 "entity_id": "sensor.room_temperature",
-                "state": "22.6",
+                "state": "25.5",
                 "attributes": {
                     "state_class": "measurement",
                     "unit_of_measurement": "\u00b0C",
                     "device_class": "temperature",
                     "friendly_name": "Room climate Temperature"
                 },
-                "last_changed": "2026-10-26T19:51:18.689676+00:00",
-                "last_reported": "2026-10-26T19:51:18.689676+00:00",
-                "last_updated": "2026-10-26T19:51:18.689676+00:00",
+                "last_changed": "2026-10-28T23:07:07.881222+00:00",
+                "last_reported": "2026-10-28T23:07:07.881222+00:00",
+                "last_updated": "2026-10-28T23:07:07.881222+00:00",
                 "context": {
-                    "id": "01M5WW8VD1CH9THXRC5HWT7AE0",
+                    "id": "01M62C8V79G4NTBE8RDSADX870",
                     "parent_id": null,
                     "user_id": null
                 }
             },
             {
                 "entity_id": "sensor.room_humidity",
-                "state": "42",
+                "state": "32",
                 "attributes": {
                     "state_class": "measurement",
                     "unit_of_measurement": "%",
                     "device_class": "humidity",
                     "friendly_name": "Room climate Humidity"
                 },
-                "last_changed": "2026-10-26T19:50:18.686024+00:00",
-                "last_reported": "2026-10-26T19:50:18.686024+00:00",
-                "last_updated": "2026-10-26T19:50:18.686024+00:00",
+                "last_changed": "2026-10-28T23:07:07.882535+00:00",
+                "last_reported": "2026-10-28T23:07:07.882535+00:00",
+                "last_updated": "2026-10-28T23:07:07.882535+00:00",
                 "context": {
-                    "id": "01M5WW70SYPHN4WCPHAR44D745",
+                    "id": "01M62C8V7A32KK2V8P2R5C6SQC",
                     "parent_id": null,
                     "user_id": null
                 }
             },
             {
                 "entity_id": "sensor.room_co2",
-                "state": "476",
+                "state": "419",
                 "attributes": {
                     "state_class": "measurement",
                     "unit_of_measurement": "ppm",
                     "device_class": "carbon_dioxide",
                     "friendly_name": "Room climate CO2"
                 },
-                "last_changed": "2026-10-26T19:51:18.692369+00:00",
-                "last_reported": "2026-10-26T19:51:18.692369+00:00",
-                "last_updated": "2026-10-26T19:51:18.692369+00:00",
+                "last_changed": "2026-10-28T23:07:07.883809+00:00",
+                "last_reported": "2026-10-28T23:07:07.883809+00:00",
+                "last_updated": "2026-10-28T23:07:07.883809+00:00",
                 "context": {
-                    "id": "01M5WW8VD4DC9G1BPMT2D8XVSJ",
+                    "id": "01M62C8V7B50JQH6WZQ7WQ830D",
                     "parent_id": null,
                     "user_id": null
                 }
             },
             {
                 "entity_id": "sensor.room_noise",
-                "state": "33",
+                "state": "28",
                 "attributes": {
                     "state_class": "measurement",
                     "unit_of_measurement": "dB",
                     "device_class": "sound_pressure",
                     "friendly_name": "Room climate Noise"
                 },
-                "last_changed": "2026-10-26T19:51:18.693926+00:00",
-                "last_reported": "2026-10-26T19:51:18.693926+00:00",
-                "last_updated": "2026-10-26T19:51:18.693926+00:00",
+                "last_changed": "2026-10-28T23:07:07.884627+00:00",
+                "last_reported": "2026-10-28T23:07:07.884627+00:00",
+                "last_updated": "2026-10-28T23:07:07.884627+00:00",
                 "context": {
-                    "id": "01M5WW8VD5JPSPR59E1KF0GYTP",
+                    "id": "01M62C8V7CZYQJ10G62TXQ4M6H",
                     "parent_id": null,
                     "user_id": null
                 }
@@ -1493,18 +1433,18 @@
             },
             {
                 "entity_id": "sensor.door_side_battery",
-                "state": "62.2",
+                "state": "62.0",
                 "attributes": {
                     "state_class": "measurement",
                     "unit_of_measurement": "%",
                     "device_class": "battery",
                     "friendly_name": "Side door Battery"
                 },
-                "last_changed": "2026-10-25T08:44:05.654197+00:00",
-                "last_reported": "2026-10-25T08:44:05.654197+00:00",
-                "last_updated": "2026-10-25T08:44:05.654197+00:00",
+                "last_changed": "2026-10-28T16:44:05.511558+00:00",
+                "last_reported": "2026-10-28T16:44:05.511558+00:00",
+                "last_updated": "2026-10-28T16:44:05.511558+00:00",
                 "context": {
-                    "id": "01M5S3PDMPQ4SQD1MEQ9SBD3N7",
+                    "id": "01M61PBFG7XQWKH9SAXJ9FQAKA",
                     "parent_id": null,
                     "user_id": null
                 }
@@ -1526,11 +1466,11 @@
                     "icon": "mdi:speaker",
                     "friendly_name": "Speakers"
                 },
-                "last_changed": "2026-10-16T13:55:30.717430+00:00",
-                "last_reported": "2026-10-16T13:55:30.717430+00:00",
-                "last_updated": "2026-10-16T13:55:30.717430+00:00",
+                "last_changed": "2026-10-27T10:56:28.300581+00:00",
+                "last_reported": "2026-10-27T10:56:28.300581+00:00",
+                "last_updated": "2026-10-27T10:56:28.300581+00:00",
                 "context": {
-                    "id": "01M52FY5RXQ07CX1F5ZHD4QYBP",
+                    "id": "01M5YG284CZP61WNF4JHG2ASKV",
                     "parent_id": null,
                     "user_id": null
                 }
@@ -1544,11 +1484,11 @@
                     "device_class": "power",
                     "friendly_name": "Speakers Power"
                 },
-                "last_changed": "2026-10-16T13:55:46.706536+00:00",
-                "last_reported": "2026-10-16T13:55:46.706536+00:00",
-                "last_updated": "2026-10-16T13:55:46.706536+00:00",
+                "last_changed": "2026-10-27T10:56:54.297644+00:00",
+                "last_reported": "2026-10-27T10:56:54.297644+00:00",
+                "last_updated": "2026-10-27T10:56:54.297644+00:00",
                 "context": {
-                    "id": "01M52FYNCJ585751CSQJZKVEJ8",
+                    "id": "01M5YG31GSGXNS4ZBWYMCEGZ7M",
                     "parent_id": null,
                     "user_id": null
                 }
@@ -1603,11 +1543,11 @@
                     "icon": "mdi:fan",
                     "friendly_name": "Ventilation"
                 },
-                "last_changed": "2026-10-26T18:00:27.011750+00:00",
-                "last_reported": "2026-10-26T18:00:27.011750+00:00",
-                "last_updated": "2026-10-26T18:00:27.011750+00:00",
+                "last_changed": "2026-10-28T18:00:30.022051+00:00",
+                "last_reported": "2026-10-28T18:00:30.022051+00:00",
+                "last_updated": "2026-10-28T18:00:30.022051+00:00",
                 "context": {
-                    "id": "01M5WNXVM3AH5TKD9GWJ4A5QXV",
+                    "id": "01M61TQCJ69WRDX21PR0SS3KYX",
                     "parent_id": null,
                     "user_id": null
                 }
@@ -1621,11 +1561,11 @@
                     "icon": "mdi:weather-windy",
                     "friendly_name": "Ventilation Airflow"
                 },
-                "last_changed": "2026-10-26T18:00:48.002410+00:00",
-                "last_reported": "2026-10-26T18:00:48.002410+00:00",
-                "last_updated": "2026-10-26T18:00:48.002410+00:00",
+                "last_changed": "2026-10-28T18:00:35.987028+00:00",
+                "last_reported": "2026-10-28T18:00:35.987028+00:00",
+                "last_updated": "2026-10-28T18:00:35.987028+00:00",
                 "context": {
-                    "id": "01M5WNYG425VX9H0D5C5DTP627",
+                    "id": "01M61TQJCKVAXPB8BATPGQ1EME",
                     "parent_id": null,
                     "user_id": null
                 }
@@ -1647,11 +1587,11 @@
                     "icon": "mdi:monitor-multiple",
                     "friendly_name": "Video wall"
                 },
-                "last_changed": "2026-10-26T09:10:28.717609+00:00",
-                "last_reported": "2026-10-26T09:10:28.717609+00:00",
-                "last_updated": "2026-10-26T09:10:28.717609+00:00",
+                "last_changed": "2026-10-27T14:58:29.779344+00:00",
+                "last_reported": "2026-10-27T14:58:29.779344+00:00",
+                "last_updated": "2026-10-27T14:58:29.779344+00:00",
                 "context": {
-                    "id": "01M5VQKEKDA5T7GHW8HB2NF5BT",
+                    "id": "01M5YXXD8K1E4A34J1GW2TJP0Z",
                     "parent_id": null,
                     "user_id": null
                 }
@@ -1665,18 +1605,18 @@
                     "device_class": "power",
                     "friendly_name": "Video wall Power"
                 },
-                "last_changed": "2026-10-26T09:10:44.718699+00:00",
-                "last_reported": "2026-10-26T09:10:44.718699+00:00",
-                "last_updated": "2026-10-26T09:10:44.718699+00:00",
+                "last_changed": "2026-10-27T14:58:55.780838+00:00",
+                "last_reported": "2026-10-27T14:58:55.780838+00:00",
+                "last_updated": "2026-10-27T14:58:55.780838+00:00",
                 "context": {
-                    "id": "01M5VQKY7ETJF82XJJZ4SWF6TM",
+                    "id": "01M5YXY6N4GRJC36FZNQSA3FCB",
                     "parent_id": null,
                     "user_id": null
                 }
             },
             {
                 "entity_id": "select.video_wall_content",
-                "state": "Dashboards",
+                "state": "Cameras",
                 "attributes": {
                     "options": [
                         "Dashboards",
@@ -1686,13 +1626,13 @@
                     "icon": "mdi:view-dashboard",
                     "friendly_name": "Video wall Content"
                 },
-                "last_changed": "2026-10-22T08:20:27.400793+00:00",
-                "last_reported": "2026-10-22T08:20:27.400793+00:00",
-                "last_updated": "2026-10-22T08:20:27.400793+00:00",
+                "last_changed": "2026-10-28T10:15:57.278094+00:00",
+                "last_reported": "2026-10-28T10:15:57.278094+00:00",
+                "last_updated": "2026-10-28T10:15:57.278094+00:00",
                 "context": {
-                    "id": "01M5HB4ZM8S2NYNR8X4Y560F2J",
+                    "id": "01M6104S2V79SYKC4FFFAK6R8G",
                     "parent_id": null,
-                    "user_id": null
+                    "user_id": "af90d6f1c0d743e5a88ce1bc8eabbe8d"
                 }
             }
         ]
@@ -1706,21 +1646,21 @@
         "entities": [
             {
                 "entity_id": "light.ceiling_whiteboard",
-                "state": "on",
+                "state": "off",
                 "attributes": {
                     "supported_color_modes": [
                         "brightness"
                     ],
-                    "color_mode": "brightness",
-                    "brightness": 204,
+                    "color_mode": null,
+                    "brightness": null,
                     "friendly_name": "Whiteboard ceiling light",
                     "supported_features": 40
                 },
-                "last_changed": "2026-10-26T19:13:37.448480+00:00",
-                "last_reported": "2026-10-26T19:13:37.448480+00:00",
-                "last_updated": "2026-10-26T19:13:37.448480+00:00",
+                "last_changed": "2026-10-28T21:30:31.316963+00:00",
+                "last_reported": "2026-10-28T21:30:31.316963+00:00",
+                "last_updated": "2026-10-28T21:30:31.316963+00:00",
                 "context": {
-                    "id": "01M5WT3V58Z22GM71C57621PZ2",
+                    "id": "01M626QYGMFK02HQP2QZ1C53SK",
                     "parent_id": null,
                     "user_id": null
                 }
@@ -1741,29 +1681,29 @@
                     "device_class": "window",
                     "friendly_name": "Window 1"
                 },
-                "last_changed": "2026-10-26T16:26:46.443336+00:00",
-                "last_reported": "2026-10-26T16:26:46.443336+00:00",
-                "last_updated": "2026-10-26T16:26:46.443336+00:00",
+                "last_changed": "2026-10-27T14:01:44.465488+00:00",
+                "last_reported": "2026-10-27T14:01:44.465488+00:00",
+                "last_updated": "2026-10-27T14:01:44.465488+00:00",
                 "context": {
-                    "id": "01M5WGJASBRDWPSJK61KQQR6A6",
+                    "id": "01M5YTNFRHSMNVCG2FBW41Y2KR",
                     "parent_id": null,
                     "user_id": null
                 }
             },
             {
                 "entity_id": "sensor.window_1_battery",
-                "state": "79.3",
+                "state": "79.1",
                 "attributes": {
                     "state_class": "measurement",
                     "unit_of_measurement": "%",
                     "device_class": "battery",
                     "friendly_name": "Window 1 Battery"
                 },
-                "last_changed": "2026-10-25T07:11:05.085421+00:00",
-                "last_reported": "2026-10-25T07:11:05.085421+00:00",
-                "last_updated": "2026-10-25T07:11:05.085421+00:00",
+                "last_changed": "2026-10-28T15:11:04.928906+00:00",
+                "last_reported": "2026-10-28T15:11:04.928906+00:00",
+                "last_updated": "2026-10-28T15:11:04.928906+00:00",
                 "context": {
-                    "id": "01M5RYC3VXAH4DE94AHPNZSPFV",
+                    "id": "01M61H15Q0WTTFMBYTRVJYQQ94",
                     "parent_id": null,
                     "user_id": null
                 }
@@ -1784,29 +1724,29 @@
                     "device_class": "window",
                     "friendly_name": "Window 2"
                 },
-                "last_changed": "2026-10-26T10:27:44.235037+00:00",
-                "last_reported": "2026-10-26T10:27:44.235037+00:00",
-                "last_updated": "2026-10-26T10:27:44.235037+00:00",
+                "last_changed": "2026-10-27T15:47:20.114566+00:00",
+                "last_reported": "2026-10-27T15:47:20.114566+00:00",
+                "last_updated": "2026-10-27T15:47:20.114566+00:00",
                 "context": {
-                    "id": "01M5VW0XFBNFAV8M03YP16NCX2",
+                    "id": "01M5Z0PTXJW001YQT1WWXDETRG",
                     "parent_id": null,
                     "user_id": null
                 }
             },
             {
                 "entity_id": "sensor.window_2_battery",
-                "state": "94.0",
+                "state": "93.8",
                 "attributes": {
                     "state_class": "measurement",
                     "unit_of_measurement": "%",
                     "device_class": "battery",
                     "friendly_name": "Window 2 Battery"
                 },
-                "last_changed": "2026-10-25T10:17:06.226330+00:00",
-                "last_reported": "2026-10-25T10:17:06.226330+00:00",
-                "last_updated": "2026-10-25T10:17:06.226330+00:00",
+                "last_changed": "2026-10-28T18:17:06.097268+00:00",
+                "last_reported": "2026-10-28T18:17:06.097268+00:00",
+                "last_updated": "2026-10-28T18:17:06.097268+00:00",
                 "context": {
-                    "id": "01M5S90QDJEQE2X0QBZ762QTDA",
+                    "id": "01M61VNS9H75B6094SE88W7YHP",
                     "parent_id": null,
                     "user_id": null
                 }
@@ -1822,36 +1762,36 @@
         "entities": [
             {
                 "entity_id": "sensor.window_temperature",
-                "state": "21.7",
+                "state": "25.3",
                 "attributes": {
                     "state_class": "measurement",
                     "unit_of_measurement": "\u00b0C",
                     "device_class": "temperature",
                     "friendly_name": "Window climate Temperature"
                 },
-                "last_changed": "2026-10-26T19:50:48.688200+00:00",
-                "last_reported": "2026-10-26T19:50:48.688200+00:00",
-                "last_updated": "2026-10-26T19:50:48.688200+00:00",
+                "last_changed": "2026-10-28T23:07:07.885885+00:00",
+                "last_reported": "2026-10-28T23:07:07.885885+00:00",
+                "last_updated": "2026-10-28T23:07:07.885885+00:00",
                 "context": {
-                    "id": "01M5WW7Y3G74T9PESA4DADVFPS",
+                    "id": "01M62C8V7DK407HBAV8PP1S2R5",
                     "parent_id": null,
                     "user_id": null
                 }
             },
             {
                 "entity_id": "sensor.window_humidity",
-                "state": "44",
+                "state": "32",
                 "attributes": {
                     "state_class": "measurement",
                     "unit_of_measurement": "%",
                     "device_class": "humidity",
                     "friendly_name": "Window climate Humidity"
                 },
-                "last_changed": "2026-10-26T19:48:18.671588+00:00",
-                "last_reported": "2026-10-26T19:48:18.671588+00:00",
-                "last_updated": "2026-10-26T19:48:18.671588+00:00",
+                "last_changed": "2026-10-28T22:55:37.809875+00:00",
+                "last_reported": "2026-10-28T22:55:37.809875+00:00",
+                "last_updated": "2026-10-28T22:55:37.809875+00:00",
                 "context": {
-                    "id": "01M5WW3BKF6V43HFQ88PCM3KZV",
+                    "id": "01M62BKSAHPGNS53D54CDMVNB1",
                     "parent_id": null,
                     "user_id": null
                 }
@@ -1867,23 +1807,23 @@
         "entities": [
             {
                 "entity_id": "light.ceiling_workstations",
-                "state": "on",
+                "state": "off",
                 "attributes": {
                     "supported_color_modes": [
                         "brightness"
                     ],
-                    "color_mode": "brightness",
-                    "brightness": 204,
+                    "color_mode": null,
+                    "brightness": null,
                     "friendly_name": "Workstation ceiling lights",
                     "supported_features": 40
                 },
-                "last_changed": "2026-10-26T19:13:37.425326+00:00",
-                "last_reported": "2026-10-26T19:13:37.425326+00:00",
-                "last_updated": "2026-10-26T19:13:37.425326+00:00",
+                "last_changed": "2026-10-28T10:47:23.868619+00:00",
+                "last_reported": "2026-10-28T10:47:23.868619+00:00",
+                "last_updated": "2026-10-28T10:47:23.868619+00:00",
                 "context": {
-                    "id": "01M5WT3V4HZX9HYQKQC955HGC5",
+                    "id": "01M611YBEVSA39MD4R1KQC31XF",
                     "parent_id": null,
-                    "user_id": null
+                    "user_id": "af90d6f1c0d743e5a88ce1bc8eabbe8d"
                 }
             }
         ]
@@ -1897,17 +1837,17 @@
         "entities": [
             {
                 "entity_id": "sensor.people_workstations",
-                "state": "1",
+                "state": "0",
                 "attributes": {
                     "state_class": "measurement",
                     "icon": "mdi:account-group",
                     "friendly_name": "Workstation dome camera People"
                 },
-                "last_changed": "2026-10-26T19:39:07.596386+00:00",
-                "last_reported": "2026-10-26T19:39:07.596386+00:00",
-                "last_updated": "2026-10-26T19:39:07.596386+00:00",
+                "last_changed": "2026-10-28T22:44:26.722187+00:00",
+                "last_reported": "2026-10-28T22:44:26.722187+00:00",
+                "last_updated": "2026-10-28T22:44:26.722187+00:00",
                 "context": {
-                    "id": "01M5WVJHECQRBGFZCTQ8V6NANP",
+                    "id": "01M62AZ9Z2K32H3Z1ZES1BN847",
                     "parent_id": null,
                     "user_id": null
                 }
@@ -1916,16 +1856,16 @@
                 "entity_id": "camera.workstations_dome",
                 "state": "idle",
                 "attributes": {
-                    "access_token": "fb0587ff7113dd01c8c2adc79472f3c6a074a8e990727dd732b919c737a28ed1",
-                    "entity_picture": "\/api\/camera_proxy\/camera.workstations_dome?token=fb0587ff7113dd01c8c2adc79472f3c6a074a8e990727dd732b919c737a28ed1",
+                    "access_token": "95f33709015bb16509b8ff6ffb34b9bc25454d80bb96738bf8766fc8e46178c0",
+                    "entity_picture": "\/api\/camera_proxy\/camera.workstations_dome?token=95f33709015bb16509b8ff6ffb34b9bc25454d80bb96738bf8766fc8e46178c0",
                     "friendly_name": "Workstation dome camera",
                     "supported_features": 0
                 },
                 "last_changed": "2026-09-03T11:56:51.407011+00:00",
-                "last_reported": "2026-10-26T19:47:02.602549+00:00",
-                "last_updated": "2026-10-26T19:47:02.602549+00:00",
+                "last_reported": "2026-10-28T23:07:03.287934+00:00",
+                "last_updated": "2026-10-28T23:07:03.287934+00:00",
                 "context": {
-                    "id": "01M5WW11AA74R51QJ92BN0HRAF",
+                    "id": "01M62C8PQQA6M8K7C2X6VH9THW",
                     "parent_id": null,
                     "user_id": null
                 }
@@ -1941,18 +1881,18 @@
         "entities": [
             {
                 "entity_id": "sensor.illuminance_workstations",
-                "state": "479",
+                "state": "0",
                 "attributes": {
                     "state_class": "measurement",
                     "unit_of_measurement": "lx",
                     "device_class": "illuminance",
                     "friendly_name": "Workstation light level"
                 },
-                "last_changed": "2026-10-26T19:51:18.678012+00:00",
-                "last_reported": "2026-10-26T19:51:18.678012+00:00",
-                "last_updated": "2026-10-26T19:51:18.678012+00:00",
+                "last_changed": "2026-10-28T21:30:37.263907+00:00",
+                "last_reported": "2026-10-28T21:30:37.263907+00:00",
+                "last_updated": "2026-10-28T21:30:37.263907+00:00",
                 "context": {
-                    "id": "01M5WW8VCPCXV7R5FCCBP52853",
+                    "id": "01M626R4AFEF6RF0Z54XJFDTAJ",
                     "parent_id": null,
                     "user_id": null
                 }
@@ -1973,29 +1913,29 @@
                     "device_class": "motion",
                     "friendly_name": "Workstation motion"
                 },
-                "last_changed": "2026-10-26T19:48:12.666180+00:00",
-                "last_reported": "2026-10-26T19:48:12.666180+00:00",
-                "last_updated": "2026-10-26T19:48:12.666180+00:00",
+                "last_changed": "2026-10-28T08:54:11.536311+00:00",
+                "last_reported": "2026-10-28T08:54:11.536311+00:00",
+                "last_updated": "2026-10-28T08:54:11.536311+00:00",
                 "context": {
-                    "id": "01M5WW35QTG4YV8XFS957D8BP0",
+                    "id": "01M60VF2AG9P990KCZA0GF5V2C",
                     "parent_id": null,
                     "user_id": null
                 }
             },
             {
                 "entity_id": "sensor.motion_workstations_battery",
-                "state": "87.9",
+                "state": "87.6",
                 "attributes": {
                     "state_class": "measurement",
                     "unit_of_measurement": "%",
                     "device_class": "battery",
                     "friendly_name": "Workstation motion Battery"
                 },
-                "last_changed": "2026-10-25T22:10:40.598127+00:00",
-                "last_reported": "2026-10-25T22:10:40.598127+00:00",
-                "last_updated": "2026-10-25T22:10:40.598127+00:00",
+                "last_changed": "2026-10-28T22:11:07.513383+00:00",
+                "last_reported": "2026-10-28T22:11:07.513383+00:00",
+                "last_updated": "2026-10-28T22:11:07.513383+00:00",
                 "context": {
-                    "id": "01M5THVAAPV5KYQ8FK35D89EVX",
+                    "id": "01M62929KST9YYT5772PTR7GD4",
                     "parent_id": null,
                     "user_id": null
                 }
@@ -2011,33 +1951,33 @@
         "entities": [
             {
                 "entity_id": "binary_sensor.presence_workstations",
-                "state": "on",
+                "state": "off",
                 "attributes": {
                     "device_class": "occupancy",
                     "friendly_name": "Workstation presence"
                 },
-                "last_changed": "2026-10-26T19:13:47.431039+00:00",
-                "last_reported": "2026-10-26T19:13:47.431039+00:00",
-                "last_updated": "2026-10-26T19:13:47.431039+00:00",
+                "last_changed": "2026-10-28T09:01:11.591719+00:00",
+                "last_reported": "2026-10-28T09:01:11.591719+00:00",
+                "last_updated": "2026-10-28T09:01:11.591719+00:00",
                 "context": {
-                    "id": "01M5WT44X7MYYC1ESSEVYYRF66",
+                    "id": "01M60VVWH7WRB9CG149NWATEYD",
                     "parent_id": null,
                     "user_id": null
                 }
             },
             {
                 "entity_id": "sensor.presence_workstations_targets",
-                "state": "1",
+                "state": "0",
                 "attributes": {
                     "state_class": "measurement",
                     "icon": "mdi:radar",
                     "friendly_name": "Workstation presence Targets"
                 },
-                "last_changed": "2026-10-26T19:13:47.431977+00:00",
-                "last_reported": "2026-10-26T19:13:47.431977+00:00",
-                "last_updated": "2026-10-26T19:13:47.431977+00:00",
+                "last_changed": "2026-10-28T09:01:11.592380+00:00",
+                "last_reported": "2026-10-28T09:01:11.592380+00:00",
+                "last_updated": "2026-10-28T09:01:11.592380+00:00",
                 "context": {
-                    "id": "01M5WT44X7PN5XSN1TAMBPRAAR",
+                    "id": "01M60VVWH8D20GY4YDWAZ483N9",
                     "parent_id": null,
                     "user_id": null
                 }
@@ -2059,11 +1999,11 @@
                     "icon": "mdi:television",
                     "friendly_name": "Workstation TV"
                 },
-                "last_changed": "2026-10-26T13:54:30.478507+00:00",
-                "last_reported": "2026-10-26T13:54:30.478507+00:00",
-                "last_updated": "2026-10-26T13:54:30.478507+00:00",
+                "last_changed": "2026-10-27T10:56:28.286040+00:00",
+                "last_reported": "2026-10-27T10:56:28.286040+00:00",
+                "last_updated": "2026-10-27T10:56:28.286040+00:00",
                 "context": {
-                    "id": "01M5W7VGYEP37D0BZDGRQJF266",
+                    "id": "01M5YG283YCBN2SMSNS64V3MGM",
                     "parent_id": null,
                     "user_id": null
                 }
@@ -2077,18 +2017,18 @@
                     "device_class": "power",
                     "friendly_name": "Workstation TV Power"
                 },
-                "last_changed": "2026-10-26T13:54:46.481935+00:00",
-                "last_reported": "2026-10-26T13:54:46.481935+00:00",
-                "last_updated": "2026-10-26T13:54:46.481935+00:00",
+                "last_changed": "2026-10-27T10:56:54.292585+00:00",
+                "last_reported": "2026-10-27T10:56:54.292585+00:00",
+                "last_updated": "2026-10-27T10:56:54.292585+00:00",
                 "context": {
-                    "id": "01M5W7W0JH69RHFMTZC2W9F0FN",
+                    "id": "01M5YG31GMAAF8H0D6RW67S9VP",
                     "parent_id": null,
                     "user_id": null
                 }
             },
             {
                 "entity_id": "select.tv_workstations_source",
-                "state": "HDMI 2",
+                "state": "HDMI 1",
                 "attributes": {
                     "options": [
                         "HDMI 1",
@@ -2098,11 +2038,11 @@
                     "icon": "mdi:video-input-hdmi",
                     "friendly_name": "Workstation TV Source"
                 },
-                "last_changed": "2026-10-23T10:58:27.506014+00:00",
-                "last_reported": "2026-10-23T10:58:27.506014+00:00",
-                "last_updated": "2026-10-23T10:58:27.506014+00:00",
+                "last_changed": "2026-10-27T08:19:27.326370+00:00",
+                "last_reported": "2026-10-27T08:19:27.326370+00:00",
+                "last_updated": "2026-10-27T08:19:27.326370+00:00",
                 "context": {
-                    "id": "01M5M6K0HJKW67GRBWEETTWXKT",
+                    "id": "01M5Y72QYYQ4PH7YMVR81QY97B",
                     "parent_id": null,
                     "user_id": null
                 }

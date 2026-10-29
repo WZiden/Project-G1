@@ -737,11 +737,16 @@ header{
     border-radius: 12px;
 }
 
-
 #settingsStatusMessage {
     height: 3rem;
     width: 50%;
     justify-self: center;
+}
+
+.chart-container{
+    position: relative;
+    height: 70vh;
+    width: 100%;
 }
 
 /*layout mobil */

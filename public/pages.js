@@ -3,6 +3,8 @@ const pageTitle = document.getElementById("page-title");
 const buttons = document.querySelectorAll(".room-btn");
 const pageContent = document.getElementById("page-content");
 
+let sensorOptions = {};
+
 
 
 function loadPage(page, params = {}, title = page) {
@@ -138,19 +140,27 @@ function initHistoryPage() {
        
     }
 
-    function renderStats() {
+    async function renderStats() {
         document.getElementById("historyView").style.display="none";
         document.getElementById("statsView").style.display ="block";
         const timeline = document.querySelector(".timeline");
         const searchInput= document.getElementById("deviceSearch");
+        const container = document.getElementById("statsView");
         if(searchInput){
             searchInput.placeholder = "Filter Statistics";
         }
         btnStats.classList.add("active");
         btnHistory.classList.remove("active");
-       
 
-        drawTempChart(); // ← ritar grafen
+        if (!container.dataset.loaded) {
+            const html = await fetch("pages/Statistics_View.php").then(res => res.text());
+
+            container.innerHTML = html;
+
+            container.dataset.loaded = "true";
+
+            initStatistics(); // ← ritar grafen
+        }; 
     }
 
     // Startläge
@@ -162,50 +172,7 @@ function initHistoryPage() {
 
 }
 
-function drawTempChart() {
-    const ctx = document.getElementById("tempChart");
 
-    new Chart(ctx, {
-        type: "line",
-        data: {
-            labels: ["08:00", "10:00", "12:00", "14:00","17:00", "19:00"],
-            datasets: [{
-                label: "Temperatur (°C)",
-                data: [21, 22, 23, 22, 25, 10],
-                borderColor: " #76949F",
-                backgroundColor: " #76949F",
-                borderWidth: 2,
-                tension: 0.3 // gör linjen mjuk
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-                x:{
-                    grid:{
-                        color: "grey",
-                        lineWidth:0.5
-                    },
-                    ticks: {
-                        color: "white",
-                    }
-                },
-    
-                y: {
-                    beginAtZero: false,
-                    grid: {
-                        color:"grey",
-                        lineWidth:0.5
-                    },
-                    ticks:{
-                        color: "white"
-                    }
-                }
-            }
-        }
-    });
-}
 
 /*** Settings page ***/
 function initSettingsPage() {
@@ -444,3 +411,201 @@ async function populateUserList() {
     }
 }
 /******/
+
+//Statistik Funktioner
+
+let statsChart = null;
+
+function initStatistics(){
+
+    document.getElementById('statsType').addEventListener('change', handleFilterChange);
+
+    document.getElementById('statsRoom').addEventListener('change', handleFilterChange);
+
+    document.getElementById('statsPeriod').addEventListener('change', loadStatistics);
+
+    const statsData = document.getElementById('statsData');
+    sensorOptions = JSON.parse(statsData.dataset.options);
+
+    updateRoomList();
+
+    loadStatistics();
+}
+
+function updateRoomList() {
+
+    const type = document.getElementById("statsType").value;
+
+    const select = document.getElementById("statsRoom");
+
+    const currentRoom = select.value;
+
+    select.innerHTML =
+        '<option value="">All Areas</option>';
+
+    if (!sensorOptions[type]) {
+        return;
+    }
+
+    const rooms = [
+        ...new Set(sensorOptions[type].map(sensor => sensor.area_name).filter(Boolean))
+    ].sort();
+
+    rooms.forEach(room => {
+
+        const option =
+            document.createElement("option");
+
+        option.value = room;
+        option.textContent = room;
+
+        select.appendChild(option);
+    });
+
+    if (rooms.includes(currentRoom)) {
+        select.value = currentRoom;
+    } else {
+        select.value = "";
+    }
+}
+
+function handleFilterChange(){
+
+    updateRoomList();
+
+    loadStatistics();
+}
+
+async function loadStatistics(){
+
+    const type = document.getElementById('statsType').value;
+
+    const room = document.getElementById('statsRoom').value;
+
+    const period = document.getElementById('statsPeriod').value;
+
+    const params = new URLSearchParams();
+
+    params.append('class', type);
+    params.append('start', period);
+
+    if(room){
+        params.append('area', room);
+    }
+
+    try{
+        const response = await fetch(`statistics.php?${params}`);
+
+        const data = await response.json();
+
+        const units = [...new Set(data.datasets.map(ds => ds.unit))];
+        
+        document.getElementById("statsTitle").textContent = units.length === 1 ? `Temperature (${units[0]})` : 'Statistics';
+
+        renderChart(data);
+
+    }catch(error){
+        console.error('Failed to load statistics:', error);
+    }
+}
+
+function renderChart(data){
+    
+    const ctx = document.getElementById('statsChart');
+
+    if(statsChart){
+        statsChart.destroy();
+    }
+
+    const unit = data.datasets[0]?.unit ?? "";
+
+    const colors = [
+        "#4CAF50",
+        "#2196F3",
+        "#FF9800",
+        "#E91E63",
+        "#9C27B0",
+        "#00BCD4",
+        "#FFC107",
+        "#FF5722",
+        "#8BC34A",
+        "#3F51B5",
+        "#F44336",
+        "#009688",
+        "#CDDC39",
+        "#673AB7",
+        "#795548",
+        "#607D8B",
+        "#FF4081",
+        "#7C4DFF",
+        "#26A69A",
+        "#FFA726" 
+    ];
+
+    const datasets = data.datasets.map((dataset, index) => ({
+        ...dataset,
+        borderColor: colors[index % colors.length],
+        backgroundColor: colors[index % colors.length],
+        borderWidth: 2,
+        tension: 0.3
+    }));
+
+
+    statsChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: data.labels,
+            datasets: datasets
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            interaction: {
+                    mode: "index",
+                    intersect: false
+                },
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: "white"
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                const unit = context.dataset.unit || "";
+
+                                return `${context.dataset.label}: ${context.parsed.y} ${unit}`;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: {
+                            color: "grey",
+                            lineWidth: 0.5
+                        },
+                        ticks: {
+                            color: "white"
+                        }
+                    },
+                    y: {
+                        beginAtZero: false,
+                        grid: {
+                            color: "grey",
+                            lineWidth: 0.5
+                        },
+                        ticks: {
+                            color: "white",
+                            callback: function(value) {
+                                return `${value} ${unit}`;
+                            }
+                    }
+                    }
+                }
+            }
+        });
+
+
+}

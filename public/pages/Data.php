@@ -10,10 +10,6 @@
     </div>
 
     <div id="statsView">
-        <h3>Temperatur över tid</h3>
-        <div class="chart-wrapper">
-            <canvas id="tempChart"></canvas>
-        </div>
     </div>
 
 </div>
