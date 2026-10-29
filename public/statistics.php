@@ -5,90 +5,29 @@ require_once __DIR__ . '/../src/connect_api.php';
 
 header('Content-Type: application/json');
 
-$endDate = new DateTime('now');
-$timestamp = date('c', strtotime('-12 months'));
+$start = $_GET['start'] ?? '-7 days';
+$type = $_GET['class'] ?? 'temperature';
+$ent = $_GET['ent'] ?? null;
+$area = $_GET['area'] ?? null;
+ 
+$entities = json_decode(file_get_contents(__DIR__ . '/../cache/sensores.json'), true);
 
-$devices = json_decode(file_get_contents(__DIR__ . '/../cache/devices.json'), true);
+$startDate = new DateTime('now', new DateTimeZone('Europe/Stockholm'));
+$startDate->modify($start);
+$startDate->setTime(0, 0, 0);
 
-$entities = '';
+$endDate = new DateTime('now', new DateTimeZone('Europe/Stockholm'));
+$endDate->setTime(0, 0, 0);
 
-foreach($devices as $device){
-    foreach($device['entities'] as $entity){
-        $entities .= $entity['entity_id'] . ',';
-    }
+$entities = $entities[$type] ?? [];
+
+if(!empty($ent)){
+    $entities = array_filter($entities, fn($entity) => $entity['entity_id'] === $ent);
+}else if(!empty($area)){
+    $entities = array_filter($entities, fn($entity) => $entity['area_name'] === $area);
 }
 
-$url = $restURL . '/history/period/' . urlencode($timestamp) . '&filter_entity_id=' . $entities;
+$history = getEntityHistory($restURL, $entities, $startDate->format('Y-m-d\TH:i:sP'), $endDate->format('Y-m-d\TH:i:sP'), $haToken);
 
-$ch = curl_init($url);
 
-curl_setopt_array($ch, [CURLOPT_RETURNTRANSFER => true, CURLOPT_HTTPHEADER => ['Authorization: Bearer ' . $haToken, 'Content-Type: application/json']]);
-
-$response = curl_exec($ch);
-
-if (curl_errno($ch)) {
-
-    echo json_encode([
-        'error' => curl_error($ch)
-    ]);
-
-    curl_close($ch);
-    exit;
-}
-
-curl_close($ch);
-
-echo '<pre>';
-print_r(json_decode($response, true));
-echo '</pre>';
-exit;
-
-$data = json_decode($response, true);
-
-$history = $data[0] ?? [];
-
-$groups = [];
-
-foreach ($history as $entry) {
-    $state = $entry['state'] ?? null;
-
-    if (!is_numeric($state)) {
-        continue;
-    }
-
-    $timestamp = strtotime($entry['last_changed']);
-
-    switch ($groupBy) {
-        case 'month':
-            $key = date('Y-m', $timestamp);
-            break;
-
-        case 'day':
-            $key = date('Y-m-d', $timestamp);
-            break;
-
-        case 'hour':
-        default:
-            $key = date('Y-m-d H:00', $timestamp);
-            break;
-    }
-
-    $groups[$key][] = (float)$state;
-}
-
-$labels = [];
-$values = [];
-
-foreach ($groups as $label => $states){ 
-    $labels[] = $label;
-
-    $values[] = round(array_sum($states) / count($states), 2);
-}
-
-$unit = $history[0]['attributes']['unit_of_measurement'] ?? '';
-
-print_r(json_encode([
-    'labels' => $labels,
-    'values' => $values,
-    'unit' => $unit
-]));
+echo json_encode(sortHistoryData($start, $history, $entities));

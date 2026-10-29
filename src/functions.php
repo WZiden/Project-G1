@@ -224,6 +224,128 @@
         );
     }
 
+    function getEntityHistory(string $url, array $entities, string $start, string $end, string $haToken):array {
+        $entityIds = array_column($entities, 'entity_id');
+
+        $url .= '/history/period/' . urlencode($start) . '?filter_entity_id=' . urlencode(implode(',', $entityIds)) . '&end_time=' . urlencode($end) . '&significant_changes_only=0&no_attributes';
+
+        $ch = curl_init($url);
+
+        curl_setopt_array($ch, [CURLOPT_RETURNTRANSFER => true, CURLOPT_HTTPHEADER => ['Authorization: Bearer ' . $haToken, 'Content-Type: application/json']]);
+
+        $response = curl_exec($ch);
+
+        if (curl_errno($ch)) {
+            curl_close($ch);
+
+            throw new RuntimeException(curl_error($ch));
+        }
+
+        curl_close($ch);
+
+        $data = json_decode($response, true);
+
+        return is_array($data) ? $data : []; 
+    }
+
+    function sortHistoryData(string $time, array $history, array $entities):array {
+        switch ($time) {
+            case '-24h':
+                $format = 'Y-m-d H:00';
+                break;
+
+            case '-7 days':
+            case '-1 month':
+                $format = 'Y-m-d';
+                break;
+
+            default:
+                return [];
+        }
+
+        $nameMap = [];
+        $unitMap = [];
+
+        foreach ($entities as $entity) {
+            $nameMap[$entity['entity_id']] = $entity['friendly_name'];
+            $unitMap[$entity['entity_id']] = $entity['unit'] ?? '';
+        }
+
+        $grouped = [];
+
+        foreach ($history as $entityHistory) {
+            foreach ($entityHistory as $state) {
+                if (!is_numeric($state['state'])) {
+                    continue;
+                }
+                $entityId = $state['entity_id'];
+                $bucket = date(
+                    $format,
+                    strtotime($state['last_changed'])
+                );
+
+                if (!isset($grouped[$entityId][$bucket])) {
+                    $grouped[$entityId][$bucket] = [
+                        'sum' => 0,
+                        'count' => 0
+                    ];
+                }
+
+                $grouped[$entityId][$bucket]['sum'] += (float)$state['state'];
+                $grouped[$entityId][$bucket]['count']++;
+            }
+        }
+
+        // Samla alla labels
+        $labels = [];
+
+        foreach ($grouped as $entityBuckets) {
+            $labels = array_merge(
+                $labels,
+                array_keys($entityBuckets)
+            );
+        }
+
+        $labels = array_unique($labels);
+        sort($labels);
+
+        // Bygg datasets
+        $datasets = [];
+
+        foreach ($grouped as $entityId => $entityBuckets) {
+
+            $data = [];
+
+            foreach ($labels as $label) {
+
+                if (isset($entityBuckets[$label])) {
+
+                    $avg =
+                        $entityBuckets[$label]['sum']
+                        / $entityBuckets[$label]['count'];
+
+                    $data[] = round($avg, 2);
+
+                } else {
+
+                    $data[] = null;
+                }
+            }
+
+            $datasets[] = [
+                'label' => $nameMap[$entityId] ?? $entityId,
+                'entity_id' => $entityId,
+                'unit' => $unitMap[$entityId] ?? '',
+                'data' => $data
+            ];
+        }
+
+        return [
+            'labels' => $labels,
+            'datasets' => $datasets
+        ];
+    }
+
     function getAllRooms(PDO $pdo):array {
         $stmt = $pdo->query("
             SELECT DISTINCT area_name
