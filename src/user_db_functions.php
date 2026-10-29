@@ -1,6 +1,24 @@
 <?php
 session_start();
 
+// Update user permission level
+function changeUserLevel(PDO $pdo, int $userID, int $userLevel): bool
+{
+    try {
+        $stmt = $pdo->prepare("UPDATE users SET permission_level = ? WHERE userID = ?");
+        $stmt->execute([$userLevel, $userID]);
+
+        // if ($stmt->rowCount() > 0) {
+        //     return true;
+        // } else {
+        //     return false;
+        // }
+        return true;
+    } catch (Exception $e) {
+        return false;
+    }
+}
+
 // Get username, userID and level for all users
 function getAllUsersList(PDO $pdo)
 {
