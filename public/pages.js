@@ -23,7 +23,7 @@ function loadPage(page, params = {}, title = page) {
     const query = new URLSearchParams(params);
     const queryString = query.toString();
     const url = `pages/${page}.php${queryString ? "?" + queryString : ""}`;
-  
+
     fetch(url)
         .then(response => response.text())
         .then(html => {
@@ -101,18 +101,18 @@ function initHistoryPage() {
     const btnHistory = document.getElementById("btnHistory");
     const btnStats = document.getElementById("btnStats");
 
-    if (!btnHistory || !btnStats ) return;
+    if (!btnHistory || !btnStats) return;
 
-  
+
 
 
     function renderLog() {
         document.getElementById("historyView").style.display = "block";
         document.getElementById("statsView").style.display = "none";
-        const searchInput= document.getElementById("deviceSearch");
+        const searchInput = document.getElementById("deviceSearch");
         const timeline = document.querySelector(".timeline");
 
-        if(searchInput){
+        if (searchInput) {
             searchInput.placeholder = "Filter history";
         }
         timeline.innerHTML = "";
@@ -139,11 +139,11 @@ function initHistoryPage() {
     }
 
     function renderStats() {
-        document.getElementById("historyView").style.display="none";
-        document.getElementById("statsView").style.display ="block";
+        document.getElementById("historyView").style.display = "none";
+        document.getElementById("statsView").style.display = "block";
         const timeline = document.querySelector(".timeline");
-        const searchInput= document.getElementById("deviceSearch");
-        if(searchInput){
+        const searchInput = document.getElementById("deviceSearch");
+        if (searchInput) {
             searchInput.placeholder = "Filter Statistics";
         }
         btnStats.classList.add("active");
@@ -222,6 +222,8 @@ function initSettingsPage() {
     const newPassword = document.getElementById("newPassword");
     const confirmPassword = document.getElementById("confirmPassword");
     const errorColor = getComputedStyle(document.querySelector(":root")).getPropertyValue("--red");
+    const userTable = document.getElementById("userTableBody");
+    const deviceTable = document.getElementById("deviceTableBody");
 
     userView.style.display = "block";
     adminView.style.display = "none";
@@ -316,6 +318,13 @@ function initSettingsPage() {
         }
     });
 
+    userTable.addEventListener("change", function(e) {
+        changeLevel("User", e.target.id, e.target.value);
+    });
+
+    deviceTable.addEventListener("change", function(e) {
+        changeLevel("Device", e.target.id, e.target.value);
+    });
 
     getCookieUsername();
 }
@@ -405,17 +414,17 @@ async function sendChangePassword() {
 // Populate user list
 async function populateUserList() {
     try {
-        const response = await fetch("get_users_list.php");
+        const userList = await fetch("get_users_list.php");
 
-        const data = await response.json();
-        if (!response.ok) {
+        const data = await userList.json();
+        if (!userList.ok) {
             throw new Error("HTTP: " + response.status);
-            console.log("response inte ok");
+            console.log("userList inte ok");
         } else {
 
-            const deviceTable = document.getElementById("userTableBody");
+            const userTable = document.getElementById("userTableBody");
             data.forEach(element => {
-                const newRow = deviceTable.insertRow();
+                const newRow = userTable.insertRow();
                 const cellID = newRow.insertCell(0);
                 const cellName = newRow.insertCell(1);
                 const cellLevel = newRow.insertCell(2);
@@ -436,17 +445,6 @@ async function populateUserList() {
                 cellID.innerText = element["userID"];
                 cellName.innerText = element["username"];
                 cellLevel.appendChild(select);
-            });
-
-            data.forEach(element => {
-                const row = document.createElement("li");
-                row.textContent = "User ID: " + element["userID"] + " Username: " + element["username"] + " Role: ";
-                if (element["permission_level"] == 1) {
-                    row.textContent += "Admin";
-                } else {
-                    row.textContent += "User";
-                }
-                userList.appendChild(row);
             });
         }
     } catch (e) {
@@ -491,6 +489,18 @@ async function populateDeviceList() {
         }
     } catch (e) {
         console.log(e);
+    }
+}
+
+async function changeLevel(type, typeID, newLevel) {    
+    const response = await fetch("change_level.php", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({type: type, typeID: typeID, newLevel: newLevel}),
+    });
+
+    if (!response.ok) {
+        console.log("Error changing level");
     }
 }
 /******/

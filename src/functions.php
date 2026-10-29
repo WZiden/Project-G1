@@ -965,6 +965,21 @@
 
     }
 
+    // Update device required permission level
+    function changeDeviceLevel(PDO $pdo, string $deviceID, int $deviceLevel): bool
+    {
+            try {
+            $stmt = $pdo->prepare("
+            UPDATE devices 
+            SET required_user_level = ? 
+            WHERE device_id = ?");
+            $stmt->execute([$deviceLevel, $deviceID]);
+            return true;
+        } catch (Exception $e) {
+            return false;
+        }
+    }
+
 
 ?>
 
