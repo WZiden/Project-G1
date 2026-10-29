@@ -17,6 +17,25 @@
 
         $devices = buildDevices($devices, $entities, $states);
 
+        $entities = [];
+
+        foreach ($devices as $device) {
+            foreach ($device['entities'] as $entity) {
+                $domain = explode('.', $entity['entity_id'], 2)[0];
+
+                if($domain == 'sensor'){                    
+                    $deviceClass = $entity['attributes']['device_class'] ?? 'unknown';
+
+                    $entities[$deviceClass][] = [
+                        'entity_id'     => $entity['entity_id'],
+                        'friendly_name' => $entity['attributes']['friendly_name'] ?? '',
+                        'area_name'     => $device['area_name'],
+                        'unit'          => $entity['attributes']['unit_of_measurement'] ?? ''
+                    ];
+                }
+            }
+        }
+
         usort($devices, function ($a, $b) {
             return strcasecmp($a['device_name'], $b['device_name']);
         });
@@ -26,6 +45,11 @@
         file_put_contents(
             '../cache/devices.json',
             json_encode($devices, JSON_PRETTY_PRINT)
+        );
+
+        file_put_contents(
+            '../cache/sensores.json',
+            json_encode($entities, JSON_PRETTY_PRINT)
         );
     }
 ?>

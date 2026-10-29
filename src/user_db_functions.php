@@ -1,6 +1,33 @@
 <?php
 session_start();
 
+// Get username, userID and level for all users
+function getAllUsersList(PDO $pdo)
+{
+    try {
+        return $pdo->query("SELECT userID, username, permission_level FROM users");
+    } catch (Exception $e) {
+        return null;
+    }
+}
+
+// Check if user has admin level permission
+function isAdmin(PDO $pdo, int $userID): bool
+{
+    try {
+        $stmt = $pdo->prepare("SELECT permission_level FROM users WHERE userID = ?");
+        $stmt->execute([$userID]);
+        $result = $stmt->fetch();
+        if ($result["permission_level"] == 1) {
+            return true;
+        } else {
+            return false;
+        }
+    } catch (Exception $e) {
+        return false;
+    }
+}
+
 // Get a user from the database by email
 function getUserByEmail(PDO $pdo, string $email)
 {
@@ -48,6 +75,7 @@ function addUser(PDO $pdo, string $name, string $email, string $password, string
     // Check for special characters in username
     if ($name === htmlspecialchars($name)) {
         if ($password === $confirmPassword) {
+            // Lowercase, uppercase, number and >= 8 characters
             $regex = "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/";
             if (preg_match($regex, $password)) {
                 // Check that all mandatory fields are filled in
@@ -83,8 +111,7 @@ function verifyUserWithID(PDO $pdo, string $userID, string $password): bool
 
 // Log in user
 // Requires a PDO instance, an email, an unhashed password, a checkbox value ('on' if checked)
-// Returns an array with: 1/0 (success/failure code), String (success/failure message), Username (only on success)
-function loginUser(PDO $pdo, string $email, string $password, string $remember = "off")
+function loginUser(PDO $pdo, string $email, string $password, string $remember = "off"): bool
 {
     // Check that all mandatory fields are filled in 
     // and verify whether the user exists in the database
@@ -111,16 +138,14 @@ function loginUser(PDO $pdo, string $email, string $password, string $remember =
                 }
                 setcookie("Username", $_SESSION["username"]);
 
-                return [1, "User logged in", $_SESSION["username"]];
+                return true;
             }
         }
-        return [0, "Incorrect email or password"];
-    } else {
-        return [0, "All fields must be filled in"];
     }
+    return false;
 }
 
-// Destoy cookie
+// Destoy remember me-cookie
 function destroyCookie()
 {
     setcookie("SmartHome", "", time() - 60 * 10, "/");
