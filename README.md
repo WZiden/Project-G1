@@ -63,3 +63,22 @@ ALTER TABLE `userlog`
 COMMIT;
 
 
+
+Här är tabellen för alerts:
+CREATE TABLE alerts (
+    id INT AUTO_INCREMENT PRIMARY KEY, 
+    rule_type VARCHAR(50) NOT NULL, 
+    entity_id VARCHAR(255) NULL, 
+    room_name VARCHAR(100) NOT NULL, 
+    title VARCHAR(255) NOT NULL,
+    reason TEXT NULL,
+    status ENUM(
+        'ACTIVE',
+        'ACKNOWLEDGED',
+        'DISMISSED',
+        'RESOLVED'
+    ) DEFAULT 'ACTIVE',
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+        ON UPDATE CURRENT_TIMESTAMP
+);
