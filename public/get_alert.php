@@ -5,10 +5,7 @@
 
     header('Content-Type: application/json');
 
-    $devices = getHomeAssistantDevices($haURL, $haToken);
-    $entities = getHomeAssistantEntities($haURL, $haToken);
-    $states = getHomeAssistantStates($haURL, $haToken);
-    $devices = buildDevices($devices, indexEntitiesByDevice($entities), indexStatesByEntity($states));
+    $devices = json_decode(file_get_contents(__DIR__ . '/../cache/devices.json'), true);
 
     $alerts = [];
     $rooms = [];
@@ -36,11 +33,13 @@
 
     foreach ($rooms as $roomName => $roomDevices) {
         $lightOn = false;
+        $lightEntityId = null;
         $hasPeopleSensor = false;
         $peopleDetected = false;
 
         $roomTemp =  null;
         $radiatorTargetTemp = null;
+        $radiatorEntityId = null;
 
         $windowOpen = false;
         $windowOpenedAt = null;
@@ -54,6 +53,7 @@
                 if (str_starts_with($entityId, 'light.') && $entity['state'] === 'on') 
                 {
                     $lightOn = true;
+                    $lightEntityId = $entityId;
                 }
 
                 if (($entity['attributes']['device_class'] ?? '') === 'occupancy') 
@@ -74,6 +74,7 @@
                 }
                 if (str_starts_with($entity['entity_id'], 'climate.')) 
                 {
+                    $radiatorEntityId = $entity['entity_id'];
                     $radiatorTargetTemp = (float)$entity['attributes']['temperature'];
                 }
                 if(($entity['attributes']['device_class'] ?? '') === 'window' && $entity['state'] === 'on')
@@ -94,40 +95,40 @@
         /*Lights on but no one in the room*/
         if ($hasPeopleSensor &&$lightOn && !$peopleDetected)
         {
-            createAlert($pdo, 'EMPTY_ROOM_LIGHT','Lights on in a empty room', $roomName,'Lights are on while no occupancy is detected');
+            createAlert($pdo, 'EMPTY_ROOM_LIGHT','Lights on in a empty room', $roomName,'Lights are on while no occupancy is detected', $lightEntityId);
         }
 
         /*Radiator is set on over 24 while the room temp already is over 24*/
         if ($roomTemp !== null && $radiatorTargetTemp !== null && $roomTemp >= 24 && $radiatorTargetTemp >= 24) 
         {
-            createAlert($pdo, 'HEAT_WARNING', 'Heat warning', $roomName, "Radiator is set to {$radiatorTargetTemp}°C while room temperature is {$roomTemp}°C");
+            createAlert($pdo, 'HEAT_WARNING', 'Heat warning', $roomName, "Radiator is set to {$radiatorTargetTemp}°C while room temperature is {$roomTemp}°C", $radiatorEntityId);
         }
 
 
         /*Window open for 5 minutes and the radiator temp is higher 5 than the outside temperature*/
         if ($windowOpen && $windowOpenMinutes >= 5 && $radiatorTargetTemp !== null && $outsideTemp != null && $radiatorTargetTemp >= ($outsideTemp + 5)) 
         {
-            createAlert($pdo, 'WINDOW_OPEN_HEATING', 'Open window while heating', $roomName, "Window has been open for ". round($windowOpenMinutes) ." minutes. Radiator: ". $radiatorTargetTemp ."°C. Outdoor: ". $outsideTemp ."°C");
+            createAlert($pdo, 'WINDOW_OPEN_HEATING', 'Open window while heating', $roomName, "Window has been open for ". round($windowOpenMinutes) ." minutes. Radiator: ". $radiatorTargetTemp ."°C. Outdoor: ". $outsideTemp ."°C", $radiatorEntityId);
         }
     }
 
-    function createAlert(PDO $pdo, string $ruleType, string $title, string $room, string $reason): void {
+    function createAlert(PDO $pdo, string $ruleType, string $title, string $room, string $reason, ?string $entityId): void {
         
-        $stmt = $pdo->prepare("SELECT id FROM alerts WHERE rule_type = ? AND room_name = ? AND status IN ('ACTIVE', 'ACKNOWLEDGED') LIMIT 1");
+        $stmt = $pdo->prepare("SELECT id FROM alerts WHERE rule_type = ? AND entity_id = ? AND (status IN ('ACTIVE', 'ACKNOWLEDGED') OR (status IN ('DISMISSED', 'RESOLVED') AND updated_at >= DATE_SUB(NOW(), INTERVAL 35 MINUTE)))LIMIT 1");
 
-        $stmt->execute([$ruleType, $room]);
+        $stmt->execute([$ruleType, $entityId]);
 
         if ($stmt->fetchColumn() !== false) {
         return;
         }
 
-        $stmt = $pdo->prepare("INSERT INTO alerts (rule_type, title, room_name, reason, status) VALUES (?, ?, ?, ?, 'ACTIVE')");
+        $stmt = $pdo->prepare("INSERT INTO alerts (rule_type, title, room_name, reason, entity_id, status) VALUES (?, ?, ?, ?, ?, 'ACTIVE')");
         
-        $stmt->execute([$ruleType, $title, $room, $reason]);
+        $stmt->execute([$ruleType, $title, $room, $reason, $entityId]);
 
     }
 
-    $stmt = $pdo->query("SELECT id, rule_type, room_name AS room, title, reason, status, created_at AS time
+    $stmt = $pdo->query("SELECT id, rule_type, entity_id, room_name AS room, title, reason, status, created_at AS time
         FROM alerts
         WHERE created_at >= DATE_SUB(NOW(), INTERVAL 7 DAY)
         ORDER BY created_at DESC");

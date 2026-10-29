@@ -17,8 +17,8 @@ function renderAlerts(alerts) {
             <div class="timeline-item">
                 <h4>${alert.title}</h4>
                 <p>${alert.room}</p>
-                <p>${alert.reason}</p>
                 <p>Status: ${alert.status}</p>
+                <p>${alert.reason}</p>
                 <small>${alert.time}</small>
 
                 ${alert.status === 'ACTIVE' || alert.status === 'ACKNOWLEDGED' ? `
