@@ -3,6 +3,8 @@ const pageTitle = document.getElementById("page-title");
 const buttons = document.querySelectorAll(".room-btn");
 const pageContent = document.getElementById("page-content");
 
+let sensorOptions = {};
+
 
 
 function loadPage(page, params = {}, title = page) {
@@ -19,7 +21,7 @@ function loadPage(page, params = {}, title = page) {
     if (searchResults) {
         searchResults.innerHTML = '';
     }
-   
+
     const query = new URLSearchParams(params);
     const queryString = query.toString();
     const url = `pages/${page}.php${queryString ? "?" + queryString : ""}`;
@@ -35,14 +37,14 @@ function loadPage(page, params = {}, title = page) {
                 pageTitle.textContent = roomName.textContent;
             }
             
-            if(page=== "Data"){
+            if(page=== "History"){
                 initHistoryPage()
             }
 
             if (page === "Alert") {
                 initAlertsPage();
             }
-            
+
             if (page === "Settings") {
                 document.getElementById("settingsStatusMessage").style.backgroundColor = "transparent";
                 document.getElementById("deviceSearchContainer").style.display = "none";
@@ -113,44 +115,52 @@ function initHistoryPage() {
         const timeline = document.querySelector(".timeline");
 
         if(searchInput){
-            searchInput.placeholder = "Filter history";
+            searchInput.placeholder = "Filter User log";
         }
         timeline.innerHTML = "";
 
         fetch("pages/gethistory.php")
-        .then(res => res.json())
-        .then(rows =>{
-            rows.forEach(row=> {
-                const item=document.createElement("div");
-                item.classList.add("timeline-item");
+            .then(res => res.json())
+            .then(rows => {
+                rows.forEach(row => {
+                    const item = document.createElement("div");
+                    item.classList.add("timeline-item");
 
-                item.innerHTML =`
+                    item.innerHTML = `
                     <div class="timeline-time">${row.time}</div>
                     <div class ="timeline-message">${row.message}</div>
                 `;
-                timeline.appendChild(item)
+                    timeline.appendChild(item)
+                });
+
             });
-   
-        });
 
         btnHistory.classList.add("active");
         btnStats.classList.remove("active");
-       
+
     }
 
-    function renderStats() {
+    async function renderStats() {
         document.getElementById("historyView").style.display="none";
         document.getElementById("statsView").style.display ="block";
         const timeline = document.querySelector(".timeline");
         const searchInput= document.getElementById("deviceSearch");
+        const container = document.getElementById("statsView");
         if(searchInput){
             searchInput.placeholder = "Filter Statistics";
         }
         btnStats.classList.add("active");
         btnHistory.classList.remove("active");
-       
 
-        drawTempChart(); // ← ritar grafen
+        if (!container.dataset.loaded) {
+            const html = await fetch("pages/Statistics_View.php").then(res => res.text());
+
+            container.innerHTML = html;
+
+            container.dataset.loaded = "true";
+
+            initStatistics(); // ← ritar grafen
+        }; 
     }
 
     // Startläge
@@ -162,50 +172,7 @@ function initHistoryPage() {
 
 }
 
-function drawTempChart() {
-    const ctx = document.getElementById("tempChart");
 
-    new Chart(ctx, {
-        type: "line",
-        data: {
-            labels: ["08:00", "10:00", "12:00", "14:00","17:00", "19:00"],
-            datasets: [{
-                label: "Temperatur (°C)",
-                data: [21, 22, 23, 22, 25, 10],
-                borderColor: " #76949F",
-                backgroundColor: " #76949F",
-                borderWidth: 2,
-                tension: 0.3 // gör linjen mjuk
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-                x:{
-                    grid:{
-                        color: "grey",
-                        lineWidth:0.5
-                    },
-                    ticks: {
-                        color: "white",
-                    }
-                },
-    
-                y: {
-                    beginAtZero: false,
-                    grid: {
-                        color:"grey",
-                        lineWidth:0.5
-                    },
-                    ticks:{
-                        color: "white"
-                    }
-                }
-            }
-        }
-    });
-}
 
 /*** Settings page ***/
 function initSettingsPage() {
@@ -242,29 +209,29 @@ function initSettingsPage() {
         pageUsername.style.display = "none";
         pageAdmin.style.display = "block";
 
-        // Get users for drop down
-        getUsersDropdown();
+        // List all users and devices
         populateUserList();
-    }); 
+        populateDeviceList();
+    });
 
     // Change username form button
-    changeNameForm.addEventListener("submit", function(e) {
+    changeNameForm.addEventListener("submit", function (e) {
         e.preventDefault();
         sendChangeName();
         changeNameForm.reset();
-        contentArea.scrollTo({top: 0, behavior: "smooth"});
+        contentArea.scrollTo({ top: 0, behavior: "smooth" });
     });
 
     // Change password form button
-    changePasswordForm.addEventListener("submit", function(e) {
+    changePasswordForm.addEventListener("submit", function (e) {
         e.preventDefault();
         sendChangePassword();
         changePasswordForm.reset();
-        contentArea.scrollTo({top: 0, behavior: "smooth"});
+        contentArea.scrollTo({ top: 0, behavior: "smooth" });
     });
 
     // No special characters in usernames
-    newUserName.addEventListener("input", function(e) {
+    newUserName.addEventListener("input", function (e) {
         const nameRegex = /[&"'<>]/;
         if (newUserName.value.match(nameRegex)) {
             statusMessage.style.backgroundColor = errorColor;
@@ -276,7 +243,7 @@ function initSettingsPage() {
     });
 
     // Check password requirements
-    newPassword.addEventListener("blur", function(e) {
+    newPassword.addEventListener("blur", function (e) {
         if (newPassword.value.length > 0) {
             if (newPassword.value.length < 8) {
                 statusMessage.style.backgroundColor = errorColor;
@@ -301,7 +268,7 @@ function initSettingsPage() {
     });
 
     // Password confirm check
-    confirmPassword.addEventListener("blur", function(e) {
+    confirmPassword.addEventListener("blur", function (e) {
         if (confirmPassword.value.length > 0) {
             if (confirmPassword.value !== newPassword.value) {
                 statusMessage.style.backgroundColor = errorColor;
@@ -315,7 +282,7 @@ function initSettingsPage() {
             statusMessage.innerText = "";
         }
     });
-    
+
 
     getCookieUsername();
 }
@@ -357,7 +324,7 @@ async function sendChangeName() {
             statusMessage.innerText = "Error: faulty input";
         } else if (response.status == 500) {
             statusMessage.style.backgroundColor = errorColor;
-            statusMessage.innerText = "Error: server error";   
+            statusMessage.innerText = "Error: server error";
         } else {
             document.getElementById("pageUsername").innerText = "Username: " + formData.get("newUserName");
             document.getElementById("userNameHeading").innerText = formData.get("newUserName");
@@ -398,49 +365,297 @@ async function sendChangePassword() {
         }
     } catch (e) {
         console.log(e);
-    }    
+    }
 }
 /*** Admin stuff ***/
 
-// TODO
-function getUsersDropdown() {
-    const dropdown = document.getElementById("selectUser");
-    const opt1 = document.createElement("option");
-    const opt2 = document.createElement("option");
-    const opt3 = document.createElement("option");
-    const opt4 = document.createElement("option");
-
-    opt1.text = "Anna" + ": " + "anna@gmail.com";
-    opt2.text = "Stina" + ": " + "stina@gmail.com";
-    opt3.text = "Hanna" + ": " + "hanna@gmail.com";
-    opt4.text = "Lina" + ": " + "lina@gmail.com";
-
-    dropdown.add(opt1);
-    dropdown.add(opt2);
-    dropdown.add(opt3);
-    dropdown.add(opt4);
-}
-
-// TODO get all users
+// Populate user list
 async function populateUserList() {
     try {
-        const response = await fetch("getUsers.php");
+        const response = await fetch("get_users_list.php");
+
+        const data = await response.json();
+        if (!response.ok) {
+            throw new Error("HTTP: " + response.status);
+            console.log("response inte ok");
+        } else {
+
+            const deviceTable = document.getElementById("userTableBody");
+            data.forEach(element => {
+                const newRow = deviceTable.insertRow();
+                const cellID = newRow.insertCell(0);
+                const cellName = newRow.insertCell(1);
+                const cellLevel = newRow.insertCell(2);
+                const select = document.createElement("select");
+                select.id = element["userID"];
+                const options = ["Admin", "User"];
+                options.forEach((option) => {
+                    const selectOptions = document.createElement("option");
+                    selectOptions.value = option.toLowerCase();
+                    selectOptions.textContent = option;
+                    select.appendChild(selectOptions);
+                    if (element["permission_level"] == 1) {
+                        select.selectedIndex = 0;
+                    } else if (element["permission_level"] == 2) {
+                        select.selectedIndex = 1;
+                    }
+                })
+                cellID.innerText = element["userID"];
+                cellName.innerText = element["username"];
+                cellLevel.appendChild(select);
+            });
+
+            data.forEach(element => {
+                const row = document.createElement("li");
+                row.textContent = "User ID: " + element["userID"] + " Username: " + element["username"] + " Role: ";
+                if (element["permission_level"] == 1) {
+                    row.textContent += "Admin";
+                } else {
+                    row.textContent += "User";
+                }
+                userList.appendChild(row);
+            });
+        }
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+// Populate device list
+async function populateDeviceList() {
+    try {
+        const response = await fetch("get_devices_list.php");
 
         const data = await response.json();
         if (!response.ok) {
             throw new Error("HTTP: " + response.status);
         } else {
-            //const dropdown = document.getElementById("selectUser");
 
-            //console.log(JSON.response["username"]);
-            console.log(data);
-            console.log(data["username"]);
-            console.log(data["userID"]);
-            console.log(data["permission_level"]);
+            const deviceTable = document.getElementById("deviceTableBody");
+            data.forEach(element => {
+                const newRow = deviceTable.insertRow();
+                const cellID = newRow.insertCell(0);
+                const cellName = newRow.insertCell(1);
+                const cellLevel = newRow.insertCell(2);
+                const select = document.createElement("select");
+                select.id = element["device_id"];
+                const options = ["Admin", "User"];
+                options.forEach((option) => {
+                    const selectOptions = document.createElement("option");
+                    selectOptions.value = option.toLowerCase();
+                    selectOptions.textContent = option;
+                    select.appendChild(selectOptions);
+                    if (element["required_user_level"] == 1) {
+                        select.selectedIndex = 0;
+                    } else if (element["required_user_level"] == 2) {
+                        select.selectedIndex = 1;
+                    }
+                })
+                cellID.innerText = element["device_id"];
+                cellName.innerText = element["device_name"];
+                cellLevel.appendChild(select);
+            });
         }
-        
     } catch (e) {
         console.log(e);
     }
 }
 /******/
+
+//Statistik Funktioner
+
+let statsChart = null;
+
+function initStatistics(){
+
+    document.getElementById('statsType').addEventListener('change', handleFilterChange);
+
+    document.getElementById('statsRoom').addEventListener('change', handleFilterChange);
+
+    document.getElementById('statsPeriod').addEventListener('change', loadStatistics);
+
+    const statsData = document.getElementById('statsData');
+    sensorOptions = JSON.parse(statsData.dataset.options);
+
+    updateRoomList();
+
+    loadStatistics();
+}
+
+function updateRoomList() {
+
+    const type = document.getElementById("statsType").value;
+
+    const select = document.getElementById("statsRoom");
+
+    const currentRoom = select.value;
+
+    select.innerHTML =
+        '<option value="">All Areas</option>';
+
+    if (!sensorOptions[type]) {
+        return;
+    }
+
+    const rooms = [
+        ...new Set(sensorOptions[type].map(sensor => sensor.area_name).filter(Boolean))
+    ].sort();
+
+    rooms.forEach(room => {
+
+        const option =
+            document.createElement("option");
+
+        option.value = room;
+        option.textContent = room;
+
+        select.appendChild(option);
+    });
+
+    if (rooms.includes(currentRoom)) {
+        select.value = currentRoom;
+    } else {
+        select.value = "";
+    }
+}
+
+function handleFilterChange(){
+
+    updateRoomList();
+
+    loadStatistics();
+}
+
+async function loadStatistics(){
+
+    const type = document.getElementById('statsType').value;
+
+    const room = document.getElementById('statsRoom').value;
+
+    const period = document.getElementById('statsPeriod').value;
+
+    const params = new URLSearchParams();
+
+    params.append('class', type);
+    params.append('start', period);
+
+    if(room){
+        params.append('area', room);
+    }
+
+    try{
+        const response = await fetch(`statistics.php?${params}`);
+
+        const data = await response.json();
+
+        const units = [...new Set(data.datasets.map(ds => ds.unit))];
+        
+        document.getElementById("statsTitle").textContent = units.length === 1 ? `Temperature (${units[0]})` : 'Statistics';
+
+        renderChart(data);
+
+    }catch(error){
+        console.error('Failed to load statistics:', error);
+    }
+}
+
+function renderChart(data){
+    
+    const ctx = document.getElementById('statsChart');
+
+    if(statsChart){
+        statsChart.destroy();
+    }
+
+    const unit = data.datasets[0]?.unit ?? "";
+
+    const colors = [
+        "#4CAF50",
+        "#2196F3",
+        "#FF9800",
+        "#E91E63",
+        "#9C27B0",
+        "#00BCD4",
+        "#FFC107",
+        "#FF5722",
+        "#8BC34A",
+        "#3F51B5",
+        "#F44336",
+        "#009688",
+        "#CDDC39",
+        "#673AB7",
+        "#795548",
+        "#607D8B",
+        "#FF4081",
+        "#7C4DFF",
+        "#26A69A",
+        "#FFA726" 
+    ];
+
+    const datasets = data.datasets.map((dataset, index) => ({
+        ...dataset,
+        borderColor: colors[index % colors.length],
+        backgroundColor: colors[index % colors.length],
+        borderWidth: 2,
+        tension: 0.3
+    }));
+
+
+    statsChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: data.labels,
+            datasets: datasets
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            interaction: {
+                    mode: "index",
+                    intersect: false
+                },
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: "white"
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                const unit = context.dataset.unit || "";
+
+                                return `${context.dataset.label}: ${context.parsed.y} ${unit}`;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: {
+                            color: "grey",
+                            lineWidth: 0.5
+                        },
+                        ticks: {
+                            color: "white"
+                        }
+                    },
+                    y: {
+                        beginAtZero: false,
+                        grid: {
+                            color: "grey",
+                            lineWidth: 0.5
+                        },
+                        ticks: {
+                            color: "white",
+                            callback: function(value) {
+                                return `${value} ${unit}`;
+                            }
+                    }
+                    }
+                }
+            }
+        });
+
+
+}

@@ -94,7 +94,7 @@
         </div>
 
         <div class="container">
-            <header class="grid-box">
+            <header class="grid-box horizontalcontainer">
                 <div class="logo">
                     <h1>Smart Home<h1>
                     <h3 id="userNameHeading"></h3>
@@ -102,7 +102,7 @@
                 <div class="header-button">
                     <div class ="nav-bottom-btn-mobil">
                         <button class="room-btn" data-page="Devices"> Devices</button>
-                        <button class="room-btn" data-page="Data"> Data</button>
+                        <button class="room-btn" data-page="History"> History</button>
                         <button class="room-btn" data-page="Settings"> Settings</button>
                     </div>
                     <button class="room-btn" data-page="Alert"> Alerts</button>
@@ -118,12 +118,13 @@
                         <div id="search-results"></div>
                         <button type="submit" class="search-btn">Search</button>
                     </form>
-                    <button class="room-btn" data-page="Favorite"> Favorite</button>
-                  <div id="room-buttons"></div>
+                  <div id="room-buttons">
+                        <button class="room-btn" data-page="Favorite"> Favorite</button>
+                  </div>
                 </div>
             </nav>
 
-            <main  id="content-area" class="grid-box">
+            <main  id="content-area"class="grid-box">
                 <div class="top-side"> 
                     <h2 id="page-title"></h2>
                     <div class="search-container" id="deviceSearchContainer">
@@ -138,7 +139,7 @@
             </main>
             <nav class="nav-bottom grid-box">
                 <button class="room-btn" data-page="Devices"> Devices</button>
-                <button class="room-btn" data-page="History"> Data</button>
+                <button class="room-btn" data-page="History"> History</button>
                 <button class="room-btn" data-page="Settings"> Settings</button>
               
             </nav>

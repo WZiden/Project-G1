@@ -9,7 +9,7 @@
             "min_temp": 5,
             "max_temp": 30,
             "target_temp_step": 0.5,
-            "current_temperature": 24.6,
+            "current_temperature": 23.2,
             "temperature": 21,
             "hvac_action": "idle",
             "friendly_name": "Radiator",
@@ -17,7 +17,7 @@
         }
     },
     "sensor.pc1_energy": {
-        "state": "34.432",
+        "state": "34.844",
         "attributes": {
             "state_class": "total_increasing",
             "unit_of_measurement": "kWh",
@@ -26,7 +26,7 @@
         }
     },
     "sensor.illuminance_workstations": {
-        "state": "513",
+        "state": "294",
         "attributes": {
             "state_class": "measurement",
             "unit_of_measurement": "lx",
@@ -34,17 +34,8 @@
             "friendly_name": "Workstation light level"
         }
     },
-    "sensor.coffee_maker_energy": {
-        "state": "18.859",
-        "attributes": {
-            "state_class": "total_increasing",
-            "unit_of_measurement": "kWh",
-            "device_class": "energy",
-            "friendly_name": "Coffee maker Energy"
-        }
-    },
     "sensor.illuminance_lounge": {
-        "state": "401",
+        "state": "1002",
         "attributes": {
             "state_class": "measurement",
             "unit_of_measurement": "lx",
@@ -53,7 +44,7 @@
         }
     },
     "sensor.room_temperature": {
-        "state": "24.6",
+        "state": "23.2",
         "attributes": {
             "state_class": "measurement",
             "unit_of_measurement": "\u00b0C",
@@ -62,7 +53,7 @@
         }
     },
     "sensor.room_co2": {
-        "state": "548",
+        "state": "unavailable",
         "attributes": {
             "state_class": "measurement",
             "unit_of_measurement": "ppm",
@@ -71,7 +62,7 @@
         }
     },
     "sensor.room_noise": {
-        "state": "37",
+        "state": "35",
         "attributes": {
             "state_class": "measurement",
             "unit_of_measurement": "dB",
@@ -80,7 +71,7 @@
         }
     },
     "sensor.window_temperature": {
-        "state": "23.8",
+        "state": "22.4",
         "attributes": {
             "state_class": "measurement",
             "unit_of_measurement": "\u00b0C",
@@ -88,24 +79,8 @@
             "friendly_name": "Window climate Temperature"
         }
     },
-    "sensor.radiator_valve": {
-        "state": "0",
-        "attributes": {
-            "state_class": "measurement",
-            "unit_of_measurement": "%",
-            "icon": "mdi:radiator",
-            "friendly_name": "Radiator Valve"
-        }
-    },
-    "sensor.sim_clock": {
-        "state": "2026-10-26T14:52:20+00:00",
-        "attributes": {
-            "device_class": "timestamp",
-            "friendly_name": "Simulator Clock"
-        }
-    },
     "sensor.pc2_energy": {
-        "state": "18.887",
+        "state": "20.911",
         "attributes": {
             "state_class": "total_increasing",
             "unit_of_measurement": "kWh",
@@ -113,52 +88,8 @@
             "friendly_name": "PC 2 Energy"
         }
     },
-    "sensor.pc3_energy": {
-        "state": "15.422",
-        "attributes": {
-            "state_class": "total_increasing",
-            "unit_of_measurement": "kWh",
-            "device_class": "energy",
-            "friendly_name": "PC 3 Energy"
-        }
-    },
-    "sensor.window_humidity": {
-        "state": "44",
-        "attributes": {
-            "state_class": "measurement",
-            "unit_of_measurement": "%",
-            "device_class": "humidity",
-            "friendly_name": "Window climate Humidity"
-        }
-    },
-    "sensor.outdoor_temperature": {
-        "state": "10.7",
-        "attributes": {
-            "state_class": "measurement",
-            "unit_of_measurement": "\u00b0C",
-            "device_class": "temperature",
-            "friendly_name": "Outdoor Temperature"
-        }
-    },
-    "switch.coffee_maker": {
-        "state": "off",
-        "attributes": {
-            "device_class": "outlet",
-            "icon": "mdi:coffee-maker",
-            "friendly_name": "Coffee maker"
-        }
-    },
-    "sensor.coffee_maker_power": {
-        "state": "0",
-        "attributes": {
-            "state_class": "measurement",
-            "unit_of_measurement": "W",
-            "device_class": "power",
-            "friendly_name": "Coffee maker Power"
-        }
-    },
     "sensor.room_humidity": {
-        "state": "42",
+        "state": "46",
         "attributes": {
             "state_class": "measurement",
             "unit_of_measurement": "%",
@@ -166,97 +97,8 @@
             "friendly_name": "Room climate Humidity"
         }
     },
-    "camera.workstations_dome": {
-        "state": "idle",
-        "attributes": {
-            "access_token": "60cb4d7f4cd7fde3d0c70d5c32382bdde5e87b8a064149a5172508a873bd53b3",
-            "entity_picture": "\/api\/camera_proxy\/camera.workstations_dome?token=60cb4d7f4cd7fde3d0c70d5c32382bdde5e87b8a064149a5172508a873bd53b3",
-            "friendly_name": "Workstation dome camera",
-            "supported_features": 0
-        }
-    },
-    "camera.lounge_fisheye": {
-        "state": "idle",
-        "attributes": {
-            "access_token": "dad2e1c531c8e6c311d03be1f49a94d67a6f06dc8d740b257c4ae5b9e3686412",
-            "entity_picture": "\/api\/camera_proxy\/camera.lounge_fisheye?token=dad2e1c531c8e6c311d03be1f49a94d67a6f06dc8d740b257c4ae5b9e3686412",
-            "friendly_name": "Lounge fisheye camera",
-            "supported_features": 0
-        }
-    },
-    "camera.overview": {
-        "state": "idle",
-        "attributes": {
-            "access_token": "cab8e8281fee80c570859eceb3f658fd4f5f43058b384fbab9ef6ae6c2fdf28d",
-            "entity_picture": "\/api\/camera_proxy\/camera.overview?token=cab8e8281fee80c570859eceb3f658fd4f5f43058b384fbab9ef6ae6c2fdf28d",
-            "friendly_name": "Overview camera",
-            "supported_features": 0
-        }
-    },
-    "sensor.fridge_power": {
-        "state": "2",
-        "attributes": {
-            "state_class": "measurement",
-            "unit_of_measurement": "W",
-            "device_class": "power",
-            "friendly_name": "Fridge Power"
-        }
-    },
-    "sensor.solar_irradiance": {
-        "state": "10",
-        "attributes": {
-            "state_class": "measurement",
-            "unit_of_measurement": "W\/m\u00b2",
-            "device_class": "irradiance",
-            "friendly_name": "Outdoor Solar irradiance"
-        }
-    },
-    "sensor.outdoor_humidity": {
-        "state": "78",
-        "attributes": {
-            "state_class": "measurement",
-            "unit_of_measurement": "%",
-            "device_class": "humidity",
-            "friendly_name": "Outdoor Humidity"
-        }
-    },
-    "cover.curtain_1": {
-        "state": "open",
-        "attributes": {
-            "is_closed": false,
-            "current_position": 47,
-            "device_class": "curtain",
-            "friendly_name": "Curtain 1",
-            "supported_features": 15
-        }
-    },
-    "sensor.people_workstations": {
-        "state": "2",
-        "attributes": {
-            "state_class": "measurement",
-            "icon": "mdi:account-group",
-            "friendly_name": "Workstation dome camera People"
-        }
-    },
-    "sensor.pc4_energy": {
-        "state": "12.741",
-        "attributes": {
-            "state_class": "total_increasing",
-            "unit_of_measurement": "kWh",
-            "device_class": "energy",
-            "friendly_name": "PC 4 Energy"
-        }
-    },
-    "sensor.people_lounge": {
-        "state": "0",
-        "attributes": {
-            "state_class": "measurement",
-            "icon": "mdi:account-group",
-            "friendly_name": "Lounge fisheye camera People"
-        }
-    },
     "sensor.cloud_cover": {
-        "state": "98",
+        "state": "64",
         "attributes": {
             "state_class": "measurement",
             "unit_of_measurement": "%",
@@ -264,91 +106,44 @@
             "friendly_name": "Outdoor Cloud cover"
         }
     },
-    "cover.curtain_2": {
-        "state": "open",
+    "camera.workstations_dome": {
+        "state": "idle",
         "attributes": {
-            "is_closed": false,
-            "current_position": 65,
-            "device_class": "curtain",
-            "friendly_name": "Curtain 2",
-            "supported_features": 15
-        }
-    },
-    "lock.locker_1": {
-        "state": "unlocked",
-        "attributes": {
-            "friendly_name": "Locker cabinet Locker 1",
+            "access_token": "ab2722633f6985bbda0829b7b1de83cbaba46d6df1e90ebf4e32ae2103badf1f",
+            "entity_picture": "\/api\/camera_proxy\/camera.workstations_dome?token=ab2722633f6985bbda0829b7b1de83cbaba46d6df1e90ebf4e32ae2103badf1f",
+            "friendly_name": "Workstation dome camera",
             "supported_features": 0
         }
     },
-    "lock.locker_2": {
-        "state": "unlocked",
+    "camera.lounge_fisheye": {
+        "state": "idle",
         "attributes": {
-            "friendly_name": "Locker cabinet Locker 2",
+            "access_token": "1eff29a338efc1debff7707125256719a7bb647f5e1224564c97612da9891184",
+            "entity_picture": "\/api\/camera_proxy\/camera.lounge_fisheye?token=1eff29a338efc1debff7707125256719a7bb647f5e1224564c97612da9891184",
+            "friendly_name": "Lounge fisheye camera",
             "supported_features": 0
         }
     },
-    "binary_sensor.motion_workstations": {
-        "state": "off",
+    "camera.overview": {
+        "state": "idle",
         "attributes": {
-            "device_class": "motion",
-            "friendly_name": "Workstation motion"
+            "access_token": "a58c6caf2b983fccbfadcf91d94f3de0e28d505b62592debfbafff2df8dd1c50",
+            "entity_picture": "\/api\/camera_proxy\/camera.overview?token=a58c6caf2b983fccbfadcf91d94f3de0e28d505b62592debfbafff2df8dd1c50",
+            "friendly_name": "Overview camera",
+            "supported_features": 0
         }
     },
-    "light.rgb_pole_4": {
-        "state": "off",
-        "attributes": {
-            "supported_color_modes": [
-                "rgb"
-            ],
-            "color_mode": null,
-            "brightness": null,
-            "hs_color": null,
-            "rgb_color": null,
-            "xy_color": null,
-            "friendly_name": "RGB pole 4",
-            "supported_features": 40
-        }
-    },
-    "binary_sensor.motion_lounge": {
-        "state": "on",
-        "attributes": {
-            "device_class": "motion",
-            "friendly_name": "Lounge motion"
-        }
-    },
-    "binary_sensor.door_entrance": {
-        "state": "off",
-        "attributes": {
-            "device_class": "door",
-            "friendly_name": "Entrance door"
-        }
-    },
-    "binary_sensor.motion_entrance": {
-        "state": "off",
-        "attributes": {
-            "device_class": "motion",
-            "friendly_name": "Entrance motion"
-        }
-    },
-    "sensor.presence_lounge_targets": {
-        "state": "3",
+    "sensor.solar_irradiance": {
+        "state": "186",
         "attributes": {
             "state_class": "measurement",
-            "icon": "mdi:radar",
-            "friendly_name": "Lounge presence Targets"
-        }
-    },
-    "sensor.people_count": {
-        "state": "2",
-        "attributes": {
-            "state_class": "measurement",
-            "icon": "mdi:account-group",
-            "friendly_name": "Overview camera People"
+            "unit_of_measurement": "W\/m\u00b2",
+            "device_class": "irradiance",
+            "friendly_name": "Outdoor Solar irradiance"
         }
     },
     "sensor.weather_condition": {
-        "state": "cloudy",
+        "state": "partlycloudy",
         "attributes": {
             "options": [
                 "clear-night",
@@ -365,275 +160,70 @@
             "friendly_name": "Outdoor Condition"
         }
     },
-    "switch.video_wall": {
-        "state": "off",
-        "attributes": {
-            "device_class": "switch",
-            "icon": "mdi:monitor-multiple",
-            "friendly_name": "Video wall"
-        }
-    },
-    "sensor.video_wall_power": {
-        "state": "4",
+    "sensor.window_humidity": {
+        "state": "48",
         "attributes": {
             "state_class": "measurement",
-            "unit_of_measurement": "W",
-            "device_class": "power",
-            "friendly_name": "Video wall Power"
-        }
-    },
-    "sensor.sim_slot": {
-        "state": "lab (7)",
-        "attributes": {
-            "icon": "mdi:calendar-clock",
-            "friendly_name": "Simulator Current slot"
-        }
-    },
-    "sensor.presence_workstations_targets": {
-        "state": "2",
-        "attributes": {
-            "state_class": "measurement",
-            "icon": "mdi:radar",
-            "friendly_name": "Workstation presence Targets"
-        }
-    },
-    "binary_sensor.presence_lounge": {
-        "state": "on",
-        "attributes": {
-            "device_class": "occupancy",
-            "friendly_name": "Lounge presence"
-        }
-    },
-    "light.rgb_panel_northwest": {
-        "state": "on",
-        "attributes": {
-            "supported_color_modes": [
-                "rgb"
-            ],
-            "color_mode": "rgb",
-            "brightness": 255,
-            "hs_color": [
-                120,
-                37.255
-            ],
-            "rgb_color": [
-                160,
-                255,
-                160
-            ],
-            "xy_color": [
-                0.27,
-                0.476
-            ],
-            "friendly_name": "RGB panel north-west",
-            "supported_features": 40
-        }
-    },
-    "light.rgb_pole_1": {
-        "state": "on",
-        "attributes": {
-            "supported_color_modes": [
-                "rgb"
-            ],
-            "color_mode": "rgb",
-            "brightness": 255,
-            "hs_color": [
-                26.667,
-                52.941
-            ],
-            "rgb_color": [
-                255,
-                180,
-                120
-            ],
-            "xy_color": [
-                0.484,
-                0.378
-            ],
-            "friendly_name": "RGB pole 1",
-            "supported_features": 40
-        }
-    },
-    "light.rgb_pole_3": {
-        "state": "on",
-        "attributes": {
-            "supported_color_modes": [
-                "rgb"
-            ],
-            "color_mode": "rgb",
-            "brightness": 255,
-            "hs_color": [
-                26.667,
-                52.941
-            ],
-            "rgb_color": [
-                255,
-                180,
-                120
-            ],
-            "xy_color": [
-                0.484,
-                0.378
-            ],
-            "friendly_name": "RGB pole 3",
-            "supported_features": 40
-        }
-    },
-    "light.rgb_panel_south": {
-        "state": "on",
-        "attributes": {
-            "supported_color_modes": [
-                "rgb"
-            ],
-            "color_mode": "rgb",
-            "brightness": 255,
-            "hs_color": [
-                26.667,
-                52.941
-            ],
-            "rgb_color": [
-                255,
-                180,
-                120
-            ],
-            "xy_color": [
-                0.484,
-                0.378
-            ],
-            "friendly_name": "RGB panel south",
-            "supported_features": 40
-        }
-    },
-    "light.rgb_pole_2": {
-        "state": "on",
-        "attributes": {
-            "supported_color_modes": [
-                "rgb"
-            ],
-            "color_mode": "rgb",
-            "brightness": 255,
-            "hs_color": [
-                26.667,
-                52.941
-            ],
-            "rgb_color": [
-                255,
-                180,
-                120
-            ],
-            "xy_color": [
-                0.484,
-                0.378
-            ],
-            "friendly_name": "RGB pole 2",
-            "supported_features": 40
-        }
-    },
-    "light.rgb_panel_northeast": {
-        "state": "on",
-        "attributes": {
-            "supported_color_modes": [
-                "rgb"
-            ],
-            "color_mode": "rgb",
-            "brightness": 255,
-            "hs_color": [
-                26.667,
-                52.941
-            ],
-            "rgb_color": [
-                255,
-                180,
-                120
-            ],
-            "xy_color": [
-                0.484,
-                0.378
-            ],
-            "friendly_name": "RGB panel north-east",
-            "supported_features": 40
-        }
-    },
-    "sensor.pc3_power": {
-        "state": "90",
-        "attributes": {
-            "state_class": "measurement",
-            "unit_of_measurement": "W",
-            "device_class": "power",
-            "friendly_name": "PC 3 Power"
-        }
-    },
-    "binary_sensor.window_1": {
-        "state": "on",
-        "attributes": {
-            "device_class": "window",
-            "friendly_name": "Window 1"
-        }
-    },
-    "binary_sensor.window_2": {
-        "state": "on",
-        "attributes": {
-            "device_class": "window",
-            "friendly_name": "Window 2"
+            "unit_of_measurement": "%",
+            "device_class": "humidity",
+            "friendly_name": "Window climate Humidity"
         }
     },
     "light.ceiling_workstations": {
-        "state": "on",
+        "state": "off",
         "attributes": {
             "supported_color_modes": [
                 "brightness"
             ],
-            "color_mode": "brightness",
-            "brightness": 204,
+            "color_mode": null,
+            "brightness": null,
             "friendly_name": "Workstation ceiling lights",
             "supported_features": 40
         }
     },
-    "light.ceiling_lounge": {
-        "state": "on",
+    "sensor.outdoor_humidity": {
+        "state": "79",
         "attributes": {
-            "supported_color_modes": [
-                "brightness"
-            ],
-            "color_mode": "brightness",
-            "brightness": 204,
-            "friendly_name": "Lounge ceiling lights",
-            "supported_features": 40
+            "state_class": "measurement",
+            "unit_of_measurement": "%",
+            "device_class": "humidity",
+            "friendly_name": "Outdoor Humidity"
         }
     },
-    "light.ceiling_whiteboard": {
-        "state": "on",
+    "sensor.outdoor_temperature": {
+        "state": "12.3",
         "attributes": {
-            "supported_color_modes": [
-                "brightness"
-            ],
-            "color_mode": "brightness",
-            "brightness": 204,
-            "friendly_name": "Whiteboard ceiling light",
-            "supported_features": 40
+            "state_class": "measurement",
+            "unit_of_measurement": "\u00b0C",
+            "device_class": "temperature",
+            "friendly_name": "Outdoor Temperature"
         }
     },
-    "binary_sensor.presence_workstations": {
-        "state": "on",
+    "sensor.pc3_energy": {
+        "state": "15.625",
         "attributes": {
-            "device_class": "occupancy",
-            "friendly_name": "Workstation presence"
+            "state_class": "total_increasing",
+            "unit_of_measurement": "kWh",
+            "device_class": "energy",
+            "friendly_name": "PC 3 Energy"
         }
     },
-    "sensor.pc1_power": {
+    "sensor.fridge_power": {
         "state": "90",
         "attributes": {
             "state_class": "measurement",
             "unit_of_measurement": "W",
             "device_class": "power",
-            "friendly_name": "PC 1 Power"
+            "friendly_name": "Fridge Power"
         }
     },
-    "binary_sensor.fridge_door": {
-        "state": "off",
+    "sensor.pc4_energy": {
+        "state": "12.831",
         "attributes": {
-            "device_class": "door",
-            "friendly_name": "Fridge Door"
+            "state_class": "total_increasing",
+            "unit_of_measurement": "kWh",
+            "device_class": "energy",
+            "friendly_name": "PC 4 Energy"
         }
     }
 }

@@ -1,14 +1,9 @@
-*, *::before, *::after {
-    box-sizing: border-box;
-    margin: 0;         /* Bonus: Tar bort webbläsarens inbyggda marginaler */
-    padding: 0;        /* Bonus: Tar bort webbläsarens inbyggda padding */
-}
-
 :root{
     --background-color: rgb(207, 203, 198);
     --grid-color: #004346;
     --box-color: #004346;
     --button-color: #76949F;
+    --button-color-opaque: #76949F50;
     --text-color: white;
     --card-color: #76949F;
     --content-area-color: #004346;
@@ -22,17 +17,30 @@
     --spacing: 1rem;
 }
 
+* {
+    box-sizing: border-box;
+    margin: 0;         /* Bonus: Tar bort webbläsarens inbyggda marginaler */
+    padding: 0;        /* Bonus: Tar bort webbläsarens inbyggda padding */
+}
+
+html,
+body {
+    margin: 0;
+    min-height: 100%;
+}
+
 body{
     background-color: var(--background-color);
     font-family: Arial, Helvetica, sans-serif;
     padding:1em;
     max-height: 100%;
+    overflow:hidden;
 }
 
 .container{
     display: grid;
     grid-template-columns: 1fr 4fr;
-    grid-template-rows: auto auto 1fr;
+    grid-template-rows: auto 1fr;
     max-width: 100em;
     margin: 0 auto;
     width: 100%;
@@ -73,18 +81,14 @@ header{
 }
 
 .logo{
-    position: relative;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    flex-wrap: wrap;
-}
-
-#userNameHeading {
-    padding-left: 2rem;
 }
 
 #content-area {
     background-color: var(--content-area-color);
+    min-height: 0;
     max-height: 100%;
     overflow-y: auto;
     padding: 1rem;
@@ -109,7 +113,6 @@ header{
     width: 100%;
     max-width: 14rem;
     min-width: 0;
-    box-sizing: border-box;
     padding: 0.7em 1em;
     border: none;
     border-radius: var(--border-radius);
@@ -124,6 +127,7 @@ header{
     background-color: var(--box-color);
     border-radius: var(--border-radius);
     padding: 1rem;
+    min-height: 0;
     max-height: 100%;
     overflow-y: auto;
     
@@ -213,7 +217,6 @@ header{
 
 .search input {
     width: 100%;
-    box-sizing: border-box;
     padding: 0.6rem;
     border: none;
     border-radius: 0.5rem;
@@ -737,11 +740,16 @@ header{
     border-radius: 12px;
 }
 
-
 #settingsStatusMessage {
     height: 3rem;
     width: 50%;
     justify-self: center;
+}
+
+.chart-container{
+    position: relative;
+    height: 70vh;
+    width: 100%;
 }
 
 /*layout mobil */
@@ -823,7 +831,6 @@ header{
         padding: 0.2em 0.4em;
         font-size: 0.9rem;
         line-height: 1.2;
-        box-sizing: border-box;
     }
     #content-area .search input,
     #content-area .search button {
@@ -831,7 +838,6 @@ header{
         padding: 0.2em 0.4em;
         font-size: 0.9rem;
         line-height: 1.2;
-        box-sizing: border-box;
     }
 
     #content-area{
@@ -918,22 +924,6 @@ header{
     }
 
 }
-
-
-/*Försök till att få rutorna att täcka hela skärmen*/
-html,
-body {
-    margin: 0;
-    min-height: 100%;
-}
-body {
-    overflow:hidden;
-}
-#content-area {
-    min-height: 100vh;
-    box-sizing: border-box;
-}
-
 
 /* Login modal */
 .verticalContainer {
@@ -1191,5 +1181,52 @@ a:hover {
 }
 
 #room-buttons button {
+    width: 100%;
+}
+
+
+
+.tablecontainer {
+    max-height: 400px;
+    overflow-y: auto;
+    margin-top: var(--spacing);
+    border: 2px solid var(--button-color);
+    border-radius: var(--border-radius);
+    padding: 0 var(--spacing);
+}
+
+#deviceTable, #userTable {
+    width: 100%;
+}
+
+.tablecontainer caption {
+    font-size: x-large;
+    border-bottom: 2px solid var(--button-color);
+    position: sticky;
+    top: 0;
+    background-color: var(--box-color);
+    padding: var(--spacing);
+}
+
+.tablecontainer table, th, td {
+    border-color: var(--box-color);
+    border-collapse: collapse;
+}
+
+.tablecontainer th {
+    background-color: var(--box-color);
+    text-align: left;
+}
+
+.tablecontainer th, td {
+    margin: calc(var(--spacing) / 2);
+}
+
+.tablecontainer tr:nth-child(odd) {
+    background-color: var(--button-color-opaque);
+}
+
+.tablecontainer select {
+    padding: calc(var(--spacing) / 2);
     width: 100%;
 }
