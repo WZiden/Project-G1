@@ -236,12 +236,8 @@
         $response = curl_exec($ch);
 
         if (curl_errno($ch)) {
-            curl_close($ch);
-
             throw new RuntimeException(curl_error($ch));
         }
-
-        curl_close($ch);
 
         $data = json_decode($response, true);
 
