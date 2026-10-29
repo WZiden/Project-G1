@@ -179,8 +179,11 @@ document.addEventListener("input",function(event){
 });
 
 function filterItems(selector, searchText) {
+    const searchWords = searchText.split(" ").filter(word => word !== "");
     document.querySelectorAll(selector).forEach(item => {
         const text = item.textContent.toLowerCase();
-        item.style.display= text.includes(searchText) ? "":"none";
+        const match = searchWords.every(word => text.includes(word));
+
+        item.style.display= match ? "":"none";
     });
 }

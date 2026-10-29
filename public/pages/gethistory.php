@@ -9,13 +9,6 @@ if (!isset($_SESSION['userID'])) {
 require_once '../../src/connect_db.php';
 header('Content-Type: application/json');
 
-
-//kod för behörighetsnivå
-//if ($_SESSION['role'] !== 'admin') {
-//    http_response_code(403);
-//    echo json_encode(['error' => 'Access denied']);
-//    exit;
-//}
 $stmt =$pdo->prepare ("
 SELECT
    userlog.time,
@@ -41,7 +34,7 @@ foreach ($rows as &$row) {
         $row['message'] = "{$row['username']} try to change {$row['device_name']} without succes.";
     }
     else {
-        $row['message'] = "{$row['username']} change {$row['device_name']} from <b>{$row['oldValue']}</b> to <b>{$row['newValue']}</b> succesfully.";
+        $row['message'] = "{$row['username']} change {$row['device_name']} from {$row['oldValue']} to {$row['newValue']} succesfully.";
     }
 }
 echo json_encode($rows);

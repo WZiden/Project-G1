@@ -35,7 +35,7 @@ function loadPage(page, params = {}, title = page) {
                 pageTitle.textContent = roomName.textContent;
             }
             
-            if(page=== "Data"){
+            if(page=== "History"){
                 initHistoryPage()
             }
 
@@ -113,7 +113,7 @@ function initHistoryPage() {
         const timeline = document.querySelector(".timeline");
 
         if(searchInput){
-            searchInput.placeholder = "Filter history";
+            searchInput.placeholder = "Filter User log";
         }
         timeline.innerHTML = "";
 
