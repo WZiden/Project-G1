@@ -57,8 +57,8 @@
             <caption>Users</caption>
             <thead>
                 <tr>
-                    <th>ID</th>
                     <th>Name</th>
+                    <th>ID</th>
                     <th>Role</th>
                 </tr>
             </thead>
@@ -71,34 +71,13 @@
             <caption>Devices</caption>
             <thead>
                 <tr>
-                    <th>ID</th>
                     <th>Name</th>
+                    <th>ID</th>
                     <th>Required user level</th>
                 </tr>
             </thead>
             <tbody id="deviceTableBody"></tbody>
         </table>
     </section>
-
-
-    <!-- 
-    <form id="changeUserForm" class="pageForm">
-        <fieldset>
-            <legend>Manage users</legend>
-            <input type="hidden" name="type" value="changeUser">
-            <label for="newUserPassword">New password</label>
-            <div class="inputContainer">
-                <input type="password" placeholder="Enter a new password" id="newUserPassword" name="newUserPassword" required>
-                <span class="material-symbols-outlined">lock</span>
-            </div>
-            <label for="confirmUserPassword">Confirm new password</label>
-            <div class="inputContainer">
-                <input type="password" placeholder="Confirm the new password" id="confirmUserPassword" name="confirmUserPassword" required>
-                <span class="material-symbols-outlined">lock</span>
-            </div>
-            <button type="submit" class="login-btn">Confirm</button>        
-        </fieldset>
-    </form> 
--->
 
 </div>

@@ -26,7 +26,6 @@
 body{
     background-color: var(--background-color);
     font-family: Arial, Helvetica, sans-serif;
-    padding:0.5em;
     max-height: 100%;
 }
 .container {
@@ -87,6 +86,9 @@ header{
 }
 
 .logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     font-size: 0.8em;
 }
 
@@ -164,140 +166,6 @@ header{
 
 .scrollbar .room-btn {
     margin-right: 0.5rem;   /* skapar mellanrum mellan knapparna */
-}
-
-
-
-
-/*Data view */
-@media (min-width:1024px){
-    /* grid layout*/
-
-    .container{
-        display: grid;
-        grid-template-columns: 1fr 4fr;
-        grid-template-rows: auto 1fr;
-        max-width: 100em;
-        margin: 0 auto;
-        width: 100%;
-        gap: 1rem;
-        border-radius: 1rem;
-        height: 100vh;
-        color: var(--text-color);
-    }
-    header{
-        padding: 1.5rem;
-        height: auto;
-    
-    }
-    .logo{
-        position: relative;
-        display: block;
-        align-items: center;
-        flex-wrap: wrap;
-    }
-    
-    #content-area {
-    
-        height: 100%;
-        overflow-y: auto;
-        padding: 1rem;
-        gap:1rem;
-        grid-template-rows: auto 1fr;
-        display: grid;
-
-    }
-
-    .scrollbar {
-        display: flex;
-        flex-direction: column;   /* knappar i kolumn */
-        overflow-y: auto;         /* vertikal scroll */
-        overflow-x: hidden;       /* ingen hor-scroll */
-        white-space: normal;      /* tillåt radbrytning */
-        gap: 0.5rem;
-        padding: 0.5rem;
-        height: 100%;
-    }
-
-    /* grid buttons*/
-
-    .nav-bottom{
-        display: none;
-    }
-    .nav-bottom .room-btn{
-        display: none;
-    }
-    .header-button .nav-bottom-btn-mobil{
-        display: flex;
-        gap: var(--gapheaderbuttons) 
-    }
-    .header-button {
-        gap: var(--gapheaderbuttons) 
-    }
-    .room-btn, .login-btn, .search button{
-        overflow-wrap: break-word;
-        padding: 0.7em;
-        font-size: 1em;
-        cursor: pointer;
-    }
-    #userNameHeading {
-        padding-left: 2rem;
-    }
-
-  /*scrollbar search*/
-    .search {
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        margin-bottom: 1rem;
-        margin-top: 1rem;
-        gap: 0.3em;
-    }
-
-    .scrollbar .room-btn {
-        display: block;
-        width: 80%;
-        margin-left: auto;
-        margin-right: auto;
-        padding: 0.5rem;
-        margin-top: 1rem;
-    }
-
-    .search-container input{
-        width: 100%;
-        max-width: 14rem;
-        min-width: 0;
-        padding: 0.7em 1em;
-        border: none;
-        border-radius: var(--border-radius);
-        font-size: 1rem;
-    }
-    /*style history border*/
-    .timeline-item {
-        width:80%;
-    }
-
-    .device-card {
-        background-color: var(--card-color);
-        color: var(--text-color);
-        padding: 16px;
-        border: 1px solid #ddd;
-        border-radius: 12px;
-        display: grid;
-
-        grid-template-areas:
-            "title title"
-            "status status"
-            "details details"
-            "controls controls";
-        row-gap: 12px;
-        box-shadow: 0 2px 8px rgba(0,0,0,.08);
-    }
-    .device-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-        gap: 20px;
-    }
 }
 
 /*Search*/
@@ -781,10 +649,7 @@ header{
     height: auto;
     border-radius: 12px;
 }
-/* ska denna vara kvar?
-#settingsStatusMessage {
-    width: 100%;
-}*/
+
 #settingsStatusMessage {
     height: 3rem;
     width: 50%;
@@ -968,7 +833,7 @@ a:hover {
     margin-bottom: 1.5rem;
     padding: 1rem;
     border: 2px solid var(--button-color);   /* RAMEN */
-    border-radius: 0.5rem;       /* Rundade hörn */
+    border-radius: 0.5rem;       
     background: var( --grid-color); /* Lätt bakgrund */
     width:100%;
 }
@@ -1003,8 +868,6 @@ a:hover {
     width: 100% !important;
     height: 100% !important; /* ← Canvas fyller wrappern */
 }
-
-
 
 /*Alerts*/
 .alerts-page {
@@ -1083,3 +946,105 @@ a:hover {
     width: 100%;
 }
 
+@media (min-width:1024px){
+    /* grid layout*/
+
+    .container{
+        display: grid;
+        grid-template-columns: 1fr 4fr;
+        grid-template-rows: auto 1fr;
+     
+        margin: 0 auto;
+        width: 100%;
+        gap: 1rem;
+        border-radius: 1rem;
+        height: 100vh;
+        color: var(--text-color);
+    }
+    header{
+        padding: 1.5rem;
+        height: auto;
+    
+    }
+  
+    
+    #content-area {
+    
+        height: 100%;
+        overflow-y: auto;
+        padding: 1rem;
+        gap:1rem;
+        grid-template-rows: auto 1fr;
+        display: grid;
+
+    }
+
+    .scrollbar {
+        display: flex;
+        flex-direction: column;   /* knappar i kolumn */
+        overflow-y: auto;         /* vertikal scroll */
+        overflow-x: hidden;       /* ingen hor-scroll */
+        white-space: normal;      /* tillåt radbrytning */
+        gap: 0.5rem;
+        padding: 0.5rem;
+        height: 100%;
+    }
+
+    /* grid buttons*/
+
+    .nav-bottom{
+        display: none;
+    }
+    .nav-bottom .room-btn{
+        display: none;
+    }
+    .header-button .nav-bottom-btn-mobil{
+        display: flex;
+        gap: var(--gapheaderbuttons) 
+    }
+    .header-button {
+        gap: var(--gapheaderbuttons) 
+    }
+    .room-btn, .login-btn, .search button{
+        overflow-wrap: break-word;
+        padding: 0.7em;
+        font-size: 1em;
+        cursor: pointer;
+    }
+  
+
+  /*scrollbar search*/
+    .search {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin-bottom: 1rem;
+        margin-top: 1rem;
+        gap: 0.3em;
+    }
+
+    .scrollbar .room-btn {
+        display: block;
+        width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 0.5rem;
+        margin-top: 1rem;
+    }
+
+    .search-container input{
+        width: 100%;
+        max-width: 14rem;
+        min-width: 0;
+        padding: 0.7em 1em;
+        border: none;
+        border-radius: var(--border-radius);
+        font-size: 1rem;
+    }
+    /*style history border*/
+    .timeline-item {
+        width:75%;
+    }
+
+  
+}
