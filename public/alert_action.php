@@ -53,11 +53,47 @@
                 break;
 
             case 'RESOLVE':
-        /*
-        * Här kommer Home Assistant-logiken senare
-        */
-                $stmt = $pdo->prepare("UPDATE alerts SET status = 'RESOLVED' WHERE id = ?");
-                $stmt->execute([$alert_id]);
+
+                if(empty($alert['entity_id']))
+                {
+                    throw new Exception(
+                        'Alert has no entity id'
+                    );
+                }
+
+                $success = false;
+                $resolutionMessage = '';
+
+                switch ($alert['rule_type'])
+                {
+                    case 'EMPTY_ROOM_LIGHT':
+                        $success = controlDevice($alert['entity_id'], 'turn_off', $haURL, $haToken, []);
+                        $resolutionMessage = 'The light has been turned off.';
+                        break;
+
+                    case 'HEAT_WARNING':
+                        $success = controlDevice($alert['entity_id'], 'set_temperature', $haURL, $haToken, ['temperature' => 18]);
+                        $resolutionMessage = 'Radiator temperature was lowered to 18°C.';
+                        break;
+                    
+                    case 'WINDOW_OPEN_HEATING':
+                        $success = controlDevice($alert['entity_id'], 'set_hvac_mode', $haURL, $haToken, ['hvac_mode' => 'off']);
+                        $resolutionMessage = 'Radiator was turned off because the window is open.';
+                        break;
+                    
+                    default:
+                        throw new Exception(
+                            'Unsupported rule type'
+                        );
+                }
+
+                if(!$success)
+                {
+                    throw new Exception('Failed to resolve alert');
+                }
+
+                $stmt = $pdo->prepare("UPDATE alerts SET status = 'RESOLVED', reason = ? WHERE id = ?");
+                $stmt->execute([$resolutionMessage, $alert_id]);
                 break;
 
             default:
