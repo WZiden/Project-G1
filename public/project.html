@@ -147,7 +147,7 @@
     </div>
 <script>
     setInterval(() => {
-        fetch('/../update_db.php')
+        fetch('update_db.php')
         .then(response => response.text())
         .then(data => console.log(data))
         .catch(error => console.error(error));}, (60000 * 10));

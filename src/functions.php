@@ -236,12 +236,8 @@
         $response = curl_exec($ch);
 
         if (curl_errno($ch)) {
-            curl_close($ch);
-
             throw new RuntimeException(curl_error($ch));
         }
-
-        curl_close($ch);
 
         $data = json_decode($response, true);
 
@@ -1085,6 +1081,21 @@
             $success ? 1: 0
         ]);
 
+    }
+
+    // Update device required permission level
+    function changeDeviceLevel(PDO $pdo, string $deviceID, int $deviceLevel): bool
+    {
+            try {
+            $stmt = $pdo->prepare("
+            UPDATE devices 
+            SET required_user_level = ? 
+            WHERE device_id = ?");
+            $stmt->execute([$deviceLevel, $deviceID]);
+            return true;
+        } catch (Exception $e) {
+            return false;
+        }
     }
 
 

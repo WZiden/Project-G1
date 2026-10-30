@@ -20,31 +20,31 @@
                     autocomplete="on" required>
                 <span class="material-symbols-outlined">person</span>
             </div>
-            <button type="submit" class="login-btn">Change username</button>        
+            <button type="submit" class="login-btn">Change username</button>
         </fieldset>
     </form>
 
     <form id="changePasswordForm" class="pageForm">
         <fieldset>
-        <legend>Change your password</legend>
-        <p>The password must contain at least one lowercase letter (a-z), one uppercase letter (A-Z), one digit, and it must be at least 8 characters long.</p>
-        <input type="hidden" name="type" value="changePassword">
-        <label for="oldPassword">Your old password</label>
-        <div class="inputContainer">
-            <input type="password" placeholder="Enter your old password" id="oldPassword" name="oldPassword" required>
-            <span class="material-symbols-outlined">lock</span>
-        </div>
-        <label for="newPassword">Your new password</label>
-        <div class="inputContainer">
-            <input type="password" placeholder="Enter your new password" id="newPassword" name="newPassword" required>
-            <span class="material-symbols-outlined">lock</span>
-        </div>
-        <label for="confirmPassword">Confirm your new password</label>
-        <div class="inputContainer">
-            <input type="password" placeholder="Confirm your new password" id="confirmPassword" name="confirmPassword" required>
-            <span class="material-symbols-outlined">lock</span>
-        </div>
-        <button type="submit" class="login-btn">Change password</button>        
+            <legend>Change your password</legend>
+            <p>The password must contain at least one lowercase letter (a-z), one uppercase letter (A-Z), one digit, and it must be at least 8 characters long.</p>
+            <input type="hidden" name="type" value="changePassword">
+            <label for="oldPassword">Your old password</label>
+            <div class="inputContainer">
+                <input type="password" placeholder="Enter your old password" id="oldPassword" name="oldPassword" required>
+                <span class="material-symbols-outlined">lock</span>
+            </div>
+            <label for="newPassword">Your new password</label>
+            <div class="inputContainer">
+                <input type="password" placeholder="Enter your new password" id="newPassword" name="newPassword" required>
+                <span class="material-symbols-outlined">lock</span>
+            </div>
+            <label for="confirmPassword">Confirm your new password</label>
+            <div class="inputContainer">
+                <input type="password" placeholder="Confirm your new password" id="confirmPassword" name="confirmPassword" required>
+                <span class="material-symbols-outlined">lock</span>
+            </div>
+            <button type="submit" class="login-btn">Change password</button>
         </fieldset>
     </form>
 </div>
@@ -59,12 +59,12 @@
                 <tr>
                     <th>ID</th>
                     <th>Name</th>
-                    <th>Role</th>            
-                </tr>            
+                    <th>Role</th>
+                </tr>
             </thead>
             <tbody id="userTableBody"></tbody>
         </table>
-</section>
+    </section>
 
     <section class="tablecontainer">
         <table id="deviceTable">
@@ -73,15 +73,15 @@
                 <tr>
                     <th>ID</th>
                     <th>Name</th>
-                    <th>Required level</th>            
-                </tr>            
+                    <th>Required user level</th>
+                </tr>
             </thead>
             <tbody id="deviceTableBody"></tbody>
         </table>
     </section>
 
 
-<!-- 
+    <!-- 
     <form id="changeUserForm" class="pageForm">
         <fieldset>
             <legend>Manage users</legend>
