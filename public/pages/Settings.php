@@ -54,11 +54,14 @@
 
     <section class="tablecontainer">
         <table id="userTable">
-            <caption>Users</caption>
+            <caption id="userCaption">Users
+                <span id="userTableMini" class="material-symbols-outlined">unfold_less</span>
+                <span id="userTableMaxi" class="material-symbols-outlined">unfold_more</span>
+            </caption>
             <thead>
                 <tr>
-                    <th>ID</th>
                     <th>Name</th>
+                    <th>ID</th>
                     <th>Role</th>
                 </tr>
             </thead>
@@ -68,37 +71,19 @@
 
     <section class="tablecontainer">
         <table id="deviceTable">
-            <caption>Devices</caption>
+            <caption id="deviceCaption">Devices
+                <span id="deviceTableMini" class="material-symbols-outlined">unfold_less</span>
+                <span id="deviceTableMaxi" class="material-symbols-outlined">unfold_more</span>
+            </caption>
             <thead>
                 <tr>
-                    <th>ID</th>
                     <th>Name</th>
+                    <th>ID</th>
                     <th>Required user level</th>
                 </tr>
             </thead>
             <tbody id="deviceTableBody"></tbody>
         </table>
     </section>
-
-
-    <!-- 
-    <form id="changeUserForm" class="pageForm">
-        <fieldset>
-            <legend>Manage users</legend>
-            <input type="hidden" name="type" value="changeUser">
-            <label for="newUserPassword">New password</label>
-            <div class="inputContainer">
-                <input type="password" placeholder="Enter a new password" id="newUserPassword" name="newUserPassword" required>
-                <span class="material-symbols-outlined">lock</span>
-            </div>
-            <label for="confirmUserPassword">Confirm new password</label>
-            <div class="inputContainer">
-                <input type="password" placeholder="Confirm the new password" id="confirmUserPassword" name="confirmUserPassword" required>
-                <span class="material-symbols-outlined">lock</span>
-            </div>
-            <button type="submit" class="login-btn">Confirm</button>        
-        </fieldset>
-    </form> 
--->
 
 </div>

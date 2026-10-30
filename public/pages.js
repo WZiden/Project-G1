@@ -141,11 +141,9 @@ function initHistoryPage() {
         document.getElementById("historyView").style.display="none";
         document.getElementById("statsView").style.display ="block";
         const timeline = document.querySelector(".timeline");
-        const searchInput= document.getElementById("deviceSearch");
+       document.getElementById("deviceSearch").style.display ="none";
         const container = document.getElementById("statsView");
-        if(searchInput){
-            searchInput.placeholder = "Filter Statistics";
-        }
+      
         btnStats.classList.add("active");
         btnHistory.classList.remove("active");
 
@@ -172,6 +170,27 @@ function initHistoryPage() {
 
 
 /*** Settings page ***/
+
+function showErrorMessage (message) {
+    const statusMessage = document.getElementById("settingsStatusMessage");
+    const errorColor = getComputedStyle(document.querySelector(":root")).getPropertyValue("--red");
+    statusMessage.style.backgroundColor = errorColor;
+    statusMessage.innerText = message;
+}
+
+function showSuccessMessage (message) {
+    const statusMessage = document.getElementById("settingsStatusMessage");
+    const successColor = getComputedStyle(document.querySelector(":root")).getPropertyValue("--green");
+    statusMessage.style.backgroundColor = successColor;
+    statusMessage.innerText = message;
+}
+
+function clearErrorMessage (message) {
+    const statusMessage = document.getElementById("settingsStatusMessage");
+    statusMessage.style.backgroundColor = "transparent";
+    statusMessage.innerText = "";
+}
+
 function initSettingsPage() {
     const changeNameForm = document.getElementById("changeNameForm");
     const changePasswordForm = document.getElementById("changePasswordForm");
@@ -181,19 +200,23 @@ function initSettingsPage() {
     const adminView = document.getElementById("adminView");
     const pageUsername = document.getElementById("pageUsername");
     const pageAdmin = document.getElementById("pageAdmin");
-    const statusMessage = document.getElementById("settingsStatusMessage");
     const newUserName = document.getElementById("newUserName");
     const newPassword = document.getElementById("newPassword");
     const confirmPassword = document.getElementById("confirmPassword");
-    const errorColor = getComputedStyle(document.querySelector(":root")).getPropertyValue("--red");
+    const userCaption = document.getElementById("userCaption");
+    const deviceCaption = document.getElementById("deviceCaption");
    
-    const userTable = document.getElementById("userTableBody");
-    const deviceTable = document.getElementById("deviceTableBody");
     userSettingsButton.classList.add("active")
     adminSettingsButton.classList.remove("active")
     userView.style.display = "block";
     adminView.style.display = "none";
     pageAdmin.style.display = "none";
+    document.getElementById("userTableMaxi").style.display = "none";
+    document.getElementById("deviceTableMaxi").style.display = "none";
+
+    if (!checkAdmin()) {
+        adminSettingsButton.style.display = "none";
+    }
 
     // Settings view button
     userSettingsButton.addEventListener("click", function () {
@@ -241,11 +264,9 @@ function initSettingsPage() {
     newUserName.addEventListener("input", function (e) {
         const nameRegex = /[&"'<>]/;
         if (newUserName.value.match(nameRegex)) {
-            statusMessage.style.backgroundColor = errorColor;
-            statusMessage.innerText = "The name must not contain any special characters";
+            showErrorMessage("The name must not contain any special characters");
         } else {
-            statusMessage.style.backgroundColor = "transparent";
-            statusMessage.innerText = "";
+            clearErrorMessage();
         }
     });
 
@@ -253,24 +274,18 @@ function initSettingsPage() {
     newPassword.addEventListener("blur", function (e) {
         if (newPassword.value.length > 0) {
             if (newPassword.value.length < 8) {
-                statusMessage.style.backgroundColor = errorColor;
-                statusMessage.innerText = "The password must be at least 8 characters";
+                showErrorMessage("The password must be at least 8 characters");
             } else if (!newPassword.value.match(/[a-z]/)) {
-                statusMessage.style.backgroundColor = errorColor;
-                statusMessage.innerText = "The password must contain a lowercase letter";
-            } else if (!newPassword.value.match(/[A-A]/)) {
-                statusMessage.style.backgroundColor = errorColor;
-                statusMessage.innerText = "The password must contain an uppercase letter";
+                showErrorMessage("The password must contain a lowercase letter");
+            } else if (!newPassword.value.match(/[A-Z]/)) {
+                showErrorMessage("The password must contain an uppercase letter");
             } else if (!newPassword.value.match(/[0-9]/)) {
-                statusMessage.style.backgroundColor = errorColor;
-                statusMessage.innerText = "The password must contain a number";
+                showErrorMessage("The password must contain a number");
             } else {
-                statusMessage.style.backgroundColor = "transparent";
-                statusMessage.innerText = "";
+                clearErrorMessage();
             }
         } else {
-            statusMessage.style.backgroundColor = "transparent";
-            statusMessage.innerText = "";
+            clearErrorMessage();
         }
     });
 
@@ -278,37 +293,98 @@ function initSettingsPage() {
     confirmPassword.addEventListener("blur", function (e) {
         if (confirmPassword.value.length > 0) {
             if (confirmPassword.value !== newPassword.value) {
-                statusMessage.style.backgroundColor = errorColor;
-                statusMessage.innerText = "The passwords do not match";
+                showErrorMessage("The passwords do not match");
             } else {
-                statusMessage.style.backgroundColor = "transparent";
-                statusMessage.innerText = "";
+                clearErrorMessage();
             }
         } else {
-            statusMessage.style.backgroundColor = "transparent";
-            statusMessage.innerText = "";
+            clearErrorMessage();
         }
     });
 
-    userTable.addEventListener("change", function(e) {
-        changeLevel("User", e.target.id, e.target.value);
+    clearSelectListener = function(e) {
+        clearErrorMessage();
+    };
+
+    selectListener = function(e) {
+        clearErrorMessage();
+        const confirm = document.getElementById("confirm:" + e.target.id.substring(7));
+        confirm.value = e.target.value;
+        // TODO markera knappen på något sätt
+    };
+
+    deleteListener = function(e) {
+        clearErrorMessage();
+        if (confirm("Do you wish to delete user " + e.target.value + " (ID: " + e.target.id.substring(7) + ")?")) {
+            deleteUser(e.target.id.substring(7));
+        }
+
+    };
+    
+    confirmUserListener = function(e) {
+        clearErrorMessage();
+        if (e.target.value) {
+            changeLevel("User", e.target.id.substring(8), e.target.value);
+            e.target.value = "";
+        }
+    };
+
+    confirmDeviceListener = function(e) {
+        clearErrorMessage();
+        if (e.target.value) {
+            changeLevel("Device", e.target.id.substring(8), e.target.value);
+            e.target.value = "";
+        }
+    };
+
+    userCaption.addEventListener("click", function (e) {
+        const table = document.getElementById("userTableBody");
+        if (table.style.display == "") {
+            table.style.display = "none";
+            document.getElementById("userTableMini").style.display = "none";
+            document.getElementById("userTableMaxi").style.display = "inline";
+        } else {
+            table.style.display = "";
+            document.getElementById("userTableMini").style.display = "inline";
+            document.getElementById("userTableMaxi").style.display = "none";
+        }
     });
 
-/*     userTable.addEventListener("click", function(e) {
-        if (e.target.tagName == "BUTTON") {
-            console.log("Någon tryckte på knappen");
-            deleteUser(e.target.id);
+    deviceCaption.addEventListener("click", function (e) {
+        const table = document.getElementById("deviceTableBody");
+        if (table.style.display == "") {
+            table.style.display = "none";
+            document.getElementById("deviceTableMini").style.display = "none";
+            document.getElementById("deviceTableMaxi").style.display = "inline";
+        } else {
+            table.style.display = "";
+            document.getElementById("deviceTableMini").style.display = "inline";
+            document.getElementById("deviceTableMaxi").style.display = "none";
         }
-    }); */
-
-    deviceTable.addEventListener("change", function(e) {
-        changeLevel("Device", e.target.id, e.target.value);
     });
 
     getCookieUsername();
 }
 
 /*** User stuff ***/
+
+// Extract admin from cookie
+function checkAdmin() {
+    if (document.cookie.search("Admin=") != -1) {
+        let startPosition = document.cookie.search("Admin=") + 6;
+        let endposition = document.cookie.indexOf(";", startPosition);
+        let userName = "";
+        if (endposition == -1) {
+            userName = document.cookie.substring(startPosition);
+        } else {
+            userName = document.cookie.substring(startPosition, endposition);
+        }
+        if (userName == "yes") {
+            return true;
+        }        
+    }
+    return false;
+}
 
 // Extract username from cookie
 function getCookieUsername() {
@@ -329,10 +405,6 @@ async function sendChangeName() {
     // Assiciate the FormData object with the login form element
     const formData = new FormData(changeNameForm);
 
-    const statusMessage = document.getElementById("settingsStatusMessage");
-    const errorColor = getComputedStyle(document.querySelector(":root")).getPropertyValue("--red");
-    const successColor = getComputedStyle(document.querySelector(":root")).getPropertyValue("--green");
-
     try {
         // Send the FormData as an HTTP POST request using fetch()
         const response = await fetch("user_login_handler.php", {
@@ -341,24 +413,17 @@ async function sendChangeName() {
         });
 
         if (response.status == 400) {
-            statusMessage.style.backgroundColor = errorColor;
-            statusMessage.innerText = "Error: faulty input";
+            showErrorMessage("Error: faulty input");
         } else if (response.status == 500) {
-            statusMessage.style.backgroundColor = errorColor;
-            statusMessage.innerText = "Error: server error";
+            showErrorMessage("Error: server error");
         } else {
             document.getElementById("pageUsername").innerText = "Username: " + formData.get("newUserName");
             document.getElementById("userNameHeading").innerText = formData.get("newUserName");
-            statusMessage.style.backgroundColor = successColor;
-            statusMessage.innerText = "Username changed";
+            showSuccessMessage("Username changed");
         }
 
     } catch (e) {
-        // TODO felhantering
-        console.log("Error changing name");
-        statusMessage.style.backgroundColor = errorColor;
-        statusMessage.innerText = "Error trying to change name";
-        //console.log(e);
+        showErrorMessage("Error trying to change name");
     }
 }
 
@@ -366,10 +431,6 @@ async function sendChangePassword() {
     // Assiciate the FormData object with the login form element
     const formData = new FormData(changePasswordForm);
 
-    statusMessage = document.getElementById("settingsStatusMessage");
-    const errorColor = getComputedStyle(document.querySelector(":root")).getPropertyValue("--red");
-    const successColor = getComputedStyle(document.querySelector(":root")).getPropertyValue("--green");
-
     try {
         // Send the FormData as an HTTP POST request using fetch()
         const response = await fetch("user_login_handler.php", {
@@ -378,14 +439,12 @@ async function sendChangePassword() {
         });
 
         if (response.status == 400) {
-            statusMessage.style.backgroundColor = errorColor;
-            statusMessage.innerText = "Error: invalid user input";
+            showErrorMessage("Error: invalid user input");
         } else {
-            statusMessage.style.backgroundColor = successColor;
-            statusMessage.innerText = "Password changed";
+            clearErrorMessage();
         }
     } catch (e) {
-        console.log(e);
+        showErrorMessage("Error trying to change password");
     }
 }
 /*** Admin stuff ***/
@@ -398,19 +457,22 @@ async function populateUserList() {
         const data = await userList.json();
         if (!userList.ok) {
             throw new Error("HTTP: " + response.status);
-            console.log("userList inte ok");
         } else {
 
             const userTable = document.getElementById("userTableBody");
+            userTable.innerHTML = "";
             data.forEach(element => {
+                // Row
                 const newRow = userTable.insertRow();
-                const cellID = newRow.insertCell(0);
-                const cellName = newRow.insertCell(1);
+                const cellName = newRow.insertCell(0);
+                const cellID = newRow.insertCell(1);
                 const cellLevel = newRow.insertCell(2);
                 const cellDelete = newRow.insertCell(3);
+                const cellConfirm = newRow.insertCell(4);
+
                 // Select
                 const select = document.createElement("select");
-                select.id = element["userID"];
+                select.id = "select:" + element["userID"];
                 const options = ["Admin", "User"];
                 options.forEach((option) => {
                     const selectOptions = document.createElement("option");
@@ -423,20 +485,34 @@ async function populateUserList() {
                         select.selectedIndex = 1;
                     }
                 })
-/*                 // Button
-                const button = document.createElement("button");
-                button.textContent = "Delete user";
-                button.className = "deletebutton";
-                 */
+
+                // Buttons
+                const deleteButton = document.createElement("button");
+                deleteButton.id = "delete:" + element["userID"];
+                deleteButton.value = element["username"];
+                deleteButton.textContent = "Delete user";
+                deleteButton.className = "deletebutton";
+                const confirmUserButton = document.createElement("button");
+                confirmUserButton.id = "confirm:" + element["userID"];
+                confirmUserButton.textContent = "Confirm changes";
+                confirmUserButton.className = "confirmbutton";
+                
+                // Listeners
+                select.addEventListener("click", clearSelectListener);
+                select.addEventListener("change", selectListener);
+                deleteButton.addEventListener("click", deleteListener);
+                confirmUserButton.addEventListener("click", confirmUserListener);
+
                 // Populate row
-                cellID.innerText = element["userID"];
                 cellName.innerText = element["username"];
+                cellID.innerText = element["userID"];
                 cellLevel.appendChild(select);
-                //cellDelete.appendChild(button);
+                cellDelete.appendChild(deleteButton);
+                cellConfirm.appendChild(confirmUserButton);
             });
         }
     } catch (e) {
-        console.log(e);
+        console.log("Error populating user list");
     }
 }
 
@@ -451,13 +527,18 @@ async function populateDeviceList() {
         } else {
 
             const deviceTable = document.getElementById("deviceTableBody");
+            deviceTable.innerHTML = "";
             data.forEach(element => {
+                // Row
                 const newRow = deviceTable.insertRow();
-                const cellID = newRow.insertCell(0);
-                const cellName = newRow.insertCell(1);
+                const cellName = newRow.insertCell(0);
+                const cellID = newRow.insertCell(1);
                 const cellLevel = newRow.insertCell(2);
+                const cellConfirm = newRow.insertCell(3);
+
+                // Select
                 const select = document.createElement("select");
-                select.id = element["device_id"];
+                select.id = "select:" + element["device_id"];
                 const options = ["Admin", "User"];
                 options.forEach((option) => {
                     const selectOptions = document.createElement("option");
@@ -470,14 +551,33 @@ async function populateDeviceList() {
                         select.selectedIndex = 1;
                     }
                 })
-                cellID.innerText = element["device_id"];
+
+                // Button
+                const confirmDeviceButton = document.createElement("button");
+                confirmDeviceButton.id = "confirm:" + element["device_id"];
+                confirmDeviceButton.textContent = "Confirm changes";
+                confirmDeviceButton.className = "confirmbutton";
+                
+                // Listeners
+                select.addEventListener("click", clearSelectListener);
+                select.addEventListener("change", selectListener);
+                confirmDeviceButton.addEventListener("click", confirmDeviceListener);
+
+                // Populate row
                 cellName.innerText = element["device_name"];
+                cellID.innerText = element["device_id"];
                 cellLevel.appendChild(select);
+                cellConfirm.appendChild(confirmDeviceButton);
             });
         }
     } catch (e) {
-        console.log(e);
+        console.log("Error populating device list");
     }
+}
+
+
+async function markConfirmButton(typeID) {    
+
 }
 
 async function changeLevel(type, typeID, newLevel) {    
@@ -487,8 +587,18 @@ async function changeLevel(type, typeID, newLevel) {
         body: JSON.stringify({type: type, typeID: typeID, newLevel: newLevel}),
     });
 
-    if (!response.ok) {
-        console.log("Error changing level");
+    if (!response.ok && type == "User") {
+        populateUserList();
+        showErrorMessage("Error changing role");
+    } else if (!response.ok && type == "Device") {
+        populateDeviceList();
+        showErrorMessage("Error changing requred user level");
+    } else if (type == "User") {
+        populateUserList();
+        showSuccessMessage("Role changed");
+    } else if (type == "Device") {
+        populateDeviceList();
+        showSuccessMessage("Required user level changed");
     }
 }
 
@@ -500,7 +610,10 @@ async function deleteUser(userID) {
     });
 
     if (!response.ok) {
-        console.log("Error changing level");
+        showErrorMessage("Error deleting user");
+    } else {
+        populateUserList();
+        showSuccessMessage("User deleted");
     }
 }
 /******/

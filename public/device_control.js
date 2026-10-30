@@ -1,37 +1,61 @@
-async function callDeviceService(device, entityId, service, serviceData = {}){
-    const formData = new FormData();
+async function callDeviceService(device, entityId, service, serviceData = {}) {
 
-    formData.append('entity_id', entityId);
+    setDeviceStatus('Altering device...', 'loading');
 
-    formData.append('service', service);
+    try {
+        const formData = new FormData();
 
-    formData.append('service_data', JSON.stringify(serviceData));
+        formData.append('entity_id', entityId);
+        formData.append('service', service);
+        formData.append('service_data', JSON.stringify(serviceData));
+        formData.append('device', device);
 
-    formData.append('device', device);
-
-    const response = await fetch('device_control.php',
-        {
+        const response = await fetch('device_control.php', {
             method: 'POST',
             body: formData
         });
 
-    const result = await response.json();
+        const result = await response.json();
 
-    if(!response.ok || !result.success){
-        if(response.status === 403){
-            alert(result.message);
+        if (!response.ok || !result.success) {
+
+            if (response.status === 403) {
+                alert(result.message);
+            }
+
+            console.log({
+                status: response.status,
+                result: result
+            });
+
+            setDeviceStatus(result.message || 'Failed to alter device','error');
+
+            throw new Error(result.message || 'Something went wrong');
         }
 
-        console.log(
-{
-    status: response.status,
-    result: result
-});
+        setDeviceStatus('Device updated successfully', 'success');
 
-        throw new Error(result.message || 'Something went wrong');
+        return result;
+
+    } catch (error) {
+
+        setDeviceStatus(error.message, 'error');
+        throw error;
+
     }
+}
 
-    return result;
+function setDeviceStatus(message, type) {
+    const status = document.getElementById('deviceStatus');
+
+    status.textContent = message;
+    status.className = `device-status ${type}`;
+
+    if (type === 'success' || type === 'error') {
+        setTimeout(() => {
+            status.classList.add('hidden');
+        }, 3000);
+    }
 }
 
 document.addEventListener('submit', async function(event){
@@ -303,3 +327,4 @@ document.addEventListener('submit', async function(event){
         console.error(error);
     }
 });
+
