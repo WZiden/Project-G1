@@ -67,8 +67,29 @@
                 switch ($alert['rule_type'])
                 {
                     case 'EMPTY_ROOM_LIGHT':
-                        $success = controlDevice($alert['entity_id'], 'turn_off', $haURL, $haToken, []);
-                        $resolutionMessage = 'The light has been turned off.';
+                        $devices = json_decode(file_get_contents(__DIR__ . '/../cache/devices.json'), true);
+                        $success = true;
+
+                        foreach ($devices as $device)
+                        {
+                            if ($device['area_name'] !== $alert['room_name'])
+                            {
+                                continue;
+                            }
+
+                            foreach ($device['entities'] as $entity)
+                            {
+                                if (str_starts_with($entity['entity_id'], 'light.'))
+                                {
+                                    $result = controlDevice($entity['entity_id'], 'turn_off', $haURL, $haToken, []);
+                                    if (!$result)
+                                    {
+                                        $success = false;
+                                    }
+                                }
+                            }
+                        }
+                        $resolutionMessage = 'All lights in the room have been turned off.';
                         break;
 
                     case 'HEAT_WARNING':

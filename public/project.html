@@ -105,7 +105,14 @@
                         <button class="room-btn" data-page="History"> History</button>
                         <button class="room-btn" data-page="Settings"> Settings</button>
                     </div>
-                    <button class="room-btn" data-page="Alert"> Alerts</button>
+                    <!-- <button class="room-btn" data-page="Alert"> Alerts</button> -->
+                     <div class="alert-btn-container">
+                        <button id="alertBtn" class="room-btn" data-page="Alert">
+                            Alerts
+                         </button>
+                        <span id="alertIndicator" class="alert-indicator"></span>
+                    </div>
+
                     <button id="showLogout" class="login-btn" data-room="logout"> Logout</button> 
 
                 </div>
@@ -151,6 +158,21 @@
         .then(response => response.text())
         .then(data => console.log(data))
         .catch(error => console.error(error));}, (60000 * 10));
+    
+    fetch('get_alert.php')
+        .then(response => response.json())
+        .then(alerts => {
+            updateAlertIndicator(alerts);
+        })
+        .catch(error => console.error(error));
+    setInterval(() => {
+        fetch('get_alert.php')
+            .then(response => response.json())
+            .then(alerts => {
+                console.log(alerts);
+                updateAlertIndicator(alerts);
+        })
+        .catch(error => console.error(error));}, (60000 * 5));
 </script>
 </body>
 

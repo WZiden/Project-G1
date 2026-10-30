@@ -167,6 +167,68 @@ header{
 }
 
 
+/*Alerts*/ 
+.alerts-page {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.alerts-section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.alerts-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.alerts-list .timeline-item {
+    width: 100%;
+}
+
+.alert-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.alert-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.alert-actions {
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-top: 0.75rem;
+}
+
+.alert-actions .room-btn {
+    padding: 0.4rem;
+}
+
+.alert-btn-container {
+    position: relative;
+    display: inline-block;
+}
+
+.alert-indicator {
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    width: 14px;
+    height: 14px;
+    background-color: #C0392B;
+    border-radius: 50%;
+    display: none;
+}
 
 
 /*Data view */
@@ -297,6 +359,29 @@ header{
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
         gap: 20px;
+    }
+
+    /*alerts*/
+    .alerts-list .timeline-item{
+        display:flex;
+        justify-content:space-between;
+        align-items: stretch;
+    }
+    .alert-info{
+        flex:1;
+    }
+    .alert-side {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: flex-end;
+    }
+    .alert-actions{
+        margin-top: auto;
+    }    
+    .alert-indicator{
+        width: 18px;
+        height: 18px;
     }
 }
 
@@ -1003,40 +1088,6 @@ a:hover {
     width: 100% !important;
     height: 100% !important; /* ← Canvas fyller wrappern */
 }
-
-
-
-/*Alerts*/
-.alerts-page {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    color: var(--text-color);
-}
-
-.alerts-section {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-
-.alerts-list {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-
-.alerts-list .timeline-item {
-    background-color: var(--grid-color);
-    border: 2px solid var(--button-color);
-    border-radius: var(--border-radius);
-    padding: 1rem;
-}
-
-#alertsFeedback:empty {
-    display: none;
-}
-
 
 .tablecontainer {
     max-height: 400px;
