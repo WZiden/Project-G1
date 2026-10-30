@@ -226,7 +226,6 @@ function initSettingsPage() {
         adminView.style.display = "none";
         pageUsername.style.display = "block";
         pageAdmin.style.display = "none";
-     
        
     });
 
@@ -337,29 +336,25 @@ function initSettingsPage() {
         }
     };
 
+
+
     userCaption.addEventListener("click", function (e) {
-        const table = document.getElementById("userTableBody");
-        if (table.style.display == "") {
-            table.style.display = "none";
-            document.getElementById("userTableMini").style.display = "none";
-            document.getElementById("userTableMaxi").style.display = "inline";
-        } else {
-            table.style.display = "";
-            document.getElementById("userTableMini").style.display = "inline";
-            document.getElementById("userTableMaxi").style.display = "none";
+        userCaptionFunction();
+    });
+
+    userCaption.addEventListener("keydown", function (e) {
+        if (e.key === "Enter") {
+            userCaptionFunction();
         }
     });
 
     deviceCaption.addEventListener("click", function (e) {
-        const table = document.getElementById("deviceTableBody");
-        if (table.style.display == "") {
-            table.style.display = "none";
-            document.getElementById("deviceTableMini").style.display = "none";
-            document.getElementById("deviceTableMaxi").style.display = "inline";
-        } else {
-            table.style.display = "";
-            document.getElementById("deviceTableMini").style.display = "inline";
-            document.getElementById("deviceTableMaxi").style.display = "none";
+        deviceCaptionFunction();
+    });
+
+    deviceCaption.addEventListener("keydown", function (e) {
+        if (e.key === "Enter") {
+            deviceCaptionFunction();
         }
     });
 
@@ -614,6 +609,34 @@ async function deleteUser(userID) {
     } else {
         populateUserList();
         showSuccessMessage("User deleted");
+    }
+}
+
+// Expands/minimize User table
+function userCaptionFunction () {
+    const table = document.getElementById("userTableBody");
+    if (table.style.display == "") {
+        table.style.display = "none";
+        document.getElementById("userTableMini").style.display = "none";
+        document.getElementById("userTableMaxi").style.display = "inline";
+    } else {
+        table.style.display = "";
+        document.getElementById("userTableMini").style.display = "inline";
+        document.getElementById("userTableMaxi").style.display = "none";
+    }
+}
+
+// Expands/minimize Device table
+function deviceCaptionFunction () {
+    const table = document.getElementById("deviceTableBody");
+    if (table.style.display == "") {
+        table.style.display = "none";
+        document.getElementById("deviceTableMini").style.display = "none";
+        document.getElementById("deviceTableMaxi").style.display = "inline";
+    } else {
+        table.style.display = "";
+        document.getElementById("deviceTableMini").style.display = "inline";
+        document.getElementById("deviceTableMaxi").style.display = "none";
     }
 }
 /******/

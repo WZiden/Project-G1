@@ -652,8 +652,7 @@ header{
 
 #settingsStatusMessage {
     height: 3rem;
-    width: 50%;
-    justify-self: center;
+    width: 100%;
 }
 
 .chart-container{
@@ -1047,7 +1046,7 @@ caption span {
         font-size: 1rem;
     }
     /*style history border*/
-    .timeline-item, #userView {
+    .timeline-item {
         width:75%;
     }
 
@@ -1057,14 +1056,10 @@ caption span {
   
 }
 
-
 /* Large desktop */
 @media (min-width:1700px) {
-    #userView, .timeline-item {
-        width: 50%;
-    }
 
-    #adminView {
+    #adminView, #userView, #settingsStatusMessage {
         width:75%;
     }
 

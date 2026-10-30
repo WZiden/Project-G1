@@ -54,7 +54,7 @@
 
     <section class="tablecontainer">
         <table id="userTable">
-            <caption id="userCaption">Users
+            <caption id="userCaption" tabindex="0" role="button">Users
                 <span id="userTableMini" class="material-symbols-outlined">unfold_less</span>
                 <span id="userTableMaxi" class="material-symbols-outlined">unfold_more</span>
             </caption>
@@ -71,7 +71,7 @@
 
     <section class="tablecontainer">
         <table id="deviceTable">
-            <caption id="deviceCaption">Devices
+            <caption id="deviceCaption" tabindex="0" role="button">Devices
                 <span id="deviceTableMini" class="material-symbols-outlined">unfold_less</span>
                 <span id="deviceTableMaxi" class="material-symbols-outlined">unfold_more</span>
             </caption>
