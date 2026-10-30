@@ -141,11 +141,9 @@ function initHistoryPage() {
         document.getElementById("historyView").style.display="none";
         document.getElementById("statsView").style.display ="block";
         const timeline = document.querySelector(".timeline");
-        const searchInput= document.getElementById("deviceSearch");
+       document.getElementById("deviceSearch").style.display ="none";
         const container = document.getElementById("statsView");
-        if(searchInput){
-            searchInput.placeholder = "Filter Statistics";
-        }
+      
         btnStats.classList.add("active");
         btnHistory.classList.remove("active");
 

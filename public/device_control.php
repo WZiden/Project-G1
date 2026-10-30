@@ -28,7 +28,8 @@ if (!$entityId || !$service){
     exit;
 }
 //Get the old value before it changes
-$states= getHomeAssistantStates($haURL, $haToken);
+$states=json_decode(file_get_contents(__DIR__ . '/../cache/entity_states.json')true);
+
 $oldValue = extractOldValue($states, $entityId );
 
 if (getPermission($pdo, $userID, $deviceName)){

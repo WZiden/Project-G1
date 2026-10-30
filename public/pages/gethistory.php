@@ -33,6 +33,9 @@ foreach ($rows as &$row) {
     else if ($row['changeConfirmed'] ==0) {
         $row['message'] = "{$row['username']} try to change {$row['device_name']} without succes.";
     }
+    else if ($row['oldValue']=== 'off' &&$row['newValue']=== 'off' ||$row['oldValue']=== 'on' && $row['newValue']=== 'on') {
+        $row['message'] = "{$row['username']} change {$row['device_name']} succesfully.";
+    }
     else {
         $row['message'] = "{$row['username']} change {$row['device_name']} from {$row['oldValue']} to {$row['newValue']} succesfully.";
     }
