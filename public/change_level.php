@@ -19,6 +19,8 @@ if (isset($_SESSION["userID"]) && isAdmin($pdo, $_SESSION["userID"])) {
                 if (!$result) {
                     http_response_code(400);
                 }                
+            } else {
+                http_response_code(400);
             }
             break;
         case "Device":

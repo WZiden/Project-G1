@@ -27,7 +27,7 @@ registerusername.addEventListener("input", function (e) {
     if (registerusername.value.match(nameRegex)) {
         newErrorMessage("The name must not contain any special characters");
     } else {
-        clearErrorMessage();
+        clearLoginErrorMessage();
     }
 });
 
@@ -38,10 +38,10 @@ registeremail.addEventListener("blur", function (e) {
         if (!emailRegex.test(registeremail.value)) {
             newErrorMessage("Not a valid email format");
         } else {
-            clearErrorMessage();
+            clearLoginErrorMessage();
         }
     } else {
-        clearErrorMessage();
+        clearLoginErrorMessage();
     }
 });
 
@@ -57,10 +57,10 @@ registerpassword.addEventListener("blur", function (e) {
         } else if (!registerpassword.value.match(/[0-9]/)) {
             newErrorMessage("The password must contain a number");
         } else {
-            clearErrorMessage();
+            clearLoginErrorMessage();
         }
     } else {
-        clearErrorMessage();
+        clearLoginErrorMessage();
     }
 });
 
@@ -71,7 +71,7 @@ confirmpassword.addEventListener("blur", function(e) {
         if (confirmpassword != XXX) {
             newErrorMessage("The passwords do not match");
         } else {
-            clearErrorMessage();
+            clearLoginErrorMessage();
         }        
     }
 });
@@ -98,7 +98,7 @@ async function logOut() {
     }
 }
 
-function clearErrorMessage() {
+function clearLoginErrorMessage() {
     loginErrorMessage.innerText = "";
     registerErrorMessage.innerText = "";
     loginErrorMessage.style.display = "none";
@@ -134,7 +134,7 @@ loginLink.forEach(link => {
 registerLink.forEach(link => {
     link.addEventListener("click", function () {
         resetForms();
-        clearErrorMessage();
+        clearLoginErrorMessage();
         modalContentLogin.style.display = "none";
         modalContentRegister.style.display = "block";
     })
