@@ -241,7 +241,6 @@ header{
         display: grid;
         grid-template-columns: 1fr 4fr;
         grid-template-rows: auto 1fr;
-        max-width: 100em;
         margin: 0 auto;
         width: 100%;
         gap: 1rem;
@@ -253,12 +252,6 @@ header{
         padding: 1.5rem;
         height: auto;
     
-    }
-    .logo{
-        position: relative;
-        display: block;
-        align-items: center;
-        flex-wrap: wrap;
     }
     
     #content-area {
@@ -303,9 +296,6 @@ header{
         padding: 0.7em;
         font-size: 1em;
         cursor: pointer;
-    }
-    #userNameHeading {
-        padding-left: 2rem;
     }
 
   /*scrollbar search*/
