@@ -203,12 +203,16 @@ function initSettingsPage() {
     const newUserName = document.getElementById("newUserName");
     const newPassword = document.getElementById("newPassword");
     const confirmPassword = document.getElementById("confirmPassword");
+    const userCaption = document.getElementById("userCaption");
+    const deviceCaption = document.getElementById("deviceCaption");
    
     userSettingsButton.classList.add("active")
     adminSettingsButton.classList.remove("active")
     userView.style.display = "block";
     adminView.style.display = "none";
     pageAdmin.style.display = "none";
+    document.getElementById("userTableMaxi").style.display = "none";
+    document.getElementById("deviceTableMaxi").style.display = "none";
 
     if (!checkAdmin()) {
         adminSettingsButton.style.display = "none";
@@ -332,6 +336,32 @@ function initSettingsPage() {
             e.target.value = "";
         }
     };
+
+    userCaption.addEventListener("click", function (e) {
+        const table = document.getElementById("userTableBody");
+        if (table.style.display == "") {
+            table.style.display = "none";
+            document.getElementById("userTableMini").style.display = "none";
+            document.getElementById("userTableMaxi").style.display = "inline";
+        } else {
+            table.style.display = "";
+            document.getElementById("userTableMini").style.display = "inline";
+            document.getElementById("userTableMaxi").style.display = "none";
+        }
+    });
+
+    deviceCaption.addEventListener("click", function (e) {
+        const table = document.getElementById("deviceTableBody");
+        if (table.style.display == "") {
+            table.style.display = "none";
+            document.getElementById("deviceTableMini").style.display = "none";
+            document.getElementById("deviceTableMaxi").style.display = "inline";
+        } else {
+            table.style.display = "";
+            document.getElementById("deviceTableMini").style.display = "inline";
+            document.getElementById("deviceTableMaxi").style.display = "none";
+        }
+    });
 
     getCookieUsername();
 }

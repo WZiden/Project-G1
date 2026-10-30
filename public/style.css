@@ -902,7 +902,7 @@ a:hover {
 
 
 .tablecontainer {
-    max-height: 400px;
+    max-height: 300px;
     overflow-y: auto;
     margin-top: var(--spacing);
     border: 2px solid var(--button-color);
@@ -944,6 +944,11 @@ a:hover {
 .tablecontainer select {
     padding: calc(var(--spacing) / 2);
     width: 100%;
+}
+
+caption span {
+    position: absolute;
+    right: var(--spacing);
 }
 
 @media (min-width:1024px){
@@ -1042,9 +1047,28 @@ a:hover {
         font-size: 1rem;
     }
     /*style history border*/
-    .timeline-item {
+    .timeline-item, #userView {
         width:75%;
     }
 
+    .tablecontainer {
+        max-height: 500px;
+    }
   
+}
+
+
+/* Large desktop */
+@media (min-width:1700px) {
+    #userView, .timeline-item {
+        width: 50%;
+    }
+
+    #adminView {
+        width:75%;
+    }
+
+    .tablecontainer {
+        max-height: 800px;
+    }
 }
