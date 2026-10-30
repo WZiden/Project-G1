@@ -105,9 +105,6 @@ function initHistoryPage() {
 
     if (!btnHistory || !btnStats) return;
 
-
-
-
     function renderLog() {
         document.getElementById("historyView").style.display = "block";
         document.getElementById("statsView").style.display = "none";
@@ -189,28 +186,36 @@ function initSettingsPage() {
     const newPassword = document.getElementById("newPassword");
     const confirmPassword = document.getElementById("confirmPassword");
     const errorColor = getComputedStyle(document.querySelector(":root")).getPropertyValue("--red");
+   
     const userTable = document.getElementById("userTableBody");
     const deviceTable = document.getElementById("deviceTableBody");
-
+    userSettingsButton.classList.add("active")
+    adminSettingsButton.classList.remove("active")
     userView.style.display = "block";
     adminView.style.display = "none";
     pageAdmin.style.display = "none";
 
     // Settings view button
     userSettingsButton.addEventListener("click", function () {
+        userSettingsButton.classList.add("active")
+        adminSettingsButton.classList.remove("active")
         userView.style.display = "block";
         adminView.style.display = "none";
         pageUsername.style.display = "block";
         pageAdmin.style.display = "none";
+     
+       
     });
 
     // Admin view button
     adminSettingsButton.addEventListener("click", function () {
+        adminSettingsButton.classList.add("active")
+        userSettingsButton.classList.remove("active")
         userView.style.display = "none";
         adminView.style.display = "block";
         pageUsername.style.display = "none";
         pageAdmin.style.display = "block";
-
+     
         // List all users and devices
         populateUserList();
         populateDeviceList();
