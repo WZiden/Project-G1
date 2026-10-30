@@ -1,6 +1,19 @@
 <?php
 session_start();
 
+// Delete user
+function deleteUser(PDO $pdo, int $userID): bool
+{
+    try {
+        $stmt = $pdo->prepare("DELETE FROM users WHERE userID = ?");
+        $stmt->execute([$userID]);
+        return true;
+    } catch (Exception $e) {
+        return false;
+    }
+}
+
+
 // Update user permission level
 function changeUserLevel(PDO $pdo, int $userID, int $userLevel): bool
 {
@@ -155,6 +168,9 @@ function loginUser(PDO $pdo, string $email, string $password, string $remember =
                     $stmt->execute([$token, $savedUser["userID"]]);
                 }
                 setcookie("Username", $_SESSION["username"]);
+                if (isAdmin($pdo, $savedUser["userID"])) {
+                    setcookie("Admin", "yes");
+                }
 
                 return true;
             }
@@ -167,6 +183,8 @@ function loginUser(PDO $pdo, string $email, string $password, string $remember =
 function destroyCookie()
 {
     setcookie("SmartHome", "", time() - 60 * 10, "/");
+    setcookie("Username", "", time() - 60 * 10, "/");
+    setcookie("Admin", "", time() - 60 * 10, "/");
 }
 
 // Change username

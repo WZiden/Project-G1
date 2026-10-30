@@ -803,9 +803,11 @@
                     </div>
 
                 </div>                    
+                <div class='cover-controls' data-device-name='{$device}'>
                 <button type='button' class='cover-stop-button' data-entity='{$mainEntity['entity_id']}'>
                     STOP
-                </button>";
+                </button>
+                </div>";
 
         return $html;
     }
