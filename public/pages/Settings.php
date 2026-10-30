@@ -1,6 +1,6 @@
 <div class="history-mode-buttons">
-    <button id="userSettings">Settings</button>
-    <button id="adminSettings">Admin</button>
+    <button id="userSettings" data-mode="settings">Settings</button>
+    <button id="adminSettings" data-mode="admin">Admin</button>
 </div>
 
 <h3 id="pageUsername">Username: </h3>
