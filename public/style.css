@@ -324,6 +324,29 @@ header{
     justify-content: space-between;
     
 }
+
+.rgb-picker {
+    width: 2rem;
+    height: 2rem;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    background: none;
+    padding: 0;
+    box-shadow:
+        0 0 6px rgba(255,255,255,.3),
+        0 0 12px currentColor;
+}
+
+.rgb-picker::-webkit-color-swatch-wrapper {
+    padding: 0;
+}
+
+.rgb-picker::-webkit-color-swatch {
+    border: none;
+    border-radius: 50%;
+}
+
 .brightness-value{
     grid-column: 1 / -1;
     width: 100%;
@@ -510,6 +533,8 @@ header{
 .cover-controls{
     grid-column: 1 / -1;
     width: 100%;
+    display: flex;
+    align-items: center;
 }
 
 .cover-slider-container{
@@ -658,10 +683,55 @@ header{
 
 .chart-container{
     position: relative;
-    height: 70vh;
+    height: 60vh;
     width: 100%;
 }
 
+.device-status {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 10px 15px;
+    border-radius: 6px;
+    color: white;
+    font-weight: bold;
+    z-index: 1000;
+}
+
+.device-status.loading {
+    background: #f39c12;
+}
+
+.device-status.success {
+    background: #27ae60;
+}
+
+.device-status.error {
+    background: #e74c3c;
+}
+
+.hidden {
+    display: none;
+}
+
+.stats-filters{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+    gap: 2rem;
+}
+
+.stats-filters select{
+    background-color: var(--button-color);
+    border-radius: var(--border-radius);
+    border:none;
+    overflow-wrap: break-word;
+    padding: 0.2em;
+    font-size: 1em;
+    color: var(--text-color);
+    cursor: pointer;
+}
 
 /* Login modal */
 .verticalContainer {
@@ -1046,5 +1116,13 @@ a:hover {
         width:75%;
     }
 
-  
+    /*Better statistiks chart size*/
+
+    #statsChart {
+        height: 35rem;
+    }
+
+    .chart-container{
+        height: 70vh;
+    }  
 }
