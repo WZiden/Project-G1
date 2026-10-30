@@ -1006,39 +1006,39 @@
     //funktioner för userlog
     
     // då state innehåller hela raden så måste vi ta ut de vi är ute efter
-    function extractOldValue(array $states,string $entityId  ):mixed{
-        $state =null;
-
-        foreach($states as $item){
-            if ($item['entity_id'] === $entityId ){
-                $state=$item;
-                break;
-            }
-        }
-        if($state === null) {
+    function extractOldValue(array $states, string $entityId):mixed {
+        if (!isset($states[$entityId])) {
             throw new Exception("Entity not found: $entityId");
         }
 
-        $domain =explode ('.', $state ['entity_id'])[0];
+        $state = $states[$entityId];
+
+        $domain = explode('.', $entityId, 2)[0];
+
         switch ($domain) {
             case 'light':
-                if($state['state'] === 'on' || $state ['state'] === 'off'){
-                    return $state ['state'];
+                if ($state['state'] === 'on' || $state['state'] === 'off') {
+                    return $state['state'];
                 }
-                return $state['attributes']['brightness']??null;
+                return $state['attributes']['brightness'] ?? null;
+
             case 'switch':
                 return $state['state'];
+
             case 'climate':
-                return $state['attributes']['temperature']??null;
+                return $state['attributes']['temperature'] ?? null;
+
             case 'cover':
-                return $state['attributes']['current_position']??null;
+                return $state['attributes']['current_position'] ?? null;
+
             case 'lock':
-            return $state ['state'];
+                return $state['state'];
+
             default:
-                return $state ['state'];
+                return $state['state'];
         }
-        
     }
+
 
     function extractNewValue(string $entityId, string $service, array $serviceData ): mixed {
         $domain =explode ('.', $entityId)[0];

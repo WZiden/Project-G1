@@ -1,4 +1,14 @@
 <?php
+    session_start();
+
+    if (!isset($_SESSION['userID']))
+    {
+        http_response_code(401);
+
+        echo json_encode(['success' => false, 'message' => 'Not logged in']);
+        exit;
+    }
+    
     require_once __DIR__ . '/../src/functions.php';
     require_once __DIR__ . '/../src/connect_api.php';
     require_once __DIR__ . '/../src/connect_db.php';
@@ -6,6 +16,7 @@
     header('Content-Type: application/json');
 
     $devices = json_decode(file_get_contents(__DIR__ . '/../cache/devices.json'), true);
+    $states = json_decode(file_get_contents(__DIR__ . '/../cache/entity_states.json'), true);
 
     $alerts = [];
     $rooms = [];
@@ -19,9 +30,11 @@
             }
             foreach ($device['entities'] as $entity)
             {
-                if (($entity['attributes']['device_class'] ?? '') === 'temperature' && is_numeric($entity['state'] ?? null))
+                $entityId = $entity['entity_id'];
+
+                if (($entity['attributes']['device_class'] ?? '') === 'temperature' && is_numeric($states[$entityId]['state'] ?? null))
                 {
-                    $outsideTemp = (float)$entity['state'];
+                    $outsideTemp = (float)($states[$entityId]['state'] ?? 0);
                     break 2;
                 }
             }
@@ -49,8 +62,9 @@
             foreach ($device['entities'] as $entity)
             {
                 $entityId = $entity['entity_id'];
+                $currentState = $states[$entityId] ?? null;
 
-                if (str_starts_with($entityId, 'light.') && $entity['state'] === 'on') 
+                if (str_starts_with($entityId, 'light.') && ($states[$entityId]['state'] ?? '') === 'on') 
                 {
                     $lightOn = true;
                     $lightEntityId = $entityId;
@@ -60,24 +74,26 @@
                 {
                     $hasPeopleSensor = true;
 
-                    if ($entity['state'] === 'on')
+                    if (($states[$entityId]['state'] ?? '') === 'on')
                     {
                         $peopleDetected = true;
                     }
                 }
                 if (($entity['attributes']['device_class'] ?? '') === 'temperature')
                 {
-                    if (!str_contains(strtolower($device['device_name']), 'window'))
+                    $deviceName = strtolower($device['device_name']);
+
+                    if (!str_contains($deviceName, 'radiator') && !str_contains($deviceName, 'window'))
                     {
-                        $roomTemp = (float)$entity['state'];
+                        $roomTemp = (float)($states[$entityId]['state'] ?? 0);
                     }
                 }
                 if (str_starts_with($entity['entity_id'], 'climate.')) 
                 {
                     $radiatorEntityId = $entity['entity_id'];
-                    $radiatorTargetTemp = (float)$entity['attributes']['temperature'];
+                    $radiatorTargetTemp = (float)($states[$entityId]['attributes']['temperature'] ?? 0);
                 }
-                if(($entity['attributes']['device_class'] ?? '') === 'window' && $entity['state'] === 'on')
+                if(($entity['attributes']['device_class'] ?? '') === 'window' && ($states[$entityId]['state'] ?? '') === 'on')
                 {
                     $windowOpen = true;
                     $windowOpenedAt = strtotime($entity['last_changed']);
@@ -113,7 +129,6 @@
     }
 
     function createAlert(PDO $pdo, string $ruleType, string $title, string $room, string $reason, ?string $entityId): void {
-        
         $stmt = $pdo->prepare("SELECT id FROM alerts WHERE rule_type = ? AND entity_id = ? AND (status IN ('ACTIVE', 'ACKNOWLEDGED') OR (status IN ('DISMISSED', 'RESOLVED') AND updated_at >= DATE_SUB(NOW(), INTERVAL 35 MINUTE)))LIMIT 1");
 
         $stmt->execute([$ruleType, $entityId]);
