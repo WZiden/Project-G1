@@ -289,6 +289,13 @@ function initSettingsPage() {
         changeLevel("User", e.target.id, e.target.value);
     });
 
+/*     userTable.addEventListener("click", function(e) {
+        if (e.target.tagName == "BUTTON") {
+            console.log("Någon tryckte på knappen");
+            deleteUser(e.target.id);
+        }
+    }); */
+
     deviceTable.addEventListener("change", function(e) {
         changeLevel("Device", e.target.id, e.target.value);
     });
@@ -395,6 +402,8 @@ async function populateUserList() {
                 const cellID = newRow.insertCell(0);
                 const cellName = newRow.insertCell(1);
                 const cellLevel = newRow.insertCell(2);
+                const cellDelete = newRow.insertCell(3);
+                // Select
                 const select = document.createElement("select");
                 select.id = element["userID"];
                 const options = ["Admin", "User"];
@@ -409,9 +418,16 @@ async function populateUserList() {
                         select.selectedIndex = 1;
                     }
                 })
+/*                 // Button
+                const button = document.createElement("button");
+                button.textContent = "Delete user";
+                button.className = "deletebutton";
+                 */
+                // Populate row
                 cellID.innerText = element["userID"];
                 cellName.innerText = element["username"];
                 cellLevel.appendChild(select);
+                //cellDelete.appendChild(button);
             });
         }
     } catch (e) {
@@ -464,6 +480,18 @@ async function changeLevel(type, typeID, newLevel) {
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({type: type, typeID: typeID, newLevel: newLevel}),
+    });
+
+    if (!response.ok) {
+        console.log("Error changing level");
+    }
+}
+
+async function deleteUser(userID) {    
+    const response = await fetch("change_level.php", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({type: "Delete", typeID: userID}),
     });
 
     if (!response.ok) {
