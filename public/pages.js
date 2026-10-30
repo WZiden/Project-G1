@@ -105,9 +105,6 @@ function initHistoryPage() {
 
     if (!btnHistory || !btnStats) return;
 
-
-
-
     function renderLog() {
         document.getElementById("historyView").style.display = "block";
         document.getElementById("statsView").style.display = "none";
@@ -189,28 +186,36 @@ function initSettingsPage() {
     const newPassword = document.getElementById("newPassword");
     const confirmPassword = document.getElementById("confirmPassword");
     const errorColor = getComputedStyle(document.querySelector(":root")).getPropertyValue("--red");
+   
     const userTable = document.getElementById("userTableBody");
     const deviceTable = document.getElementById("deviceTableBody");
-
+    userSettingsButton.classList.add("active")
+    adminSettingsButton.classList.remove("active")
     userView.style.display = "block";
     adminView.style.display = "none";
     pageAdmin.style.display = "none";
 
     // Settings view button
     userSettingsButton.addEventListener("click", function () {
+        userSettingsButton.classList.add("active")
+        adminSettingsButton.classList.remove("active")
         userView.style.display = "block";
         adminView.style.display = "none";
         pageUsername.style.display = "block";
         pageAdmin.style.display = "none";
+     
+       
     });
 
     // Admin view button
     adminSettingsButton.addEventListener("click", function () {
+        adminSettingsButton.classList.add("active")
+        userSettingsButton.classList.remove("active")
         userView.style.display = "none";
         adminView.style.display = "block";
         pageUsername.style.display = "none";
         pageAdmin.style.display = "block";
-
+     
         // List all users and devices
         populateUserList();
         populateDeviceList();
@@ -288,6 +293,13 @@ function initSettingsPage() {
     userTable.addEventListener("change", function(e) {
         changeLevel("User", e.target.id, e.target.value);
     });
+
+/*     userTable.addEventListener("click", function(e) {
+        if (e.target.tagName == "BUTTON") {
+            console.log("Någon tryckte på knappen");
+            deleteUser(e.target.id);
+        }
+    }); */
 
     deviceTable.addEventListener("change", function(e) {
         changeLevel("Device", e.target.id, e.target.value);
@@ -395,6 +407,8 @@ async function populateUserList() {
                 const cellID = newRow.insertCell(0);
                 const cellName = newRow.insertCell(1);
                 const cellLevel = newRow.insertCell(2);
+                const cellDelete = newRow.insertCell(3);
+                // Select
                 const select = document.createElement("select");
                 select.id = element["userID"];
                 const options = ["Admin", "User"];
@@ -409,9 +423,16 @@ async function populateUserList() {
                         select.selectedIndex = 1;
                     }
                 })
+/*                 // Button
+                const button = document.createElement("button");
+                button.textContent = "Delete user";
+                button.className = "deletebutton";
+                 */
+                // Populate row
                 cellID.innerText = element["userID"];
                 cellName.innerText = element["username"];
                 cellLevel.appendChild(select);
+                //cellDelete.appendChild(button);
             });
         }
     } catch (e) {
@@ -464,6 +485,18 @@ async function changeLevel(type, typeID, newLevel) {
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({type: type, typeID: typeID, newLevel: newLevel}),
+    });
+
+    if (!response.ok) {
+        console.log("Error changing level");
+    }
+}
+
+async function deleteUser(userID) {    
+    const response = await fetch("change_level.php", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({type: "Delete", typeID: userID}),
     });
 
     if (!response.ok) {
