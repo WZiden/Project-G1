@@ -177,7 +177,6 @@ header{
         display: grid;
         grid-template-columns: 1fr 4fr;
         grid-template-rows: auto 1fr;
-        max-width: 100em;
         margin: 0 auto;
         width: 100%;
         gap: 1rem;
@@ -297,6 +296,13 @@ header{
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
         gap: 20px;
+    }
+}
+
+/* Large desktop */
+@media (min-width:1536px) {
+    #userView, #adminView, #alertsList {
+        width: 50%;
     }
 }
 
@@ -781,10 +787,7 @@ header{
     height: auto;
     border-radius: 12px;
 }
-/* ska denna vara kvar?
-#settingsStatusMessage {
-    width: 100%;
-}*/
+
 #settingsStatusMessage {
     height: 3rem;
     width: 50%;
