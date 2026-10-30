@@ -195,6 +195,10 @@ function initSettingsPage() {
     adminView.style.display = "none";
     pageAdmin.style.display = "none";
 
+    if (!checkAdmin()) {
+        adminSettingsButton.style.display = "none";
+    }
+
     // Settings view button
     userSettingsButton.addEventListener("click", function () {
         userSettingsButton.classList.add("active")
@@ -309,6 +313,24 @@ function initSettingsPage() {
 }
 
 /*** User stuff ***/
+
+// Extract admin from cookie
+function checkAdmin() {
+    if (document.cookie.search("Admin=") != -1) {
+        let startPosition = document.cookie.search("Admin=") + 6;
+        let endposition = document.cookie.indexOf(";", startPosition);
+        let userName = "";
+        if (endposition == -1) {
+            userName = document.cookie.substring(startPosition);
+        } else {
+            userName = document.cookie.substring(startPosition, endposition);
+        }
+        if (userName == "yes") {
+            return true;
+        }        
+    }
+    return false;
+}
 
 // Extract username from cookie
 function getCookieUsername() {
