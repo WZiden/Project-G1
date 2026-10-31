@@ -10,7 +10,7 @@
 
     $lastUpdate = strtotime($stmt->fetchColumn());
 
-    if (!$lastUpdate ||time() - $lastUpdate > 1800) {
+    if ((!$lastUpdate ||time() - $lastUpdate > 1800) || (!file_exists('../cache/devices.json'))) {
         $devices = getHomeAssistantDevices($haURL, $haToken);
         $entities = indexEntitiesByDevice(getHomeAssistantEntities($haURL, $haToken));
         $states = indexStatesByEntity(getHomeAssistantStates($haURL, $haToken));
