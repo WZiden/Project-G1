@@ -640,6 +640,88 @@ function deviceCaptionFunction () {
     }
 }
 /******/
+let zoom = 1;
+
+document.addEventListener("click", e => {
+
+    const image = e.target.closest(".camera-feed");
+    const modal = document.getElementById("cameraModal");
+    const modalImage = document.getElementById("modalImage");
+
+    if(image){
+        modalImage.src = image.src;
+
+        zoom = 1;
+        modalImage.style.transform = `scale(${zoom})`;
+
+
+        modal.classList.add("active");
+    }
+
+    if(e.target.classList.contains("camera-close") || e.target.id === "cameraModal"){
+        modal.classList.remove("active");
+    }
+});
+
+document.addEventListener("wheel", e => {
+
+    const modalImage = document.getElementById("modalImage");
+    const modal = document.getElementById("cameraModal");
+
+    if(!modalImage) return;
+
+    if(!modal.classList.contains("active")) return;
+
+    e.preventDefault();
+
+    if(e.deltaY < 0){
+        zoom += 0.1;
+    } else {
+        zoom -= 0.1;
+    }
+
+    zoom = Math.max(1, Math.min(5, zoom));
+
+    modalImage.style.transform = `scale(${zoom})`;
+
+}, { passive: false });
+
+document.addEventListener("click", e => {
+
+    const image = e.target.closest(".camera-image");
+
+    if (image) {
+        modalImage.src = image.src;
+
+        zoom = 1;
+        modalImage.style.transform = `scale(${zoom})`;
+
+        modal.classList.add("active");
+    }
+
+    if (
+        e.target.classList.contains("camera-close") ||
+        e.target.id === "cameraModal"
+    ) {
+        modal.classList.remove("active");
+    }
+});
+
+modalImage.addEventListener("wheel", e => {
+
+    e.preventDefault();
+
+    if (e.deltaY < 0) {
+        zoom += 0.1;
+    } else {
+        zoom -= 0.1;
+    }
+
+    zoom = Math.max(1, Math.min(5, zoom));
+
+    modalImage.style.transform = `scale(${zoom})`;
+
+}, { passive: false });
 
 //Statistik Funktioner
 

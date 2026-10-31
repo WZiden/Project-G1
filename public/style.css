@@ -745,6 +745,39 @@ header{
     width: 100%;
     height: auto;
     border-radius: 12px;
+    cursor: pointer;
+}
+
+.camera-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.9);
+    z-index: 9999;
+
+    justify-content: center;
+    align-items: center;
+}
+
+.camera-modal.active {
+    display: flex;
+}
+
+.camera-modal-image {
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain;
+    transition: transform 0.1s ease;
+    transform-origin: center center;
+}
+
+.camera-close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    color: white;
+    font-size: 40px;
+    cursor: pointer;
 }
 
 #settingsStatusMessage {

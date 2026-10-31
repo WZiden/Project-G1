@@ -845,6 +845,10 @@
 
         $html .= "<div class='camera-container'>
                 <img src='camera.php?entity_id={$entityID}' class='camera-feed' data-entity-id='{$entityID}' alt='Camera feed'>
+            </div>
+            <div id='cameraModal' class='camera-modal'>
+                <span class='camera-close'>&times;</span>
+                <img id='modalImage' class='camera-modal-image'>
             </div>";
 
         return $html;
