@@ -755,7 +755,8 @@ header{
 .chart-container{
     position: relative;
     height: 60vh;
-    width: 100%;
+    max-width: 100%;
+
 }
 
 .device-status {
@@ -788,9 +789,9 @@ header{
 .stats-filters{
     display: flex;
     justify-content: flex-end;
-    align-items: center;
+    flex-wrap: wrap;
     width: 100%;
-    gap: 2rem;
+    gap: clamp(0.25rem, 2vw, 2rem);
 }
 
 .stats-filters select{
