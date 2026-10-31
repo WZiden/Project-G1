@@ -232,6 +232,14 @@ header{
     display: none;
 }
 
+#skipLink {
+    opacity: 0;
+    color: var(--box-color);
+}
+
+#skipLink:focus {
+    opacity: 1;
+}
 
 /*Search*/
 #search-results{
