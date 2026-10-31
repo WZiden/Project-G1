@@ -169,21 +169,5 @@ document.addEventListener('submit', function(event){
     });
 });
 
-// filter history
 
-document.addEventListener("input",function(event){
-    if(event.target.id !== "deviceSearch")return;
-    const searchText = event.target.value.toLowerCase().trim();
 
-    filterItems(".timeline-item", searchText);
-});
-
-function filterItems(selector, searchText) {
-    const searchWords = searchText.split(" ").filter(word => word !== "");
-    document.querySelectorAll(selector).forEach(item => {
-        const text = item.textContent.toLowerCase();
-        const match = searchWords.every(word => text.includes(word));
-
-        item.style.display= match ? "":"none";
-    });
-}
