@@ -744,11 +744,6 @@ function renderChart(data){
 
     if(statsChart){
         statsChart.destroy();
-
-    ctx.removeAttribute("width");
-    ctx.removeAttribute("height");
-    ctx.style.width = "";
-    ctx.style.height = "";
     }
 
     const unit = data.datasets[0]?.unit ?? "";
@@ -783,11 +778,6 @@ function renderChart(data){
         borderWidth: 2,
         tension: 0.3
     }));
-
-console.log("statsView", document.getElementById("statsView").clientWidth);
-console.log("stats-filters", document.querySelector(".stats-filters").clientWidth);
-console.log("chart-title", document.querySelector(".chart-title").clientWidth);
-console.log("chart-container", document.querySelector(".chart-container").clientWidth);
 
 
     statsChart = new Chart(ctx, {
