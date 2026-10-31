@@ -63,6 +63,8 @@
                     <th>Name</th>
                     <th>ID</th>
                     <th>Role</th>
+                    <th></th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody id="userTableBody"></tbody>
@@ -80,6 +82,7 @@
                     <th>Name</th>
                     <th>ID</th>
                     <th>Required user level</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody id="deviceTableBody"></tbody>

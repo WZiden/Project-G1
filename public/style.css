@@ -233,7 +233,9 @@ header{
 
 #skipLink {
     opacity: 0;
-    color: var(--box-color);
+    color: var(--text-color);
+    display: none;
+    padding: 0;
 }
 
 #skipLink:focus {
@@ -1023,10 +1025,8 @@ a:hover {
     border: 2px solid var(--button-color);
     border-radius: var(--border-radius);
     padding: 0 var(--spacing);
-}
-
-#deviceTable, #userTable {
-    width: 100%;
+    display: flex;
+    justify-content: center;
 }
 
 .tablecontainer caption {
@@ -1056,14 +1056,62 @@ a:hover {
     background-color: var(--button-color-opaque);
 }
 
-.tablecontainer select {
-    padding: calc(var(--spacing) / 2);
-    width: 100%;
-}
-
 caption span {
     position: absolute;
     right: var(--spacing);
+}
+
+#userTable th:nth-child(1), #userTable td:nth-child(1) {
+    display: none;
+}
+
+#deviceTable th:nth-child(2), #deviceTable td:nth-child(2) {
+    display: none;
+}
+
+#userTable, #deviceTable {
+    width: 100%;
+}
+
+.tablecontainer select {
+    width: 100%;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    border: 2px solid var(--box-color);
+    height: 100%;
+    margin: 2px;
+}
+
+.tablecontainer button {
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    background-color: var(--button-color);
+    color: var(--text-color);
+    cursor: pointer;
+    width: 100%;
+    border: 2px solid var(--box-color);
+    margin: 2px;
+}
+
+.tablecontainer button:hover{
+    background-color:var(--button-hover) ;
+}
+
+@media (min-width:512px){
+    #skipLink {
+        display: initial;
+    }
+}
+
+@media (min-width:768px){
+    #userTable th:nth-child(1), #userTable td:nth-child(1) {
+        display: initial;
+    }
+
+    #deviceTable th:nth-child(2), #deviceTable td:nth-child(2) {
+        display: initial;
+    }
 }
 
 @media (min-width:1024px){
@@ -1174,7 +1222,9 @@ caption span {
 
     .chart-container{
         height: 70vh;
-    }    .tablecontainer {
+    }    
+    
+    .tablecontainer {
         max-height: 500px;
     }
      .device-card {

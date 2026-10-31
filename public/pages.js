@@ -307,9 +307,11 @@ function initSettingsPage() {
 
     selectListener = function(e) {
         clearErrorMessage();
+        const color = getComputedStyle(document.querySelector(":root")).getPropertyValue("--grid-color");
         const confirm = document.getElementById("confirm:" + e.target.id.substring(7));
         confirm.value = e.target.value;
-        // TODO markera knappen på något sätt
+        confirm.style.borderColor = "#76949F";
+        confirm.style.backgroundColor = color;
     };
 
     deleteListener = function(e) {
