@@ -746,7 +746,7 @@
 
     function renderClimateControls(array $mainEntity, string $device):string {
         $setTemp = $mainEntity['attributes']['temperature'] ?? 0;
-
+        
         $currentTemp = $mainEntity['attributes']['current_temperature'] ?? 0;
 
         $minTemp = $mainEntity['attributes']['min_temp'] ?? 5;

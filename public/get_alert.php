@@ -129,9 +129,9 @@
     }
 
     function createAlert(PDO $pdo, string $ruleType, string $title, string $room, string $reason, ?string $entityId): void {
-        $stmt = $pdo->prepare("SELECT id FROM alerts WHERE rule_type = ? AND entity_id = ? AND (status IN ('ACTIVE', 'ACKNOWLEDGED') OR (status IN ('DISMISSED', 'RESOLVED') AND updated_at >= DATE_SUB(NOW(), INTERVAL 35 MINUTE)))LIMIT 1");
+        $stmt = $pdo->prepare("SELECT id FROM alerts WHERE rule_type = ? AND room_name = ? AND (status IN ('ACTIVE', 'ACKNOWLEDGED') OR (status IN ('DISMISSED', 'RESOLVED') AND updated_at >= DATE_SUB(NOW(), INTERVAL 35 MINUTE)))LIMIT 1");
 
-        $stmt->execute([$ruleType, $entityId]);
+        $stmt->execute([$ruleType, $room]);
 
         if ($stmt->fetchColumn() !== false) {
         return;
@@ -143,7 +143,7 @@
 
     }
 
-    $stmt = $pdo->query("SELECT id, rule_type, entity_id, room_name AS room, title, reason, status, created_at AS time
+    $stmt = $pdo->query("SELECT id, rule_type, entity_id, room_name AS room, title, reason, status, handled_by, created_at AS time
         FROM alerts
         WHERE created_at >= DATE_SUB(NOW(), INTERVAL 7 DAY)
         ORDER BY created_at DESC");

@@ -1,8 +1,28 @@
 <?php
 
+    session_start();
+    
     require_once __DIR__ . '/../src/connect_db.php';
     require_once __DIR__ . '/../src/connect_api.php';
     require_once __DIR__ . '/../src/functions.php';
+
+
+    function getDeviceNameByEntityId(string $entityId, array $devices): string
+    {
+        foreach ($devices as $device)
+        {
+            foreach ($device['entities'] as $entity)
+            {
+                if ($entity['entity_id'] === $entityId)
+                {
+                    return $device['device_name'];
+                }
+            }
+        }
+        return $entityId;
+    }
+
+
 
     header('Content-Type: application/json');
 
@@ -27,6 +47,9 @@
 
     $alert = $stmt->fetch(PDO::FETCH_ASSOC);
 
+    $userID = $_SESSION['userID'] ?? 0;
+    $userName = $_SESSION['username'] ?? 'Unknown';
+
     if (!$alert)
     {
         http_response_code(404);
@@ -43,13 +66,13 @@
         switch ($action)
         {
             case 'ACKNOWLEDGE':
-                $stmt = $pdo->prepare("UPDATE alerts SET status = 'ACKNOWLEDGED' WHERE id = ?");
-                $stmt->execute([$alert_id]);
+                $stmt = $pdo->prepare("UPDATE alerts SET status = 'ACKNOWLEDGED', handled_by = ? WHERE id = ?");
+                $stmt->execute([$userName, $alert_id]);
                 break;
 
             case 'DISMISS':
-                $stmt = $pdo->prepare("UPDATE alerts SET status = 'DISMISSED' WHERE id = ?");
-                $stmt->execute([$alert_id]);
+                $stmt = $pdo->prepare("UPDATE alerts SET status = 'DISMISSED', handled_by = ? WHERE id = ?");
+                $stmt->execute([$userName, $alert_id]);
                 break;
 
             case 'RESOLVE':
@@ -70,6 +93,8 @@
                         $devices = json_decode(file_get_contents(__DIR__ . '/../cache/devices.json'), true);
                         $success = true;
 
+                        $states = indexStatesByEntity(getHomeAssistantStates($haURL, $haToken));
+                       
                         foreach ($devices as $device)
                         {
                             if ($device['area_name'] !== $alert['room_name'])
@@ -81,11 +106,19 @@
                             {
                                 if (str_starts_with($entity['entity_id'], 'light.'))
                                 {
+                                    $oldValue = extractOldValue($states, $entity['entity_id']);
+                                    if ($oldValue !== 'on')
+                                        {
+                                            continue;
+                                        }
                                     $result = controlDevice($entity['entity_id'], 'turn_off', $haURL, $haToken, []);
                                     if (!$result)
                                     {
                                         $success = false;
+                                        continue;
                                     }
+                                    $newValue = 'off';
+                                    logDeviceAttempt($pdo, $userID, true, $device['device_name'], $oldValue, $newValue, true);
                                 }
                             }
                         }
@@ -93,12 +126,39 @@
                         break;
 
                     case 'HEAT_WARNING':
-                        $success = controlDevice($alert['entity_id'], 'set_temperature', $haURL, $haToken, ['temperature' => 18]);
+                        $states = indexStatesByEntity(getHomeAssistantStates($haURL, $haToken));
+                        $oldValue = extractOldValue($states, $alert['entity_id']);
+                        $targetTemp = 18;
+
+                        $success = controlDevice($alert['entity_id'], 'set_temperature', $haURL, $haToken, ['temperature' => $targetTemp]);
+                        $newValue = $targetTemp;
+
+                        $devices = json_decode(file_get_contents(__DIR__ . '/../cache/devices.json'), true);
+                        $deviceName = getDeviceNameByEntityId($alert['entity_id'], $devices);
+
+                        if ($success)
+                        {
+                            logDeviceAttempt($pdo, $userID, true, $deviceName, $oldValue, $newValue, true);
+                        }
+        
                         $resolutionMessage = 'Radiator temperature was lowered to 18°C.';
                         break;
                     
                     case 'WINDOW_OPEN_HEATING':
+                        $states = indexStatesByEntity(getHomeAssistantStates($haURL, $haToken));
+                        $oldValue = extractOldValue($states, $alert['entity_id']);
+
+                        $newValue = 'off';
+
                         $success = controlDevice($alert['entity_id'], 'set_hvac_mode', $haURL, $haToken, ['hvac_mode' => 'off']);
+                        
+                        $devices = json_decode(file_get_contents(__DIR__ . '/../cache/devices.json'),true);
+                        $deviceName = getDeviceNameByEntityId($alert['entity_id'],$devices);
+                        if ($success)
+                        {
+                            logDeviceAttempt($pdo, $userID, true, $deviceName, $oldValue, $newValue, true);
+                        }
+
                         $resolutionMessage = 'Radiator was turned off because the window is open.';
                         break;
                     
@@ -113,8 +173,8 @@
                     throw new Exception('Failed to resolve alert');
                 }
 
-                $stmt = $pdo->prepare("UPDATE alerts SET status = 'RESOLVED', reason = ? WHERE id = ?");
-                $stmt->execute([$resolutionMessage, $alert_id]);
+                $stmt = $pdo->prepare("UPDATE alerts SET status = 'RESOLVED', handled_by = ?, reason = ? WHERE id = ?");
+                $stmt->execute([$userName, $resolutionMessage, $alert_id]);
                 break;
 
             default:
