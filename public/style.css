@@ -20,8 +20,8 @@
 
 * {
     box-sizing: border-box;
-    margin: 0;         /* Bonus: Tar bort webbläsarens inbyggda marginaler */
-    padding: 0;        /* Bonus: Tar bort webbläsarens inbyggda padding */
+    margin: 0;
+    padding: 0;
 }
 body{
     background-color: var(--background-color);
@@ -67,11 +67,11 @@ header{
 
 .scrollbar {
     display: flex;
-    flex-direction: row;     /* knappar på rad */
-    flex-wrap: nowrap;       /* ingen radbrytning */
-    overflow-x: auto;        /* horisontell scroll */
+    flex-direction: row;     /* buttons in a row */
+    flex-wrap: nowrap;       /* no line break */
+    overflow-x: auto;        /* horizontal scroll */
     overflow-y: hidden;
-    white-space: nowrap;     /* extra säkerhet */
+    white-space: nowrap;     /* extra security */
     padding: 0.5rem;
     background-color: var(--box-color);
     border-radius: var(--border-radius);
@@ -136,13 +136,18 @@ header{
  /*search form in scrollarea*/
 
 .search {
-    width: 100%;
+    position: relative;
     display: flex;
+    align-items: center;
     justify-content: flex-start;
     margin-bottom: 0.5rem;
     margin-top: 0;
     gap:0.5em;
 
+}
+
+.search-wrapper{
+    position: relative;
 }
 
 .search input {
@@ -159,12 +164,12 @@ header{
     border-radius: 0.5rem;
     border: none;
     cursor: pointer;
-    flex-shrink: 0;   /* knappen krymper inte */
+    flex-shrink: 0;   /* the button does not shrink */
 }
 
 
 .scrollbar .room-btn {
-    margin-right: 0.5rem;   /* skapar mellanrum mellan knapparna */
+    margin-right: 0.5rem;   /* creates space between the buttons */
 }
 
 
@@ -247,7 +252,7 @@ header{
     position: absolute;
     top: 100%;
     left: 0;
-    right: 0;
+    width: 100%;
     background: white;
     border-radius: 0 0 8px 8px;
     max-height: 300px;
@@ -308,13 +313,12 @@ header{
     display:flex;
     align-items:center;
 }
-/* Kortens layout */
+/* Card layout */
 
 .device-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
     gap: 1.25em;
-    
 }
 
 .device-card {
@@ -335,7 +339,7 @@ header{
     box-shadow: 0 2px 8px rgba(0,0,0,.08);
 }
 
-/* Rubrik och favoritstjärna */
+/* Heading and favorite star */
 .device-card-header {
     grid-area: title;
     display: grid;
@@ -346,7 +350,7 @@ header{
     border-bottom: 1px solid #eee;
 }
 
-/* Titel centrerad i kortet */
+/* Title centered in the header */
 .device-title {
     grid-column: 2;
     grid-row: 1;
@@ -354,7 +358,7 @@ header{
     text-align: center;
 }
 
-/* Favoritformulär längst till höger */
+/* Favorite forms on the far right */
 .favorite-form {
     grid-column: 1;
     grid-row: 1;
@@ -362,7 +366,7 @@ header{
     margin: 0;
 }
 
-/* Stjärnknappen */
+/* Star button */
 .favorite-button {
     background: none;
     border: none;
@@ -380,7 +384,7 @@ header{
     color: rgb(255, 212, 59);
 }
 
-/*Device Kort*/
+/*Device Card*/
 
 .light-controls {
     display: flex;
@@ -559,7 +563,7 @@ header{
     text-align: right;
 }
 
-/* Detaljer */
+/* Details */
 
 .device-details {
     grid-area: details;
@@ -579,7 +583,7 @@ header{
     text-align: right;
 }
 
-/* Knapp */
+/* Button */
 
 .device-controls {
     grid-area: controls;
@@ -677,7 +681,8 @@ header{
     transform: scale(1.15);
 }
 
-/* Låst som standard */
+/* Locked by default
+ */
 .lock-button[data-locked="true"] .lock-icon {
     display: inline-block;
 }
@@ -686,7 +691,7 @@ header{
     display: none;
 }
 
-/* Olåst som standard */
+/* Unlocked by default */
 .lock-button[data-locked="false"] .lock-icon {
     display: none;
 }
@@ -695,7 +700,7 @@ header{
     display: inline-block;
 }
 
-/* Hover visar den motsatta ikonen */
+/* Hovering displays the opposite icon */
 .lock-button[data-locked="true"]:hover .lock-icon{
     display: none;
 }
@@ -791,7 +796,6 @@ header{
     position: relative;
     height: 60vh;
     max-width: 100%;
-
 }
 
 .device-status {
@@ -973,7 +977,7 @@ a:hover {
     text-align: center;
 }
 
-/*utseende history/ statspage*/
+/* Appearance History / Stats page */
 
 .history-mode-buttons {
     display: flex;
@@ -1043,13 +1047,13 @@ a:hover {
 
 .chart-wrapper {
     width: 100%;
-    height: 250px;     /* ← LÅSER höjden */
-    position: relative; /* ← Chart.js kräver detta */
+    height: 250px;     /* ← LOCKS the height */
+    position: relative; /* ← Chart.js requires this */
 }
 
 #tempChart {
     width: 100% !important;
-    height: 100% !important; /* ← Canvas fyller wrappern */
+    height: 100% !important; /* ← Canvas fills the wrapper */
 }
 
 .tablecontainer {
@@ -1095,7 +1099,7 @@ caption span {
     right: var(--spacing);
 }
 
-#userTable th:nth-child(1), #userTable td:nth-child(1) {
+#userTable th:nth-child(1), #userTable td:nth-child(1), #userTable th:nth-child(3), #userTable td:nth-child(3) {
     display: none;
 }
 
@@ -1117,7 +1121,7 @@ caption span {
     margin: 2px;
 }
 
-.tablecontainer button {
+.tableButton {
     padding: 0.5rem 1rem;
     border-radius: 0.5rem;
     background-color: var(--button-color);
@@ -1128,8 +1132,27 @@ caption span {
     margin: 2px;
 }
 
-.tablecontainer button:hover{
+.tableButton:hover{
     background-color:var(--button-hover) ;
+}
+
+.tableButtonActive {
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    background-color: var(--grid-color);
+    color: var(--text-color);
+    cursor: pointer;
+    width: 100%;
+    border: 2px solid var(--button-color);
+    margin: 2px;
+}
+
+.tableButtonActive:hover{
+    background-color: var(--button-hover) ;
+}
+
+#modalContainer, #modalContainer a:link, #modalContainer a:visited {
+    color: var(--box-color);
 }
 
 @media (min-width:512px){
@@ -1309,6 +1332,10 @@ caption span {
         display: block;
         margin-left: 0;
         margin-right: 0;
+    }
+
+    #userTable th:nth-child(3), #userTable td:nth-child(3) {
+        display: initial;
     }
 }
 

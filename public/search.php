@@ -15,12 +15,9 @@
             exit;
         }
 
-        $devices = searchDevices($pdo, $search);
-
         $rooms = searchRooms($pdo, $search);
 
         echo json_encode([
-            'devices' => $devices,
             'rooms' => $rooms
         ]);
 }

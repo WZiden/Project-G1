@@ -12,7 +12,6 @@ const registerForm = document.querySelector("#registerForm");
 const loginErrorMessage = document.getElementById("loginError");
 const registerErrorMessage = document.getElementById("registerError");
 
-// const loginemail = document.querySelector("#loginemail");
 const registeremail = document.querySelector("#registeremail");
 
 const registerusername = document.getElementById("registerusername");
@@ -63,19 +62,6 @@ registerpassword.addEventListener("blur", function (e) {
         clearLoginErrorMessage();
     }
 });
-
-/*
-// TODO jämföra lösenord
-confirmpassword.addEventListener("blur", function(e) {
-    if (registerpassword.value.length > 0) {
-        if (confirmpassword != XXX) {
-            newErrorMessage("The passwords do not match");
-        } else {
-            clearLoginErrorMessage();
-        }        
-    }
-});
-*/
 
 function newErrorMessage(text) {
     registerErrorMessage.style.display = "block";
@@ -140,21 +126,11 @@ registerLink.forEach(link => {
     })
 });
 
-// TODO extra feature
-/*
-// Check if email already exists
-loginemail.addEventListener("blur", function(e) {
-    console.log("Check if email exists", loginemail.value);
-});
- */
-
 // Send login form
 async function sendLoginForm() {
-    // Assiciate the FormData object with the login form element
     const formData = new FormData(loginForm);
 
     try {
-        // Send the FormData as an HTTP POST request using fetch()
         const response = await fetch("user_login_handler.php", {
             method: "POST",
             body: formData,
@@ -177,11 +153,9 @@ async function sendLoginForm() {
 
 // Send 'register new account' form
 async function sendRegisterForm() {
-    // Assiciate the FormData object with the login form element
     const formData = new FormData(registerForm);
 
     try {
-        // Send the FormData as an HTTP POST request using fetch()
         const response = await fetch("user_login_handler.php", {
             method: "POST",
             body: formData,
@@ -228,20 +202,6 @@ async function checkLogin() {
         console.log(e);
         modalContainer.style.display = "block";
     }
-}
-
-// Extract username from cookie
-function getCookieUsername() {
-    let startPosition = document.cookie.search("Username=") + 9;
-    let endposition = document.cookie.indexOf(";", startPosition);
-    if (endposition == -1) {
-        let userName = document.cookie.substring(startPosition);
-        console.log(userName);
-    } else {
-        let userName = document.cookie.substring(startPosition, endposition);
-        console.log(userName);
-    }
-
 }
 
 // Check login on load page
