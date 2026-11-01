@@ -1,4 +1,8 @@
 async function initAlertsPage() {
+    const searchInput = document.getElementById("deviceSearch");
+    if(searchInput){
+        searchInput.placeholder = "Filter Alerts";
+    }
     fetch("get_alert.php")
         .then(response => response.json())
         .then(data => {
