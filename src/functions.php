@@ -746,7 +746,7 @@
 
     function renderClimateControls(array $mainEntity, string $device):string {
         $setTemp = $mainEntity['attributes']['temperature'] ?? 0;
-        
+
         $currentTemp = $mainEntity['attributes']['current_temperature'] ?? 0;
 
         $minTemp = $mainEntity['attributes']['min_temp'] ?? 5;
@@ -1102,6 +1102,21 @@
         } catch (Exception $e) {
             return false;
         }
+    }
+
+    function getDeviceNameByEntityId(string $entityId, array $devices): string
+    {
+        foreach ($devices as $device)
+        {
+            foreach ($device['entities'] as $entity)
+            {
+                if ($entity['entity_id'] === $entityId)
+                {
+                    return $device['device_name'];
+                }
+            }
+        }
+        return $entityId;
     }
 
 

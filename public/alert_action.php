@@ -6,24 +6,6 @@
     require_once __DIR__ . '/../src/connect_api.php';
     require_once __DIR__ . '/../src/functions.php';
 
-
-    function getDeviceNameByEntityId(string $entityId, array $devices): string
-    {
-        foreach ($devices as $device)
-        {
-            foreach ($device['entities'] as $entity)
-            {
-                if ($entity['entity_id'] === $entityId)
-                {
-                    return $device['device_name'];
-                }
-            }
-        }
-        return $entityId;
-    }
-
-
-
     header('Content-Type: application/json');
 
     $alert_id = (int)($_POST['alert_id'] ?? 0);
@@ -147,11 +129,12 @@
                     case 'WINDOW_OPEN_HEATING':
                         $states = indexStatesByEntity(getHomeAssistantStates($haURL, $haToken));
                         $oldValue = extractOldValue($states, $alert['entity_id']);
+                        $targetTemp = 18;
 
-                        $newValue = 'off';
-
-                        $success = controlDevice($alert['entity_id'], 'set_hvac_mode', $haURL, $haToken, ['hvac_mode' => 'off']);
+                        $success = controlDevice($alert['entity_id'], 'set_temperature', $haURL, $haToken, ['temperature' => $targetTemp]);
                         
+                        $newValue = $targetTemp;
+
                         $devices = json_decode(file_get_contents(__DIR__ . '/../cache/devices.json'),true);
                         $deviceName = getDeviceNameByEntityId($alert['entity_id'],$devices);
                         if ($success)
@@ -159,7 +142,7 @@
                             logDeviceAttempt($pdo, $userID, true, $deviceName, $oldValue, $newValue, true);
                         }
 
-                        $resolutionMessage = 'Radiator was turned off because the window is open.';
+                        $resolutionMessage = 'Radiator temperature was lowered to 18°C because the window is open.';
                         break;
                     
                     default:
