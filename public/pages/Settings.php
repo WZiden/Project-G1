@@ -1,5 +1,5 @@
-<div class="history-mode-buttons">
-    <button id="userSettings" data-mode="settings">Settings</button>
+<div id="settingsButtons" class="history-mode-buttons">
+    <button id="userSettings" data-mode="settings">User</button>
     <button id="adminSettings" data-mode="admin">Admin</button>
 </div>
 
@@ -49,7 +49,7 @@
     </form>
 </div>
 
-<!-- Admin stuff -->
+<!-- Admin page -->
 <div id="adminView">
 
     <section class="tablecontainer">
@@ -62,6 +62,7 @@
                 <tr>
                     <th>Name</th>
                     <th>ID</th>
+                    <th>Email</th>
                     <th>Role</th>
                     <th></th>
                     <th></th>

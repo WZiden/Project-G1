@@ -13,19 +13,12 @@ function deleteUser(PDO $pdo, int $userID): bool
     }
 }
 
-
 // Update user permission level
 function changeUserLevel(PDO $pdo, int $userID, int $userLevel): bool
 {
     try {
         $stmt = $pdo->prepare("UPDATE users SET permission_level = ? WHERE userID = ?");
         $stmt->execute([$userLevel, $userID]);
-
-        // if ($stmt->rowCount() > 0) {
-        //     return true;
-        // } else {
-        //     return false;
-        // }
         return true;
     } catch (Exception $e) {
         return false;
@@ -36,7 +29,7 @@ function changeUserLevel(PDO $pdo, int $userID, int $userLevel): bool
 function getAllUsersList(PDO $pdo)
 {
     try {
-        return $pdo->query("SELECT userID, username, permission_level FROM users");
+        return $pdo->query("SELECT userID, username, email, permission_level FROM users");
     } catch (Exception $e) {
         return null;
     }
@@ -86,7 +79,6 @@ function getUserByID(PDO $pdo, int $userID)
 }
 
 // Check if a cookie exists in the database
-// Return userID or NULL
 function checkCookie(PDO $pdo, string $cookieToken)
 {
     try {
@@ -100,7 +92,6 @@ function checkCookie(PDO $pdo, string $cookieToken)
 }
 
 // Add a user to the database
-// Requires a PDO instance, a name, an email, an unhashed password
 function addUser(PDO $pdo, string $name, string $email, string $password, string $confirmPassword): bool
 {
     // Check for special characters in username
@@ -114,7 +105,7 @@ function addUser(PDO $pdo, string $name, string $email, string $password, string
                     $password = password_hash($password, PASSWORD_DEFAULT);
                     try {
                         $stmt = $pdo->prepare("INSERT INTO users (username, email, passwordHash, permission_level) VALUES (?, ?, ?, ?)");
-                        $stmt->execute([$name, $email, $password, 2]);
+                        $stmt->execute([$name, $email, $password, 1]);
 
                         return true;
                     } catch (Exception $e) {
@@ -141,7 +132,6 @@ function verifyUserWithID(PDO $pdo, string $userID, string $password): bool
 }
 
 // Log in user
-// Requires a PDO instance, an email, an unhashed password, a checkbox value ('on' if checked)
 function loginUser(PDO $pdo, string $email, string $password, string $remember = "off"): bool
 {
     // Check that all mandatory fields are filled in 
