@@ -66,12 +66,13 @@ COMMIT;
 
 Här är tabellen för alerts:
 CREATE TABLE alerts (
-    id INT AUTO_INCREMENT PRIMARY KEY, 
-    rule_type VARCHAR(50) NOT NULL, 
-    entity_id VARCHAR(255) NULL, 
-    room_name VARCHAR(100) NOT NULL, 
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    rule_type VARCHAR(50) NOT NULL,
+    entity_id VARCHAR(255) NULL,
+    room_name VARCHAR(100) NOT NULL,
     title VARCHAR(255) NOT NULL,
     reason TEXT NULL,
+    handled_by VARCHAR(100) NULL,
     status ENUM(
         'ACTIVE',
         'ACKNOWLEDGED',
