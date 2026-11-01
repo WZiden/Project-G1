@@ -136,13 +136,18 @@ header{
  /*search form in scrollarea*/
 
 .search {
-    width: 100%;
+    position: relative;
     display: flex;
+    align-items: center;
     justify-content: flex-start;
     margin-bottom: 0.5rem;
     margin-top: 0;
     gap:0.5em;
 
+}
+
+.search-wrapper{
+    position: relative;
 }
 
 .search input {
@@ -247,7 +252,7 @@ header{
     position: absolute;
     top: 100%;
     left: 0;
-    right: 0;
+    width: 100%;
     background: white;
     border-radius: 0 0 8px 8px;
     max-height: 300px;

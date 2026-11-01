@@ -4,7 +4,7 @@ const buttons = document.querySelectorAll(".room-btn");
 const pageContent = document.getElementById("page-content");
 
 let sensorOptions = {};
-
+let statsChart = null;
 
 
 function loadPage(page, params = {}, title = page) {
@@ -141,7 +141,7 @@ function initHistoryPage() {
         document.getElementById("historyView").style.display="none";
         document.getElementById("statsView").style.display ="block";
         const timeline = document.querySelector(".timeline");
-       document.getElementById("deviceSearch").style.display ="none";
+        document.getElementById("deviceSearch").style.display ="none";
         const container = document.getElementById("statsView");
       
         btnStats.classList.add("active");
@@ -155,7 +155,7 @@ function initHistoryPage() {
             container.dataset.loaded = "true";
 
             initStatistics(); // ← ritar grafen
-        }; 
+        };
     }
 
     // Startläge
@@ -727,8 +727,6 @@ modalImage.addEventListener("wheel", e => {
 
 //Statistik Funktioner
 
-let statsChart = null;
-
 function initStatistics(){
 
     document.getElementById('statsType').addEventListener('change', handleFilterChange);
@@ -876,49 +874,47 @@ function renderChart(data){
             interaction: {
                     mode: "index",
                     intersect: false
-                },
-                plugins: {
-                    legend: {
-                        labels: {
-                            color: "white"
-                        }
-                    },
-                    tooltip: {
-                        callbacks: {
-                            label: function(context) {
-                                const unit = context.dataset.unit || "";
-
-                                return `${context.dataset.label}: ${context.parsed.y} ${unit}`;
-                            }
-                        }
+            },
+            plugins: {
+                legend: {
+                    labels: {
+                        color: "white"
                     }
                 },
-                scales: {
-                    x: {
-                        grid: {
-                            color: "grey",
-                            lineWidth: 0.5
-                        },
-                        ticks: {
-                            color: "white"
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            const unit = context.dataset.unit || "";
+
+                            return `${context.dataset.label}: ${context.parsed.y} ${unit}`;
                         }
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    grid: {
+                        color: "grey",
+                        lineWidth: 0.5
                     },
-                    y: {
-                        beginAtZero: false,
-                        grid: {
-                            color: "grey",
-                            lineWidth: 0.5
-                        },
-                        ticks: {
-                            color: "white",
-                            callback: function(value) {
-                                return `${value} ${unit}`;
-                            }
+                    ticks: {
+                        color: "white"
+                    }
+                },
+                y: {
+                    beginAtZero: false,
+                    grid: {
+                        color: "grey",
+                        lineWidth: 0.5
+                    },
+                    ticks: {
+                        color: "white",
+                        callback: function(value) {
+                            return `${value} ${unit}`;
                         }
                     }
                 }
             }
-        });
-
-
+        }
+    });
 }
