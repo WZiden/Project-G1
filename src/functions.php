@@ -1043,8 +1043,7 @@
         }
     }
 
-
-    function extractNewValue(string $entityId, string $service, array $serviceData ): mixed {
+    function extractNewValue(string $entityId, string $service, array $serviceData ):mixed {
         $domain =explode ('.', $entityId)[0];
         switch ($domain) {
             case 'light':
@@ -1090,8 +1089,7 @@
     }
 
     // Update device required permission level
-    function changeDeviceLevel(PDO $pdo, string $deviceID, int $deviceLevel): bool
-    {
+    function changeDeviceLevel(PDO $pdo, string $deviceID, int $deviceLevel):bool {
             try {
             $stmt = $pdo->prepare("
             UPDATE devices 
@@ -1104,21 +1102,15 @@
         }
     }
 
-    function getDeviceNameByEntityId(string $entityId, array $devices): string
-    {
-        foreach ($devices as $device)
-        {
-            foreach ($device['entities'] as $entity)
-            {
-                if ($entity['entity_id'] === $entityId)
-                {
+    function getDeviceNameByEntityId(string $entityId, array $devices):string {
+        foreach ($devices as $device){
+            foreach ($device['entities'] as $entity){
+                if ($entity['entity_id'] === $entityId){
                     return $device['device_name'];
                 }
             }
         }
         return $entityId;
     }
-
-
 ?>
 

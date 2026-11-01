@@ -29,6 +29,12 @@ document.addEventListener('input', function(event){
 
             card.style.display = text.includes(searchText) ? '' : 'none';
         });
+
+    document.querySelectorAll('.timeline-item').forEach(card => {
+            const text = card.textContent.toLowerCase();
+
+            card.style.display = text.includes(searchText) ? '' : 'none';
+        });
 });
 
 document.addEventListener('input', function(event){
