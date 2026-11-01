@@ -411,7 +411,7 @@ async function sendChangeName() {
     const formData = new FormData(changeNameForm);
 
     try {
-        const response = await fetch("user_login_handler.php", {
+        const response = await fetch("settings_handler.php", {
             method: "POST",
             body: formData,
         });
@@ -436,7 +436,7 @@ async function sendChangePassword() {
     const formData = new FormData(changePasswordForm);
 
     try {
-        const response = await fetch("user_login_handler.php", {
+        const response = await fetch("settings_handler.php", {
             method: "POST",
             body: formData,
         });
