@@ -99,3 +99,7 @@ CREATE TABLE alerts (
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
         ON UPDATE CURRENT_TIMESTAMP
 )
+
+
+***Live stataus updating***
+In order to get live updates of the status of each device you vill need to run the `ha_listener.php` file (located in the public folder) as a consol command.
