@@ -1151,6 +1151,10 @@ caption span {
     background-color: var(--button-hover) ;
 }
 
+#modalContainer, #modalContainer a:link, #modalContainer a:visited {
+    color: var(--box-color);
+}
+
 @media (min-width:512px){
     #skipLink {
         display: initial;
