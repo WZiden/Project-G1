@@ -27,7 +27,7 @@ CREATE TABLE users (
   token varchar(255)
   )
 
-Note that new users will automaticaly be sett to permission_level = 2. To make a admin account you will have to manualy change the permission_level in the database to 1. 
+Note that new users will automaticaly be sett to permission_level = 1 (admin). To change to user account you will have to manualy change the role in the Settings/Admin page. An admin can only change the role of other accounts. 
 
 **Devices**
 CREATE TABLE devices (
