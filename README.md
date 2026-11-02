@@ -27,7 +27,7 @@ CREATE TABLE users (
   token varchar(255)
   )
 
-Note that the first user will automaticaly be sett to permission_level = 1 (admin). Subsequent accounts become regular users. To change to user account you will have to manualy change the role in the Settings/Admin page. An admin can only change the role of other accounts. 
+Note that the first user (userID = 1) will automaticaly be sett to permission_level = 1 (admin). Subsequent accounts become regular users. To change to user account you will have to manualy change the role in the Settings/Admin page. An admin can only change the role of other accounts. 
 
 **Devices**
 CREATE TABLE devices (
@@ -99,6 +99,10 @@ CREATE TABLE alerts (
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
         ON UPDATE CURRENT_TIMESTAMP
 )
+
+
+***WebSocket Requirements***
+In order to make the websocket connection work you will have to install composer and add its vendor folder to the main directory. 
 
 
 ***Live stataus updating***
