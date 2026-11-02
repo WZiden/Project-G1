@@ -153,11 +153,16 @@
         </div>
     </div>
 <script>
-    setInterval(() => {
+    function updateDatabase() {
         fetch('update_db.php')
-        .then(response => response.text())
-        .then(data => console.log(data))
-        .catch(error => console.error(error));}, (60000 * 10));
+            .then(response => response.text())
+            .then(data => console.log(data))
+            .catch(error => console.error(error));
+    }
+
+    updateDatabase();
+
+    setInterval(updateDatabase, 60000 * 10);
     
     fetch('get_alert.php')
         .then(response => response.json())
