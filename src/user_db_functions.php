@@ -105,7 +105,15 @@ function addUser(PDO $pdo, string $name, string $email, string $password, string
                     $password = password_hash($password, PASSWORD_DEFAULT);
                     try {
                         $stmt = $pdo->prepare("INSERT INTO users (username, email, passwordHash, permission_level) VALUES (?, ?, ?, ?)");
-                        $stmt->execute([$name, $email, $password, 1]);
+                        $stmt->execute([$name, $email, $password, 2]);
+
+                        $stmt = $pdo->prepare("SELECT userID FROM users WHERE email = ?");
+                        $stmt->execute([$email]);
+                        $result = $stmt->fetch();
+
+                        if ($result["userID"] == 1) {
+                            changeUserLevel($pdo, $result["userID"], 1);
+                        }
 
                         return true;
                     } catch (Exception $e) {
@@ -160,6 +168,8 @@ function loginUser(PDO $pdo, string $email, string $password, string $remember =
                 setcookie("Username", $_SESSION["username"]);
                 if (isAdmin($pdo, $savedUser["userID"])) {
                     setcookie("Admin", "yes");
+                } else {
+                    setcookie("Admin", "no");
                 }
 
                 return true;

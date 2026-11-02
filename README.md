@@ -62,7 +62,7 @@ CREATE TABLE userlog (
   userID int(11) NOT NULL,
   permission tinyint(1) NOT NULL,
   device_name varchar(100) NOT NULL,
-  oldValu varchar(20) NOT NULL,
+  oldValue varchar(20) NOT NULL,
   newValue varchar(20) NOT NULL,
   changeConfirmed tinyint(1) NOT NULL,
   time datetime NOT NULL,
