@@ -1,6 +1,13 @@
 <?php
 session_start();
 
+if (!isset($_SESSION['userID'])) {
+    http_response_code(401);
+
+    echo json_encode(['success' => false, 'message' => 'Not logged in']);
+    exit;
+}
+
 require_once __DIR__ . '/../src/connect_db.php';
 require_once __DIR__ . '/../src/connect_api.php';
 require_once __DIR__ . '/../src/functions.php';
@@ -28,8 +35,13 @@ if (!$entityId || !$service){
     exit;
 }
 //Get the old value before it changes
-$states= indexStatesByEntity(getHomeAssistantStates($haURL, $haToken));
+$statesJson = file_get_contents(__DIR__ . '/../cache/entity_states.json');
+$states = json_decode($statesJson, true);
 $oldValue = extractOldValue($states, $entityId );
+
+if (!is_array($states)) {
+    $states = [];
+}
 
 if (getPermission($pdo, $userID, $deviceName)){
     try{  

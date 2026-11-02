@@ -7,7 +7,7 @@
 
     <div id="historyView">
         <div class="timeline"></div>
-        <button id ="showMoreLogs-btn" class="room-btn" >Load 10 more</button>
+        <button id ="showMoreLogs-btn" class="room-btn" >Show more</button>
     </div>
 
     <div id="statsView">

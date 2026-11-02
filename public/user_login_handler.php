@@ -28,28 +28,6 @@ switch ($_POST["type"]) {
       http_response_code(400);
     }
     break;
-  case "changeName":
-    $result = changeUserName(
-      $pdo,
-      $_SESSION["userID"],
-      $_POST["newUserName"]
-    );
-    if (!$result) {
-      http_response_code(400);
-    }
-    break;
-  case "changePassword":
-    $result = changeUserPassword(
-      $pdo,
-      $_SESSION["userID"],
-      $_POST["oldPassword"],
-      $_POST["newPassword"],
-      $_POST["confirmPassword"]
-    );
-    if (!$result) {
-      http_response_code(400);
-    }
-    break;
   default:
     http_response_code(400);
 }

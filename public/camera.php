@@ -1,4 +1,12 @@
 <?php
+session_start();
+
+if (!isset($_SESSION['userID'])) {
+    http_response_code(401);
+
+    echo json_encode(['success' => false, 'message' => 'Not logged in']);
+    exit;
+}
     require_once __DIR__ . '/../src/connect_api.php';
 
     $entityId = $_GET['entity_id'] ?? '';

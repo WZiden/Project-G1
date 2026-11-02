@@ -1037,10 +1037,10 @@
 
         switch ($domain) {
             case 'light':
-                if ($state['state'] === 'on' || $state['state'] === 'off') {
-                    return $state['state'];
+                if (isset($state['attributes']['brightness'])) {
+                    return $state['attributes']['brightness'];
                 }
-                return $state['attributes']['brightness'] ?? null;
+                 return $state['state'] ?? null;
 
             case 'switch':
                 return $state['state'];
@@ -1063,11 +1063,14 @@
         $domain =explode ('.', $entityId)[0];
         switch ($domain) {
             case 'light':
-                if($service === 'turn_on') return 'on';
-                if($service === 'turn_off')return 'off';
                 
-                return $serviceData['brightness'] ?? 'unknown';
+                if (isset($serviceData['brightness'])) {
+                    return $serviceData['brightness'];
+                }
+                if ($service === 'turn_on') return 'on';
+                if ($service === 'turn_off') return 'off';
 
+            return 'unknown';
             case 'switch':
                 if($service === 'turn_on') return 'on';
                 if($service === 'turn_off')return 'off';

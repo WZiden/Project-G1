@@ -60,6 +60,9 @@ header{
     height: auto;   
 }
 
+#userNameHeading {
+    font-size: 1rem;
+}
 
 #content-area { 
     display: grid;  
@@ -1011,8 +1014,7 @@ a:hover {
 }
 #showMoreLogs-btn {
     display: block;
-    margin-left: auto;
-    margin-right: auto;
+   
 }
 
 /*code  timeline*/
@@ -1161,7 +1163,7 @@ caption span {
 #modalContainer, #modalContainer a:link, #modalContainer a:visited {
     color: var(--box-color);
 }
-
+/*tablet layout*/
 @media (min-width:512px){
     #skipLink {
         display: initial;
@@ -1176,8 +1178,21 @@ caption span {
     #deviceTable th:nth-child(2), #deviceTable td:nth-child(2) {
         display: initial;
     }
+      .nav-bottom{
+        display: none;
+    }
+    .nav-bottom .room-btn{
+        display: none;
+    }
+    .header-button .nav-bottom-btn-mobil{
+        display: flex;
+        gap: var(--gapheaderbuttons) 
+    }
+    .header-button {
+        gap: var(--gapheaderbuttons) 
+    }
 }
-
+/*Data layout*/
 @media (min-width:1024px){
     /* grid layout*/
 
@@ -1213,10 +1228,10 @@ caption span {
 
     .scrollbar {
         display: flex;
-        flex-direction: column;   /* knappar i kolumn */
-        overflow-y: auto;         /* vertikal scroll */
-        overflow-x: hidden;       /* ingen hor-scroll */
-        white-space: normal;      /* tillåt radbrytning */
+        flex-direction: column;   
+        overflow-y: auto;        
+        overflow-x: hidden;       
+        white-space: normal;      
         gap: 0.5rem;
         padding: 0.5rem;
         height: 100%;
@@ -1335,6 +1350,7 @@ caption span {
         width: 18px;
         height: 18px;
     }
+  
     #showMoreLogs-btn {
         display: block;
         margin-left: 0;

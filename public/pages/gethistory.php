@@ -37,7 +37,7 @@ foreach ($rows as &$row) {
         $row['message'] = "{$row['username']} change {$row['device_name']} succesfully.";
     }
     else {
-        $row['message'] = "{$row['username']} change {$row['device_name']} from {$row['oldValue']} to {$row['newValue']} succesfully.";
+        $row['message'] = "{$row['username']} change {$row['device_name']} from <b>{$row['oldValue']}</b> to <b>{$row['newValue']}</b> succesfully.";
     }
 }
 echo json_encode($rows);

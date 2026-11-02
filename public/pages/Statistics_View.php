@@ -1,4 +1,12 @@
 <?php
+session_start();
+
+if (!isset($_SESSION['userID'])) {
+    http_response_code(401);
+
+    echo json_encode(['success' => false, 'message' => 'Not logged in']);
+    exit;
+}
 
     $options = json_decode(file_get_contents(__DIR__ . '/../../cache/sensores.json'), true);
 
