@@ -1,16 +1,23 @@
 :root{
-    --background-color: rgb(207, 203, 198);
+    --background-color: #cfcbc6;
+
     --grid-color: #004346;
     --box-color: #004346;
-    --button-color: #76949F;
-    --button-color-opaque: #76949F50;
-    --text-color: white;
-    --card-color: #76949F;
     --content-area-color: #004346;
     --header-color: #004346;
-    --card-button-color : rgb(19, 19, 80);
-    --button-hover: #9bb5bf;
-    --red: #dc3545;
+
+    --button-color: #486a77;
+    --button-color-opaque: #486a7750;
+
+    --card-color: #486a77;
+
+    --button-hover: #5f8593;
+
+    --card-button-color: #131350;
+
+    --text-color: #ffffff;
+
+    --red: #b42332;
     --green: #0e603a;
 
     --border-radius: 0.5rem;
@@ -231,7 +238,7 @@ header{
     left: -4px;
     width: 14px;
     height: 14px;
-    background-color: #C0392B;
+    background-color: var(--red);
     border-radius: 50%;
     display: none;
 }
@@ -503,11 +510,11 @@ header{
 }
 
 .toggle-button[data-state="on"]{
-    color: #2E8B57;
+    color: var(--green);
 }
 
 .toggle-button[data-state="off"]{
-    color: #C0392B;
+    color: var(--red);
 }
 
 .toggle-button:hover{
@@ -601,11 +608,11 @@ header{
 }
 
 .device-button.on {
-    background-color: #2E8B57;
+    background-color: var(--green);
 }
 
 .device-button.off {
-    background-color: #C0392B;
+    background-color: var(--red);
 }
 
 .cover-controls{
@@ -669,11 +676,11 @@ header{
 }
 
 .lock-button[data-locked="true"]{
-    color: #C0392B;
+    color: var(--red);
 }
 
 .lock-button[data-locked="false"]{
-    color: #2E8B57;
+    color: var(--green);
 }
 
 .lock-button:hover{
@@ -814,11 +821,11 @@ header{
 }
 
 .device-status.success {
-    background: #27ae60;
+    background: var(--green);
 }
 
 .device-status.error {
-    background: #e74c3c;
+    background: var(--red);
 }
 
 .hidden {

@@ -875,7 +875,7 @@
 
             $safeOption = htmlspecialchars( $option, ENT_QUOTES, 'UTF-8');
 
-            $html .= "<option value='" . ucfirst($safeOption) . "' {$selected}>{$safeOption}</option>";
+            $html .= "<option value='" . $safeOption . "' {$selected}>" . ucfirst($safeOption) . "</option>";
         }
 
         $html .= "</select>
