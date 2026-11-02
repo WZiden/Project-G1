@@ -4,7 +4,7 @@ const buttons = document.querySelectorAll(".room-btn");
 const pageContent = document.getElementById("page-content");
 
 let sensorOptions = {};
-
+let statsChart = null;
 
 
 function loadPage(page, params = {}, title = page) {
@@ -102,24 +102,44 @@ loadPage("Favorite");
 function initHistoryPage() {
     const btnHistory = document.getElementById("btnHistory");
     const btnStats = document.getElementById("btnStats");
+    
 
     if (!btnHistory || !btnStats) return;
+    let allLogs =[];
+    let visibleCount=4;
+    let filtered=null;
 
     function renderLog() {
         document.getElementById("historyView").style.display = "block";
         document.getElementById("statsView").style.display = "none";
         const searchInput = document.getElementById("deviceSearch");
-        const timeline = document.querySelector(".timeline");
 
         if(searchInput){
             searchInput.placeholder = "Filter User log";
         }
-        timeline.innerHTML = "";
-
+        
         fetch("pages/gethistory.php")
             .then(res => res.json())
             .then(rows => {
-                rows.forEach(row => {
+                allLogs = rows;
+                filtered = null;
+                visibleCount=4;
+                createVisibleLog();
+
+            });
+
+        btnHistory.classList.add("active");
+        btnStats.classList.remove("active");
+
+    }
+    function  createVisibleLog(){
+          const timeline = document.querySelector(".timeline");
+          timeline.innerHTML ="";
+
+          const source = filtered ?? allLogs;
+
+          const itemsToShow = source.slice(0, visibleCount);
+          itemsToShow.forEach(row => {
                     const item = document.createElement("div");
                     item.classList.add("timeline-item");
 
@@ -128,20 +148,50 @@ function initHistoryPage() {
                     <div class ="timeline-message">${row.message}</div>
                 `;
                     timeline.appendChild(item)
-                });
-
             });
-
-        btnHistory.classList.add("active");
-        btnStats.classList.remove("active");
-
+            const loadMoreBtn = document.getElementById("loadMoreHistory");
+    if (loadMoreBtn) {
+        loadMoreBtn.style.display = visibleCount >= source.length ? "none" : "block";
     }
 
+    }
+    function filterLogs(searchText) {
+    const searchWords = searchText.split(" ").filter(word => word !== "");
+    filtered = allLogs.filter(row => {
+         const text = `${row.time} ${row.message}`.toLowerCase();
+         return searchWords.every(word => text.includes(word));
+    });
+
+   visibleCount=4;
+   createVisibleLog();
+    } const btnShowMore = document.getElementById("showMoreLogs-btn");
+
+    if(btnShowMore){
+        btnShowMore.addEventListener("click", () =>{
+            visibleCount +=10;
+            createVisibleLog();
+        });
+    }
+    // filter userlog
+
+    document.addEventListener("input",function(event){
+        if(event.target.id !== "deviceSearch")return;
+        const searchText = event.target.value.toLowerCase().trim();
+
+        filterLogs( searchText);
+    });
+    // Startläge
+    renderLog();
+
+    // Knapparna
+    btnHistory.addEventListener("click", renderLog);
+    btnStats.addEventListener("click", renderStats);
+   
     async function renderStats() {
         document.getElementById("historyView").style.display="none";
         document.getElementById("statsView").style.display ="block";
         const timeline = document.querySelector(".timeline");
-       document.getElementById("deviceSearch").style.display ="none";
+        document.getElementById("deviceSearchContainer").style.display ="none";
         const container = document.getElementById("statsView");
       
         btnStats.classList.add("active");
@@ -157,13 +207,7 @@ function initHistoryPage() {
             initStatistics(); // ← ritar grafen
         }; 
     }
-
-    // Startläge
-    renderLog();
-
-    // Knapparna
-    btnHistory.addEventListener("click", renderLog);
-    btnStats.addEventListener("click", renderStats);
+   
 
 }
 
@@ -643,7 +687,6 @@ function deviceCaptionFunction () {
 
 //Statistik Funktioner
 
-let statsChart = null;
 
 function initStatistics(){
 
@@ -681,7 +724,6 @@ function updateRoomList() {
     ].sort();
 
     rooms.forEach(room => {
-
         const option =
             document.createElement("option");
 

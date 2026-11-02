@@ -964,8 +964,7 @@ a:hover {
 }
 #showMoreLogs-btn {
     display: block;
-    margin-left: auto;
-    margin-right: auto;
+   
 }
 
 /*code  timeline*/
@@ -1065,7 +1064,25 @@ caption span {
     position: absolute;
     right: var(--spacing);
 }
+ /*tablet layout*/
 
+@media (min-width:750px){
+     .nav-bottom{
+        display: none;
+    }
+    .nav-bottom .room-btn{
+        display: none;
+    }
+    .header-button .nav-bottom-btn-mobil{
+        display: flex;
+        gap: var(--gapheaderbuttons) 
+    }
+    .header-button {
+        gap: var(--gapheaderbuttons) 
+    }
+
+}
+/*Data Layout*/
 @media (min-width:1024px){
     /* grid layout*/
 
@@ -1101,10 +1118,10 @@ caption span {
 
     .scrollbar {
         display: flex;
-        flex-direction: column;   /* knappar i kolumn */
-        overflow-y: auto;         /* vertikal scroll */
-        overflow-x: hidden;       /* ingen hor-scroll */
-        white-space: normal;      /* tillåt radbrytning */
+        flex-direction: column;   
+        overflow-y: auto;        
+        overflow-x: hidden;       
+        white-space: normal;      
         gap: 0.5rem;
         padding: 0.5rem;
         height: 100%;
@@ -1221,11 +1238,7 @@ caption span {
         width: 18px;
         height: 18px;
     }
-    #showMoreLogs-btn {
-        display: block;
-        margin-left: 0;
-        margin-right: 0;
-    }
+  
 }
 
 /* Large desktop */
