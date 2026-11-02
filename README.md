@@ -12,6 +12,8 @@ To make the program work you must first create a file called .env in the top fol
 
 The 'public' folder contains all the pages and funktions the website user will need to access (like the site pages and javascript funktions). The 'src' folder contains the files that the user do not need to know about (like database and api connect funktions).
 
+This application is based in PHP so you will need a server or service moodule to run it (during development we have used XAMPP and Node).
+
 
 ***Database Tables***
 
