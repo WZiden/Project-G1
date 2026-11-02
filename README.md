@@ -58,7 +58,7 @@ CREATE TABLE favorites (
 
 **User log**
 CREATE TABLE userlog (
-  logID int(11) NOT NULL,
+  logID int(11) AUTO_INCREMENT PRIMARY KEY,
   userID int(11) NOT NULL,
   permission tinyint(1) NOT NULL,
   device_name varchar(100) NOT NULL,
