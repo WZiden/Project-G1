@@ -2,14 +2,14 @@
     --background-color: rgb(207, 203, 198);
     --grid-color: #004346;
     --box-color: #004346;
-    --button-color: #76949F;
+    --button-color: #486A77;
     --button-color-opaque: #76949F50;
     --text-color: white;
-    --card-color: #76949F;
+    --card-color: #486A77;
     --content-area-color: #004346;
     --header-color: #004346;
     --card-button-color : rgb(19, 19, 80);
-    --button-hover: #9bb5bf;
+    --button-hover: #5f8593;
     --red: #dc3545;
     --green: #0e603a;
 
@@ -53,6 +53,9 @@ header{
     height: auto;   
 }
 
+#userNameHeading {
+    font-size: 1rem;
+}
 
 #content-area { 
     display: grid;  
@@ -231,7 +234,7 @@ header{
     left: -4px;
     width: 14px;
     height: 14px;
-    background-color: #C0392B;
+    background-color: var(--red);
     border-radius: 50%;
     display: none;
 }
