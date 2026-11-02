@@ -638,7 +638,7 @@
 
         $html .= "<form method='post' class='favorite-form'>
                 <input type='hidden' name='device_id' value='" . htmlspecialchars((string)$device['device_id'], ENT_QUOTES, 'UTF-8') . "'>
-                <button type='submit' name='action' value='toggle_favorite' class='favorite-button' aria-pressed='" . ($isFavorite ? 'true' : 'false') . "'>
+                <button type='submit' name='action' value='toggle_favorite' class='favorite-button' aria-pressed='" . ($isFavorite ? 'true' : 'false') . "' aria-label='" . ($isFavorite ? 'Remove from favorites' : 'Add to favorites') . "'>
                     <i class='" . ($isFavorite ? 'fa-solid' : 'fa-regular') . " fa-star'></i>
                 </button>
             </form>";
@@ -734,7 +734,7 @@
                 <form class='device-control-form' data-device-name='{$device}'>
                     <input type='hidden' name='entity_id' value='{$entityID}'>
                     <input type='hidden' name='service' value='{$service}'>
-                    <button type='submit' class='toggle-button' data-entity-id='{$entityID}' data-state='" . ($isOn ? 'on' : 'off') . "'>
+                    <button type='submit' class='toggle-button' data-entity-id='{$entityID}' data-state='" . ($isOn ? 'on' : 'off') . "' aria-label='" . ($isOn ? 'Turn off' : 'Turn on') . "'>
                         <i class='fa-solid fa-toggle-on toggle-on-icon'></i>
                         <i class='fa-solid fa-toggle-off toggle-off-icon'></i>
                     </button>
@@ -767,7 +767,8 @@
                     min='{$minTemp}'
                     max='{$maxTemp}'
                     step='{$step}'
-                    value='{$setTemp}'>
+                    value='{$setTemp}'
+                    aria-label='Set target temperature'>
                 <div class='climate-current-temp' data-entity-id='{$entityID}'>
                     Current Temperature: {$currentTemp}°C
                 </div>
@@ -798,13 +799,14 @@
                             min='0'
                             max='100'
                             step='1'
-                            value='{$position}'>
+                            value='{$position}'
+                            aria-label='Set cover position'>
                         </div>
                     </div>
 
                 </div>                    
                 <div class='cover-controls' data-device-name='{$device}'>
-                <button type='button' class='cover-stop-button' data-entity='{$mainEntity['entity_id']}'>
+                <button type='button' class='cover-stop-button' data-entity='{$mainEntity['entity_id']}' aria-label='Stop cover'>
                     STOP
                 </button>
                 </div>";
@@ -828,7 +830,7 @@
                 <form class='device-control-form' data-device-name='{$device}'>
                     <input type='hidden' name='entity_id' value='{$entityID}'>
                     <input type='hidden' name='service' value='{$service}'>
-                    <button type='submit' class='lock-button' data-entity-id='{$entityID}' data-locked='" . ($isLocked ? 'true' : 'false') . "'>
+                    <button type='submit' class='lock-button' data-entity-id='{$entityID}' data-locked='" . ($isLocked ? 'true' : 'false') . "' aria-label='" . ($isLocked ? 'Unlock' : 'Lock') . "'>
                     <i class='fa-solid fa-lock lock-icon'></i>
                     <i class='fa-solid fa-lock-open unlock-icon'></i>
                     </button>
@@ -868,7 +870,7 @@
             <form class='select-control-form' data-device-name='{$device}' data-entity-id='{$entityID}'>
                 <div class='select-control-option select-control'>
                 <input type='hidden' name='entity_id' value='{$entityID}'>
-                <select name='option' class='entity-select'>";
+                <select name='option' class='entity-select' aria-label='Select an option'>";
 
         foreach ($options as $option) {
             $selected = ($option === $currentValue) ? 'selected': '';
@@ -911,11 +913,11 @@
                 {$state}
             </div>
             <div class='light-controls rgb-controls' data-device-name='{$device}'>
-                <input type='range' class='brightness-slider' data-entity-id='{$entityID}' min='1' max='255' step='1' value='{$brightness}'>
+                <input type='range' class='brightness-slider' data-entity-id='{$entityID}' min='1' max='255' step='1' value='{$brightness}' aria-label='Adjust brightness'>
                 <form class='device-control-form' data-device-name='{$device}'>
                     <input type='hidden' name='entity_id' value='{$entityID}'>
                     <input type='hidden' name='service' value='{$service}'>
-                    <button type='submit' class='toggle-button' data-entity-id='{$entityID}' data-state='" . ($isOn ? 'on' : 'off') . "'>
+                    <button type='submit' class='toggle-button' data-entity-id='{$entityID}' data-state='" . ($isOn ? 'on' : 'off') . "' aria-label='" . ($isOn ? 'Turn off' : 'Turn on') . "'>
                         <i class='fa-solid fa-toggle-on toggle-on-icon'></i>
                         <i class='fa-solid fa-toggle-off toggle-off-icon'></i>
                     </button>
@@ -961,12 +963,12 @@
                 {$state}
             </div>
                 <div class='rgb-controls' data-device-name='{$device}'>
-                <input type='color' class='rgb-picker' data-entity-id='{$entityID}' value='{$hexColor}'>
-                <input type='range' class='brightness-slider' data-entity-id='{$entityID}' min='1' max='255' step='1' value='{$brightness}'>
+                <input type='color' class='rgb-picker' data-entity-id='{$entityID}' value='{$hexColor}' aria-label='Select color'>
+                <input type='range' class='brightness-slider' data-entity-id='{$entityID}' min='1' max='255' step='1' value='{$brightness}' aria-label='Adjust brightness'>
                 <form class='device-control-form' data-device-name='{$device}'>
                     <input type='hidden' name='entity_id' value='{$entityID}'>
                     <input type='hidden' name='service' value='{$service}'>
-                    <button type='submit' class='toggle-button' data-entity-id='{$entityID}' data-state='" . ($isOn ? 'on' : 'off') . "'>
+                    <button type='submit' class='toggle-button' data-entity-id='{$entityID}' data-state='" . ($isOn ? 'on' : 'off') . "' aria-label='" . ($isOn ? 'Turn off' : 'Turn on') . "'>
                         <i class='fa-solid fa-toggle-on toggle-on-icon'></i>
                         <i class='fa-solid fa-toggle-off toggle-off-icon'></i>
                     </button>
