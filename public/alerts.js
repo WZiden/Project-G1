@@ -120,6 +120,4 @@ function updateAlertIndicator(alerts) {
     const indicator = document.getElementById("alertIndicator");
     const hasActiveAlert = alerts.some(alert => alert.status === "ACTIVE");
     indicator.style.display = hasActiveAlert ? "block" : "none";
-    console.log(alerts.map(alert => alert.status));
-    console.log(alerts.some(alert => alert.status === "ACTIVE"));
 }   

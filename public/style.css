@@ -175,6 +175,7 @@ header{
     border: none;
     cursor: pointer;
     flex-shrink: 0;   /* the button does not shrink */
+    padding: 0.2rem 0.5rem;
 }
 
 

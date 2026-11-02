@@ -72,7 +72,7 @@ document.addEventListener('submit', async function(event){
 
     try{
         const result = await callDeviceService(device, entityId, service);
-        console.log(result);
+
         if (!result.success){
             return;
         }
@@ -295,7 +295,6 @@ document.addEventListener('change', async function(event){
             }
         );
 
-        console.log(result);
     }
     catch(error){
         console.error(error);
