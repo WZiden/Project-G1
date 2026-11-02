@@ -27,7 +27,7 @@ CREATE TABLE users (
   token varchar(255)
   )
 
-Note that new users will automaticaly be sett to permission_level = 1 (admin). To change to user account you will have to manualy change the role in the Settings/Admin page. An admin can only change the role of other accounts. 
+Note that the first user will automaticaly be sett to permission_level = 1 (admin). Subsequent accounts become regular users. To change to user account you will have to manualy change the role in the Settings/Admin page. An admin can only change the role of other accounts. 
 
 **Devices**
 CREATE TABLE devices (
