@@ -115,32 +115,6 @@ function updateClimate(entityId, state){
 
 function updateCover(entityId, state){
 
-    const slider = document.querySelector(
-        `.cover-slider[data-entity-id="${entityId}"]`
-    );
-
-    const label = document.querySelector(
-        `.cover-position-label[data-entity-id="${entityId}"]`
-    );
-
-    const position =
-        state.attributes?.current_position;
-
-    if (position === undefined){
-        return;
-    }
-
-    if (slider){
-        slider.value = position;
-    }
-
-    if (label){
-        label.textContent = position + '%';
-    }
-}
-
-function updateCover(entityId, state){
-
     const slider = document.querySelector(`.cover-slider[data-entity-id="${entityId}"]`);
 
     const label = document.querySelector( `.cover-position-label[data-entity-id="${entityId}"]`);
@@ -176,7 +150,7 @@ function updateRGB(entityId, state){
 
     const brightnessSlider = document.querySelector(`.brightness-slider[data-entity-id="${entityId}"]`);
 
-    const brightnessValue = document.querySelector(`.brightness-value[data-entity-id="${entityId}"]`);
+    const brightnessState = document.querySelector(`.brightness-state[data-entity-id="${entityId}"]`);
 
     if (colorPicker && state.attributes?.rgb_color){
 
@@ -189,8 +163,8 @@ function updateRGB(entityId, state){
         brightnessSlider.value = state.attributes.brightness;
     }
 
-    if (brightnessValue && state.attributes?.brightness !== undefined){
-        brightnessValue.textContent = state.attributes.brightness;
+    if (brightnessState && state.attributes?.brightness !== undefined){
+        brightnessState.textContent = state.attributes.brightness;
     }
 }
 

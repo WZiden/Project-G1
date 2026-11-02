@@ -93,11 +93,11 @@
                     $radiatorEntityId = $entity['entity_id'];
                     $radiatorTargetTemp = (float)($states[$entityId]['attributes']['temperature'] ?? 0);
                 }
-                if(($entity['attributes']['device_class'] ?? '') === 'window' && ($states[$entityId]['state'] ?? '') === 'on')
+                if(($entity['attributes']['device_class'] ?? '') === 'window' && ($entity['state'] ?? '') === 'on')
                 {
                     $windowOpen = true;
                     $windowOpenedAt = strtotime($entity['last_changed']);
-                }
+                }   
             }
         }
 
@@ -120,9 +120,8 @@
             createAlert($pdo, 'HEAT_WARNING', 'Heat warning', $roomName, "Radiator is set to {$radiatorTargetTemp}°C while room temperature is {$roomTemp}°C", $radiatorEntityId);
         }
 
-
-        /*Window open for 5 minutes and the radiator temp is higher 5 than the outside temperature*/
-        if ($windowOpen && $windowOpenMinutes >= 5 && $radiatorTargetTemp !== null && $outsideTemp != null && $radiatorTargetTemp >= ($outsideTemp + 5)) 
+        /*Window been open for atleast 5 minutes and the radiator temp is over 20 and atleast 10 degress higher than the outside temperature*/
+        if ($windowOpen && $windowOpenMinutes >= 5 && $radiatorTargetTemp !== null && $radiatorTargetTemp >= 20 && $outsideTemp !== null && $radiatorTargetTemp >= ($outsideTemp + 10)) 
         {
             createAlert($pdo, 'WINDOW_OPEN_HEATING', 'Open window while heating', $roomName, "Window has been open for ". round($windowOpenMinutes) ." minutes. Radiator: ". $radiatorTargetTemp ."°C. Outdoor: ". $outsideTemp ."°C", $radiatorEntityId);
         }
@@ -143,7 +142,7 @@
 
     }
 
-    $stmt = $pdo->query("SELECT id, rule_type, entity_id, room_name AS room, title, reason, status, created_at AS time
+    $stmt = $pdo->query("SELECT id, rule_type, entity_id, room_name AS room, title, reason, status, handled_by, created_at AS time
         FROM alerts
         WHERE created_at >= DATE_SUB(NOW(), INTERVAL 7 DAY)
         ORDER BY created_at DESC");

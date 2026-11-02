@@ -1,4 +1,8 @@
 async function initAlertsPage() {
+    const searchInput = document.getElementById("deviceSearch");
+    if(searchInput){
+        searchInput.placeholder = "Filter Alerts";
+    }
     fetch("get_alert.php")
         .then(response => response.json())
         .then(data => {
@@ -29,7 +33,7 @@ async function initAlertsPage() {
                     </div>
                     <div class= "alert-body">
                         <p>${alert.room}</p>
-                        <p>Status: ${alert.status}</p>
+                        <p>Status: ${alert.status} ${alert.status !== 'ACTIVE' ? ` (handled by ${alert.handled_by})` : ''}</p>
                         <p>${alert.reason}</p>
                     </div>
                 </div>

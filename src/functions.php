@@ -845,6 +845,10 @@
 
         $html .= "<div class='camera-container'>
                 <img src='camera.php?entity_id={$entityID}' class='camera-feed' data-entity-id='{$entityID}' alt='Camera feed'>
+            </div>
+            <div id='cameraModal' class='camera-modal'>
+                <span class='camera-close'>&times;</span>
+                <img id='modalImage' class='camera-modal-image'>
             </div>";
 
         return $html;
@@ -891,7 +895,11 @@
 
         $entityID = htmlspecialchars($mainEntity['entity_id'], ENT_QUOTES, 'UTF-8');
 
-        $brightness = $mainEntity['attributes']['brightness'] ?? 255;
+        if (in_array('brightness', array_keys($mainEntity['attributes']), true)) {
+            $brightness = $mainEntity['attributes']['brightness'] ?? 255;    
+        }else{
+            $brightness = null;
+        }
 
         $service = $isOn ? 'turn_off' : 'turn_on';
 
@@ -912,10 +920,14 @@
                         <i class='fa-solid fa-toggle-off toggle-off-icon'></i>
                     </button>
                 </form>
-            </div>
-        <div class='brightness-value' data-entity-id='{$entityID}'>
-            <p>Brightness: {$brightness}</p>
-        </div>";
+            </div>";
+
+        if ($brightness !== null) {
+            $html .= "<div class='brightness-value'>
+            <p>Brightness:&nbsp;</p>
+                <div class='brightness-state' data-entity-id='{$entityID}'>{$brightness}</div>
+            </div>";
+        }
 
         return $html;
     }
@@ -925,7 +937,11 @@
 
         $entityID = htmlspecialchars($mainEntity['entity_id'], ENT_QUOTES, 'UTF-8');
 
-        $brightness = $mainEntity['attributes']['brightness'] ?? 255;
+        if (in_array('brightness', array_keys($mainEntity['attributes']), true)) {
+            $brightness = $mainEntity['attributes']['brightness'] ?? 255;    
+        }else{
+            $brightness = null;
+        }
 
         $rgb = $mainEntity['attributes']['rgb_color'] ?? [255,255,255];
 
@@ -955,10 +971,14 @@
                         <i class='fa-solid fa-toggle-off toggle-off-icon'></i>
                     </button>
                 </form>
-            </div>
-            <div class='brightness-value' data-entity-id='{$entityID}'>
-                <p>Brightness: {$brightness}</p>
             </div>";
+            
+        if ($brightness !== null) {
+            $html .= "<div class='brightness-value'>
+            <p>Brightness:&nbsp;</p>
+                <div class='brightness-state' data-entity-id='{$entityID}'>{$brightness}</div>
+            </div>";
+        }
 
         return $html;
     }
@@ -1039,8 +1059,7 @@
         }
     }
 
-
-    function extractNewValue(string $entityId, string $service, array $serviceData ): mixed {
+    function extractNewValue(string $entityId, string $service, array $serviceData ):mixed {
         $domain =explode ('.', $entityId)[0];
         switch ($domain) {
             case 'light':
@@ -1089,8 +1108,7 @@
     }
 
     // Update device required permission level
-    function changeDeviceLevel(PDO $pdo, string $deviceID, int $deviceLevel): bool
-    {
+    function changeDeviceLevel(PDO $pdo, string $deviceID, int $deviceLevel):bool {
             try {
             $stmt = $pdo->prepare("
             UPDATE devices 
@@ -1103,6 +1121,15 @@
         }
     }
 
-
+    function getDeviceNameByEntityId(string $entityId, array $devices):string {
+        foreach ($devices as $device){
+            foreach ($device['entities'] as $entity){
+                if ($entity['entity_id'] === $entityId){
+                    return $device['device_name'];
+                }
+            }
+        }
+        return $entityId;
+    }
 ?>
 

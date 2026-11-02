@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="sv">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -16,15 +16,11 @@
     <script src="websocket.js"></script>
     <script src="search.js"></script>
     <script src="https://kit.fontawesome.com/8d6a80a8d9.js" crossorigin="anonymous"></script>
-
-   
-    <!--<script src ="search.js" defer></script>-->
     <script src="alerts.js"></script>
 
 </head>
 
 <body>
-    <a id="skipLink" href="#content-area">Skip to main content</a>
     <div class="wrapper">
         <div id="modalContainer">
 
@@ -97,16 +93,16 @@
         <div class="container">
             <header class="grid-box horizontalcontainer">
                 <div class="logo">
-                    <h1>Smart Home<h1>
+                    <h1>Smart Home</h1>
                     <h3 id="userNameHeading"></h3>
                 </div>
+                <a id="skipLink" href="#content-area">Skip to main content</a>
                 <div class="header-button">
                     <div class ="nav-bottom-btn-mobil">
                         <button class="room-btn" data-page="Devices"> Devices</button>
                         <button class="room-btn" data-page="History"> History</button>
                         <button class="room-btn" data-page="Settings"> Settings</button>
                     </div>
-                    <!-- <button class="room-btn" data-page="Alert"> Alerts</button> -->
                      <div class="alert-btn-container">
                         <button id="alertBtn" class="room-btn" data-page="Alert">
                             Alerts
@@ -122,8 +118,10 @@
             <nav class="scrollbar grid-box">
                 <div class="button">
                     <form class="search">
-                        <input id="globalSearch" type="search" placeholder="Search">
-                        <div id="search-results"></div>
+                        <div class="search-wrapper">
+                            <input id="globalSearch" type="search" placeholder="Search">
+                            <div id="search-results"></div>
+                        </div>
                         <button type="submit" class="search-btn">Search</button>
                     </form>
                   <div id="room-buttons">

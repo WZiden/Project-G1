@@ -98,7 +98,7 @@ fetch("rooms.php")
     });
 loadPage("Favorite");
 
-/*Skapar innehållet i history sidan*/
+/* History page*/
 function initHistoryPage() {
     const btnHistory = document.getElementById("btnHistory");
     const btnStats = document.getElementById("btnStats");
@@ -205,9 +205,16 @@ function initHistoryPage() {
             container.dataset.loaded = "true";
 
             initStatistics(); // ← ritar grafen
-        }; 
+        };
     }
    
+
+    // Starting point
+    renderLog();
+
+    // Buttons
+    btnHistory.addEventListener("click", renderLog);
+    btnStats.addEventListener("click", renderStats);
 
 }
 
@@ -229,7 +236,7 @@ function showSuccessMessage (message) {
     statusMessage.innerText = message;
 }
 
-function clearErrorMessage (message) {
+function clearErrorMessage () {
     const statusMessage = document.getElementById("settingsStatusMessage");
     statusMessage.style.backgroundColor = "transparent";
     statusMessage.innerText = "";
@@ -259,33 +266,35 @@ function initSettingsPage() {
     document.getElementById("deviceTableMaxi").style.display = "none";
 
     if (!checkAdmin()) {
-        adminSettingsButton.style.display = "none";
+        document.getElementById("settingsButtons").style.display = "none";
+    } else {
+        // Settings view button
+        userSettingsButton.addEventListener("click", function () {
+            userSettingsButton.classList.add("active")
+            adminSettingsButton.classList.remove("active")
+            userView.style.display = "block";
+            adminView.style.display = "none";
+            pageUsername.style.display = "block";
+            pageAdmin.style.display = "none";
+            clearErrorMessage();
+        
+        });
+
+        // Admin view button
+        adminSettingsButton.addEventListener("click", function () {
+            adminSettingsButton.classList.add("active")
+            userSettingsButton.classList.remove("active")
+            userView.style.display = "none";
+            adminView.style.display = "block";
+            pageUsername.style.display = "none";
+            pageAdmin.style.display = "block";
+            clearErrorMessage();
+        
+            // List all users and devices
+            populateUserList();
+            populateDeviceList();
+        });        
     }
-
-    // Settings view button
-    userSettingsButton.addEventListener("click", function () {
-        userSettingsButton.classList.add("active")
-        adminSettingsButton.classList.remove("active")
-        userView.style.display = "block";
-        adminView.style.display = "none";
-        pageUsername.style.display = "block";
-        pageAdmin.style.display = "none";
-       
-    });
-
-    // Admin view button
-    adminSettingsButton.addEventListener("click", function () {
-        adminSettingsButton.classList.add("active")
-        userSettingsButton.classList.remove("active")
-        userView.style.display = "none";
-        adminView.style.display = "block";
-        pageUsername.style.display = "none";
-        pageAdmin.style.display = "block";
-     
-        // List all users and devices
-        populateUserList();
-        populateDeviceList();
-    });
 
     // Change username form button
     changeNameForm.addEventListener("submit", function (e) {
@@ -345,17 +354,20 @@ function initSettingsPage() {
         }
     });
 
+    // Clear status message when click a select
     clearSelectListener = function(e) {
         clearErrorMessage();
     };
 
+    // Mark confirm-button when changed select value
     selectListener = function(e) {
         clearErrorMessage();
         const confirm = document.getElementById("confirm:" + e.target.id.substring(7));
         confirm.value = e.target.value;
-        // TODO markera knappen på något sätt
+        confirm.className = "tableButtonActive";
     };
 
+    // Confirm user removal
     deleteListener = function(e) {
         clearErrorMessage();
         if (confirm("Do you wish to delete user " + e.target.value + " (ID: " + e.target.id.substring(7) + ")?")) {
@@ -364,6 +376,7 @@ function initSettingsPage() {
 
     };
     
+    // Apply change of role
     confirmUserListener = function(e) {
         clearErrorMessage();
         if (e.target.value) {
@@ -372,6 +385,7 @@ function initSettingsPage() {
         }
     };
 
+    // Apply change of required level
     confirmDeviceListener = function(e) {
         clearErrorMessage();
         if (e.target.value) {
@@ -380,34 +394,37 @@ function initSettingsPage() {
         }
     };
 
-
-
+    // Expand/minimize User table
     userCaption.addEventListener("click", function (e) {
         userCaptionFunction();
     });
 
+    // Expand/minimize User table
     userCaption.addEventListener("keydown", function (e) {
         if (e.key === "Enter") {
             userCaptionFunction();
         }
     });
 
+    // Expand/minimize Device table
     deviceCaption.addEventListener("click", function (e) {
         deviceCaptionFunction();
     });
 
+    // Expand/minimize Device table
     deviceCaption.addEventListener("keydown", function (e) {
         if (e.key === "Enter") {
             deviceCaptionFunction();
         }
     });
 
+    // Extract username from cookie and show welcome message
     getCookieUsername();
 }
 
-/*** User stuff ***/
+/*** User tab ***/
 
-// Extract admin from cookie
+// Check cookie if user is admin
 function checkAdmin() {
     if (document.cookie.search("Admin=") != -1) {
         let startPosition = document.cookie.search("Admin=") + 6;
@@ -425,7 +442,7 @@ function checkAdmin() {
     return false;
 }
 
-// Extract username from cookie
+// Extract username from cookie and show welcome message
 function getCookieUsername() {
     if (document.cookie.search("Username=") != -1) {
         let startPosition = document.cookie.search("Username=") + 9;
@@ -440,13 +457,12 @@ function getCookieUsername() {
     }
 }
 
+// Save new user name in database
 async function sendChangeName() {
-    // Assiciate the FormData object with the login form element
     const formData = new FormData(changeNameForm);
 
     try {
-        // Send the FormData as an HTTP POST request using fetch()
-        const response = await fetch("user_login_handler.php", {
+        const response = await fetch("settings_handler.php", {
             method: "POST",
             body: formData,
         });
@@ -466,13 +482,12 @@ async function sendChangeName() {
     }
 }
 
+// Save new password in database
 async function sendChangePassword() {
-    // Assiciate the FormData object with the login form element
     const formData = new FormData(changePasswordForm);
 
     try {
-        // Send the FormData as an HTTP POST request using fetch()
-        const response = await fetch("user_login_handler.php", {
+        const response = await fetch("settings_handler.php", {
             method: "POST",
             body: formData,
         });
@@ -486,7 +501,8 @@ async function sendChangePassword() {
         showErrorMessage("Error trying to change password");
     }
 }
-/*** Admin stuff ***/
+
+/*** Admin tab ***/
 
 // Populate user list
 async function populateUserList() {
@@ -505,9 +521,10 @@ async function populateUserList() {
                 const newRow = userTable.insertRow();
                 const cellName = newRow.insertCell(0);
                 const cellID = newRow.insertCell(1);
-                const cellLevel = newRow.insertCell(2);
-                const cellDelete = newRow.insertCell(3);
+                const cellEmail = newRow.insertCell(2);
+                const cellLevel = newRow.insertCell(3);
                 const cellConfirm = newRow.insertCell(4);
+                const cellDelete = newRow.insertCell(5);
 
                 // Select
                 const select = document.createElement("select");
@@ -526,28 +543,29 @@ async function populateUserList() {
                 })
 
                 // Buttons
+                const confirmUserButton = document.createElement("button");
+                confirmUserButton.id = "confirm:" + element["userID"];
+                confirmUserButton.textContent = "Confirm";
+                confirmUserButton.className = "tableButton";
                 const deleteButton = document.createElement("button");
                 deleteButton.id = "delete:" + element["userID"];
                 deleteButton.value = element["username"];
                 deleteButton.textContent = "Delete user";
-                deleteButton.className = "deletebutton";
-                const confirmUserButton = document.createElement("button");
-                confirmUserButton.id = "confirm:" + element["userID"];
-                confirmUserButton.textContent = "Confirm changes";
-                confirmUserButton.className = "confirmbutton";
+                deleteButton.className = "tableButton";
                 
                 // Listeners
                 select.addEventListener("click", clearSelectListener);
                 select.addEventListener("change", selectListener);
-                deleteButton.addEventListener("click", deleteListener);
                 confirmUserButton.addEventListener("click", confirmUserListener);
+                deleteButton.addEventListener("click", deleteListener);
 
                 // Populate row
                 cellName.innerText = element["username"];
                 cellID.innerText = element["userID"];
+                cellEmail.innerText = element["email"];
                 cellLevel.appendChild(select);
-                cellDelete.appendChild(deleteButton);
                 cellConfirm.appendChild(confirmUserButton);
+                cellDelete.appendChild(deleteButton);
             });
         }
     } catch (e) {
@@ -594,8 +612,8 @@ async function populateDeviceList() {
                 // Button
                 const confirmDeviceButton = document.createElement("button");
                 confirmDeviceButton.id = "confirm:" + element["device_id"];
-                confirmDeviceButton.textContent = "Confirm changes";
-                confirmDeviceButton.className = "confirmbutton";
+                confirmDeviceButton.textContent = "Confirm";
+                confirmDeviceButton.className = "tableButton";
                 
                 // Listeners
                 select.addEventListener("click", clearSelectListener);
@@ -614,11 +632,18 @@ async function populateDeviceList() {
     }
 }
 
-
-async function markConfirmButton(typeID) {    
-
+// Restore button appearance
+function resetBtn(typeID) {
+    const button = document.getElementById("confirm:" + typeID);
+    //const color = getComputedStyle(document.querySelector(":root")).getPropertyValue("--button-color");
+    //const colorBorder = getComputedStyle(document.querySelector(":root")).getPropertyValue("--box-color");
+    button.value = "";
+   // button.style.borderColor = colorBorder;
+    //button.style.backgroundColor = color;
+    button.className = "tableButton";
 }
 
+// Save change of role/required role in databse
 async function changeLevel(type, typeID, newLevel) {    
     const response = await fetch("change_level.php", {
         method: "POST",
@@ -627,20 +652,21 @@ async function changeLevel(type, typeID, newLevel) {
     });
 
     if (!response.ok && type == "User") {
-        populateUserList();
         showErrorMessage("Error changing role");
+        resetBtn(typeID);
     } else if (!response.ok && type == "Device") {
-        populateDeviceList();
         showErrorMessage("Error changing requred user level");
+        resetBtn(typeID);
     } else if (type == "User") {
-        populateUserList();
         showSuccessMessage("Role changed");
+        resetBtn(typeID);
     } else if (type == "Device") {
-        populateDeviceList();
         showSuccessMessage("Required user level changed");
+        resetBtn(typeID);
     }
 }
 
+// Remove user from database
 async function deleteUser(userID) {    
     const response = await fetch("change_level.php", {
         method: "POST",
@@ -656,7 +682,7 @@ async function deleteUser(userID) {
     }
 }
 
-// Expands/minimize User table
+// Expand/minimize User table
 function userCaptionFunction () {
     const table = document.getElementById("userTableBody");
     if (table.style.display == "") {
@@ -670,7 +696,7 @@ function userCaptionFunction () {
     }
 }
 
-// Expands/minimize Device table
+// Expand/minimize Device table
 function deviceCaptionFunction () {
     const table = document.getElementById("deviceTableBody");
     if (table.style.display == "") {
@@ -684,9 +710,90 @@ function deviceCaptionFunction () {
     }
 }
 /******/
+let zoom = 1;
 
-//Statistik Funktioner
+document.addEventListener("click", e => {
 
+    const image = e.target.closest(".camera-feed");
+    const modal = document.getElementById("cameraModal");
+    const modalImage = document.getElementById("modalImage");
+
+    if(image){
+        modalImage.src = image.src;
+
+        zoom = 1;
+        modalImage.style.transform = `scale(${zoom})`;
+
+
+        modal.classList.add("active");
+    }
+
+    if(e.target.classList.contains("camera-close") || e.target.id === "cameraModal"){
+        modal.classList.remove("active");
+    }
+});
+
+document.addEventListener("wheel", e => {
+
+    const modalImage = document.getElementById("modalImage");
+    const modal = document.getElementById("cameraModal");
+
+    if(!modalImage) return;
+
+    if(!modal.classList.contains("active")) return;
+
+    e.preventDefault();
+
+    if(e.deltaY < 0){
+        zoom += 0.1;
+    } else {
+        zoom -= 0.1;
+    }
+
+    zoom = Math.max(1, Math.min(5, zoom));
+
+    modalImage.style.transform = `scale(${zoom})`;
+
+}, { passive: false });
+
+document.addEventListener("click", e => {
+
+    const image = e.target.closest(".camera-image");
+
+    if (image) {
+        modalImage.src = image.src;
+
+        zoom = 1;
+        modalImage.style.transform = `scale(${zoom})`;
+
+        modal.classList.add("active");
+    }
+
+    if (
+        e.target.classList.contains("camera-close") ||
+        e.target.id === "cameraModal"
+    ) {
+        modal.classList.remove("active");
+    }
+});
+
+modalImage.addEventListener("wheel", e => {
+
+    e.preventDefault();
+
+    if (e.deltaY < 0) {
+        zoom += 0.1;
+    } else {
+        zoom -= 0.1;
+    }
+
+    zoom = Math.max(1, Math.min(5, zoom));
+
+    modalImage.style.transform = `scale(${zoom})`;
+
+}, { passive: false });
+
+//Statistial Functions
 
 function initStatistics(){
 
@@ -834,49 +941,47 @@ function renderChart(data){
             interaction: {
                     mode: "index",
                     intersect: false
+            },
+            plugins: {
+                legend: {
+                    labels: {
+                        color: "white"
+                    }
                 },
-                plugins: {
-                    legend: {
-                        labels: {
-                            color: "white"
-                        }
-                    },
-                    tooltip: {
-                        callbacks: {
-                            label: function(context) {
-                                const unit = context.dataset.unit || "";
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            const unit = context.dataset.unit || "";
 
-                                return `${context.dataset.label}: ${context.parsed.y} ${unit}`;
-                            }
+                            return `${context.dataset.label}: ${context.parsed.y} ${unit}`;
                         }
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    grid: {
+                        color: "grey",
+                        lineWidth: 0.5
+                    },
+                    ticks: {
+                        color: "white"
                     }
                 },
-                scales: {
-                    x: {
-                        grid: {
-                            color: "grey",
-                            lineWidth: 0.5
-                        },
-                        ticks: {
-                            color: "white"
-                        }
+                y: {
+                    beginAtZero: false,
+                    grid: {
+                        color: "grey",
+                        lineWidth: 0.5
                     },
-                    y: {
-                        beginAtZero: false,
-                        grid: {
-                            color: "grey",
-                            lineWidth: 0.5
-                        },
-                        ticks: {
-                            color: "white",
-                            callback: function(value) {
-                                return `${value} ${unit}`;
-                            }
-                    }
+                    ticks: {
+                        color: "white",
+                        callback: function(value) {
+                            return `${value} ${unit}`;
+                        }
                     }
                 }
             }
-        });
-
-
+        }
+    });
 }
